@@ -22,5 +22,12 @@ Telelab02::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
+
+  #SOLUTION for Missing host to link to! Please provide :host parameter or set default_url_options[:host]
+  # This assumes you're running your local development server on port 3000 via script/server
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+  #END OF SOLUTION, solution.ok? = nil
+  
 end
 

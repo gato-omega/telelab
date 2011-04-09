@@ -29,7 +29,15 @@ gem 'mysql2'
 # group :development, :test do
 #   gem 'webrat'
 # end
+
+
 gem "cucumber-rails", :group => [:development, :test]
 gem "capybara", :group => [:development, :test]
 gem "devise"
 gem "jquery-rails"
+
+#Added afterTemplate
+
+gem "nifty-generators", :group => :development
+
+
