@@ -39,5 +39,4 @@ gem "jquery-rails"
 #Added afterTemplate
 
 gem "nifty-generators", :group => :development
-
-
+gem "cancan"
