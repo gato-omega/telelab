@@ -10,8 +10,8 @@ Telelab02::Application.configure do
   config.whiny_nils = true
 
   # Show full error reports and disable caching
-  config.consider_all_requests_local       = true
-  config.action_view.debug_rjs             = true
+  config.consider_all_requests_local = true
+  config.action_view.debug_rjs = true
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
@@ -25,9 +25,41 @@ Telelab02::Application.configure do
 
   #SOLUTION for Missing host to link to! Please provide :host parameter or set default_url_options[:host]
   # This assumes you're running your local development server on port 3000 via script/server
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = {:host => 'localhost:3000'}
 
   #END OF SOLUTION, solution.ok? = nil
-  
+
+  ## ADDED FOR MAILING SUPPORT AS STATED IN THIS WEBSITE: http://yekmer.posterous.com/devise-gmail-smtp-configuration
+
+  require 'tlsmail'
+
+  Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
+
+  ActionMailer::Base.delivery_method = :smtp
+
+  ActionMailer::Base.perform_deliveries = true
+
+  ActionMailer::Base.raise_delivery_errors = true
+
+  ActionMailer::Base.smtp_settings = {
+
+      :enable_starttls_auto => true,
+
+      :address => 'smtp.gmail.com',
+
+      :port => 587,
+
+      :tls => true,
+
+      :domain => 'codescrum.com', #
+
+      :authentication => :plain,
+
+      :user_name => 'test@codescrum.com', #
+
+      :password => 'testpasswordforapi' #
+  }
+  ## END
+
 end
 

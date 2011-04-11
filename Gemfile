@@ -33,10 +33,11 @@ gem 'mysql2'
 
 gem "cucumber-rails", :group => [:development, :test]
 gem "capybara", :group => [:development, :test]
-gem "devise"
+gem "devise" # The user authentication gem
 gem "jquery-rails"
 
 #Added afterTemplate
 
 gem "nifty-generators", :group => :development
-gem "cancan"
+gem "cancan" # The permissions gem
+gem "tlsmail" # Use google mail account to send mail
