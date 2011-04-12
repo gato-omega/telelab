@@ -25,41 +25,52 @@ Telelab02::Application.configure do
 
   #SOLUTION for Missing host to link to! Please provide :host parameter or set default_url_options[:host]
   # This assumes you're running your local development server on port 3000 via script/server
-  config.action_mailer.default_url_options = {:host => 'localhost:3000'}
+  #config.action_mailer.default_url_options = {:host => 'localhost:3000'}
+  config.action_mailer.default_url_options = {:host => '192.168.0.100:3000'}
 
   #END OF SOLUTION, solution.ok? = nil
 
   ## ADDED FOR MAILING SUPPORT AS STATED IN THIS WEBSITE: http://yekmer.posterous.com/devise-gmail-smtp-configuration
 
-  require 'tlsmail'
+  #require 'tlsmail'
 
-  Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
+  #Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
 
-  ActionMailer::Base.delivery_method = :smtp
+  #ActionMailer::Base.delivery_method = :smtp
 
-  ActionMailer::Base.perform_deliveries = true
+  #ActionMailer::Base.perform_deliveries = true
 
-  ActionMailer::Base.raise_delivery_errors = true
+  #ActionMailer::Base.raise_delivery_errors = true
 
-  ActionMailer::Base.smtp_settings = {
+  #ActionMailer::Base.smtp_settings = {
 
-      :enable_starttls_auto => true,
+  #:enable_starttls_auto => true,
 
-      :address => 'smtp.gmail.com',
+  #:address => 'smtp.gmail.com',
 
-      :port => 587,
+  #:port => 587,
 
-      :tls => true,
+  #:tls => true,
 
-      :domain => 'codescrum.com', #
+  #:domain => 'codescrum.com', #
 
-      :authentication => :plain,
+  #:authentication => :plain,
 
-      :user_name => 'test@codescrum.com', #
+  #:user_name => 'test@codescrum.com', #
 
-      :password => 'testpasswordforapi' #
-  }
+  #:password => 'testpasswordforapi' #
+  #}
   ## END
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      :address => "smtp.gmail.com",
+      :port => 587,
+      :domain => 'codescrum.com',
+      :user_name => 'test@codescrum.com',
+      :password => 'testpasswordforapi',
+      :authentication => 'plain',
+      :enable_starttls_auto => true}
 
 end
 

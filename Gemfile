@@ -40,4 +40,4 @@ gem "jquery-rails"
 
 gem "nifty-generators", :group => :development
 gem "cancan" # The permissions gem
-gem "tlsmail" # Use google mail account to send mail
+#gem "tlsmail" # Use google mail account to send mail IS DEPRECATED AND INCLUDED BY DEFAULT

@@ -1,0 +1,9 @@
+--------- PAST - OK
+
+1. Poner lo de username y correo -- OK
+
+
+--------- CURRENT -----------
+
+1. Branch: modelo de datos con solamente users y branch: modelo de datos con varias tablas para estudiante, cuchos, tenicos, etc...
+2. 
