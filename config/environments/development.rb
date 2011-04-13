@@ -28,40 +28,11 @@ Telelab02::Application.configure do
   #config.action_mailer.default_url_options = {:host => 'localhost:3000'}
   config.action_mailer.default_url_options = {:host => '192.168.0.100:3000'}
 
-  #END OF SOLUTION, solution.ok? = nil
+  #END OF SOLUTION, solution.ok? = yes
 
-  ## ADDED FOR MAILING SUPPORT AS STATED IN THIS WEBSITE: http://yekmer.posterous.com/devise-gmail-smtp-configuration
 
-  #require 'tlsmail'
-
-  #Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
-
-  #ActionMailer::Base.delivery_method = :smtp
-
-  #ActionMailer::Base.perform_deliveries = true
-
-  #ActionMailer::Base.raise_delivery_errors = true
-
-  #ActionMailer::Base.smtp_settings = {
-
-  #:enable_starttls_auto => true,
-
-  #:address => 'smtp.gmail.com',
-
-  #:port => 587,
-
-  #:tls => true,
-
-  #:domain => 'codescrum.com', #
-
-  #:authentication => :plain,
-
-  #:user_name => 'test@codescrum.com', #
-
-  #:password => 'testpasswordforapi' #
-  #}
-  ## END
-
+  ## MAIL CONFIG OK
+  
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
       :address => "smtp.gmail.com",

@@ -7,7 +7,9 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me
 
-  ## Modified by gato
+  ## The following are the relationships
+
+  ## Added by gato -- add sign in by username or email
 
   attr_accessor :login
   validates :username, :uniqueness => true, :presence => true

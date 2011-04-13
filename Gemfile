@@ -41,3 +41,6 @@ gem "jquery-rails"
 gem "nifty-generators", :group => :development
 gem "cancan" # The permissions gem
 #gem "tlsmail" # Use google mail account to send mail IS DEPRECATED AND INCLUDED BY DEFAULT
+
+
+gem 'formtastic' #Nice forms...lets see if it make life easier

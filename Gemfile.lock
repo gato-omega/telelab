@@ -64,6 +64,10 @@ GEM
       abstract (>= 1.0.0)
     ffi (1.0.7)
       rake (>= 0.8.7)
+    formtastic (1.2.3)
+      actionpack (>= 2.3.7)
+      activesupport (>= 2.3.7)
+      i18n (~> 0.4)
     gherkin (2.3.5)
       json (>= 1.4.6)
     i18n (0.5.0)
@@ -126,6 +130,7 @@ DEPENDENCIES
   capybara
   cucumber-rails
   devise
+  formtastic
   jquery-rails
   mysql2
   nifty-generators
