@@ -3,3 +3,10 @@ db/*.sqlite3
 log/*.log
 tmp/
 .idea
+
+app/controllers/roles_controller.rb
+app/helpers/roles_helper.rb
+app/views/roles/
+public/stylesheets/scaffold.css
+test/functional/roles_controller_test.rb
+test/unit/helpers/roles_helper_test.rb

@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
 
   ## The following are the relationships
 
+  has
+
   ## Added by gato -- add sign in by username or email
 
   attr_accessor :login

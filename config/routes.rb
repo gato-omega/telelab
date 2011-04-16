@@ -1,4 +1,6 @@
 Telelab02::Application.routes.draw do
+  resources :roles
+
   get "welcome/index"
 
   devise_for :users

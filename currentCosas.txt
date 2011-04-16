@@ -5,5 +5,5 @@
 
 --------- CURRENT -----------
 
-1. Branch: modelo de datos con solamente users y branch: modelo de datos con varias tablas para estudiante, cuchos, tenicos, etc...
+1. Poner un modelo Role para asociar los roles estudiante, tecnico, profesor y tecnico as symbols
 2. 
