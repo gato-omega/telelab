@@ -9,13 +9,20 @@ class User < ActiveRecord::Base
 
   ## The following are the relationships
 
-  has
+  belongs_to :role
 
+  ## Methods
+
+  def role?(role)
+    !!role.find_by_name(role.to_s.camelize)
+  end
+
+  ################################################################################################
   ## Added by gato -- add sign in by username or email
 
   attr_accessor :login
   validates :username, :uniqueness => true, :presence => true
-
+ 
   protected
 
   def self.find_for_database_authentication(warden_conditions)
