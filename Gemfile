@@ -44,3 +44,4 @@ gem "cancan" # The permissions gem
 
 
 gem 'formtastic' #Nice forms...lets see if it make life easier
+gem "mocha", :group => :test

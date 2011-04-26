@@ -13,16 +13,25 @@ class User < ActiveRecord::Base
 
   ## Methods
 
-  def role?(role)
-    !!role.find_by_name(role.to_s.camelize)
+  def role?(role_name)
+    if role.nil?
+      false
+    else
+      if role.name.eql? role_name
+        true
+      else
+        false
+      end
+    end
   end
+
 
   ################################################################################################
   ## Added by gato -- add sign in by username or email
 
   attr_accessor :login
   validates :username, :uniqueness => true, :presence => true
- 
+
   protected
 
   def self.find_for_database_authentication(warden_conditions)
@@ -57,7 +66,6 @@ class User < ActiveRecord::Base
 
     unless record
       record = new
-
       required_attributes.each do |key|
         value = attributes[key]
         record.send("#{key}=", value)
