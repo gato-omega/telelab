@@ -1,0 +1,21 @@
+<% title "Admin/Courses" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Matriculate Password</th>
+  </tr>
+  <% for course in @courses %>
+    <tr>
+      <td><%= course.name %></td>
+      <td><%= course.description %></td>
+      <td><%= course.matriculate_password %></td>
+      <td><%= link_to "Show", [:admin, course] %></td>
+      <td><%= link_to "Edit", edit_admin_course_path(course) %></td>
+      <td><%= link_to "Destroy", [:admin, course], :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Admin/Course", new_admin_course_path %></p>

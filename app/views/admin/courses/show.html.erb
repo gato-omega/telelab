@@ -1,0 +1,20 @@
+<% title "Admin/Course" %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @course.name %>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%= @course.description %>
+</p>
+<p>
+  <strong>Matriculate Password:</strong>
+  <%= @course.matriculate_password %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_admin_course_path(@course) %> |
+  <%= link_to "Destroy", [:admin, @course], :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", admin_courses_path %>
+</p>

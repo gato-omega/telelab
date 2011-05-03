@@ -1,4 +1,9 @@
 Telelab02::Application.routes.draw do
+
+  namespace :admin do
+    resources :courses
+  end
+
   resources :roles
 
   devise_for :users
