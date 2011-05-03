@@ -37,6 +37,8 @@ class Ability
     elsif user.role? :estudiante
 
     elsif user.role? :tecnico
+
+    else #VISITOR
       
     end
 

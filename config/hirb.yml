@@ -1,0 +1,14 @@
+:output:
+  User:
+    :options:
+      :fields:
+      - id
+      - username
+      - email
+      - role_id
+  User:
+    :options:
+      :fields:
+      - id
+      - username
+      - role_id

@@ -36,12 +36,19 @@ gem "capybara", :group => [:development, :test]
 gem "devise" # The user authentication gem
 gem "jquery-rails"
 
-#Added afterTemplate
+################## Added after Template
 
-gem "nifty-generators", :group => :development
-gem "cancan" # The permissions gem
+group :development do
+  gem 'nifty-generators'
+  gem 'hirb'
+  gem 'wirble'
+  gem 'wirb'
+  gem 'awesome_print'
+end
+
+gem 'cancan' # The permissions gem
 #gem "tlsmail" # Use google mail account to send mail IS DEPRECATED AND INCLUDED BY DEFAULT
 
 
-gem 'formtastic' #Nice forms...lets see if it make life easier
-gem "mocha", :group => :test
+gem 'formtastic' #Nice forms...let's see if it make life easier
+gem 'mocha', :group => :test # Added by formtastics when called a generate code for an existing model
