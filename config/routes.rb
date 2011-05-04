@@ -1,8 +1,14 @@
 Telelab02::Application.routes.draw do
 
+  resources :courses
+
   resources :roles
 
   devise_for :users
+
+  scope "/admin" do
+    resources :courses
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

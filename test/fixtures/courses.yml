@@ -1,0 +1,11 @@
+one:
+  name: MyString
+  description: MyText
+  hashed_password: MyString
+  options: MyString
+
+two:
+  name: MyString
+  description: MyText
+  hashed_password: MyString
+  options: MyString

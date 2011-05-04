@@ -1,0 +1,23 @@
+<% title "Courses" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Hashed Password</th>
+    <th>Options</th>
+  </tr>
+  <% for course in @courses %>
+    <tr>
+      <td><%= course.name %></td>
+      <td><%= course.description %></td>
+      <td><%= course.hashed_password %></td>
+      <td><%= course.options %></td>
+      <td><%= link_to "Show", course %></td>
+      <td><%= link_to "Edit", edit_course_path(course) %></td>
+      <td><%= link_to "Destroy", course, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Course", new_course_path %></p>

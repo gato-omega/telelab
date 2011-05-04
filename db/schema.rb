@@ -10,7 +10,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110503170050) do
+ActiveRecord::Schema.define(:version => 20110504044843) do
+
+  create_table "courses", :force => true do |t|
+    t.string "name"
+    t.text   "description"
+    t.string "hashed_password"
+    t.string "options"
+  end
+
+  add_index "courses", ["name"], :name => "index_courses_on_name"
 
   create_table "roles", :force => true do |t|
     t.string "name"
