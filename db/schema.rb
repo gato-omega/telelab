@@ -10,15 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110503173618) do
-
-  create_table "courses", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.string   "matriculate_password"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 20110503170050) do
 
   create_table "roles", :force => true do |t|
     t.string "name"
