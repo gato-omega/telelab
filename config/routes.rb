@@ -1,7 +1,5 @@
 Telelab02::Application.routes.draw do
 
-  resources :courses
-
   resources :roles
 
   devise_for :users
