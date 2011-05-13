@@ -1,8 +1,17 @@
 Telelab02::Application.routes.draw do
 
-  resources :roles
+  resources :profiles
 
-  devise_for :users
+  devise_for :users, :path_prefix => 'd'
+
+  devise_scope :user do
+    get '/login' => 'devise/sessions#new'
+    get '/logout' => 'devise/sessions#destroy'
+  end
+
+  resources :users
+  #resources :admins, :controller => :users
+
 
   scope "/admin" do
     resources :courses

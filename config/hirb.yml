@@ -5,10 +5,32 @@
       - id
       - username
       - email
-      - role_id
-  User:
+      - type
+  Admin:
     :options:
       :fields:
       - id
       - username
-      - role_id
+      - email
+      - type
+  Student:
+    :options:
+      :fields:
+      - id
+      - username
+      - email
+      - type
+  Teacher:
+    :options:
+      :fields:
+      - id
+      - username
+      - email
+      - type
+  Profile:
+    :options:
+      :fields:
+      - firstname
+      - lastname
+      - codigo
+      - user_id

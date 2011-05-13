@@ -28,18 +28,18 @@ class Ability
 
     user ||= User.new # guest user
 
-    if user.role? :admin
+    if user.is_a? Admin
 
       can :manage, :all
-      
-    elsif user.role? :docente
 
-    elsif user.role? :estudiante
+    elsif user.is_a? Teacher
 
-    elsif user.role? :tecnico
+    elsif user.is_a? Technician
+
+    elsif user.is_a? Student
 
     else #VISITOR
-      
+
     end
 
   end
