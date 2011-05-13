@@ -1,0 +1,3 @@
+class Technician < User
+
+end
