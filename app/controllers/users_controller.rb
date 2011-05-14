@@ -3,9 +3,11 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
   def index
-    @users = User.all
+    #How to use
+    #@users = User.where(:type => 'Technician').all_without_typecast
 
-    @users = any_to_user_class @users
+    @users = User.all_without_typecast
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml { render :xml => @users }
@@ -16,7 +18,7 @@ class UsersController < ApplicationController
   # GET /users/1.xml
   def show
     @user = User.find(params[:id])
-    @user = any_to_user_class @user
+    @user = @user.userize
 
     respond_to do |format|
       format.html # show.html.erb
@@ -41,7 +43,7 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
-    @user = any_to_user_class @user
+    @user = @user.userize
     @roles = User::ROLES
   end
 
@@ -49,7 +51,7 @@ class UsersController < ApplicationController
   # POST /users.xml
   def create
     @user = User.new(params[:user])
-
+    @user = @user.userize
     @roles = User::ROLES
     @current_method = "new"
 
@@ -57,10 +59,6 @@ class UsersController < ApplicationController
     logger.debug(@user.to_yaml)
     logger.debug params
     logger.debug params[:user]
-
-    #@user = any_to_user_class @user
-    
-    #print @user.to_yaml
 
     respond_to do |format|
       if @user.save
@@ -78,7 +76,7 @@ class UsersController < ApplicationController
   # PUT /users/1.xml
   def update
     @user = User.find(params[:id])
-    @user = any_to_user_class @user
+    @user = @user.userize
     
     respond_to do |format|
       if @user.update_attributes(params[:user])
@@ -100,20 +98,6 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(users_url) }
       format.xml { head :ok }
-    end
-  end
-
-  private
-
-  #This method turns any Admin, Student,... subclass of User and puts it back to User
-  def any_to_user_class(_collection)
-    if _collection.is_a? Array
-      _collection.collect! do |user|
-        user.becomes(User)
-      end
-      _collection
-    else
-      _collection.becomes(User)
     end
   end
 

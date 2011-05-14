@@ -13,6 +13,18 @@ class User < ActiveRecord::Base
 
   ## Methods
 
+  #return an array [User, User, ...], instead of [Admin, Student, Student, Teacher, ...]
+  def self.all_without_typecast
+    self.all.collect! do |u|
+        u.becomes(User)
+    end
+  end
+
+  #makes subclasses of User (Admin, Teacher, ...) into User class
+  def userize
+    self.becomes(User)
+  end
+
   ## Custom validations
 
   validates :type, :presence => true

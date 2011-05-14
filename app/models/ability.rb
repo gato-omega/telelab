@@ -30,7 +30,15 @@ class Ability
 
     if user.is_a? Admin
 
-      can :manage, :all
+      #can :manage, :all
+      can :see_user, User do |u|
+        if u != user.userize
+          true
+        else
+          false
+        end
+      end
+      # { |u|  u.is_a? Admin }
 
     elsif user.is_a? Teacher
 
