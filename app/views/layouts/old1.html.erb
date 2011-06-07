@@ -10,9 +10,6 @@
 <body>
 <div id="container">
 
-  <h1>TELELAB</h1>
-  <h2>Laboratorio remote</h2>
-
   <% flash.each do |name, msg| %>
       <%= content_tag :div, msg, :id => "flash_#{name}" %>
   <% end %>
@@ -20,7 +17,7 @@
 
   <div id="user_nav">
     <% if user_signed_in? %>
-        Signed in as <strong><%= current_user.username %></strong>, you are a <strong><%= current_user.type %></strong> . Not you?
+        Signed in as <%= current_user.username %>, you are a <%= current_user.class %> . Not you?
         <%= link_to "Sign out", destroy_user_session_path %>
     <% else %>
         Please <%= link_to "Sign in", new_user_session_path %> to have more privileges
@@ -28,7 +25,6 @@
   </div>
 
   <%= yield %>
-
 </div>
 </body>
 </html>
