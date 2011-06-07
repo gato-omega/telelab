@@ -27,6 +27,13 @@
       - username
       - email
       - type
+  Technician:
+    :options:
+      :fields:
+      - id
+      - username
+      - email
+      - type
   Profile:
     :options:
       :fields:

@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
     self.becomes(User)
   end
 
+
   ## Custom validations
 
   validates :type, :presence => true
