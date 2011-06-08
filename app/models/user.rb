@@ -117,7 +117,4 @@ class User < ActiveRecord::Base
     # error item
   end
 
-
-
-
 end

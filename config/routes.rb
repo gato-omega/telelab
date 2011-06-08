@@ -1,22 +1,24 @@
 Telelab02::Application.routes.draw do
 
-  resources :profiles
-
-  devise_for :users, :path_prefix => 'd'
+  devise_for :users, :path_prefix => 'account'
 
   devise_scope :user do
     get '/login' => 'devise/sessions#new'
     get '/logout' => 'devise/sessions#destroy'
   end
 
-  resources :users
-  #resources :admins, :controller => :users
-
-
   scope "/admin" do
-    #match '/panel' => 'admin?panel_controller#index'
+    match '/panel' => 'admin_panel_controller#index', :as => 'admin_panel'
     resources :courses
+    resources :users
   end
+
+
+  #resources :profiles
+
+  get '/profile' => 'profiles#edit', :as => 'profile'
+  match '/profile' => 'profiles#update', :via => :put
+
 
   match '/home' => 'welcome#index', :as => 'welcome'
   

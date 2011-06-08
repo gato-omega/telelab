@@ -28,6 +28,12 @@ class Ability
 
     user ||= User.new # guest user
 
+    if user.persisted? #Applies to all signed in
+      can :modify, Profile do |p|
+        user.profile==p
+      end
+    end
+      
     if user.is_a? Admin
 
       can :manage, :all
@@ -38,7 +44,6 @@ class Ability
           false
         end
       end
-      # { |u|  u.is_a? Admin }
 
     elsif user.is_a? Teacher
 
@@ -46,7 +51,7 @@ class Ability
 
     elsif user.is_a? Student
 
-    else #VISITOR
+    else #VISITOR - out of the system
 
     end
 
