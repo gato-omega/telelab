@@ -51,18 +51,13 @@ class UsersController < ApplicationController
   # POST /users.xml
   def create
     @user = User.new(params[:user])
-    @user = @user.userize
+    #@user = @user.userize # DONT EVER DO THIS IN CREATE -- hours wasted!
+    #@user.type = 'Student'
     @roles = User::ROLES
     @current_method = "new"
-
-    logger.debug("WHAT THE FUCKING HELL?? - index")
-    logger.debug(@user.to_yaml)
-    logger.debug params
-    logger.debug params[:user]
-
+    
     respond_to do |format|
       if @user.save
-        
         format.html { redirect_to(@user, :notice => 'User was successfully created.') }
         format.xml { render :xml => @user, :status => :created, :location => @user }
       else

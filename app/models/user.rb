@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable //ELIMINATED, put again if needed  :confirmable, :registerable,
+  # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable //ELIMINATED, put again if needed  :confirmable, :registerable, :validatable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
@@ -8,8 +8,11 @@ class User < ActiveRecord::Base
 
   ## The following are the relationships
 
-  has_one :profile
-  
+
+  ## PROFILE
+  has_one :profile, :dependent => :destroy
+
+  before_create :create_default_profile
 
   ## Methods
 
@@ -23,6 +26,10 @@ class User < ActiveRecord::Base
   #makes subclasses of User (Admin, Teacher, ...) into User class
   def userize
     self.becomes(User)
+  end
+
+  def require_password?
+    new_record?
   end
 
 
@@ -41,7 +48,10 @@ class User < ActiveRecord::Base
   attr_accessor :login
   validates :username, :uniqueness => true, :presence => true
 
+
+  ### PROTECTED
   protected
+
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
@@ -87,5 +97,27 @@ class User < ActiveRecord::Base
   def self.find_record(login)
     where(["username = :value OR email = :value", {:value => login}]).first
   end
+
+
+  ### PRIVATE
+
+  private
+  def create_default_profile
+    # build default profile instance. Will use default params.
+    # The foreign key to the owning User model is set automatically
+    create_profile({:firstname => "#{username}"})
+
+    true # Always return true in callbacks as the normal 'continue' state
+    # Assumes that the default_profile can **always** be created.
+    # or
+    # Check the validation of the profile. If it is not valid, then
+    # return false from the callback. Best to use a before_validation
+    # if doing this. View code should check the errors of the child.
+    # Or add the child's errors to the User model's error array of the :base
+    # error item
+  end
+
+
+
 
 end

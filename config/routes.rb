@@ -14,6 +14,7 @@ Telelab02::Application.routes.draw do
 
 
   scope "/admin" do
+    #match '/panel' => 'admin?panel_controller#index'
     resources :courses
   end
 
