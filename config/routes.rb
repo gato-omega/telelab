@@ -16,9 +16,8 @@ Telelab02::Application.routes.draw do
 
   #resources :profiles
 
-  get '/profile' => 'profiles#edit', :as => 'profile'
-  match '/profile' => 'profiles#update', :via => :put
-
+  get '/profile/:username' => 'profiles#edit', :as => 'profile'
+  match '/profile/:id' => 'profiles#update', :via => :put
 
   match '/home' => 'welcome#index', :as => 'welcome'
   

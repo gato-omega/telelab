@@ -1,22 +1,24 @@
 class ProfilesController < AuthorizedController
 
-  #current user's profile
+  before_filter :get_profile, :only => [:edit, :show]
+
   def edit
-    @profile = current_user.profile
+  end
+
+  def show
   end
 
   def update
-    
-    @profile = current_user.profile
-
-    respond_to do |format|
-      if @profile.update_attributes(params[:profile])
-        format.html { redirect_to(welcome_path, :notice => 'Profile was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @profile.errors, :status => :unprocessable_entity }
-      end
+    @profile = User.find(params[:id]).profile
+    if @profile.update_attributes(params[:profile])
+      redirect_to(welcome_path, :notice => 'Profile was successfully updated.')
+    else
+      render :action => "edit"
     end
+  end
+
+  private
+  def get_profile
+    @profile = User.find_by_username(params[:username]).profile
   end
 end

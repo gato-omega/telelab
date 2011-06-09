@@ -21,7 +21,7 @@
   <div id="user_nav">
     <% if user_signed_in? %>
         Signed in as <strong><%= current_user.username %></strong>, you are a <strong><%= current_user.type %></strong> . Not you?
-        <%= link_to "Sign out", destroy_user_session_path %> | <%= link_to "Profile", profile_path %>
+        <%= link_to "Sign out", destroy_user_session_path %> | <%= link_to "Profile", profile_path(current_user.username), :as => 'User' %>
     <% else %>
         Please <%= link_to "Sign in", new_user_session_path %> to have more privileges
     <% end %>
