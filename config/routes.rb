@@ -6,20 +6,34 @@ Telelab02::Application.routes.draw do
     get '/login' => 'devise/sessions#new'
     get '/logout' => 'devise/sessions#destroy'
   end
+  
+  get '/profile/:username' => 'profiles#edit', :as => 'profile'
+  match '/profile/:id' => 'profiles#update', :via => :put
 
-  scope "/admin" do
-    match '/panel' => 'admin_panel_controller#index', :as => 'admin_panel'
+  #THIS IS HOMEPAGE
+  get '/home' => 'home#index', :as => 'home'
+
+  #DO ADMIN STUFF HERE
+  scope '/admin' do
+    get '/' => 'admin#index', :as => 'admin_home'
     resources :courses
     resources :users
   end
 
+  #DO CLIENT STUFF HERE
+  scope '/teacher' do
+    get '/' => 'teacher#index', :as => 'client_home'
+  end
 
-  #resources :profiles
+  #DO EMPLOYEE STUFF HERE
+  scope '/student' do
+    get '/' => 'student#index', :as => 'employee_home'
+  end
+  
+  scope '/technician' do
+    get '/' => 'technician#index', :as => 'employee_home'
+  end
 
-  get '/profile/:username' => 'profiles#edit', :as => 'profile'
-  match '/profile/:id' => 'profiles#update', :via => :put
-
-  match '/home' => 'welcome#index', :as => 'welcome'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

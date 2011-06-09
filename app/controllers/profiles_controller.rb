@@ -11,7 +11,7 @@ class ProfilesController < AuthorizedController
   def update
     @profile = User.find(params[:id]).profile
     if @profile.update_attributes(params[:profile])
-      redirect_to(welcome_path, :notice => 'Profile was successfully updated.')
+      redirect_to(home_path, :notice => 'Profile was successfully updated.')
     else
       render :action => "edit"
     end

@@ -5,15 +5,15 @@ class PassThroughController < ApplicationController
 
     # Admin
     if current_user.is_a? Admin
-      redirect_to admin_panel_path
+      redirect_to admin_home_path
     elsif current_user.is_a? Student
-      redirect_to welcome_path
+      redirect_to home_path
     elsif current_user.is_a? Technician
-      redirect_to welcome_path
+      redirect_to home_path
     elsif current_user.is_a? Teacher
-      redirect_to welcome_path
+      redirect_to home_path
     else #Not signed in
-      redirect_to welcome_path
+      redirect_to home_path
     end
 
   end

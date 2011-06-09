@@ -36,6 +36,8 @@ class Ability
       
     if user.is_a? Admin
 
+      can :do_admin_stuff, :stuff
+
       can :manage, :all
       cannot :see_user, User do |u|
         if u == user.userize
@@ -47,9 +49,15 @@ class Ability
 
     elsif user.is_a? Teacher
 
+      can :do_teacher_stuff, :stuff
+
     elsif user.is_a? Technician
 
+      can :do_technician_stuff, :stuff
+
     elsif user.is_a? Student
+
+      can :do_student_stuff, :stuff
 
     else #VISITOR - out of the system
 
