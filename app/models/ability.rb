@@ -28,12 +28,15 @@ class Ability
 
     user ||= User.new # guest user
 
-    if user.persisted? #Applies to all signed in
-      can :modify, Profile do |p|
-        user.profile==p
+    if user.persisted? #Applies to all registered
+      can [:edit, :update], Profile do |p|
+        #user.profile.id==p.id
+        p.user == user
       end
-    end
       
+      can :show, Profile
+    end
+    
     if user.is_a? Admin
 
       can :do_admin_stuff, :stuff

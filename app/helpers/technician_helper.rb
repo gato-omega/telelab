@@ -1,0 +1,2 @@
+module TechnicianHelper
+end

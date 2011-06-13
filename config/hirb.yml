@@ -37,6 +37,7 @@
   Profile:
     :options:
       :fields:
+      - id
       - firstname
       - lastname
       - codigo

@@ -6,7 +6,7 @@ class AuthorizedController < ApplicationController
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = exception.message
-    redirect_to welcome_path
+    redirect_to home_path
   end
 
 end

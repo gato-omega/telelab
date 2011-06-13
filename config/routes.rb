@@ -1,14 +1,18 @@
 Telelab02::Application.routes.draw do
 
+  get "technician/index"
+
   devise_for :users, :path_prefix => 'account'
 
   devise_scope :user do
     get '/login' => 'devise/sessions#new'
     get '/logout' => 'devise/sessions#destroy'
   end
-  
-  get '/profile/:username' => 'profiles#edit', :as => 'profile'
+
+  # Profiles edit, update and show
+  get '/profile/:username/edit' => 'profiles#edit', :as => 'profile_edit'
   match '/profile/:id' => 'profiles#update', :via => :put
+  get '/profile/:username' => 'profiles#show', :as => 'profile'
 
   #THIS IS HOMEPAGE
   get '/home' => 'home#index', :as => 'home'
@@ -20,18 +24,19 @@ Telelab02::Application.routes.draw do
     resources :users
   end
 
-  #DO CLIENT STUFF HERE
+  #DO TEACHER STUFF HERE
   scope '/teacher' do
-    get '/' => 'teacher#index', :as => 'client_home'
+    get '/' => 'teacher#index', :as => 'teacher_home'
   end
 
-  #DO EMPLOYEE STUFF HERE
+  #DO STUDENT STUFF HERE
   scope '/student' do
-    get '/' => 'student#index', :as => 'employee_home'
+    get '/' => 'student#index', :as => 'student_home'
   end
-  
+
+  #DO TECHNICIAN STUFF HERE
   scope '/technician' do
-    get '/' => 'technician#index', :as => 'employee_home'
+    get '/' => 'technician#index', :as => 'technician_home'
   end
 
   

@@ -21,13 +21,16 @@
   <div id="user_nav">
     <% if user_signed_in? %>
         Signed in as <strong><%= current_user.username %></strong>, you are a <strong><%= current_user.type %></strong> . Not you?
-        <%= link_to "Sign out", destroy_user_session_path %> | <%= link_to "Profile", profile_path(current_user.username), :as => 'User' %>
+        <%= link_to "Sign out", destroy_user_session_path %> | <%= link_to "Profile", profile_edit_path(current_user.username), :as => 'User' %>
     <% else %>
         Please <%= link_to "Sign in", new_user_session_path %> to have more privileges
     <% end %>
   </div>
 
   <%= yield %>
+
+  <%= link_to "Manage Cursos", courses_path %>
+  <%= link_to "Manage Users", users_path %>
 
 </div>
 </body>

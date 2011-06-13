@@ -1,4 +1,6 @@
-class UsersController < ApplicationController
+class UsersController < AuthorizedController
+
+  layout 'admin'
 
   # GET /users
   # GET /users.xml

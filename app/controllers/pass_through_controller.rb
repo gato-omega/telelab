@@ -7,7 +7,7 @@ class PassThroughController < ApplicationController
     if current_user.is_a? Admin
       redirect_to admin_home_path
     elsif current_user.is_a? Student
-      redirect_to home_path
+      redirect_to technician_home_path
     elsif current_user.is_a? Technician
       redirect_to home_path
     elsif current_user.is_a? Teacher

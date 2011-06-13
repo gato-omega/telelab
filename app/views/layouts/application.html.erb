@@ -10,7 +10,7 @@
 <body>
 <div id="container">
 
-  <h1>TELELAB</h1>
+  <h1>TELELAB - APPLICATION LAYOUT</h1>
   <h2>Laboratorio remote</h2>
 
   <% flash.each do |name, msg| %>
@@ -21,7 +21,7 @@
   <div id="user_nav">
     <% if user_signed_in? %>
         Signed in as <strong><%= current_user.username %></strong>, you are a <strong><%= current_user.type %></strong> . Not you?
-        <%= link_to "Sign out", destroy_user_session_path %> | <%= link_to "Profile", profile_path(current_user.username), :as => 'User' %>
+        <%= link_to "Sign out", destroy_user_session_path %> | <%= link_to "Profile", profile_edit_path(current_user.username), :as => 'User' %>
     <% else %>
         Please <%= link_to "Sign in", new_user_session_path %> to have more privileges
     <% end %>
