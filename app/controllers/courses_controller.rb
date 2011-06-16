@@ -1,4 +1,6 @@
 class CoursesController < AuthorizedController
+  layout 'admin'
+  
   def index
     @courses = Course.all
   end

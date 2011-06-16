@@ -6,13 +6,16 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :type, :email, :password, :password_confirmation, :remember_me
 
+
   ## The following are the relationships
 
 
   ## PROFILE
   has_one :profile, :dependent => :destroy
+  #before_create :create_default_profile
 
-  before_create :create_default_profile
+  accepts_nested_attributes_for :profile
+  attr_accessible :profile_attributes
 
   ## Methods
 
@@ -105,7 +108,10 @@ class User < ActiveRecord::Base
   def create_default_profile
     # build default profile instance. Will use default params.
     # The foreign key to the owning User model is set automatically
-    create_profile({:firstname => "#{username}"})
+    if !self.profile
+      #noinspection RubyArgCount
+      create_profile({:firstname => "#{username}"})
+    end
 
     true # Always return true in callbacks as the normal 'continue' state
     # Assumes that the default_profile can **always** be created.

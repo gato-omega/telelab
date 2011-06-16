@@ -34,6 +34,8 @@ class UsersController < AuthorizedController
     @user = User.new
     @roles = User::ROLES
 
+    @user.build_profile
+    
     @current_method = "new"
 
     respond_to do |format|
