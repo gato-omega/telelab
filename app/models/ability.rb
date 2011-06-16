@@ -28,19 +28,19 @@ class Ability
 
     user ||= User.new # guest user
 
+    # TO ALL REGISTERED
     if user.persisted? #Applies to all registered
       can [:edit, :update], Profile do |p|
-        #user.profile.id==p.id
         p.user == user
       end
       
       can :show, Profile
     end
-    
+
+    # ROLE BASED STUFF
     if user.is_a? Admin
 
       can :do_admin_stuff, :stuff
-
       can :manage, :all
       cannot :see_user, User do |u|
         if u == user.userize
@@ -53,6 +53,7 @@ class Ability
     elsif user.is_a? Teacher
 
       can :do_teacher_stuff, :stuff
+      can :manage, Student
 
     elsif user.is_a? Technician
 
@@ -62,8 +63,7 @@ class Ability
 
       can :do_student_stuff, :stuff
 
-    else #VISITOR - out of the system
-
+    else #VISITOR - Unregistered
     end
 
   end

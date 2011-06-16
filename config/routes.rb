@@ -1,7 +1,5 @@
 Telelab02::Application.routes.draw do
 
-  get "technician/index"
-
   devise_for :users, :path_prefix => 'account'
 
   devise_scope :user do
@@ -21,6 +19,7 @@ Telelab02::Application.routes.draw do
   scope '/admin' do
     get '/' => 'admin#index', :as => 'admin_home'
     resources :courses
+    resources :teachers
     resources :users
   end
 
