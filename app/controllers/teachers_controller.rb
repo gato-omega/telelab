@@ -1,6 +1,6 @@
 class TeachersController < AuthorizedController
 
-  respond_to :html, :xml, :only => [:index, :show]
+  respond_to :html, :xml, :only => [:index, :show, :new, :edit]
 
   layout 'admin'
 
@@ -20,16 +20,17 @@ class TeachersController < AuthorizedController
   # GET /teachers/new.xml
   def new
     @teacher = Teacher.new
+    @teacher.build_profile
     respond_with @teacher
   end
 
-  # GET /teachers/1/edit
+  
   def edit
     @teacher = Teacher.find(params[:id])
+    respond_with @teacher
   end
 
-  # POST /teachers
-  # POST /teachers.xml
+
   def create
     @teacher = Teacher.new(params[:teacher])
 
@@ -44,8 +45,7 @@ class TeachersController < AuthorizedController
     end
   end
 
-  # PUT /teachers/1
-  # PUT /teachers/1.xml
+
   def update
     @teacher = Teacher.find(params[:id])
 
@@ -60,8 +60,7 @@ class TeachersController < AuthorizedController
     end
   end
 
-  # DELETE /teachers/1
-  # DELETE /teachers/1.xml
+
   def destroy
     @teacher = Teacher.find(params[:id])
     @teacher.destroy
