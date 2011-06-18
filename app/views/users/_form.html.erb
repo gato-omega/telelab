@@ -39,22 +39,22 @@
         </div>
     <% end %>
 
-    <%= f.fields_for :profile do |prof| %>
+    <%= f.fields_for :profile do |p| %>
         <div class="field">
-          <%= prof.label :firstname %>
+          <%= p.label :firstname %>
           <br/>
-          <%= prof.text_field :firstname %>
+          <%= p.text_field :firstname %>
         </div>
 
         <div class="field">
-          <%= prof.label :lastname %>
+          <%= p.label :lastname %>
           <br/>
-          <%= prof.text_field :lastname %>
+          <%= p.text_field :lastname %>
         </div>
-
     <% end %>
 
     <div class="actions">
       <%= f.submit %>
     </div>
+    
 <% end %>

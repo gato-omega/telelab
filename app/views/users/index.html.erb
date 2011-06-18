@@ -1,27 +1,48 @@
+<%= content_for :head do %>
+    <%= javascript_include_tag 'jquery.dataTables' %>
+    <%= javascript_include_tag 'users' %>
+<% end %>
+
+
 <h1>Listing users</h1>
 
-<table>
+<table id="users_table" class="display">
+  <thead>
   <tr>
-    <th>Email</th>
+    <th>Firstname</th>
+    <th>Lastname</th>
     <th>Username</th>
+    <th>Email</th>
     <th>Type</th>
-    <th colspan="3">Actions</th>
+    <th>Show</th>
+    <th>Edit</th>
+    <th>Destroy</th>
+    
   </tr>
-
+  </thead>
+  <tbody>
   <% @users.each do |user| %>
-    <% if can? :see_user, user %>
-      <tr>
-        <td><%= user.email %></td>
-        <td><%= user.username %></td>
-        <td><%= user.type %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
-      </tr>
-    <% end %>
+      <% if can? :see_user, user %>
+          <tr>
+            <td><%= user.profile.firstname %></td>
+            <td><%= user.profile.lastname %></td>
+            <td><%= user.username %></td>
+            <td><%= user.email %></td>
+            <td><%= user.type %></td>
+            <td><%= link_to 'Show', user %></td>
+            <td><%= link_to 'Edit', edit_user_path(user) %></td>
+            <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
+          </tr>
+      <% end %>
   <% end %>
+  </tbody>
 </table>
 
 <br/>
 
 <%= link_to 'New user', new_user_path %>
+
+
+<!--
+<th colspan="3">Actions</th>
+-->
