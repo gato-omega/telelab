@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Tag:</b>
+  <%= @port.tag %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @port.name %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @port.state %>
+</p>
+
+<p>
+  <b>Device:</b>
+  <%= @port.device %>
+</p>
+
+
+<%= link_to 'Edit', edit_port_path(@port) %> |
+<%= link_to 'Back', ports_path %>

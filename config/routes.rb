@@ -1,5 +1,9 @@
 Telelab02::Application.routes.draw do
 
+  resources :ports
+
+  resources :devices
+
   devise_for :users, :path_prefix => 'account'
 
   devise_scope :user do
