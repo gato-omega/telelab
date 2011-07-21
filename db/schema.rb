@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110607192735) do
+ActiveRecord::Schema.define(:version => 20110717232724) do
 
   create_table "courses", :force => true do |t|
     t.string "name"
@@ -20,6 +20,17 @@ ActiveRecord::Schema.define(:version => 20110607192735) do
   end
 
   add_index "courses", ["name"], :name => "index_courses_on_name"
+
+  create_table "devices", :force => true do |t|
+    t.string   "name"
+    t.string   "tag"
+    t.string   "category"
+    t.string   "type"
+    t.string   "description"
+    t.string   "usb"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "profiles", :force => true do |t|
     t.string  "firstname"

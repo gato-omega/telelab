@@ -1,12 +1,11 @@
 class CreatePorts < ActiveRecord::Migration
   def self.up
     create_table :ports do |t|
-      t.string :tag
       t.string :name
+      t.string :tag
       t.string :state
       t.references :device
 
-      t.timestamps
     end
   end
 

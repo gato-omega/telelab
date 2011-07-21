@@ -7,8 +7,6 @@ class CreateDevices < ActiveRecord::Migration
       t.string :type
       t.string :description
       t.string :usb
-
-      t.timestamps
     end
   end
 
