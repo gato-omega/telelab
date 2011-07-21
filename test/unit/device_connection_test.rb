@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ConnectionTest < ActiveSupport::TestCase
+class DeviceConnectionTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   test "the truth" do
     assert true

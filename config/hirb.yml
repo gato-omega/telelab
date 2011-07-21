@@ -42,3 +42,25 @@
       - lastname
       - codigo
       - user_id
+  Device:
+    :options:
+      :fields:
+      - id
+      - name
+      - tag
+      - category
+      - tipo
+      - com
+  Port:
+    :options:
+      :fields:
+      - id
+      - name
+      - tag
+      - device_id
+  DeviceConnection:
+    :options:
+      :fields:
+      - id
+      - port_id
+      - endpoint_id
