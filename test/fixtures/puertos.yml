@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  nombre: MyString
+  etiqueta: MyString
+  estado: MyString
+  dispositivo: 
+  device_connection: 
+
+two:
+  nombre: MyString
+  etiqueta: MyString
+  estado: MyString
+  dispositivo: 
+  device_connection: 

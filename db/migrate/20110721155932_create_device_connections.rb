@@ -2,7 +2,7 @@ class CreateDeviceConnections < ActiveRecord::Migration
 
   def self.up
     create_table :device_connections do |t|
-      t.references :port
+      t.references :puerto
       t.references :endpoint
     end
   end

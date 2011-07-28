@@ -1,0 +1,31 @@
+<h1>Listing puertos</h1>
+
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Etiqueta</th>
+    <th>Estado</th>
+    <th>Dispositivo</th>
+    <th>Device connection</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @puertos.each do |puerto| %>
+  <tr>
+    <td><%= puerto.nombre %></td>
+    <td><%= puerto.etiqueta %></td>
+    <td><%= puerto.estado %></td>
+    <td><%= puerto.dispositivo %></td>
+    <td><%= puerto.device_connection %></td>
+    <td><%= link_to 'Show', puerto %></td>
+    <td><%= link_to 'Edit', edit_puerto_path(puerto) %></td>
+    <td><%= link_to 'Destroy', puerto, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Puerto', new_puerto_path %>

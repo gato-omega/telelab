@@ -42,25 +42,25 @@
       - lastname
       - codigo
       - user_id
-  Device:
+  Dispositivo:
     :options:
       :fields:
       - id
-      - name
-      - tag
-      - category
+      - nombre
+      - etiqueta
+      - categoria
       - tipo
       - com
-  Port:
+  Puerto:
     :options:
       :fields:
       - id
-      - name
-      - tag
-      - device_id
+      - nombre
+      - etiqueta
+      - dispositivo_id
   DeviceConnection:
     :options:
       :fields:
       - id
-      - port_id
+      - puerto_id
       - endpoint_id

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110607192735) do
+ActiveRecord::Schema.define(:version => 20110721230900) do
 
   create_table "courses", :force => true do |t|
     t.string "name"
@@ -21,6 +21,20 @@ ActiveRecord::Schema.define(:version => 20110607192735) do
 
   add_index "courses", ["name"], :name => "index_courses_on_name"
 
+  create_table "device_connections", :force => true do |t|
+    t.integer "puerto_id"
+    t.integer "endpoint_id"
+  end
+
+  create_table "dispositivos", :force => true do |t|
+    t.string "nombre"
+    t.string "etiqueta"
+    t.string "tipo"
+    t.string "categoria"
+    t.string "estado"
+    t.string "com"
+  end
+
   create_table "profiles", :force => true do |t|
     t.string  "firstname"
     t.string  "lastname"
@@ -29,6 +43,14 @@ ActiveRecord::Schema.define(:version => 20110607192735) do
   end
 
   add_index "profiles", ["codigo"], :name => "index_profiles_on_codigo"
+
+  create_table "puertos", :force => true do |t|
+    t.string  "nombre"
+    t.string  "etiqueta"
+    t.string  "estado"
+    t.integer "dispositivo_id"
+    t.integer "device_connection_id"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
