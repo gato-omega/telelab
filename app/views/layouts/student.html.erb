@@ -16,7 +16,7 @@
 <body>
 <div id="container">
 
-  <h1>ADMIN LAYOUT</h1>
+  <h1>STUDENT LAYOUT</h1>
 
   <h2>Laboratorio remote</h2>
 
@@ -27,7 +27,7 @@
 
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
-  
+
   <%= content_tag :h1, yield(:title) if show_title? %>
 
   <div id="user_nav">
@@ -44,11 +44,7 @@
   <%= yield %>
 
   <p>
-    <%= link_to "Manage Teachers", teachers_path %>
-    <br/>
-    <%= link_to "Manage Cursos", courses_path %>
-    <br/>
-    <%= link_to "Manage Users", users_path %>
+    LINKS GO HERE
   </p>
 
 </div>

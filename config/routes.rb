@@ -1,5 +1,9 @@
 Telelab02::Application.routes.draw do
 
+  get "practica/index"
+
+  get "student/index"
+
   resources :dispositivos
 
   resources :puertos
@@ -40,6 +44,10 @@ Telelab02::Application.routes.draw do
   #DO TECHNICIAN STUFF HERE
   scope '/technician' do
     get '/' => 'technician#index', :as => 'technician_home'
+  end
+
+  scope '/practica' do
+    get '/' => 'practica#index', :as => 'practica'
   end
 
   

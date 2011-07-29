@@ -17,12 +17,10 @@ module ApplicationHelper
       state_type = :error
     end
 
-    logger.debug "################# #{name} #{f_title} #{state_type} #{icon_type}"
-
     "<div class=\"ui-widget\">
         <div class=\"ui-state-#{state_type} ui-corner-all\" style=\"padding: 0 .7em; margin: 10px\">
           <p><span class=\"ui-icon ui-icon-#{icon_type}\" style=\"float: left; margin-right: .3em;\"></span>
-            <strong>#{f_title}:</strong>#{msg}</p>
+            <strong>#{f_title}: </strong>#{msg}</p>
         </div>
       </div>".html_safe
   end
