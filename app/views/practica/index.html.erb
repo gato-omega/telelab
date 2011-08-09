@@ -1,2 +1,8 @@
 <h1>Practica#index</h1>
 <p>Find me in app/views/practica/index.html.erb</p>
+<%= text_area(:irc, :chat, :cols => 30, :rows => 10) %>
+<%= form_tag ircchat_path, :method => "get", :remote => true do %>
+  <%= label_tag(:message, "Mensaje:") %>
+  <%= text_field_tag(:message) %>
+  <%= submit_tag("Enviar") %>
+<% end %>

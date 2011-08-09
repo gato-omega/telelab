@@ -1,0 +1,3 @@
+class GBot
+  
+end

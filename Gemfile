@@ -48,8 +48,9 @@ group :development do
 end
 
 gem 'cancan' # The permissions gem
-#gem "tlsmail" # Use google mail account to send mail IS DEPRECATED AND INCLUDED BY DEFAULT
+#gem "tlsmail" # Use google mail account to send mail IS DEPRECATED AND NOW INCLUDED BY DEFAULT
 
 
 gem 'formtastic' #Nice forms...let's see if it makes life easier
 gem 'mocha', :group => :test # Added by formtastics when called a generate code for an existing model
+gem 'cinch'

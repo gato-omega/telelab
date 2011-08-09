@@ -48,9 +48,10 @@ Telelab02::Application.routes.draw do
 
   scope '/practica' do
     get '/' => 'practica#index', :as => 'practica'
+    match '/ircchat' => 'practica#ircchat', :as => 'ircchat'#, :via => :post
   end
 
-  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
