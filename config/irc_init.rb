@@ -92,3 +92,5 @@
 #    puts "#{bot.nick} started!"
 #  end
 #end
+
+require File.expand_path('../../lib/gircbot/gbot', __FILE__)
