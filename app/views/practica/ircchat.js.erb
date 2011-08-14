@@ -1,2 +1,5 @@
-lasttext=$('#irc_chat').text();
-$("#irc_chat").text(lasttext+"<%= @response %>");
+<% broadcast "/messages/new" do %>
+  //$("#irc_area").append("<%# escape_javascript render(@message) %>");
+  $("#irc_area").append("<%= escape_javascript @message %>\n");
+<% end %>
+$("#message").text('');

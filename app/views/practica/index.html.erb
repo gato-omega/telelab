@@ -1,7 +1,14 @@
+<% content_for :head do %>
+    <%= javascript_include_tag 'practica_faye' %>
+    <%= javascript_include_tag 'http://localhost:9292/faye.js' %>
+<% end %>
+
 <h1>Practica#index</h1>
 <p>Find me in app/views/practica/index.html.erb</p>
-<%= text_area(:irc, :chat, :cols => 30, :rows => 10) %>
-<%= form_tag ircchat_path, :method => "get", :remote => true do %>
+
+
+<%= text_area(:irc, :area, :cols => 30, :rows => 10) %>
+<%= form_tag ircchat_path, :remote => true, :id => 'chat' do %>
   <%= label_tag(:message, "Mensaje:") %>
   <%= text_field_tag(:message) %>
   <%= submit_tag("Enviar") %>
