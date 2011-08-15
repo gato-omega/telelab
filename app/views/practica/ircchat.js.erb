@@ -1,5 +1,4 @@
-<% broadcast "/messages/new" do %>
-  //$("#irc_area").append("<%# escape_javascript render(@message) %>");
+<% broadcast "/channels/#{@faye_channel}" do %>
   $("#irc_area").append("<%= escape_javascript @message %>\n");
+  $("#message").val('');
 <% end %>
-$("#message").text('');

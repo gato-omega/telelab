@@ -6,11 +6,12 @@ class PracticaController < ApplicationController
   end
 
   def ircchat
-    @message = params[:message]
-    respond_to do |format|
-      format.js
-      format.xml { render :xml => @message }
+    if current_user
+      @faye_channel = current_user.username
+    else
+      @faye_channel = "lobby"
     end
+    @message = params[:message]
   end
 
 end

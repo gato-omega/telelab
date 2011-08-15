@@ -52,6 +52,13 @@ Telelab02::Application.routes.draw do
   end
 
 
+
+  # JAVASCRIPT CONTROLLER
+  scope '/javascript_engine' do
+    match '/faye_init' => 'javascript#faye_init', :as => 'js_faye_init'
+  end
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

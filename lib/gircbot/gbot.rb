@@ -52,3 +52,12 @@ class Messenger
     User(receiver).send(message)
   end
 end
+
+
+class BayeuxIRCConnector
+  attr_accessor :irc_client
+  attr_accessor :faye_client
+
+  
+
+end
