@@ -1,6 +1,9 @@
 $(document).ready(function() {
-    var faye = new Faye.Client('http://localhost:9292/faye');
-    faye.subscribe("/channels/<%= @faye_channel %>", function(data) {
+    var faye = new Faye.Client("<%= FAYE_SERVER_URL %>");
+
+    <% @channels.each do |channel|%>
+      faye.subscribe("<%= channel %>", function(data) {
         eval(data);
-    });
+      });
+    <% end %>
 });

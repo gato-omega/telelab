@@ -46,12 +46,12 @@ Telelab02::Application.routes.draw do
     get '/' => 'technician#index', :as => 'technician_home'
   end
 
+  # IN LAB PRACTICE
+
   scope '/practica' do
     get '/' => 'practica#index', :as => 'practica'
-    match '/ircchat' => 'practica#ircchat', :as => 'ircchat'#, :via => :post
+    match '/message' => 'practica#message', :as => 'message' #, :via => :post
   end
-
-
 
   # JAVASCRIPT CONTROLLER
   scope '/javascript_engine' do

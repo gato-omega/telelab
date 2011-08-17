@@ -1,6 +1,6 @@
 <% content_for :head do %>
     <%= javascript_include_tag 'practica_faye' %>
-    <%= javascript_include_tag 'http://localhost:9292/faye.js' %>
+    <%= javascript_include_tag "#{FAYE_SERVER_URL}.js" %>
     <%= javascript_include_tag js_faye_init_path %>
 <% end %>
 
@@ -9,7 +9,7 @@
 
 
 <%= text_area(:irc, :area, :cols => 30, :rows => 10) %>
-<%= form_tag ircchat_path, :remote => true, :id => 'chat' do %>
+<%= form_tag message_path, :remote => true, :id => 'chat' do %>
   <%= label_tag(:message, "Mensaje:") %>
   <%= text_field_tag(:message) %>
   <%= submit_tag("Enviar") %>
