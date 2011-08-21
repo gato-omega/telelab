@@ -1,4 +1,8 @@
 #Modified by gato_omega it so that only html.erb files and not js.erb are changed
+require 'haml'
+require 'hpricot'
+require 'ruby_parser'
+
 class ToHaml
   def initialize(path)
     @path = path
