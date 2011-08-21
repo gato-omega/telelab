@@ -53,7 +53,7 @@ class GBotManager < Hash
       self[bot_key]
     else #load new!
 
-      #Load config
+         #Load config
       load_irc_config
       irc_config = @config
       bot = GBot.new do
@@ -68,7 +68,7 @@ class GBotManager < Hash
         on :message do |m|
           mensaje_raw_real = "$('#irc_area').append(\"#{m.message}\n\");"
           canal = "#{FAYE_CHANNEL_PREFIX}#{user.username}"
-          bot.send_via_faye canal, bot.escape_javascript mensaje_raw_real
+          bot.send_via_faye canal, (bot.escape_javascript mensaje_raw_real)
         end
       end
 
@@ -79,14 +79,13 @@ class GBotManager < Hash
 
       #include in self for reference
       self[bot_key] = bot
-
     end
   end
 
   private
   #Loads irc config in @config
-  def load_irc_config
-    if not @config
+  def load_irc_config(force_reload = false)
+    if not @config and not force_reload
       @config=APP_CONFIG[:irc]
       @config[:client][:default_channels].collect! {|channel| "##{channel}"}
     end
