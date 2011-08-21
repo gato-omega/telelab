@@ -1,0 +1,19 @@
+= form_for @course do |f|
+  = f.error_messages
+  %p
+    = f.label :name
+    %br/
+    = f.text_field :name
+  %p
+    = f.label :description
+    %br/
+    = f.text_area :description
+  %p
+    = f.label :hashed_password
+    %br/
+    = f.text_field :hashed_password
+  %p
+    = f.label :options
+    %br/
+    = f.text_field :options
+  %p= f.submit

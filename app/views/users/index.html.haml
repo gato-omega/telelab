@@ -1,0 +1,29 @@
+= content_for :head do
+  = javascript_include_tag 'jquery.dataTables'
+  = javascript_include_tag 'users'
+%h1 Listing users
+%table#users_table
+  %thead
+    %tr
+      %th Firstname
+      %th Lastname
+      %th Username
+      %th Email
+      %th Type
+      %th Show
+      %th Edit
+      %th Destroy
+  %tbody
+    - @users.each do |user|
+      - if can? :see_user, user
+        %tr
+          %td= user.profile.firstname
+          %td= user.profile.lastname
+          %td= user.username
+          %td= user.email
+          %td= user.type
+          %td= link_to 'Show', user
+          %td= link_to 'Edit', edit_user_path(user)
+          %td= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete
+%br/
+= link_to 'New user', new_user_path

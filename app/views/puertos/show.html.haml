@@ -1,0 +1,19 @@
+%p#notice= notice
+%p
+  %b Nombre:
+  = @puerto.nombre
+%p
+  %b Etiqueta:
+  = @puerto.etiqueta
+%p
+  %b Estado:
+  = @puerto.estado
+%p
+  %b Dispositivo:
+  = @puerto.dispositivo
+%p
+  %b Device connection:
+  = @puerto.device_connection
+= link_to 'Edit', edit_puerto_path(@puerto)
+|
+\#{link_to 'Back', puertos_path}

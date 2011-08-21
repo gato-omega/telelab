@@ -1,0 +1,17 @@
+- title "Courses"
+%table
+  %tr
+    %th Name
+    %th Description
+    %th Hashed Password
+    %th Options
+  - for course in @courses
+    %tr
+      %td= course.name
+      %td= course.description
+      %td= course.hashed_password
+      %td= course.options
+      %td= link_to "Show", course
+      %td= link_to "Edit", edit_course_path(course)
+      %td= link_to "Destroy", course, :confirm => 'Are you sure?', :method => :delete
+%p= link_to "New Course", new_course_path

@@ -1,0 +1,34 @@
+!!!
+%html
+  %head
+    %title= content_for?(:title) ? yield(:title) : "Untitled"
+    = stylesheet_link_tag "application"
+    = stylesheet_link_tag "jquery-ui-1.8.13.custom"
+    = javascript_include_tag :defaults
+    = javascript_include_tag :jquery_ui
+    = csrf_meta_tag
+    = yield(:head)
+  %body
+    #container
+      %h1 STUDENT LAYOUT
+      %h2 Laboratorio remote
+      - flash.each do |name, msg|
+        = ui_flash name, msg
+      %p.notice= notice
+      %p.alert= alert
+      = content_tag :h1, yield(:title) if show_title?
+      #user_nav
+        - if user_signed_in?
+          Signed in as
+          = succeed "," do
+            %strong= current_user.username
+          you are a
+          %strong= current_user.type
+          \. Not you?
+          \#{link_to "Sign out", destroy_user_session_path}
+          | #{link_to "Profile", profile_edit_path(current_user.username), :as => 'User'}
+        - else
+          Please #{link_to "Sign in", new_user_session_path} to have more privileges
+      = yield
+      %p
+        LINKS GO HERE

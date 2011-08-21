@@ -1,0 +1,25 @@
+%h1 Listing dispositivos
+%table
+  %tr
+    %th Nombre
+    %th Etiqueta
+    %th Tipo
+    %th Categoria
+    %th Estado
+    %th Com
+    %th
+    %th
+    %th
+  - @dispositivos.each do |dispositivo|
+    %tr
+      %td= dispositivo.nombre
+      %td= dispositivo.etiqueta
+      %td= dispositivo.tipo
+      %td= dispositivo.categoria
+      %td= dispositivo.estado
+      %td= dispositivo.com
+      %td= link_to 'Show', dispositivo
+      %td= link_to 'Edit', edit_dispositivo_path(dispositivo)
+      %td= link_to 'Destroy', dispositivo, :confirm => 'Are you sure?', :method => :delete
+%br/
+= link_to 'New Dispositivo', new_dispositivo_path

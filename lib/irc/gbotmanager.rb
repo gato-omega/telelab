@@ -66,13 +66,9 @@ class GBotManager < Hash
 
         #Listen and do...
         on :message do |m|
-          puts "HIJUEPUTAAAAAA 5 estoy en ......... self        = #{self}"
-          puts "HIJUEPUTAAAAAA 5 estoy en ......... self.to_s   = #{self.to_s}"
-          puts "HIJUEPUTAAAAAA 5 estoy en ......... self.class  = #{self.class}"
-
-          mensaje_raw_real = "$('#irc_area').append(\"#{m.message}\");"
+          mensaje_raw_real = "$('#irc_area').append(\"#{m.message}\n\");"
           canal = "#{FAYE_CHANNEL_PREFIX}#{user.username}"
-          bot.send_via_faye canal, mensaje_raw_real
+          bot.send_via_faye canal, bot.escape_javascript mensaje_raw_real
         end
       end
 

@@ -1,0 +1,22 @@
+%p#notice= notice
+%p
+  %b Nombre:
+  = @dispositivo.nombre
+%p
+  %b Etiqueta:
+  = @dispositivo.etiqueta
+%p
+  %b Tipo:
+  = @dispositivo.tipo
+%p
+  %b Categoria:
+  = @dispositivo.categoria
+%p
+  %b Estado:
+  = @dispositivo.estado
+%p
+  %b Com:
+  = @dispositivo.com
+= link_to 'Edit', edit_dispositivo_path(@dispositivo)
+|
+\#{link_to 'Back', dispositivos_path}

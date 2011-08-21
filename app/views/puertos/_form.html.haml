@@ -1,0 +1,31 @@
+= form_for(@puerto) do |f|
+  - if @puerto.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@puerto.errors.count, "error")
+        prohibited this puerto from being saved:
+      %ul
+        - @puerto.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :nombre
+    %br/
+    = f.text_field :nombre
+  .field
+    = f.label :etiqueta
+    %br/
+    = f.text_field :etiqueta
+  .field
+    = f.label :estado
+    %br/
+    = f.text_field :estado
+  .field
+    = f.label :dispositivo
+    %br/
+    = f.text_field :dispositivo
+  .field
+    = f.label :device_connection
+    %br/
+    = f.text_field :device_connection
+  .actions
+    = f.submit
