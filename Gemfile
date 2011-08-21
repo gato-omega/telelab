@@ -34,10 +34,15 @@ gem 'mysql2'
 
 gem "cucumber-rails", :group => [:development, :test]
 gem "capybara", :group => [:development, :test]
+
 gem "devise" # The user authentication gem
 gem "jquery-rails"
 
 ################## Added after Template
+#HAML and to_haml
+gem "haml"
+gem "hpricot"
+gem "ruby_parser"
 
 group :development do
   gem 'nifty-generators'
