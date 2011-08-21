@@ -1,5 +1,8 @@
 # Use this hook to configure devise mailer, warden hooks and so forth. The first
 # four configuration values can also be set straight in your models.
+
+#require File.expand_path('../load_app_config.rb', __FILE__)
+
 Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
@@ -188,38 +191,7 @@ Devise.setup do |config|
   ## GATO
 
   #When user signs in...do this
-  Warden::Manager.after_authentication do |user, auth, opts|
-    puts "###########################  SOMEONE SIGNED IN #{user}"
 
-#    #Find or create bot_manager singleton
-#    bot_manager = GbotManager.instance
-#    key = "uid_#{user.id}".to_sym
-#
-#    GBot.new do
-#      configure do |c|
-#        c.server = "127.0.0.1"
-#        c.nick = "bot_miau"
-#        c.channels = ["#lobby"]
-#      end
-#
-#      on :message do |m|
-#        listener.execute m
-#      end
-#
-#    end
-#
-#    Thread.new do
-#      @bot.start
-#    end
-#
-##    bot_manager[key] =
 
-  end
-
-  #When user signs out...do this
-  #Clear irc bot and release faye channel
-  Warden::Manager.before_logout do |user, auth, opts|
-    puts "###########################  SOMEONE LOGGED OUT #{user}"
-  end
 
 end

@@ -1,4 +1,6 @@
 FAYE_TOKEN = 'miauhash'
 FAYE_CHANNEL_PREFIX = '/messagebox/'
 FAYE_DEFAULT_CHANNEL = 'lobby'
-FAYE_SERVER_URL = 'http://localhost:9292/faye'
+FAYE_SERVER_PORT = 9292
+FAYE_MOUNT_POINT = '/faye'
+FAYE_SERVER_URL = "http://localhost:#{FAYE_SERVER_PORT}#{FAYE_MOUNT_POINT}"

@@ -1,6 +1,24 @@
 development:
   domain: localhost:3000
 
+  irc:
+    server:
+      ip: localhost
+      port: 6667
+      password:
+    client:
+      nick: telelab
+      nick_prefix: tl_
+      default_channels: [lobby]
+
+  faye:
+    server:
+      url: http://localhost
+      port: 9292
+      mount: /faye
+      password:
+      token: lagataquedeciamiau
+
 test:
   domain: test.host
 
