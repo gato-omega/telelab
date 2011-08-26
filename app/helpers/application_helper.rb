@@ -1,9 +1,9 @@
 module ApplicationHelper
 
   def ui_flash(name, msg)
-
+    f_title = 'Info'
     if name.eql? :notice
-      f_title    = 'Info'
+
       state_type = :highlight
       icon_type  = :info
     elsif name.eql? :error

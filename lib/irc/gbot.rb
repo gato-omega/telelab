@@ -1,6 +1,8 @@
+require 'bayeux_middleware/custom_faye_sender'
+
 class GBot < Cinch::Bot
 
-  include FayeSender
+  include CustomFayeSender
   include ActionView::Helpers::JavaScriptHelper
   
   attr_accessor :associated_user
@@ -26,7 +28,7 @@ class GBot < Cinch::Bot
   def unbind_user
     @associated_user=nil
   end
-  
+
   #def send_via_faye(channel, mensaje)
   #
   #  puts "HIJUEPUTAAAAAA 6 estoy en ......... self        = #{self}"
