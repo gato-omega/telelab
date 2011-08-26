@@ -32,7 +32,8 @@ class GBotManager < Hash
     [id].quit
   end
 
-  #Disconnects and removes bot with id id
+  # Disconnects and removes bot for the specified user
+  # @param user [User], the User model instance tipically current_user
   def kill_bot_for(user)
     bot_key = "uid_#{user.id}".to_sym
     bot = self[bot_key]
@@ -45,7 +46,8 @@ class GBotManager < Hash
     end
   end
 
-  #Loads/creates the bot for the specified user, associating them
+  # Loads/creates the bot for the specified user, associating them
+  # @param user [User], the User model instance tipically current_user
   def load_bot_for(user)
 
     bot_key = "uid_#{user.id}".to_sym
@@ -56,7 +58,7 @@ class GBotManager < Hash
          #Load config
       load_irc_config
       irc_config = @config
-      bot = GBot.new do
+      zbot = GBot.new do
 
         configure do |c|
           c.server = irc_config[:server][:ip]#'127.0.0.1'#
@@ -66,7 +68,13 @@ class GBotManager < Hash
 
         #Listen and do...
         on :message do |m|
-          mensaje_raw_real = "$('#irc_area').append(\"#{m.message}\n\");"
+          rcvd_message = m.message # "the message" the actual message
+          rcvd_channel = m.channel.name # "#lobby" the channel it was sent on
+          rcvd_user = m.user.nick # "charles" who sent it
+
+          mensaje_raw_real = FayeMessagesController
+
+          #mensaje_raw_real = "$('#irc_area').append(\"#{m.message}\n\");"
           canal = "#{FAYE_CHANNEL_PREFIX}#{user.username}"
           bot.send_via_faye canal, (bot.escape_javascript mensaje_raw_real)
         end
@@ -74,11 +82,11 @@ class GBotManager < Hash
 
       #The new thread for da bot
       Thread.new do
-        bot.start
+        zbot.start
       end
 
       #include in self for reference
-      self[bot_key] = bot
+      self[bot_key] = zbot
     end
   end
 
@@ -89,5 +97,10 @@ class GBotManager < Hash
       @config=APP_CONFIG[:irc]
       @config[:client][:default_channels].collect! {|channel| "##{channel}"}
     end
+  end
+
+  # Gets the simbolized key for the user passed
+  def get_bot_key(user)
+    bot_key = "uid_#{user.id}".to_sym
   end
 end

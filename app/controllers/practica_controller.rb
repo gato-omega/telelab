@@ -1,32 +1,37 @@
 class PracticaController < ApplicationController
 
-  #before_filter :load_bot, :only => [:ircchat]
+  before_filter :load_bot, :only => ['message']
 
   def index
   end
 
   def message
 
-    #Get the message and channel
+    # Get the message and channel
     @message = params[:message]
     @channel = params[:channel]
-
-    bot_manager=GBotManager.instance
-    @bot=bot_manager.load_bot_for current_user
-
-
-    if @channel.nil?
-      @channel = bot_manager.config[:client][:default_channels].first
-      logger.debug "###########################  NOW channel is #{@channel}"
+    
+    # Set default channel if non-existant
+    if not @channel
+      @channel = @bot_manager.config[:client][:default_channels].first
     end
 
-    logger.debug "###########################  channel is #{@channel}"
-    logger.debug "###########################  message is #{@message}"
+    # Get the bot to send the message over the specified irc channel
+    #Use error control in production mode only, uncomment the begin, rescue, end lines
+    #begin
+      @bot.action(@channel, @message)
+      respond_to :js
+    #rescue
+      # Put some error message if something goes wrong
+      flash[:notice] = 'Could not send message, irc bot error'
+    #end
+    # Notify or something?
 
-    @bot.action(@channel,@message)
+  end
 
-    respond_to :js
-
+  def load_bot
+    @bot_manager=GBotManager.instance
+    @bot=@bot_manager.load_bot_for current_user
   end
 
 
