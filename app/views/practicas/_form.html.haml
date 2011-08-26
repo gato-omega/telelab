@@ -1,0 +1,45 @@
+- content_for :head do
+  = javascript_include_tag 'practica_user_list'
+
+= form_for(@practica) do |f|
+  - if @practica.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@practica.errors.count, "error")
+        prohibited this practica from being saved:
+      %ul
+        - @practica.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :name
+    %br/
+    = f.text_field :name
+  .field
+    = f.label :start
+    %br/
+    = f.datetime_select :start
+    / %= f.text_field :start_at_string %
+  .field
+    = f.label :end
+    %br/
+    = f.datetime_select :end
+    / %= f.text_field :end %
+  .field
+    = f.label :estado
+    %br/
+    = f.text_field :estado
+  %p
+  %div
+    = f.label :devices, "Dispositivos"
+    - @dispositivos.each do |dispositivo|
+      %div
+        = check_box_tag "practica[dispositivo_ids][]", dispositivo.id, @dispositivosreservados.include?(dispositivo)
+        = dispositivo.nombre
+  %p
+  %div
+    = f.label :user_list, "Users"
+    %br/
+    = f.text_field :user_list, "data-pre" => @allowed_users.collect{|user| {:id => user.id, :name => user.username}}.to_json
+  %p
+  .actions
+    = f.submit

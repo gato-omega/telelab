@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   ## The following are the relationships
 
+  has_and_belongs_to_many :practicas
 
   ## PROFILE
   has_one :profile, :dependent => :destroy
