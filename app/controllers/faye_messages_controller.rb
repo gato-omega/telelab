@@ -34,4 +34,10 @@ class FayeMessagesController < AbstractController::Base
     da_message = whatever('something here')
     puts "do another thing normal tuby-like for the whatever result #{da_message}"
   end
+
+  # This method processes the incoming message from irc and
+  # returns the data as-is to be delivered to a FayeSender
+  def process_message(rcvd_channel, rcvd_user, rcvd_message)
+    
+  end
 end
