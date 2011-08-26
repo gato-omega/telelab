@@ -75,7 +75,8 @@ class GBotManager < Hash
           rcvd_user = m.user.nick # "charles" who sent it
 
           # Process it and get the required data to send
-          mensaje_raw_real = FayeMessagesController
+          message_processor = FayeMessagesController.new
+          mensaje_raw_real = message_processor.process_message rcvd_message, rcvd_channel, rcvd_user
           #mensaje_raw_real = "$('#irc_area').append(\"#{m.message}\n\");"
 
           # Send it using the CustomFayeSender module
