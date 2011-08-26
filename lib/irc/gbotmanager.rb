@@ -68,15 +68,23 @@ class GBotManager < Hash
 
         #Listen and do...
         on :message do |m|
+
+          # Retrieve important params
           rcvd_message = m.message # "the message" the actual message
           rcvd_channel = m.channel.name # "#lobby" the channel it was sent on
           rcvd_user = m.user.nick # "charles" who sent it
 
+          # Process it and get the required data to send
           mensaje_raw_real = FayeMessagesController
-
           #mensaje_raw_real = "$('#irc_area').append(\"#{m.message}\n\");"
+
+          # Send it using the CustomFayeSender module
+
+          # Get this users faye channel to send to
           canal = "#{FAYE_CHANNEL_PREFIX}#{user.username}"
-          bot.send_via_faye canal, (bot.escape_javascript mensaje_raw_real)
+
+          # ...and send
+          bot.send_via_faye canal, mensaje_raw_real
         end
       end
 

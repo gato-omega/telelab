@@ -2,19 +2,24 @@ require 'bayeux_middleware/custom_faye_sender'
 
 class GBot < Cinch::Bot
 
-  include CustomFayeSender
-  include ActionView::Helpers::JavaScriptHelper
-  
   attr_accessor :associated_user
+  include CustomFayeSender
 
   def connected?
     @connected
   end
 
+  # This method's error handling is quite bad!!
   def start
-    @connected = true
     begin
-      super
+      
+      begin
+        super
+        @connected = true
+      rescue
+        @connected = false
+      end
+
     rescue
       @connected = false
     end
@@ -28,17 +33,5 @@ class GBot < Cinch::Bot
   def unbind_user
     @associated_user=nil
   end
-
-  #def send_via_faye(channel, mensaje)
-  #
-  #  puts "HIJUEPUTAAAAAA 6 estoy en ......... self        = #{self}"
-  #        puts "HIJUEPUTAAAAAA 6 estoy en ......... self.to_s   = #{self.to_s}"
-  #        puts "HIJUEPUTAAAAAA 6 estoy en ......... self.class  = #{self.class}"
-  #
-  #  message = {:channel => channel, :data => mensaje, :ext => {:auth_token => FAYE_TOKEN}}
-  #  uri = URI.parse(FAYE_SERVER_URL)
-  #  puts Net::HTTP.post_form(uri, :message => message.to_json)
-  #  nil
-  #end
 
 end
