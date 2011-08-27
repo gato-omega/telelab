@@ -1,0 +1,24 @@
+%p#notice= notice
+%p
+  %b Name:
+  = @practica.name
+%p
+  %b Start:
+  = @practica.start
+%p
+  %b End:
+  = @practica.end
+%b Dispositivo(s):
+%ul
+  - @dispositivos.each do |devices|
+    %li= devices.nombre
+%b Usuario(s):
+%ul
+  - @allowedusers.each do |users|
+    %li= users.username
+%p
+  %b Estado:
+  = @practica.estado
+= link_to 'Edit', edit_practica_path(@practica)
+|
+\#{link_to 'Back', practicas_path}

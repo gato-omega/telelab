@@ -1,12 +1,18 @@
 Telelab02::Application.routes.draw do
 
-  get "practica/index"
+  resources :practicas
+
+  ### for that token_input_user works, used in "_form#practica" view #####
+  get '/json_users' => 'practicas#json_users'
 
   get "student/index"
 
   resources :dispositivos
 
   resources :puertos
+
+  ## for /json_users.json, allow token_input users
+  resources :users
 
   devise_for :users, :path_prefix => 'account'
 
