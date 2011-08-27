@@ -54,10 +54,10 @@ Telelab02::Application.routes.draw do
 
   # IN LAB PRACTICE
 
-  scope '/practica' do
-    get '/' => 'practica#index', :as => 'practica'
-    match '/message' => 'practica#message', :as => 'message' #, :via => :post
-  end
+  #scope '/practica' do
+  #  get '/' => 'practica#index', :as => 'practica'
+  #  match '/message' => 'practica#message', :as => 'message' #, :via => :post
+  #end
 
   # JAVASCRIPT CONTROLLER
   scope '/javascript_engine' do
