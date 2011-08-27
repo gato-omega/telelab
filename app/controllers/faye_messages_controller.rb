@@ -37,7 +37,8 @@ class FayeMessagesController < AbstractController::Base
 
   # This method processes the incoming message from irc and
   # returns the data as-is to be delivered to a FayeSender
-  def process_message()
-    
+
+  def process_message(rcvd_channel, rcvd_user, rcvd_message)
+
   end
 end
