@@ -60,3 +60,4 @@ gem 'formtastic' #Nice forms...let's see if it makes life easier
 gem 'mocha', :group => :test # Added by formtastics when called a generate code for an existing model
 gem 'cinch'
 gem 'faye'
+gem 'compass'

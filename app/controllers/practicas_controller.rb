@@ -90,6 +90,12 @@ class PracticasController < ApplicationController
     end
   end
 
+  def make_practice
+    @practica = Practica.find(params[:id])
+    @dispositivosreservados = @practica.dispositivos
+    @allowed_users = @practica.users
+  end
+
     ##################### add from reservas_controller old ########################################
 
   def json_users

@@ -7,6 +7,8 @@ Telelab02::Application.routes.draw do
 
   get "student/index"
 
+  get "/practicas/:id/practica" => 'practicas#make_practice'
+
   resources :dispositivos
 
   resources :puertos
