@@ -1,0 +1,30 @@
+/* line 3, ../../../app/stylesheets/partials/make_pactice.sass */
+#doing_practice #connections {
+  position: relative;
+  padding: 10%;
+}
+/* line 6, ../../../app/stylesheets/partials/make_pactice.sass */
+#doing_practice #connections #diagram {
+  float: left;
+  text-align: center;
+}
+/* line 9, ../../../app/stylesheets/partials/make_pactice.sass */
+#doing_practice #connections #set {
+  float: right;
+  text-align: center;
+}
+/* line 12, ../../../app/stylesheets/partials/make_pactice.sass */
+#doing_practice #chat {
+  position: relative;
+  padding: 10%;
+}
+/* line 15, ../../../app/stylesheets/partials/make_pactice.sass */
+#doing_practice #chat #console {
+  float: left;
+  text-align: center;
+}
+/* line 18, ../../../app/stylesheets/partials/make_pactice.sass */
+#doing_practice #chat #group {
+  float: right;
+  text-align: center;
+}

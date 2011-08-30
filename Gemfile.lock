@@ -166,7 +166,7 @@ DEPENDENCIES
   cancan
   capybara
   cinch
-  compass
+  compass (>= 0.11.5)
   cucumber-rails
   devise
   faye
