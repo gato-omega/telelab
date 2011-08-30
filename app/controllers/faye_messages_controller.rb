@@ -39,6 +39,7 @@ class FayeMessagesController < AbstractController::Base
 
   def process_message(rcvd_channel, rcvd_user, rcvd_message)
     # do normal_method_is
+    puts "############## YEAH>>> channel: #{rcvd_channel}, user: #{rcvd_user}, message: #{rcvd_message} ####"
     normal_method_is("channel: #{rcvd_channel}, user: #{rcvd_user}, message #{rcvd_message} ####")
   end
 end
