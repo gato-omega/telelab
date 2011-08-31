@@ -50,6 +50,7 @@
       - etiqueta
       - categoria
       - tipo
+      - estado
       - com
   Puerto:
     :options:

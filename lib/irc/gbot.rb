@@ -2,36 +2,27 @@ require 'bayeux_middleware/custom_faye_sender'
 
 class GBot < Cinch::Bot
 
-  attr_accessor :associated_user
-  include CustomFayeSender
+  #include CustomFayeSender
 
-  def connected?
-    @connected
+  #attr_accessor :device_channels
+
+  #def initialize_message_processor
+  #  @message_processor = FayeMessagesController.new
+  #end
+
+  #def initialize_device_channels
+  #  @device_channels = []
+  #  Dispositivo.where(:estado => 'ok', :tipo => 'user').each do |dispositivo|
+  #    @device_channels << "#device_#{dispositivo.id}"
+  #  end
+  #end
+
+  def get_channel(channel)
+    self.Channel channel
   end
 
-  # This method's error handling is quite bad!!
-  def start
-    begin
-      
-      begin
-        super
-        @connected = true
-      rescue
-        @connected = false
-      end
-
-    rescue
-      @connected = false
-    end
-  end
-
-  def quit
-    @connected = false
-    super
-  end
-
-  def unbind_user
-    @associated_user=nil
+  def get_user(user)
+    self.User user
   end
 
 end
