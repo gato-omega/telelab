@@ -33,7 +33,7 @@
     = f.label :devices, "Dispositivos"
     - @dispositivos.each do |dispositivo|
       %div
-        = check_box_tag "practica[dispositivo_ids][]", dispositivo.id, @dispositivosreservados.include?(dispositivo)
+        = check_box_tag "practica[dispositivo_ids][]", dispositivo.id, @dispositivos_reservados.include?(dispositivo)
         = dispositivo.nombre
   %p
   %div
