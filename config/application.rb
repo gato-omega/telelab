@@ -46,7 +46,7 @@ module Telelab02
     config.action_view.javascript_expansions[:jquery_datatables] = %w(jquery.dataTables.1.8.0.min.js)
     config.action_view.javascript_expansions[:jquery_tokeninput] = %w(jquery.tokeninput.1.6.0.js)
 
-    config.action_view.stylesheet_expansions[:jquery_ui] = %w(jquery-ui-1.8.16.custom)
+    config.action_view.stylesheet_expansions[:jquery_ui] = %w(jquery-ui-1.8.16.custom.css)
     #config.action_view.stylesheet_expansions[:jquery_datatables] = %w(jquery.dataTables.1.8.0.min.js)
 
     # Configure the default encoding used in templates for Ruby 1.9.
