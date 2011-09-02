@@ -15,7 +15,7 @@ class PracticasController < ApplicationController
   def show
     @practica = Practica.find(params[:id])
     @dispositivos = @practica.dispositivos
-    @allowedusers = @practica.users
+    @allowed_users = @practica.users
 
     respond_to do |format|
       format.html # show.html.erb
@@ -28,7 +28,7 @@ class PracticasController < ApplicationController
   def new
     @practica = Practica.new
     @dispositivos = Dispositivo.all
-    @dispositivosreservados = @practica.dispositivos
+    @dispositivos_reservados = @practica.dispositivos
     @allowed_users = []
 
     respond_to do |format|
@@ -41,7 +41,7 @@ class PracticasController < ApplicationController
   def edit
     @practica = Practica.find(params[:id])
     @dispositivos = Dispositivo.all
-    @dispositivosreservados = @practica.dispositivos
+    @dispositivos_reservados = @practica.dispositivos
     @allowed_users = @practica.users
   end
 
@@ -92,7 +92,7 @@ class PracticasController < ApplicationController
 
   def make_practice
     @practica = Practica.find(params[:id])
-    @dispositivosreservados = @practica.dispositivos
+    @dispositivos_reservados = @practica.dispositivos
     @allowed_users = @practica.users
   end
 

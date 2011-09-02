@@ -1,11 +1,15 @@
+- content_for :head do
+  = stylesheet_link_tag 'partials/console'
+
 #tabs
   %ul
-    %li
-      %a{:href => "#tabs-1"} First
-    %li
-      %a{:href => "#tabs-2"} Second
-    %li
-      %a{:href => "#tabs-3"} Third
-  #tabs-1 Tab1
-  #tabs-2 Tab2
-  #tabs-3 Tab3
+    - create_tabs @dispositivos_reservados
+  - create_content_tabs @dispositivos_reservados
+  .text_area
+    = text_area(:irc, :area, :cols => 50, :rows => 20)
+    = #form_tag message_path, :remote => true, :id => 'chat' do
+  .text_field
+    = label_tag(:message, "Mensaje:")
+    = text_field_tag(:message)
+  .submit
+    = submit_tag("Enviar")
