@@ -1,5 +1,7 @@
 Telelab02::Application.routes.draw do
 
+  resources :technicians
+
   resources :students
 
   resources :practicas
