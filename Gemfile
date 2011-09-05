@@ -40,7 +40,8 @@ gem "jquery-rails"
 
 ################## Added after Template
 #HAML and to_haml
-gem "haml"
+gem 'haml'
+gem 'haml-rails'
 #gem "hpricot"
 #gem "ruby_parser"
 
