@@ -1,11 +1,11 @@
-= form_for @teacher do |f|
-  - if @teacher.errors.any?
+= form_for @student do |f|
+  - if @student.errors.any?
     #error_explanation
       %h2
-        = pluralize(@teacher.errors.count, "error")
-        prohibited this teacher from being saved:
+        = pluralize(@student.errors.count, "error")
+        prohibited this student from being saved:
       %ul
-        - @teacher.errors.full_messages.each do |msg|
+        - @student.errors.full_messages.each do |msg|
           %li= msg
   .field
     = f.label :username

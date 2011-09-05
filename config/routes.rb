@@ -1,5 +1,7 @@
 Telelab02::Application.routes.draw do
 
+  resources :students
+
   resources :practicas
 
   ### for that token_input_user works, used in "_form#practica" view #####

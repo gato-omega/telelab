@@ -1,0 +1,24 @@
+= content_for :head do
+  -#= javascript_include_tag :jquery_datatables
+  -#= javascript_include_tag 'student'
+%h1 Listing students
+%table#students_table
+  %thead
+    %tr
+      %th Username
+      %th Firstname
+      %th Lastname
+      %th Show
+      %th Edit
+      %th Destroy
+  %tbody
+    - @students.each do |student|
+      %tr
+        %td= student.username
+        %td= student.profile.firstname
+        %td= student.profile.lastname
+        %td= link_to 'Show', student
+        %td= link_to 'Edit', edit_student_path(student)
+        %td= link_to 'Destroy', student, :confirm => 'Are you sure?', :method => :delete
+%br/
+= link_to 'New Student', new_student_path
