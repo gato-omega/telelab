@@ -34,9 +34,9 @@ Telelab02::Application.routes.draw do
   #DO ADMIN STUFF HERE
   scope '/admin' do
     get '/' => 'admin#index', :as => 'admin_home'
+    resources :users
     resources :courses
     resources :teachers
-    resources :users
   end
 
   #DO TEACHER STUFF HERE

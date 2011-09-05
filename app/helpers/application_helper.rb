@@ -24,5 +24,5 @@ module ApplicationHelper
         </div>
       </div>".html_safe
   end
-
+  
 end

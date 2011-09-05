@@ -2,8 +2,6 @@ class TeachersController < AuthorizedController
 
   respond_to :html, :xml, :only => [:index, :show, :new, :edit]
 
-  layout 'admin'
-
   def index
     @teachers = Teacher.all
     respond_with @teachers
