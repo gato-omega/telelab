@@ -1,9 +1,5 @@
 class UsersController < AuthorizedController
 
-  layout 'admin'
-
-  # GET /users
-  # GET /users.xml
   def index
     #How to use
     #@users = User.where(:type => 'Technician').all_without_typecast
@@ -16,8 +12,6 @@ class UsersController < AuthorizedController
     end
   end
 
-  # GET /users/1
-  # GET /users/1.xml
   def show
     @user = User.find(params[:id])
     @user = @user.userize
@@ -28,8 +22,6 @@ class UsersController < AuthorizedController
     end
   end
 
-  # GET /users/new
-  # GET /users/new.xml
   def new
     @user = User.new
     @roles = User::ROLES
@@ -44,15 +36,12 @@ class UsersController < AuthorizedController
     end
   end
 
-  # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
     @user = @user.userize
     @roles = User::ROLES
   end
 
-  # POST /users
-  # POST /users.xml
   def create
     @user = User.new(params[:user])
     #@user = @user.userize # DONT EVER DO THIS IN CREATE -- hours wasted!
@@ -71,8 +60,6 @@ class UsersController < AuthorizedController
     end
   end
 
-  # PUT /users/1
-  # PUT /users/1.xml
   def update
     @user = User.find(params[:id])
     @user = @user.userize
@@ -88,8 +75,6 @@ class UsersController < AuthorizedController
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.xml
   def destroy
     @user = User.find(params[:id])
     @user.destroy
@@ -97,6 +82,16 @@ class UsersController < AuthorizedController
     respond_to do |format|
       format.html { redirect_to(users_url) }
       format.xml { head :ok }
+    end
+  end
+
+
+  #For tokeninput plugin!
+  def json_users
+    @all_users = User.where("username like ?", "%#{params[:q]}%")
+
+    respond_to do |format|
+      format.json { render :json => @all_users.collect { |user| {:id => user.id, :name => user.username} } }
     end
   end
 

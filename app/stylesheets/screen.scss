@@ -3,4 +3,61 @@
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
-@import "compass/reset";
+/*@import "compass/reset";*/
+
+header
+{
+    overflow: auto;
+    border: 1px solid black;
+    
+    .central
+    {
+        overflow: auto;
+        width: 80%;
+        margin: 0 auto 0 15%;
+        border: 2px solid red;
+        vertical-align: bottom;
+
+        
+        .session_info
+        {
+            text-align: right;
+            width: 60%;
+            border: 3px solid black;
+            margin: 40px 0 0 0;
+            color: black;
+            float: right;
+        }
+    }
+}
+
+#left_nav
+{
+    float: left;
+    text-align: right;
+    width: 14%;
+}
+
+section
+{
+    width: 80%;
+    border: 2px solid red;
+    margin: 0 auto 0 15%;
+    min-height: 700px;
+}
+
+footer
+{
+    overflow: auto;
+    border: 1px solid black;
+    vertical-align: middle;
+
+    .central
+    {
+        overflow: auto;
+        width: 80%;
+        margin: 0 auto 0 15%;
+        border: 2px solid red;
+        min-height: 65px;
+    }
+}

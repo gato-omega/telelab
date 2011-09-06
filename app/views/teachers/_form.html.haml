@@ -1,4 +1,4 @@
-= form_for(@teacher) do |f|
+= form_for @teacher do |f|
   - if @teacher.errors.any?
     #error_explanation
       %h2
@@ -9,16 +9,16 @@
           %li= msg
   .field
     = f.label :username
-    %br/
+    %br
     = f.text_field :username
   = f.fields_for :profile do |p|
     .field
       = p.label :firstname
-      %br/
+      %br
       = p.text_field :firstname
     .field
       = p.label :lastname
-      %br/
+      %br
       = p.text_field :lastname
   .actions
     = f.submit

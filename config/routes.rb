@@ -1,20 +1,27 @@
 Telelab02::Application.routes.draw do
 
+  resources :users
+
+  resources :admins
+  resources :technicians
+  resources :students
+  resources :teachers
+
+  resources :courses
+
   resources :practicas
 
-  ### for that token_input_user works, used in "_form#practica" view #####
-  get '/json_users' => 'practicas#json_users'
+  resources :dispositivos
+  resources :puertos
 
-  get "student/index"
+
+  ### for that token_input_user works, used in "_form#practica" view #####
+  get '/json_users' => 'users#json_users'
 
   get "/practicas/:id/practica" => 'practicas#make_practice'
 
-  resources :dispositivos
-
-  resources :puertos
 
   ## for /json_users.json, allow token_input users
-  resources :users
 
   devise_for :users, :path_prefix => 'account'
 
@@ -34,9 +41,6 @@ Telelab02::Application.routes.draw do
   #DO ADMIN STUFF HERE
   scope '/admin' do
     get '/' => 'admin#index', :as => 'admin_home'
-    resources :courses
-    resources :teachers
-    resources :users
   end
 
   #DO TEACHER STUFF HERE

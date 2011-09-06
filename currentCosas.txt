@@ -6,4 +6,4 @@
 --------- CURRENT -----------
 
 1. Poner un modelo Role para asociar los roles estudiante, tecnico, profesor y tecnico as symbols
-2. 
+2.
