@@ -1,0 +1,14 @@
+/* line 1, ../../../app/stylesheets/partials/chat.sass */
+#resizable {
+  margin-top: 0;
+  position: relative;
+  float: right;
+  width: 60%;
+  height: 150px;
+  padding: 0.5em;
+}
+/* line 8, ../../../app/stylesheets/partials/chat.sass */
+#resizable .h3 {
+  text-align: center;
+  margin: 0;
+}
