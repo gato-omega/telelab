@@ -1,3 +1,3 @@
 $(function() {
-    $('#tabs').tabs();
+    $('.console_tabs').tabs();
 });

@@ -1,38 +1,19 @@
 - content_for :head do
   = javascript_include_tag 'practica_tabs'
   = stylesheet_link_tag 'partials/make_pactice'
-%br/
-%TABLE{:summary => "Doing practice summary"}
-  %CAPTION
-    %h2.ui-widget-header Doing practice
-  %TR
-    %TH
-      %h3.ui-widget-header Diagram connections
-    %TH
-      %h3.ui-widget-header Set connections
-    %TR
-      %TD
-        = render :partial => "practicas/practice_gadgets/diagram"
-      %TD
-        = render :partial => "practicas/practice_gadgets/connections"
-    %TH
-      %h3.ui-widget-header Device console
-    %TH
-      %h3.ui-widget-header Group chat
-    %TR
-      %TD
-        = render :partial => "practicas/practice_gadgets/console"
-      %TD
-        = render :partial => "practicas/practice_gadgets/chat"
 
--##doing_practice
--#  #connections
--#    #diagram
--#      = render :partial => "practicas/practice_gadgets/diagram"
--#    #set
--#      = render :partial => "practicas/practice_gadgets/connections"
--#  #chat
--#    #console
--#      = render :partial => "practicas/practice_gadgets/console"
--#    #group
--#      = render :partial => "practicas/practice_gadgets/chat"
+#practica
+  .main_title WHAT IS THIS??
+  .viewport_row
+    .diagram
+      .title This is DIAGRAM
+
+    .connections
+      .title This is CONNECTIONS
+  .viewport_row
+    .consoles
+      .title This is CONSOLES
+      = render :partial => "practicas/practice_gadgets/console"
+
+    .chat
+      .title This is CHAT
