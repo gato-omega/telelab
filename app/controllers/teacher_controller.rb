@@ -1,4 +1,4 @@
-class AdminController < ApplicationController
+class TeacherController < ApplicationController
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = exception.message
@@ -8,7 +8,7 @@ class AdminController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    authorize! :do_admin_stuff, :stuff
+    authorize! :do_teacher_stuff, :stuff
   end
 
 end
