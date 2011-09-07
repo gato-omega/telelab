@@ -14,7 +14,7 @@ u_email = ["german.collazos@codescrum.com", "miguel.diaz@codescrum.com", "javhur
 u_type = ["Admin", "Admin", "Teacher", "Teacher", "Student", "Technician"]
 
 6.times do |n|
-  User.create(:username => u_username[n], :password => u_pass[n], :email => u_email[n], :type => u_type[n])
+  User.create(:username => u_username[n], :password => u_pass[n], :email => u_email[n], :type => u_type[n], :profile_attributes => {:firstname => u_username[n], :lastname => u_username[n], :codigo => " "})
 
 end
 
@@ -23,7 +23,7 @@ end
 c_name = ["redes1", "redes2"]
 c_description = ["descripcion1", "descripcion2"]
 c_hashed_password = ["qwerty", "asdfgh"]
-c_options = {"color1" => "red", "color2" => "green"}
+c_options = {:color1 => "red", :color2 => "green"}
 
 2.times do |n|
   Course.create(:name => c_name[n], :description => c_description[n], :hashed_password => c_hashed_password[n], :options => c_options)
