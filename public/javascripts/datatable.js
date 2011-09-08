@@ -1,7 +1,6 @@
-//Add datatables
+// Datatable initialization 4all
 $(document).ready(function() {
-    $('#teachers_table').dataTable({
-        "sScrollY": 200,
+    $("table[datatable]").dataTable({
         "bJQueryUI": true,
         "sPaginationType": "full_numbers"
     });

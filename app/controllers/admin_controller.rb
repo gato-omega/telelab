@@ -1,6 +1,5 @@
 class AdminController < ApplicationController
 
-  #layout 'application'
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = exception.message
@@ -11,7 +10,6 @@ class AdminController < ApplicationController
 
   def index
     authorize! :do_admin_stuff, :stuff
-    #render :layout => 'application'
   end
 
 
