@@ -1,14 +1,13 @@
 %ul
   %li
-    = link_to "Gestionar Usuarios", users_path
-    %ul
-      %li
-        = link_to "Gestionar Admins", admins_path
-      %li
-        = link_to "Gestionar Docentes", teachers_path
-      %li
-        = link_to "Gestionar Estudiantes", students_path
-      %li
-        = link_to "Gestionar Tecnicos", technicians_path
+    = link_to "Gestionar Usuarios", users_path, :class => 'button'
   %li
-    = link_to "Gestionar Cursos", courses_path
+    = link_to "Gestionar Admins", admins_path, :class => 'button'
+  %li
+    = link_to "Gestionar Docentes", teachers_path, :class => 'button'
+  %li
+    = link_to "Gestionar Estudiantes", students_path, :class => 'button'
+  %li
+    = link_to "Gestionar Tecnicos", technicians_path, :class => 'button'
+  %li
+    = link_to "Gestionar Cursos", courses_path, :class => 'button'

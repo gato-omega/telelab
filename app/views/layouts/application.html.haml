@@ -12,6 +12,11 @@
     = yield(:head)
   %body
     %header
+      .logo
+        .title{:href => "http://www.google.com"}
+          TeleLab
+        .lema
+          network remote laboratory
       .central
         .session_info
           - if user_signed_in?
@@ -20,28 +25,26 @@
             , tienes privilegios de
             %strong= current_user.type
             No eres tu?
-            = link_to "Cerrar sesion", destroy_user_session_path
+            = link_to "Cerrar sesion", destroy_user_session_path, :class => 'button'
             |
-            = link_to "Perfil", profile_edit_path(current_user.username), :as => 'User'
+            = link_to "Perfil", profile_edit_path(current_user.username), :as => 'User', :class => 'button'
             |
           - else
             Please
-            = link_to "Sign in", new_user_session_path
+            = link_to "Sign in", new_user_session_path, :class => 'button'
             to have more privileges
             |
-          = link_to "Ayuda", 'http://www.google.com'
-
-    #left_nav
-      = yield(:leftnav)
+          = link_to "Ayuda", 'http://www.google.com', :class => 'button'
     %section
-      - flash.each do |name, msg|
-        = ui_flash name, msg
-      %p.notice= notice
-      %p.alert= alert
-      = content_tag :h1, yield(:title) if show_title?
-
-      = yield
-      %p
+      .left_nav
+        = yield(:leftnav)
+      .main_content
+        - flash.each do |name, msg|
+          = ui_flash name, msg
+        %p.notice= notice
+        %p.alert= alert
+        = content_tag :h1, yield(:title) if show_title?
+        = yield
 
     %footer
       .central

@@ -1,7 +1,6 @@
 //Add datatables
 $(document).ready(function() {
-    $('#users_table').dataTable({
-        "sScrollY": 200,
+    $('#index_table').dataTable({
         "bJQueryUI": true,
         "sPaginationType": "full_numbers"
     });

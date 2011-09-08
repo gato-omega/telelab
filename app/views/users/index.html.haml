@@ -1,8 +1,9 @@
 = content_for :head do
   = javascript_include_tag :jquery_datatables
-  = javascript_include_tag 'users'
+  = javascript_include_tag 'index_table'
+  = stylesheet_link_tag 'telelab_datatables'
 %h1 Listing users
-%table#users_table
+%table#index_table{:cellpadding=> "0", :cellspacing => "0", :border => "0", :class => "display"}
   %thead
     %tr
       %th Firstname
@@ -10,9 +11,15 @@
       %th Username
       %th Email
       %th Type
-      %th Show
-      %th Edit
-      %th Destroy
+      %th Actions
+  %tfoot
+    %tr
+      %th Firstname
+      %th Lastname
+      %th Username
+      %th Email
+      %th Type
+      %th Actions
   %tbody
     - @users.each do |user|
       - if can? :see_user, user
@@ -22,8 +29,10 @@
           %td= user.username
           %td= user.email
           %td= user.type
-          %td= link_to 'Show', user
-          %td= link_to 'Edit', edit_user_path(user)
-          %td= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete
+          %td{ :style => "text-align: center"}
+            = link_to 'Show', user, :class => 'show_button'
+            = link_to 'Edit', edit_user_path(user), :class => 'edit_button'
+            = link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete, :class => 'delete_button'
+
 %br/
-= link_to 'New user', new_user_path
+= link_to 'New user', new_user_path, :class => 'button'

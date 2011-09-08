@@ -1,0 +1,395 @@
+/*
+ *  File:         demo_table_jui.css
+ *  CVS:          $Id$
+ *  Description:  CSS descriptions for DataTables demo pages
+ *  Author:       Allan Jardine
+ *  Created:      Tue May 12 06:47:22 BST 2009
+ *  Modified:     $Date$ by $Author$
+ *  Language:     CSS
+ *  Project:      DataTables
+ *
+ *  Copyright 2009 Allan Jardine. All Rights Reserved.
+ *
+ * ***************************************************************************
+ * DESCRIPTION
+ *
+ * The styles given here are suitable for the demos that are used with the standard DataTables
+ * distribution (see www.datatables.net). You will most likely wish to modify these styles to
+ * meet the layout requirements of your site.
+ *
+ * Common issues:
+ *   'full_numbers' pagination - I use an extra selector on the body tag to ensure that there is
+ *     no conflict between the two pagination types. If you want to use full_numbers pagination
+ *     ensure that you either have "example_alt_pagination" as a body class name, or better yet,
+ *     modify that selector.
+ *   Note that the path used for Images is relative. All images are by default located in
+ *     ../images/ - relative to this CSS file.
+ */
+/*
+ * jQuery UI specific styling
+ */
+/* line 33, ../../app/stylesheets/telelab_datatables.scss */
+.paging_two_button .ui-button {
+  float: left;
+  cursor: pointer;
+  * cursor: hand;
+}
+
+/* line 38, ../../app/stylesheets/telelab_datatables.scss */
+.paging_full_numbers .ui-button {
+  padding: 2px 6px;
+  margin: 0;
+  cursor: pointer;
+  * cursor: hand;
+}
+
+/* line 44, ../../app/stylesheets/telelab_datatables.scss */
+.dataTables_paginate .ui-button {
+  margin-right: -0.1em !important;
+}
+
+/* line 47, ../../app/stylesheets/telelab_datatables.scss */
+.paging_full_numbers {
+  width: 350px !important;
+}
+
+/* line 50, ../../app/stylesheets/telelab_datatables.scss */
+.dataTables_wrapper .ui-toolbar {
+  padding: 5px;
+}
+
+/* line 53, ../../app/stylesheets/telelab_datatables.scss */
+.dataTables_paginate {
+  width: auto;
+}
+
+/* line 56, ../../app/stylesheets/telelab_datatables.scss */
+.dataTables_info {
+  padding-top: 3px;
+}
+
+/* line 59, ../../app/stylesheets/telelab_datatables.scss */
+table.display thead th {
+  padding: 3px 0px 3px 10px;
+  cursor: pointer;
+  * cursor: hand;
+}
+
+/* line 64, ../../app/stylesheets/telelab_datatables.scss */
+div.dataTables_wrapper .ui-widget-header {
+  font-weight: normal;
+}
+
+/*
+ * Sort arrow icon positioning
+ */
+/* line 71, ../../app/stylesheets/telelab_datatables.scss */
+table.display thead th div.DataTables_sort_wrapper {
+  position: relative;
+  padding-right: 20px;
+  padding-right: 20px;
+}
+/* line 75, ../../app/stylesheets/telelab_datatables.scss */
+table.display thead th div.DataTables_sort_wrapper span {
+  position: absolute;
+  top: 50%;
+  margin-top: -8px;
+  right: 0;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Everything below this line is the same as demo_table.css. This file is
+ * required for 'cleanliness' of the markup
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DataTables features
+ */
+/* line 92, ../../app/stylesheets/telelab_datatables.scss */
+.dataTables_wrapper {
+  position: relative;
+  _height: 302px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border: 3px solid #abd7dc;
+  padding: 1px;
+  clear: both;
+}
+
+/* line 102, ../../app/stylesheets/telelab_datatables.scss */
+.dataTables_processing {
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  width: 250px;
+  margin-left: -125px;
+  border: 1px solid #ddd;
+  text-align: center;
+  color: #999;
+  font-size: 11px;
+  padding: 2px 0;
+}
+
+/* line 114, ../../app/stylesheets/telelab_datatables.scss */
+.dataTables_length {
+  width: 40%;
+  float: left;
+}
+
+/* line 118, ../../app/stylesheets/telelab_datatables.scss */
+.dataTables_filter {
+  width: 50%;
+  float: right;
+  text-align: right;
+}
+
+/* line 123, ../../app/stylesheets/telelab_datatables.scss */
+.dataTables_info {
+  width: 50%;
+  float: left;
+}
+
+/* line 127, ../../app/stylesheets/telelab_datatables.scss */
+.dataTables_paginate {
+  float: right;
+  text-align: right;
+}
+
+/* Pagination nested */
+/* line 133, ../../app/stylesheets/telelab_datatables.scss */
+.paginate_disabled_previous, .paginate_enabled_previous, .paginate_disabled_next, .paginate_enabled_next {
+  height: 19px;
+  width: 19px;
+  margin-left: 3px;
+  float: left;
+}
+
+/* line 139, ../../app/stylesheets/telelab_datatables.scss */
+.paginate_disabled_previous {
+  background-image: url("../images/datatables/back_disabled.jpg");
+}
+
+/* line 142, ../../app/stylesheets/telelab_datatables.scss */
+.paginate_enabled_previous {
+  background-image: url("../images/datatables/back_enabled.jpg");
+}
+
+/* line 145, ../../app/stylesheets/telelab_datatables.scss */
+.paginate_disabled_next {
+  background-image: url("../images/datatables/forward_disabled.jpg");
+}
+
+/* line 148, ../../app/stylesheets/telelab_datatables.scss */
+.paginate_enabled_next {
+  background-image: url("../images/datatables/forward_enabled.jpg");
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DataTables display
+ */
+/* line 155, ../../app/stylesheets/telelab_datatables.scss */
+table.display {
+  margin: 0 auto;
+  width: 100%;
+  clear: both;
+  color: #000000;
+  border-collapse: collapse;
+}
+/* line 161, ../../app/stylesheets/telelab_datatables.scss */
+table.display tfoot th {
+  padding: 3px 0px 3px 10px;
+  font-weight: bold;
+  font-weight: normal;
+}
+/* line 165, ../../app/stylesheets/telelab_datatables.scss */
+table.display tr.heading2 td {
+  border-bottom: 1px solid #aaa;
+}
+/* line 167, ../../app/stylesheets/telelab_datatables.scss */
+table.display td {
+  padding: 3px 10px;
+}
+/* line 169, ../../app/stylesheets/telelab_datatables.scss */
+table.display td.center {
+  text-align: center;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DataTables sorting
+ */
+/* line 176, ../../app/stylesheets/telelab_datatables.scss */
+.sorting_asc {
+  background: url("../images/datatables/sort_asc.png") no-repeat center right;
+}
+
+/* line 179, ../../app/stylesheets/telelab_datatables.scss */
+.sorting_desc {
+  background: url("../images/datatables/sort_desc.png") no-repeat center right;
+}
+
+/* line 182, ../../app/stylesheets/telelab_datatables.scss */
+.sorting {
+  background: url("../images/datatables/sort_both.png") no-repeat center right;
+}
+
+/* line 185, ../../app/stylesheets/telelab_datatables.scss */
+.sorting_asc_disabled {
+  background: url("../images/datatables/sort_asc_disabled.png") no-repeat center right;
+}
+
+/* line 188, ../../app/stylesheets/telelab_datatables.scss */
+.sorting_desc_disabled {
+  background: url("../images/datatables/sort_desc_disabled.png") no-repeat center right;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DataTables row classes
+ */
+/* line 196, ../../app/stylesheets/telelab_datatables.scss */
+tr.odd {
+  /*background-color: #E2E4FF;*/
+  background-color: #fdfdfd;
+}
+/* line 199, ../../app/stylesheets/telelab_datatables.scss */
+tr.even {
+  background-color: #f8f8f8;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Misc
+ */
+/* line 206, ../../app/stylesheets/telelab_datatables.scss */
+.dataTables_scroll {
+  clear: both;
+}
+
+/* line 209, ../../app/stylesheets/telelab_datatables.scss */
+.dataTables_scrollBody {
+  height: 100%;
+}
+
+/* line 212, ../../app/stylesheets/telelab_datatables.scss */
+.top .dataTables_info {
+  float: none;
+}
+
+/* line 215, ../../app/stylesheets/telelab_datatables.scss */
+.clear {
+  clear: both;
+}
+
+/* line 218, ../../app/stylesheets/telelab_datatables.scss */
+.dataTables_empty {
+  text-align: center;
+}
+
+/* line 221, ../../app/stylesheets/telelab_datatables.scss */
+tfoot input {
+  margin: 0.5em 0;
+  width: 100%;
+  color: #444;
+}
+/* line 225, ../../app/stylesheets/telelab_datatables.scss */
+tfoot input.search_init {
+  color: #999;
+}
+
+/* line 229, ../../app/stylesheets/telelab_datatables.scss */
+td.group {
+  background-color: #d1cfd0;
+  border-bottom: 2px solid #A19B9E;
+  border-top: 2px solid #A19B9E;
+}
+/* line 233, ../../app/stylesheets/telelab_datatables.scss */
+td.details {
+  background-color: #d1cfd0;
+  border: 2px solid #A19B9E;
+}
+
+/* line 238, ../../app/stylesheets/telelab_datatables.scss */
+.paging_full_numbers span.paginate_button, .paging_full_numbers span.paginate_active {
+  border: 1px solid #aaa;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  padding: 2px 5px;
+  margin: 0 3px;
+  cursor: pointer;
+  *cursor: hand;
+}
+/* line 246, ../../app/stylesheets/telelab_datatables.scss */
+.paging_full_numbers span.paginate_button {
+  background-color: #ddd;
+}
+/* line 248, ../../app/stylesheets/telelab_datatables.scss */
+.paging_full_numbers span.paginate_button:hover {
+  background-color: #ccc;
+}
+/* line 250, ../../app/stylesheets/telelab_datatables.scss */
+.paging_full_numbers span.paginate_active {
+  background-color: #99B3FF;
+}
+
+/* line 254, ../../app/stylesheets/telelab_datatables.scss */
+table.display tr.even.row_selected td {
+  background-color: #B0BED9;
+}
+/* line 256, ../../app/stylesheets/telelab_datatables.scss */
+table.display tr.odd.row_selected td {
+  background-color: #9FAFD1;
+}
+
+/*
+ * Sorting classes for columns
+ */
+/* For the standard odd/even */
+/* line 266, ../../app/stylesheets/telelab_datatables.scss */
+tr.odd td.sorting_1 {
+  /*background-color: #D3D6FF;*/
+  background-color: #f0f0f0;
+}
+/* line 269, ../../app/stylesheets/telelab_datatables.scss */
+tr.odd td.sorting_2 {
+  background-color: #DADCFF;
+}
+/* line 271, ../../app/stylesheets/telelab_datatables.scss */
+tr.odd td.sorting_3 {
+  background-color: #E0E2FF;
+}
+/* line 274, ../../app/stylesheets/telelab_datatables.scss */
+tr.even td.sorting_1 {
+  /*background-color: #EAEBFF;*/
+  background-color: #e8e8e8;
+}
+/* line 277, ../../app/stylesheets/telelab_datatables.scss */
+tr.even td.sorting_2 {
+  background-color: #F2F3FF;
+}
+/* line 279, ../../app/stylesheets/telelab_datatables.scss */
+tr.even td.sorting_3 {
+  background-color: #F9F9FF;
+}
+
+/* For the Conditional-CSS grading rows */
+/*
+ 	Colour calculations (based off the main row colours)
+  Level 1:
+		dd > c4
+		ee > d5
+	Level 2:
+	  dd > d1
+	  ee > e2
+ */
+/*
+ * Row highlighting example
+ */
+/* line 297, ../../app/stylesheets/telelab_datatables.scss */
+.ex_highlight #example tbody tr.even:hover, #example tbody tr.even td.highlighted {
+  background-color: #ECFFB3;
+}
+
+/* line 300, ../../app/stylesheets/telelab_datatables.scss */
+.ex_highlight #example tbody tr.odd:hover, #example tbody tr.odd td.highlighted {
+  background-color: #E6FF99;
+}

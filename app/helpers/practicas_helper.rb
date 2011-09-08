@@ -1,15 +1,27 @@
 module PracticasHelper
 
-  def create_tabs dispositivos
-    dispositivos.each do |device|
-      concat content_tag(:li, content_tag(:a, "#{device.nombre}", :href => "#tabs-#{device.id}"))
-    end
+
+
+  def device_consoles(dispositivos)
+    out = content_tag(:ul, (create_tabs dispositivos))
+    out += create_tabs_content dispositivos
   end
 
-  def create_content_tabs dispositivos
+  private
+  def create_tabs dispositivos
+    out = ""
     dispositivos.each do |device|
-      concat content_tag(:div, content_tag(:p, "#{device.nombre}"), :id => "tabs-#{device.id}")
+      out += content_tag(:li, content_tag(:a, "#{device.nombre}", :href => "#tabs-#{device.id}"))
     end
+    out.html_safe
+  end
+
+  def create_tabs_content dispositivos
+    out = ""
+    dispositivos.each do |dispositivo|
+      out += content_tag(:div, (device_console_form dispositivo), :id => "tabs-#{dispositivo.id}")
+    end
+    out.html_safe
   end
 
   def create_consoles
@@ -18,6 +30,11 @@ module PracticasHelper
     label_tag(:message, "Mensaje:")
     text_field_tag(:message)
     submit_tag("Enviar")
+  end
+
+  def device_console_form(dispositivo)
+    form_tag 'practica/message'
+    content_tag(:p, "#{dispositivo.nombre}")
   end
 
 end
