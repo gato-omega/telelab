@@ -5,33 +5,48 @@
 
 /*@import "compass/reset";*/
 
-header
+@mixin site_bar
 {
     overflow: auto;
-    border: 1px solid black;
-    
+    background: #0b3e6f url(images/ui-bg_dots-small_15_0b3e6f_2x2.png) 50% 50% repeat; color: #f6f6f6;
+
     .central
     {
         overflow: auto;
         width: 80%;
         margin: 0 auto 0 15%;
-        border: 2px solid red;
-        vertical-align: bottom;
+    }
+}
 
-        
+body
+{
+    color: #ffffff;
+    font-family: Arial, sans-serif; font-size: 0.9em;
+    background-color: #f3f3f3;
+}
+
+header
+{
+    @include site_bar;
+
+    .central
+    {
         .session_info
         {
             text-align: right;
             width: 60%;
-            border: 3px solid black;
             margin: 40px 0 0 0;
-            color: black;
             float: right;
         }
     }
 }
 
-#left_nav
+strong
+{
+    font-weight: bolder;
+}
+
+.left_nav
 {
     float: left;
     text-align: right;
@@ -40,16 +55,36 @@ header
 
 section
 {
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+    background-image: -webkit-gradient(
+          linear,
+          left top,
+          left bottom,
+          color-stop(0.2, rgb(41,41,41)),
+          color-stop(0.44, rgb(122,122,122)),
+          color-stop(1, rgb(204,204,204))
+      );
+      background-image: -moz-linear-gradient(
+          center top,
+          rgb(41,41,41) 20%,
+          rgb(122,122,122) 44%,
+          rgb(204,204,204) 100%
+      );
+}
+
+.main_content
+{   
     width: 80%;
-    border: 2px solid red;
     margin: 0 auto 0 15%;
-    min-height: 700px;
+    min-height: 600px;
 }
 
 footer
 {
-    overflow: auto;
-    border: 1px solid black;
+    @include site_bar;
+
     vertical-align: middle;
 
     .central
@@ -57,7 +92,6 @@ footer
         overflow: auto;
         width: 80%;
         margin: 0 auto 0 15%;
-        border: 2px solid red;
-        min-height: 65px;
+        min-height: 85px;
     }
 }

@@ -3,55 +3,79 @@
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 /*@import "compass/reset";*/
-/* line 9, ../../app/stylesheets/screen.scss */
+/* line 22, ../../app/stylesheets/screen.scss */
+body {
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-size: 0.9em;
+  background-color: #f3f3f3;
+}
+
+/* line 29, ../../app/stylesheets/screen.scss */
 header {
   overflow: auto;
-  border: 1px solid black;
+  background: #0b3e6f url(images/ui-bg_dots-small_15_0b3e6f_2x2.png) 50% 50% repeat;
+  color: #f6f6f6;
 }
 /* line 14, ../../app/stylesheets/screen.scss */
 header .central {
   overflow: auto;
   width: 80%;
   margin: 0 auto 0 15%;
-  border: 2px solid red;
-  vertical-align: bottom;
 }
-/* line 23, ../../app/stylesheets/screen.scss */
+/* line 35, ../../app/stylesheets/screen.scss */
 header .central .session_info {
   text-align: right;
   width: 60%;
-  border: 3px solid black;
   margin: 40px 0 0 0;
-  color: black;
   float: right;
 }
 
-/* line 35, ../../app/stylesheets/screen.scss */
-#left_nav {
+/* line 45, ../../app/stylesheets/screen.scss */
+strong {
+  font-weight: bolder;
+}
+
+/* line 50, ../../app/stylesheets/screen.scss */
+.left_nav {
   float: left;
   text-align: right;
   width: 14%;
 }
 
-/* line 42, ../../app/stylesheets/screen.scss */
+/* line 57, ../../app/stylesheets/screen.scss */
 section {
-  width: 80%;
-  border: 2px solid red;
-  margin: 0 auto 0 15%;
-  min-height: 700px;
+  overflow: auto;
+  margin: 0;
+  padding: 0;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.2, #292929), color-stop(0.44, #7a7a7a), color-stop(1, #cccccc));
+  background-image: -moz-linear-gradient(center top, #292929 20%, #7a7a7a 44%, #cccccc 100%);
 }
 
-/* line 50, ../../app/stylesheets/screen.scss */
+/* line 78, ../../app/stylesheets/screen.scss */
+.main_content {
+  width: 80%;
+  margin: 0 auto 0 15%;
+  min-height: 600px;
+}
+
+/* line 85, ../../app/stylesheets/screen.scss */
 footer {
   overflow: auto;
-  border: 1px solid black;
+  background: #0b3e6f url(images/ui-bg_dots-small_15_0b3e6f_2x2.png) 50% 50% repeat;
+  color: #f6f6f6;
   vertical-align: middle;
 }
-/* line 56, ../../app/stylesheets/screen.scss */
+/* line 14, ../../app/stylesheets/screen.scss */
 footer .central {
   overflow: auto;
   width: 80%;
   margin: 0 auto 0 15%;
-  border: 2px solid red;
-  min-height: 65px;
+}
+/* line 91, ../../app/stylesheets/screen.scss */
+footer .central {
+  overflow: auto;
+  width: 80%;
+  margin: 0 auto 0 15%;
+  min-height: 85px;
 }
