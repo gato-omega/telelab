@@ -11,7 +11,7 @@ class PassThroughController < ApplicationController
     elsif current_user.is_a? Technician
       redirect_to technician_home_path
     elsif current_user.is_a? Teacher
-      redirect_to home_path
+      redirect_to teacher_home_path
     else #Not signed in
       redirect_to home_path
     end
