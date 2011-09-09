@@ -1,10 +1,10 @@
+- title 'Listando Usuarios'
 = content_for :head do
   = stylesheet_link_tag 'telelab_datatables'
   
   = javascript_include_tag :jquery_datatables
   = javascript_include_tag 'datatable'
 
-%h1 Listing users
 %table.display{:cellpadding=> "0", :cellspacing => "0", 'datatable' => true}
   %thead
     %tr
@@ -24,7 +24,7 @@
       %th Actions
   %tbody
     - @users.each do |user|
-      - if can? :see_user, user
+      - if can? :see_himself, user
         %tr
           %td= user.profile.firstname
           %td= user.profile.lastname

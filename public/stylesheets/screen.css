@@ -3,7 +3,7 @@
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 /*@import "compass/reset";*/
-/* line 22, ../../app/stylesheets/screen.scss */
+/* line 25, ../../app/stylesheets/screen.scss */
 body {
   color: #ffffff;
   font-family: Arial, sans-serif;
@@ -11,71 +11,92 @@ body {
   background-color: #f3f3f3;
 }
 
-/* line 29, ../../app/stylesheets/screen.scss */
+/* line 32, ../../app/stylesheets/screen.scss */
 header {
   overflow: auto;
-  background: #0b3e6f url(images/ui-bg_dots-small_15_0b3e6f_2x2.png) 50% 50% repeat;
+  background: #0b3e6f url(images/ui-bg_glass_15_0b3e6f_1x400.png) 50% 50% repeat-x;
   color: #f6f6f6;
+  min-height: 73px;
 }
-/* line 14, ../../app/stylesheets/screen.scss */
+/* line 17, ../../app/stylesheets/screen.scss */
 header .central {
   overflow: auto;
-  width: 80%;
-  margin: 0 auto 0 15%;
+  width: 79%;
+  margin: 0 auto 0 16%;
 }
-/* line 35, ../../app/stylesheets/screen.scss */
+/* line 38, ../../app/stylesheets/screen.scss */
+header .central .logo {
+  font-weight: bold;
+  float: left;
+  padding: 5px 0 5px 0;
+}
+/* line 43, ../../app/stylesheets/screen.scss */
+header .central .logo .title {
+  font-size: 2.7em;
+}
+/* line 48, ../../app/stylesheets/screen.scss */
+header .central .logo .lema {
+  color: #e47d04;
+}
+/* line 54, ../../app/stylesheets/screen.scss */
 header .central .session_info {
   text-align: right;
-  width: 60%;
+  width: 80%;
   margin: 40px 0 0 0;
   float: right;
 }
 
-/* line 45, ../../app/stylesheets/screen.scss */
+/* line 64, ../../app/stylesheets/screen.scss */
 strong {
   font-weight: bolder;
 }
 
-/* line 50, ../../app/stylesheets/screen.scss */
+/* line 69, ../../app/stylesheets/screen.scss */
 .left_nav {
   float: left;
   text-align: right;
   width: 14%;
+  padding-right: 1%;
+  margin-top: 60px;
+  min-height: 400px;
+  border-right: 1px solid #ffffff;
+}
+/* line 79, ../../app/stylesheets/screen.scss */
+.left_nav ul {
+  list-style-type: none;
+}
+/* line 83, ../../app/stylesheets/screen.scss */
+.left_nav ul li a {
+  width: 80%;
+  margin-top: 1px;
+  font-size: 0.8em;
 }
 
-/* line 57, ../../app/stylesheets/screen.scss */
+/* line 92, ../../app/stylesheets/screen.scss */
 section {
   overflow: auto;
-  margin: 0;
-  padding: 0;
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.2, #292929), color-stop(0.44, #7a7a7a), color-stop(1, #cccccc));
   background-image: -moz-linear-gradient(center top, #292929 20%, #7a7a7a 44%, #cccccc 100%);
 }
 
-/* line 78, ../../app/stylesheets/screen.scss */
+/* line 113, ../../app/stylesheets/screen.scss */
 .main_content {
-  width: 80%;
-  margin: 0 auto 0 15%;
+  width: 79%;
   min-height: 600px;
+  float: left;
+  padding-left: 1%;
 }
 
-/* line 85, ../../app/stylesheets/screen.scss */
+/* line 121, ../../app/stylesheets/screen.scss */
 footer {
   overflow: auto;
-  background: #0b3e6f url(images/ui-bg_dots-small_15_0b3e6f_2x2.png) 50% 50% repeat;
+  background: #0b3e6f url(images/ui-bg_glass_15_0b3e6f_1x400.png) 50% 50% repeat-x;
   color: #f6f6f6;
-  vertical-align: middle;
+  min-height: 73px;
 }
-/* line 14, ../../app/stylesheets/screen.scss */
+/* line 17, ../../app/stylesheets/screen.scss */
 footer .central {
   overflow: auto;
-  width: 80%;
-  margin: 0 auto 0 15%;
-}
-/* line 91, ../../app/stylesheets/screen.scss */
-footer .central {
-  overflow: auto;
-  width: 80%;
-  margin: 0 auto 0 15%;
-  min-height: 85px;
+  width: 79%;
+  margin: 0 auto 0 16%;
 }

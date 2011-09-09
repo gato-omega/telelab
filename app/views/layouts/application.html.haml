@@ -13,6 +13,11 @@
   %body
     %header
       .central
+        .logo
+          .title
+            Telelab
+          .lema
+            remote network laboratory
         .session_info
           - if user_signed_in?
             Conectado como
@@ -32,7 +37,6 @@
           = link_to "Ayuda", 'http://www.google.com', :class => 'button'
     %section
       .left_nav
-        miauy
         = yield(:leftnav)
       .main_content
         - flash.each do |name, msg|
@@ -42,7 +46,7 @@
         = content_tag :h1, yield(:title) if show_title?
         = yield
 
-    %footer.ui-widget-header
+    %footer
       .central
         Copyright © 2011
 
