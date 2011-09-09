@@ -1,7 +1,6 @@
 module PracticasHelper
 
 
-
   def device_consoles(dispositivos)
     out = content_tag(:ul, (create_tabs dispositivos))
     out += create_tabs_content dispositivos

@@ -1,9 +1,8 @@
 - content_for :head do
   = stylesheet_link_tag 'partials/console'
 
-.console_tabs
+.tabs
   = device_consoles @dispositivos_reservados
-
 
 .text_area
   = text_area(:irc, :area, :cols => 50, :rows => 10)

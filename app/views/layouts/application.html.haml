@@ -41,8 +41,6 @@
       .main_content
         - flash.each do |name, msg|
           = ui_flash name, msg
-        %p.notice= notice
-        %p.alert= alert
         = content_tag :h1, yield(:title) if show_title?
         = yield
 
