@@ -42,7 +42,7 @@ class Ability
 
       can :do_admin_stuff, :stuff
       can :manage, :all
-      cannot :see_user, User do |u|
+      cannot :see_himself, User do |u|
         if u == user.userize
           true
         else

@@ -8,12 +8,12 @@
 
 ###### usuarios
 
-u_username = ["gacollazos", "mdiaz", "javhur", "teacher", "student", "technician"]
-u_pass = ["123456", "123456", "123456", "123456", "123456", "123456"]
-u_email = ["german.collazos@codescrum.com", "miguel.diaz@codescrum.com", "javhur@gmail.com", "teacher@teacher.com", "student@student.com", "technician@technician.com"]
-u_type = ["Admin", "Admin", "Teacher", "Teacher", "Student", "Technician"]
+u_username = ["gacollazos", "mdiaz", "javhur", "teacher", "student", "technician", "admin"]
+u_pass = ["123456", "123456", "123456", "123456", "123456", "123456", "123456"]
+u_email = ["german.collazos@codescrum.com", "miguel.diaz@codescrum.com", "javhur@gmail.com", "teacher@teacher.com", "student@student.com", "technician@technician.com", "admin@admin.com"]
+u_type = ["Admin", "Admin", "Teacher", "Teacher", "Student", "Technician", "Admin"]
 
-6.times do |n|
+7.times do |n|
   User.create(:username => u_username[n], :password => u_pass[n], :email => u_email[n], :type => u_type[n], :profile_attributes => {:firstname => u_username[n], :lastname => u_username[n], :codigo => " "})
 
 end

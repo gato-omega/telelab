@@ -1,17 +1,35 @@
-- title "Courses"
-%table
-  %tr
-    %th Name
-    %th Description
-    %th Hashed Password
-    %th Options
-  - for course in @courses
+- title 'Listando Cursos'
+= content_for :head do
+  = stylesheet_link_tag 'telelab_datatables'
+
+  = javascript_include_tag :jquery_datatables
+  = javascript_include_tag 'datatable'
+
+%table.display{:cellpadding=> "0", :cellspacing => "0", 'datatable' => true}
+  %thead
     %tr
-      %td= course.name
-      %td= course.description
-      %td= course.hashed_password
-      %td= course.options
-      %td= link_to "Show", course
-      %td= link_to "Edit", edit_course_path(course)
-      %td= link_to "Destroy", course, :confirm => 'Are you sure?', :method => :delete
-%p= link_to "New Course", new_course_path
+      %th Nombre
+      %th Descripcion
+      %th Password
+      %th Opciones HASH
+      %th Acciones
+  %tfoot
+    %tr
+      %th Nombre
+      %th Descripcion
+      %th Password
+      %th Opciones HASH
+      %th Acciones
+  %tbody
+    - for course in @courses
+      %tr
+        %td= course.name
+        %td= course.description
+        %td= course.hashed_password
+        %td= course.options
+        %td{ :style => "text-align: center"}
+          = link_to "Show", course, :class => 'show_button'
+          = link_to "Edit", edit_course_path(course), :class => 'edit_button'
+          = link_to "Destroy", course, :confirm => 'Are you sure?', :method => :delete, :class => 'delete_button'
+          
+%p= link_to "New Course", new_course_path, :class => 'button'
