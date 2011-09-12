@@ -1,6 +1,6 @@
-//Add datatables
+// Datatable initialization 4all
 $(document).ready(function() {
-    $('#index_table').dataTable({
+    $("table[datatable]").dataTable({
         "bJQueryUI": true,
         "sPaginationType": "full_numbers"
     });

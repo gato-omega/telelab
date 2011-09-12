@@ -18,13 +18,13 @@ header {
   color: #ffffff;
   min-height: 73px;
   padding-bottom: 2px;
-  border-bottom: 2px solid black;
+  border-bottom: 3px solid gray;
 }
 /* line 16, ../../app/stylesheets/screen.scss */
 header .central {
   overflow: auto;
-  width: 80%;
-  margin: 0 auto 0 15%;
+  width: 79%;
+  margin: 0 auto 0 16%;
 }
 /* line 39, ../../app/stylesheets/screen.scss */
 header .central .logo {
@@ -46,7 +46,7 @@ header .central .logo .lema {
 /* line 57, ../../app/stylesheets/screen.scss */
 header .central .session_info {
   text-align: right;
-  width: 70%;
+  width: 80%;
   margin-top: 40px;
   float: right;
 }
@@ -77,7 +77,7 @@ strong {
   font-size: 0.8em;
 }
 
-/* line 96, ../../app/stylesheets/screen.scss */
+/* line 95, ../../app/stylesheets/screen.scss */
 section {
   overflow: auto;
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.2, #292929), color-stop(0.44, #7a7a7a), color-stop(1, #cccccc));
@@ -104,6 +104,6 @@ footer {
 /* line 16, ../../app/stylesheets/screen.scss */
 footer .central {
   overflow: auto;
-  width: 80%;
-  margin: 0 auto 0 15%;
+  width: 79%;
+  margin: 0 auto 0 16%;
 }

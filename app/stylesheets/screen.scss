@@ -15,8 +15,8 @@
     .central
     {
         overflow: auto;
-        width: 80%;
-        margin: 0 auto 0 15%;
+        width: 79%;
+        margin: 0 auto 0 16%;
     }
 }
 
@@ -31,7 +31,7 @@ header
 {
     @include site_bar;
     padding-bottom: 2px;
-    border-bottom: 2px solid black;
+    border-bottom: 3px solid gray;
 
     .central
     {
@@ -56,7 +56,7 @@ header
         .session_info
         {
             text-align: right;
-            width: 70%;
+            width: 80%;
             margin-top: 40px;
             float: right;
         }
@@ -89,7 +89,6 @@ strong
             font-size: 0.8em;
         }
     }
-
 }
 
 section
@@ -110,6 +109,7 @@ section
           rgb(122,122,122) 44%,
           rgb(204,204,204) 100%
       );
+
 }
 
 .main_content

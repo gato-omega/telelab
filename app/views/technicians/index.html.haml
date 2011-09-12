@@ -1,24 +1,39 @@
+-title 'Listing technicians'
 = content_for :head do
-  -#= javascript_include_tag :jquery_datatables
-  -#= javascript_include_tag 'technician'
-%h1 Listing technicians
-%table#teachers_table
+  = stylesheet_link_tag 'telelab_datatables'
+  
+  = javascript_include_tag :jquery_datatables
+  = javascript_include_tag 'datatable'
+
+%table.display{:cellpadding=> "0", :cellspacing => "0", 'datatable' => true}
   %thead
     %tr
-      %th Username
       %th Firstname
       %th Lastname
-      %th Show
-      %th Edit
-      %th Destroy
+      %th Username
+      %th Email
+      %th Type
+      %th Actions
+  %tfoot
+    %tr
+      %th Firstname
+      %th Lastname
+      %th Username
+      %th Email
+      %th Type
+      %th Actions
   %tbody
     - @technicians.each do |technician|
       %tr
-        %td= technician.username
         %td= technician.profile.firstname
         %td= technician.profile.lastname
-        %td= link_to 'Show', technician
-        %td= link_to 'Edit', edit_technician_path(technician)
-        %td= link_to 'Destroy', technician, :confirm => 'Are you sure?', :method => :delete
+        %td= technician.username
+        %td= technician.email
+        %td= technician.type
+        %td{ :style => "text-align: center"}
+          = link_to 'Show', technician, :class => 'show_button'
+          = link_to 'Edit', edit_technician_path(technician), :class => 'edit_button'
+          = link_to 'Destroy', technician, :confirm => 'Are you sure?', :method => :delete, :class => 'delete_button'
+
 %br/
-= link_to 'New Technician', new_technician_path
+= link_to 'New technician', new_technician_path, :class => 'button'
