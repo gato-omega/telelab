@@ -35,25 +35,17 @@ header .central .logo {
 /* line 46, ../../app/stylesheets/screen.scss */
 header .central .session_info {
   text-align: right;
-  width: 80%;
+  width: 70%;
   margin-top: 40px;
   float: right;
 }
 
-<<<<<<< HEAD
-/* line 67, ../../app/stylesheets/screen.scss */
-=======
 /* line 56, ../../app/stylesheets/screen.scss */
->>>>>>> current_dev
 strong {
   font-weight: bolder;
 }
 
-<<<<<<< HEAD
-/* line 72, ../../app/stylesheets/screen.scss */
-=======
 /* line 61, ../../app/stylesheets/screen.scss */
->>>>>>> current_dev
 .left_nav {
   float: left;
   text-align: right;
@@ -63,11 +55,7 @@ strong {
   min-height: 400px;
   border-right: 1px solid #ffffff;
 }
-<<<<<<< HEAD
-/* line 82, ../../app/stylesheets/screen.scss */
-=======
 /* line 71, ../../app/stylesheets/screen.scss */
->>>>>>> current_dev
 .left_nav ul {
   list-style-type: none;
 }
@@ -78,22 +66,14 @@ strong {
   font-size: 0.8em;
 }
 
-<<<<<<< HEAD
-/* line 95, ../../app/stylesheets/screen.scss */
-=======
 /* line 84, ../../app/stylesheets/screen.scss */
->>>>>>> current_dev
 section {
   overflow: auto;
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.2, #292929), color-stop(0.44, #7a7a7a), color-stop(1, #cccccc));
   background-image: -moz-linear-gradient(center top, #292929 20%, #7a7a7a 44%, #cccccc 100%);
 }
 
-<<<<<<< HEAD
-/* line 116, ../../app/stylesheets/screen.scss */
-=======
 /* line 105, ../../app/stylesheets/screen.scss */
->>>>>>> current_dev
 .main_content {
   width: 80%;
   min-height: 500px;
@@ -101,11 +81,7 @@ section {
   padding-left: 1%;
 }
 
-<<<<<<< HEAD
-/* line 124, ../../app/stylesheets/screen.scss */
-=======
 /* line 113, ../../app/stylesheets/screen.scss */
->>>>>>> current_dev
 footer {
   overflow: auto;
   background: #f58400 url(images/ui-bg_gloss-wave_40_f58400_500x100.png) 50% 50% repeat-x;
