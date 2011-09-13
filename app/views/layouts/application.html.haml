@@ -14,10 +14,10 @@
     %header
       .central
         .logo
-          .title{:href => "http://www.google.com"}
-            Tele-lab
+          .title
+            %img{:src => "/images/logo.png", :href => "home_path"}
           .lema
-            remote network laboratory
+            %img{:src => "/images/lema.png"}
         .session_info
           - if user_signed_in?
             Conectado como

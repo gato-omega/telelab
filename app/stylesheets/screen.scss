@@ -37,26 +37,15 @@ header
     {
         .logo
         {
-            font-weight: bold;
             float: left;
-            padding: 5px 0 5px 0;
             text-align: center;
-
-            .title
-            {
-                font-size: 2.7em; color: #111111;
-            }
-
-            .lema
-            {
-                font-size: 1em; color: #e44204;
-            }
+            padding-top: 6px;
         }
 
         .session_info
         {
             text-align: right;
-            width: 80%;
+            width: 70%;
             margin-top: 40px;
             float: right;
         }
@@ -113,7 +102,7 @@ section
 }
 
 .main_content
-{   
+{
     width: 80%;
     min-height: 500px;
     float: left;
