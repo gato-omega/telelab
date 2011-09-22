@@ -22,8 +22,7 @@ class FayeMessagesController < AbstractController::Base
   # def current_admin; nil; end
 
   def whatever(lool)
-    @lol = "in whatever> (#{lool})"
-
+    @lol = "rvalue> (#{lool})"
     #The following line is necessary
     render template: "faye_messages/whatever"
     # or, for partials:
@@ -31,7 +30,7 @@ class FayeMessagesController < AbstractController::Base
   end
 
   def normal_method_is(something)
-    whatever("> #{something}")
+    whatever("your param here> #{something}")
   end
 
   # This method processes the incoming message from irc and
@@ -39,7 +38,37 @@ class FayeMessagesController < AbstractController::Base
 
   def process_message(rcvd_channel, rcvd_user, rcvd_message)
     # do normal_method_is
-    puts "############## YEAH>>> channel: #{rcvd_channel}, user: #{rcvd_user}, message: #{rcvd_message} ####"
-    normal_method_is("channel: #{rcvd_channel}, user: #{rcvd_user}, message #{rcvd_message} ####")
+    processed_message_output = ''
+    puts "############## PROCESSING >>> channel: #{rcvd_channel}, user: #{rcvd_user}, message: #{rcvd_message} ####"
+
+    rcvd_channel = (rcvd_channel.split '#').last
+    msg_type = (rcvd_channel.split '_').first
+    item_id = (rcvd_channel.split '_').last
+
+    puts "############## YEAH>>> channel: #{rcvd_channel}, msg_type: #{msg_type}, item_id: #{item_id} ####"
+
+
+    if msg_type == 'device'
+      processed_message_output=generate_terminal_output item_id, rcvd_message
+    end
+
+    if msg_type == 'practica'
+      processed_message_output = generate_chat_output item_id, rcvd_message
+    end
+    
+    puts "Processed message output > #{processed_message_output}"
+    processed_message_output
+  end
+
+  def generate_terminal_output(device_id, message)
+    @device_id = device_id
+    @mensaje = message
+    render template: "faye_messages/terminal"
+  end
+
+  def generate_chat_output(practica_id, message)
+    @practica_id = practica_id
+    @mensaje = message
+    render template: "faye_messages/practice_chat"
   end
 end

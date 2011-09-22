@@ -18,12 +18,12 @@ module Telelab02
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
-    #config.autoload_paths += Dir["#{config.root}/lib/**"] # include all subdirectories
-    #config.autoload_paths += Dir["#{config.root}/lib/gircbot/"] # include irc
-    #config.autoload_paths += %W(#{config.root}/lib/irc)
+    
+    # NEW! -- good and not so good when plugins have Singleton classes
+    #config.autoload_paths += %W(#{config.root}/lib)
+    #config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
-    ##GATO -Autoload paths from lib
-    #config.autoload_paths += Dir["#{config.root}/lib/autumn/"] # include irc
+
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.

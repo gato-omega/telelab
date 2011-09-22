@@ -51,6 +51,7 @@ group :development do
   gem 'wirble'
   gem 'wirb'
   gem 'awesome_print'
+  gem 'active_reload', '0.6.0'
 end
 
 gem 'cancan' # The permissions gem

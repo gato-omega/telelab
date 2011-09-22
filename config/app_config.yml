@@ -10,6 +10,7 @@ development:
       nick: telelab
       nick_prefix: tl_
       default_channels: [lobby]
+      logger: default
 
   faye:
     server:

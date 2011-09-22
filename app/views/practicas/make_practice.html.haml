@@ -1,6 +1,11 @@
 - content_for :head do
   = javascript_include_tag 'tabs'
+  = javascript_include_tag "#{FAYE_SERVER_URL}.js"
   = stylesheet_link_tag 'partials/make_pactice'
+
+  -#= "#SPECIAL JAVASCRIPT FILE INCLUSION, totally relative path"
+  = javascript_tag nil, :src => 'lab.js'
+
 #practica
   .main_title WHAT IS THIS??
   .viewport_row

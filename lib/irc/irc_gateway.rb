@@ -1,4 +1,5 @@
-require 'bayeux_middleware/custom_faye_sender'
+require 'bayeux/custom_faye_sender'
+require 'irc/g_bot'
 
 # The middleware gateway for IRC-BAYEUX (irc-faye)
 # Has an irc transceiver and a faye sender
@@ -34,7 +35,7 @@ class IRCGateway
     #Load device_channels #THE
     the_device_channels = initialize_device_channels
 
-    # Create
+    # Create the ZBOT, instance of GBot...lol
     @zbot = GBot.new do
 
       configure do |c|
@@ -42,6 +43,12 @@ class IRCGateway
         c.nick = "#{the_irc_config[:client][:nick_prefix]}#{the_irc_config[:client][:nick]}"
         c.channels = the_irc_config[:client][:default_channels] + the_device_channels
       end
+
+      #if the_irc_config[:client][:logger].eql? 'null'
+      #
+      #end
+
+      #self.logger = Cinch::Logger::NullLogger.new($stderr)
 
       #Listen and do...
       on :message do |m|
@@ -53,6 +60,9 @@ class IRCGateway
         rcvd_user = m.user.nick # "charles" who sent it
 
         # Process it and get the required data to send
+
+        # PLEASE ELIMINATE THIS!
+        the_message_processor=FayeMessagesController.new
 
         mensaje_raw = the_message_processor.process_message rcvd_channel, rcvd_user, rcvd_message
 
@@ -112,10 +122,19 @@ class IRCGateway
 
   def initialize_device_channels
     @device_channels = []
-    Dispositivo.where(:estado => 'ok', :tipo => 'user').each do |dispositivo|
+    #Dispositivo.where(:estado => 'ok', :tipo => 'user').each do |dispositivo|
+    #  @device_channels << "#device_#{dispositivo.id}"
+    #end
+    
+    Dispositivo.all.each do |dispositivo|
       @device_channels << "#device_#{dispositivo.id}"
     end
+
     @device_channels
+  end
+
+  def self.lol
+    "as"
   end
 
 end

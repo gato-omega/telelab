@@ -43,5 +43,12 @@ Telelab02::Application.configure do
       :authentication => 'plain',
       :enable_starttls_auto => true}
 
+  ## AUTOLOAD LIB FOLDER
+
+  #ActiveSupport::Dependencies.explicitly_unloadable_constants << 'IRCGateway'
+  #ActiveSupport::Dependencies.explicitly_unloadable_constants << 'GBot'
+  #ActiveSupport::Dependencies.autoload_paths << "#{Rails.root}/lib/irc"
+  #ActiveSupport::Dependencies.autoload_paths << "#{Rails.root}/lib/bayeux"
+
 end
 

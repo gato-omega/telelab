@@ -14,8 +14,11 @@ FAYE_SERVER_PORT = 9292
 FAYE_MOUNT_POINT = '/faye'
 FAYE_SERVER_URL = "http://localhost:#{FAYE_SERVER_PORT}#{FAYE_MOUNT_POINT}"
 uri = URI.parse(FAYE_SERVER_URL)
-
-canales = ['device_1', 'device_2', 'device_3']
+canales = []
+#canales = ['device_1', 'device_2', 'device_3']
+10.times do |i|
+  canales << "device_#{i+1}"
+end
 
 #Initialization
 state = 0

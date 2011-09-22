@@ -1,4 +1,4 @@
-require 'bayeux_middleware/custom_faye_sender'
+require 'bayeux/custom_faye_sender'
 
 class GBot < Cinch::Bot
 

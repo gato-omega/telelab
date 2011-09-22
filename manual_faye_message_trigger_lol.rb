@@ -22,8 +22,8 @@ uri = URI.parse(FAYE_SERVER_URL)
 ###################33 OVERRIDE!!!!!
 
 canal = FAYE_DEFAULT_CHANNEL
+canal = 'device_1' ################3 OVERRIDE
 channel = "#{FAYE_CHANNEL_PREFIX}#{canal}"
-
 #end
 
 #Init
@@ -34,7 +34,7 @@ puts " in channel #{channel}"
 mensaje = ''
 while mensaje != "exit\n"
   mensaje = $stdin.gets
-  message = {:channel => channel, :data => mensaje, :ext => {:auth_token => FAYE_TOKEN}}
+  message = {:channel => channel, :data => {:message => mensaje, :what => 'lol'}, :ext => {:auth_token => FAYE_TOKEN}}
   response = Net::HTTP.post_form(uri, :message => message.to_json)
   puts "Server responded with> #{response}"
 end

@@ -1,42 +1,28 @@
 class PracticasController < ApplicationController
 
+  respond_to :html, :xml, :only => [:index, :show, :new, :edit]
+  before_filter :get_practice, :only => [:show, :edit, :lab, :make_practice]
+  include CustomFayeSender
+
+  # USE INCLUDE!!!!!!!!!!!!!!!  Practica.find(1, :include => :users, :devices.......stuff like that, eager loading)
+
   def index
     @practicas = Practica.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml { render :xml => @practicas }
-    end
   end
 
   def show
-    @practica = Practica.find(params[:id])
-    @dispositivos = @practica.dispositivos
-    @allowed_users = @practica.users
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml { render :xml => @practica }
-    end
   end
 
   def new
     @practica = Practica.new
     @dispositivos = Dispositivo.all
-    @dispositivos_reservados = @practica.dispositivos
+    @dispositivos_reservados = []
     @allowed_users = []
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml { render :xml => @practica }
-    end
   end
 
   def edit
-    @practica = Practica.find(params[:id])
     @dispositivos = Dispositivo.all
-    @dispositivos_reservados = @practica.dispositivos
-    @allowed_users = @practica.users
   end
 
   def create
@@ -45,10 +31,8 @@ class PracticasController < ApplicationController
     respond_to do |format|
       if @practica.save
         format.html { redirect_to(@practica, :notice => 'Practica was successfully created.') }
-        format.xml { render :xml => @practica, :status => :created, :location => @practica }
       else
         format.html { render :action => "new" }
-        format.xml { render :xml => @practica.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -60,26 +44,50 @@ class PracticasController < ApplicationController
     respond_to do |format|
       if @practica.update_attributes(params[:practica])
         format.html { redirect_to(@practica, :notice => 'Practica was successfully updated.') }
-        format.xml { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml { render :xml => @practica.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   def destroy
-    @practica = Practica.find(params[:id])
     @practica.destroy
 
     respond_to do |format|
       format.html { redirect_to(practicas_url) }
-      format.xml { head :ok }
     end
   end
 
   def make_practice
-    @practica = Practica.find(params[:id])
+    
+  end
+
+  def message
+    @channel = params[:message][:channel]
+    @content = params[:message][:content]
+
+    # Filter non-permitted commands and log, whatever we want
+    if not @content.empty?
+      # Send through faye first to provide echo
+
+      # Send through IRCGateway...
+      IRCGateway.instance.zbot.action("##{@channel}", @content)
+    end
+    
+  end
+
+  def lab
+    @faye_channels = @dispositivos_reservados.map do |dispositivo| "#{FAYE_CHANNEL_PREFIX}device_#{dispositivo.id}" end
+    #@faye_channels << "#{FAYE_CHANNEL_PREFIX}practica_#{@practica.id}"
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  private 
+  # Get practica, associated users and devices
+  def get_practice
+    @practica = Practica.find(params[:id], :include => [:users, :dispositivos])
     @dispositivos_reservados = @practica.dispositivos
     @allowed_users = @practica.users
   end

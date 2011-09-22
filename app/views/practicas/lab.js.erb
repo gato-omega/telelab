@@ -1,0 +1,54 @@
+// Javascript generated specially for you :)
+
+// Terminals, sort of a Hash
+var terminals = [];
+var device_ids = '<%= @dispositivos_reservados.map do |dispositivo| dispositivo.id end.join(',') %>'.split(',');
+//var channels = [];
+//
+//device_ids.forEach(function(device_id){
+//    channels.push('device_'+device_id);
+//});
+
+$(function()
+{
+    // Initialize terminals in tabs
+
+    var dispositivo_selector = '';
+    device_ids.forEach(function(device_id){
+        dispositivo_selector = '#device_'+device_id;
+        try
+        {
+            terminals[device_id] = $(dispositivo_selector).terminal(function(command, term) {
+//                        term.echo('asd');
+                        //DO POST REQUEST AND PAUSE!
+                        $.post('<%= message_path %>', {message:{ content: command, channel: ('device_'+device_id) }} );
+                    },
+                    {
+                        greetings: null,
+                        name: dispositivo_selector+'_terminal',
+                        height: 300,
+                        prompt: 'D'+device_id+' >'});
+        }
+        catch(err)
+        {
+            $(dispositivo_selector).html('COULD NOT INITIALIZE CONSOLE FOR DEVICE '+device_id)
+        }
+    });
+
+    // Clicking tab activates console for focus
+    $('#console_tabs_container').bind( "tabsshow", function(event, ui) {
+        var device_id = $('#'+ui.panel.id+' div:first-child').attr('id').split('_')[1];
+        terminals[device_id].focus(true);
+    });
+
+    // Select first terminal by default - not working...why?
+    if(terminals[0] != undefined)
+    {
+      terminals[0].focus(true);
+    }
+
+
+});
+
+// SUBSCRIBE TO FAYE CHANNELS
+<%= render :partial => 'faye_channels', :locals => {:channels => @faye_channels} %>

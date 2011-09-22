@@ -18,7 +18,7 @@ Telelab02::Application.routes.draw do
   ### for that token_input_user works, used in "_form#practica" view #####
   get '/json_users' => 'users#json_users'
 
-  get "/practicas/:id/practica" => 'practicas#make_practice'
+
 
 
   ## for /json_users.json, allow token_input users
@@ -60,10 +60,11 @@ Telelab02::Application.routes.draw do
 
   # IN LAB PRACTICE
 
-  #scope '/practica' do
-  #  get '/' => 'practica#index', :as => 'practica'
-  #  match '/message' => 'practica#message', :as => 'message' #, :via => :post
-  #end
+  get "/practicas/:id/practica" => 'practicas#make_practice'
+  # Javascript generator
+  get "/practicas/:id/lab" => 'practicas#lab', :as => 'lab'
+
+  match "/message" => 'practicas#message', :as => 'message', :via => :post
 
   # JAVASCRIPT CONTROLLER
   scope '/javascript_engine' do
