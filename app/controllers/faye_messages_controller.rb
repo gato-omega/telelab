@@ -36,16 +36,16 @@ class FayeMessagesController < AbstractController::Base
   # This method processes the incoming message from irc and
   # returns the data as-is to be delivered to a FayeSender
 
-  def process_message(rcvd_channel, rcvd_user, rcvd_message)
+  def process_irc_message(rcvd_channel, rcvd_user, rcvd_message)
     # do normal_method_is
     processed_message_output = ''
-    puts "############## PROCESSING >>> channel: #{rcvd_channel}, user: #{rcvd_user}, message: #{rcvd_message} ####"
+    puts "############## PROCESSING A >>> channel: #{rcvd_channel}, user: #{rcvd_user}, message: #{rcvd_message} ####"
 
     rcvd_channel = (rcvd_channel.split '#').last
     msg_type = (rcvd_channel.split '_').first
     item_id = (rcvd_channel.split '_').last
 
-    puts "############## YEAH>>> channel: #{rcvd_channel}, msg_type: #{msg_type}, item_id: #{item_id} ####"
+    puts "############## PROCESSING B >>> channel: #{rcvd_channel}, msg_type: #{msg_type}, item_id: #{item_id} ####"
 
 
     if msg_type == 'device'
@@ -66,9 +66,15 @@ class FayeMessagesController < AbstractController::Base
     render template: "faye_messages/terminal"
   end
 
+  def generate_terminal_user_output(mensaje)
+    @mensaje = mensaje
+    @terminal_id = (@mensaje[:channel].split '_').last
+    render template: "faye_messages/terminal_user"
+  end
+
   def generate_chat_output(practica_id, message)
     @practica_id = practica_id
     @mensaje = message
-    render template: "faye_messages/practice_chat"
+    render template: "faye_messages/chat"
   end
 end

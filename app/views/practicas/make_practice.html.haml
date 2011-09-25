@@ -1,10 +1,13 @@
 - content_for :head do
+  = stylesheet_link_tag 'partials/make_pactice'
+  = stylesheet_link_tag 'jquery.terminal'
+
   = javascript_include_tag 'tabs'
   = javascript_include_tag "#{FAYE_SERVER_URL}.js"
-  = stylesheet_link_tag 'partials/make_pactice'
+  = javascript_include_tag 'jquery.terminal-0.3.6'
 
-  -#= "#SPECIAL JAVASCRIPT FILE INCLUSION, totally relative path"
-  = javascript_tag nil, :src => 'lab.js'
+  -#= "#SPECIAL RENDERING"
+  = javascript_include_tag practica_lab_path @practica
 
 #practica
   .main_title WHAT IS THIS??
@@ -18,6 +21,6 @@
     .consoles
       .title This is CONSOLES
       = render :partial => "practicas/practice_gadgets/console"
-
     .chat
       .title This is CHAT
+      = render :partial => "practicas/practice_gadgets/chat"

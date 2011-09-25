@@ -64,7 +64,7 @@ class IRCGateway
         # PLEASE ELIMINATE THIS!
         the_message_processor=FayeMessagesController.new
 
-        mensaje_raw = the_message_processor.process_message rcvd_channel, rcvd_user, rcvd_message
+        mensaje_raw = the_message_processor.process_irc_message rcvd_channel, rcvd_user, rcvd_message
 
         # Send it using the CustomFayeSender module of the_faye_sender
 

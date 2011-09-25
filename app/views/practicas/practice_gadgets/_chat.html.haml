@@ -1,13 +1,2 @@
 - content_for :head do
-  -#= javascript_include_tag 'resizable'
   = stylesheet_link_tag 'partials/chat'
-#resizable.ui-widget-content
-  %h3.ui-widget-header Chat
-  .text_area
-    = text_area(:irc, :area, :cols => 50, :rows => 20)
-    = #form_tag message_path, :remote => true, :id => 'chat' do
-  .text_field
-    = label_tag(:message, "Mensaje:")
-    = text_field_tag(:message)
-  .submit
-    = submit_tag("Enviar")

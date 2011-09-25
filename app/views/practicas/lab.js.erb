@@ -2,6 +2,7 @@
 
 // Terminals, sort of a Hash
 var terminals = [];
+var username ='<%= @username %>';
 var device_ids = '<%= @dispositivos_reservados.map do |dispositivo| dispositivo.id end.join(',') %>'.split(',');
 //var channels = [];
 //
@@ -21,7 +22,7 @@ $(function()
             terminals[device_id] = $(dispositivo_selector).terminal(function(command, term) {
 //                        term.echo('asd');
                         //DO POST REQUEST AND PAUSE!
-                        $.post('<%= message_path %>', {message:{ content: command, channel: ('device_'+device_id) }} );
+                        $.post('<%= practica_terminal_path(@practica) %>', {message:{ content: command, channel: ('device_'+device_id) }} );
                     },
                     {
                         greetings: null,
@@ -31,7 +32,7 @@ $(function()
         }
         catch(err)
         {
-            $(dispositivo_selector).html('COULD NOT INITIALIZE CONSOLE FOR DEVICE '+device_id)
+            $(dispositivo_selector).html('COULD NOT INITIALIZE CONSOLE FOR DEVICE '+device_id);
         }
     });
 
@@ -50,5 +51,8 @@ $(function()
 
 });
 
-// SUBSCRIBE TO FAYE CHANNELS
-<%= render :partial => 'faye_channels', :locals => {:channels => @faye_channels} %>
+// SUBSCRIBE TO FAYE CHANNELS (devices and practice/chat)
+<%= render :partial => 'faye_client', :locals => {:channels => @faye_channels, :faye_server_url => @faye_server_url} %>
+
+// Initialize chat terminal
+$('.chat')

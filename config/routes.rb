@@ -18,9 +18,6 @@ Telelab02::Application.routes.draw do
   ### for that token_input_user works, used in "_form#practica" view #####
   get '/json_users' => 'users#json_users'
 
-
-
-
   ## for /json_users.json, allow token_input users
 
   devise_for :users, :path_prefix => 'account'
@@ -62,9 +59,15 @@ Telelab02::Application.routes.draw do
 
   get "/practicas/:id/practica" => 'practicas#make_practice'
   # Javascript generator
-  get "/practicas/:id/lab" => 'practicas#lab', :as => 'lab'
-
+  match "/practicas/:id/lab" => 'practicas#lab', :as => 'practica_lab'
   match "/message" => 'practicas#message', :as => 'message', :via => :post
+
+  match "/practicas/:id/practica/terminal" => 'practicas#terminal', :as => 'practica_terminal', :via => :post
+  match "/practicas/:id/practica/chat" => 'practicas#chat', :as => 'practica_chat', :via => :post
+  match "/practicas/:id/practica/conexion" => 'practicas#conexion', :as => 'practica_conexion', :via => :post
+
+  #match "/practicas/:id/practica/:action" => 'practicas' # This route maps to dynamic make_practice action
+
 
   # JAVASCRIPT CONTROLLER
   scope '/javascript_engine' do

@@ -1,9 +1,0 @@
-// Faye channels
-var channels = '<%= channels.join ',' %>'.split(',');
-
-$(function()
-{
-    <%= subscribe_to_faye_channels 'faye_client', channels do %>
-      eval(data);
-    <% end %>
-});

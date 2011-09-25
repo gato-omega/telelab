@@ -1,0 +1,27 @@
+// Faye channels
+var channels = '<%= channels.join ',' %>'.split(',');
+
+$(function()
+{
+    var faye_client = new Faye.Client('<%= faye_server_url %>');
+    channels.forEach(function(channel){
+        faye_client.subscribe(channel, function(data){
+            eval(data);
+        });
+    });
+
+//    Logger = {
+//        incoming: function(message, callback) {
+//            console.log('incoming', message);
+//            callback(message);
+//        },
+//        outgoing: function(message, callback) {
+//            console.log('outgoing', message);
+//            callback(message);
+//        }
+//    };
+//
+//    faye_client.addExtension(Logger);
+
+});
+
