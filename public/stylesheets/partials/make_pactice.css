@@ -18,25 +18,25 @@
 }
 /* line 36, ../../../app/stylesheets/partials/make_pactice.scss */
 #practica .diagram {
-  width: 65%;
+  width: 55%;
   float: left;
   border: 1px solid red;
 }
 /* line 43, ../../../app/stylesheets/partials/make_pactice.scss */
 #practica .connections {
-  width: 33%;
+  width: 43%;
   float: right;
   border: 1px solid yellow;
 }
 /* line 50, ../../../app/stylesheets/partials/make_pactice.scss */
 #practica .consoles {
-  width: 65%;
+  width: 55%;
   float: left;
   border: 1px solid green;
 }
 /* line 57, ../../../app/stylesheets/partials/make_pactice.scss */
 #practica .chat {
-  width: 33%;
+  width: 43%;
   float: right;
   border: 1px solid blue;
 }

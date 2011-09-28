@@ -19,6 +19,8 @@ canales = []
 10.times do |i|
   canales << "device_#{i+1}"
 end
+#add practice channel
+canales << "practica_1"
 
 #Initialization
 state = 0

@@ -1,0 +1,15 @@
+.chat_main
+{
+    overflow: auto;
+    float: left;
+    width: 70%;
+    border: 1px solid red;
+}
+
+.chat_status
+{
+    overflow: auto;
+    float: right;
+    width: 25%;
+    border: 1px solid green;
+}

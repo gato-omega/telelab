@@ -1,6 +1,6 @@
 class PassThroughController < ApplicationController
 
-  #Redirects to the apporpiate ''domain'
+  #Redirects to the appropiate 'domain'
   def index
 
     # Admin

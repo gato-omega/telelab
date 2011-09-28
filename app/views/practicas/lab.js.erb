@@ -4,25 +4,20 @@
 var terminals = [];
 var username ='<%= @username %>';
 var device_ids = '<%= @dispositivos_reservados.map do |dispositivo| dispositivo.id end.join(',') %>'.split(',');
-//var channels = [];
-//
-//device_ids.forEach(function(device_id){
-//    channels.push('device_'+device_id);
-//});
+var chat_terminal = null;
 
+// Initialize terminals in tabs
 $(function()
 {
-    // Initialize terminals in tabs
-
     var dispositivo_selector = '';
     device_ids.forEach(function(device_id){
         dispositivo_selector = '#device_'+device_id;
         try
         {
             terminals[device_id] = $(dispositivo_selector).terminal(function(command, term) {
-//                        term.echo('asd');
                         //DO POST REQUEST AND PAUSE!
                         $.post('<%= practica_terminal_path(@practica) %>', {message:{ content: command, channel: ('device_'+device_id) }} );
+                        //term.pause();
                     },
                     {
                         greetings: null,
@@ -45,7 +40,7 @@ $(function()
     // Select first terminal by default - not working...why?
     if(terminals[0] != undefined)
     {
-      terminals[0].focus(true);
+        terminals[0].focus(true);
     }
 
 
@@ -55,4 +50,39 @@ $(function()
 <%= render :partial => 'faye_client', :locals => {:channels => @faye_channels, :faye_server_url => @faye_server_url} %>
 
 // Initialize chat terminal
-$('.chat')
+$(function()
+{
+//    try
+//    {
+//        chat_terminal = $('.chat_main').terminal(function(command, term)
+//                {
+//                    $.post('<%= practica_chat_path(@practica) %>', {message:{content:command,channel:'practica_<%= @practica.id %>'}});
+//                },
+//                {
+//                    greetings: null,
+//                    name: 'chat_terminal',
+//                    height: 300,
+//                    prompt: username+' >'});
+//    }
+//    catch(err)
+//    {
+//        $('.chat_main').html('COULD NOT INITIALIZE CHAT!!!! ');
+//    }
+
+    try
+    {
+        chat_terminal = $('.chat_main').terminal(function(command, term)
+                {
+                    $.post('<%= practica_chat_path(@practica) %>', {message:{content:command,channel:'practica_<%= @practica.id %>'}});
+                },
+                {
+                    greetings: null,
+                    name: 'chat_terminal',
+                    height: 300,
+                    prompt: username+' >'});
+    }
+    catch(err)
+    {
+        $('.chat_main').html('COULD NOT INITIALIZE CHAT!!!! ');
+    }
+});

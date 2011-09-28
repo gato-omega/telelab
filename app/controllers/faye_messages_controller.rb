@@ -29,13 +29,13 @@ class FayeMessagesController < AbstractController::Base
     # render partial: "hello_world/show"
   end
 
+  #Normal method for testing
   def normal_method_is(something)
     whatever("your param here> #{something}")
   end
 
   # This method processes the incoming message from irc and
   # returns the data as-is to be delivered to a FayeSender
-
   def process_irc_message(rcvd_channel, rcvd_user, rcvd_message)
     # do normal_method_is
     processed_message_output = ''
@@ -60,21 +60,24 @@ class FayeMessagesController < AbstractController::Base
     processed_message_output
   end
 
+  # Generates a console terminal output, when received from device channel
   def generate_terminal_output(device_id, message)
     @device_id = device_id
     @mensaje = message
     render template: "faye_messages/terminal"
   end
 
+  #Generates console terminal output, when a user sends to a device channel (echo)
   def generate_terminal_user_output(mensaje)
     @mensaje = mensaje
     @terminal_id = (@mensaje[:channel].split '_').last
     render template: "faye_messages/terminal_user"
   end
 
-  def generate_chat_output(practica_id, message)
-    @practica_id = practica_id
-    @mensaje = message
+  #Generates chat output for the pratice channel
+  def generate_chat_output(mensaje)
+    @mensaje = mensaje
     render template: "faye_messages/chat"
   end
+
 end

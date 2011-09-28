@@ -1,0 +1,100 @@
+/* line 4, ../../../app/stylesheets/partials/terminal_chat.scss */
+.chat .terminal .clipboard {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  opacity: 0.01;
+  filter: alpha(opacity=0.01);
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.01);
+}
+/* line 14, ../../../app/stylesheets/partials/terminal_chat.scss */
+.chat .cmd > .clipboard {
+  position: fixed;
+}
+/* line 19, ../../../app/stylesheets/partials/terminal_chat.scss */
+.chat .terminal {
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+}
+/* line 26, ../../../app/stylesheets/partials/terminal_chat.scss */
+.chat .cmd {
+  padding: 0;
+  margin: 0;
+  height: 1.3em;
+}
+/* line 32, ../../../app/stylesheets/partials/terminal_chat.scss */
+.chat .terminal {
+  font-family: Arial, sans-serif;
+  font-size: 0.9em;
+  color: #aaa;
+  background-color: #ffffff;
+  font-size: 12px;
+}
+/* line 34, ../../../app/stylesheets/partials/terminal_chat.scss */
+.chat .terminal .terminal-output {
+  font-family: Arial, sans-serif;
+  font-size: 0.9em;
+  color: #000000;
+  background-color: #ffffff;
+  font-size: 12px;
+}
+/* line 42, ../../../app/stylesheets/partials/terminal_chat.scss */
+.chat .terminal .terminal-output div {
+  overflow: auto;
+  display: block;
+  font-family: Arial, sans-serif;
+  font-size: 0.9em;
+  color: #000000;
+  background-color: #ffffff;
+  font-size: 12px;
+}
+/* line 50, ../../../app/stylesheets/partials/terminal_chat.scss */
+.chat .terminal .terminal-output div div {
+  font-family: Arial, sans-serif;
+  font-size: 0.9em;
+  color: #000000;
+  background-color: #ffffff;
+  font-size: 12px;
+}
+/* line 66, ../../../app/stylesheets/partials/terminal_chat.scss */
+.chat .cmd {
+  font-family: Arial, sans-serif;
+  font-size: 0.9em;
+  color: #000000;
+  background-color: #ffffff;
+  font-size: 12px;
+}
+/* line 78, ../../../app/stylesheets/partials/terminal_chat.scss */
+.chat .terminal .cmd span, .chat .terminal .cmd div {
+  font-family: Arial, sans-serif;
+  font-size: 0.9em;
+  color: #000000;
+  background-color: #ffffff;
+  font-size: 12px;
+}
+/* line 86, ../../../app/stylesheets/partials/terminal_chat.scss */
+.chat .terminal .cmd span {
+  float: left;
+}
+/* line 92, ../../../app/stylesheets/partials/terminal_chat.scss */
+.chat .terminal div::selection, .chat .terminal span::selection, .chat .terminal .cmd span.inverted, .chat .terminal div::-moz-selection, .chat .terminal span::-moz-selection {
+  background-color: #000000;
+  color: #000;
+}
+/* line 98, ../../../app/stylesheets/partials/terminal_chat.scss */
+.chat .terminal .terminal-output div.error {
+  color: red;
+}
+/* line 101, ../../../app/stylesheets/partials/terminal_chat.scss */
+.chat .terminal .terminal-output div.error div {
+  color: red;
+}
+/* line 108, ../../../app/stylesheets/partials/terminal_chat.scss */
+.chat .tilda {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1100;
+}

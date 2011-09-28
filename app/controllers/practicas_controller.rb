@@ -2,6 +2,8 @@ class PracticasController < ApplicationController
 
   respond_to :html, :only => [:index, :show, :new, :edit]
   before_filter :get_practice, :only => [:show, :edit, :lab, :make_practice]
+  before_filter :initialize_faye_session_keys
+
   include CustomFayeSender
 
 
@@ -60,7 +62,8 @@ class PracticasController < ApplicationController
   end
 
   def make_practice
-
+    puts "####################### WHAT DA FAQQQQQQQ class = #{session[:faye].class}"
+    puts "####################### WHAT DA FAQQQQQQQ value = #{session[:faye]}"
   end
 
   def terminal
@@ -115,6 +118,36 @@ class PracticasController < ApplicationController
     end
   end
 
+  def chat
+    @mensaje = {}
+    @mensaje[:message] = params[:message][:content]
+
+    # Filter non-permitted commands and log, whatever we want
+    if not @mensaje[:message].empty?
+
+      # Send through faye first to provide echo
+      @mensaje[:channel] = params[:message][:channel]
+      # Set echo to true if sending to himself via faye is required
+      @mensaje[:echo] = false
+
+      if current_user
+        @mensaje[:user] = current_user.username
+      else
+        @mensaje[:user] = '_non_reg'
+      end
+
+      the_irc_gateway = IRCGateway.instance
+
+      #mensaje_raw = the_irc_gateway.message_processor.generate_terminal_user_output @mensaje
+      mensaje_raw = FayeMessagesController.new.generate_chat_output @mensaje
+
+      send_via_faye "#{FAYE_CHANNEL_PREFIX}#{@mensaje[:channel]}", mensaje_raw
+
+    end
+
+    render :nothing => true
+  end
+
   private
   # Get practica, associated users and devices
   def get_practice
@@ -126,6 +159,10 @@ class PracticasController < ApplicationController
   # Sends the echo so that the message one user sends can be seen by other users
   def faye_send mensaje
     send_via_faye "#{FAYE_CHANNEL_PREFIX}#{mensaje[:channel]}", mensaje.to_json
+  end
+
+  def initialize_faye_session_keys
+    session[:faye] ||= {}
   end
 
 end

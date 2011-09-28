@@ -1,6 +1,5 @@
 module PracticasHelper
 
-
   def device_consoles(dispositivos)
     out = content_tag(:ul, (create_tabs dispositivos))
     out += create_tabs_content dispositivos
@@ -21,14 +20,6 @@ module PracticasHelper
       out += content_tag(:div, (device_console dispositivo), :id => "device_tab_#{dispositivo.id}")
     end
     out.html_safe
-  end
-
-  def create_consoles
-    text_area(:irc, :area, :cols => 30, :rows => 10)
-    #form_tag message_path, :remote => true, :id => 'chat' do
-    label_tag(:message, "Mensaje:")
-    text_field_tag(:message)
-    submit_tag("Enviar")
   end
 
   def device_console(dispositivo)
