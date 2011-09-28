@@ -2,7 +2,7 @@ class PracticasController < ApplicationController
 
   respond_to :html, :only => [:index, :show, :new, :edit]
   before_filter :get_practice, :only => [:show, :edit, :lab, :make_practice]
-  before_filter :initialize_faye_session_keys
+  before_filter :initialize_faye_session_keys, :only => [:make_practice]
 
   include CustomFayeSender
 
@@ -64,6 +64,9 @@ class PracticasController < ApplicationController
   def make_practice
     puts "####################### WHAT DA FAQQQQQQQ class = #{session[:faye].class}"
     puts "####################### WHAT DA FAQQQQQQQ value = #{session[:faye]}"
+
+    
+
   end
 
   def terminal
@@ -163,6 +166,23 @@ class PracticasController < ApplicationController
 
   def initialize_faye_session_keys
     session[:faye] ||= {}
+
+    #ActiveRecord::SessionStore::Session.all.each do |ses|
+    #  puts "Session #{ses.id} class #{ses.class}"
+    #  puts "Session #{ses.id} presence #{ses.presence}"
+    #  puts "Session #{ses.id} hash #{ses.hash}"
+    #  puts "Session #{ses.id} to_param #{ses.to_param}"
+    #  puts "Session #{ses.id} to_s #{ses.to_s}"
+    #  puts "Session #{ses.id} data #{ses.data}"
+    #  puts "Session #{ses.id} data.class #{ses.data.class}"
+    #  puts "Session #{ses.id} data.eql #{session.eql? ses.data}"
+    #  puts "Session #{ses.id} data.eqskl #{session.eql? ses.data.symbolize_keys}"
+    #  puts "Session #{ses.id} data.sy #{ses.data[:faye]}"
+    #  puts "Session #{ses.id} data.syk #{ses.data.symbolize_keys}"
+    #  puts "Session #{ses.id} data.sykf #{ses.data.symbolize_keys[:faye]}"
+    #  puts "Session #{ses.id} data.st #{ses.data['faye']}"
+    #
+    #end
   end
 
 end

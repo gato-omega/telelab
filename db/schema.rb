@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110826231457) do
+ActiveRecord::Schema.define(:version => 20110928194651) do
 
   create_table "courses", :force => true do |t|
     t.string "name"
@@ -38,6 +38,15 @@ ActiveRecord::Schema.define(:version => 20110826231457) do
   create_table "dispositivos_practicas", :id => false, :force => true do |t|
     t.integer "dispositivo_id"
     t.integer "practica_id"
+  end
+
+  create_table "p_conexions", :force => true do |t|
+    t.integer  "vlan"
+    t.integer  "practica_id"
+    t.integer  "puerto_id"
+    t.integer  "endpoint_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "practicas", :force => true do |t|
@@ -70,6 +79,16 @@ ActiveRecord::Schema.define(:version => 20110826231457) do
     t.integer "dispositivo_id"
     t.integer "device_connection_id"
   end
+
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false

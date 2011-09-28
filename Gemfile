@@ -42,6 +42,8 @@ gem "jquery-rails"
 #HAML and to_haml
 gem 'haml'
 gem 'haml-rails'
+gem 'meta_where'
+
 #gem "hpricot"
 #gem "ruby_parser"
 
