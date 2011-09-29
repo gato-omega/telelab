@@ -19,3 +19,6 @@ end
 Warden::Manager.before_logout do |user,auth,opts|
   puts "Someone logged out> #{user.username}"
 end
+
+#MetaWhere operator overload
+MetaWhere.operator_overload!

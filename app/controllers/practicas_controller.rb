@@ -64,8 +64,9 @@ class PracticasController < ApplicationController
   def make_practice
     puts "####################### WHAT DA FAQQQQQQQ class = #{session[:faye].class}"
     puts "####################### WHAT DA FAQQQQQQQ value = #{session[:faye]}"
-
+    #allowed_ids = @allowed_users.map {|user| user.id}
     
+    #allowed_users_sessions = ActiveRecord::SessionStore::Session.where(:data => )
 
   end
 
@@ -165,7 +166,8 @@ class PracticasController < ApplicationController
   end
 
   def initialize_faye_session_keys
-    session[:faye] ||= {}
+    
+    #session[:faye] ||= {}
 
     #ActiveRecord::SessionStore::Session.all.each do |ses|
     #  puts "Session #{ses.id} class #{ses.class}"
