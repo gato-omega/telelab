@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   #return an array [User, User, ...], instead of [Admin, Student, Student, Teacher, ...]
   def self.all_without_typecast
     self.all.collect! do |u|
-        u.becomes(User)
+      u.becomes(User)
     end
   end
 
@@ -41,16 +41,21 @@ class User < ActiveRecord::Base
 
   validates :type, :presence => true
 
+
   ## Constants
 
   ROLES = %w[Admin Teacher Technician Student]
-
 
   ################################################################################################
   ## Added by gato -- add sign in by username or email
 
   attr_accessor :login
   validates :username, :uniqueness => true, :presence => true
+
+  #for storing hash in database
+  serialize :options, Hash
+  attr_accessible :options
+  before_validation :options_hash_init
 
 
   ### PROTECTED
@@ -122,6 +127,15 @@ class User < ActiveRecord::Base
     # if doing this. View code should check the errors of the child.
     # Or add the child's errors to the User model's error array of the :base
     # error item
+  end
+
+  private
+  def options_hash_init
+    if options.nil?
+      options = {}
+    elsif !options.is_a? Hash
+      options = {}
+    end
   end
 
 end

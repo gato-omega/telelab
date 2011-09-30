@@ -5,7 +5,7 @@ require File.expand_path('../application', __FILE__)
 Telelab02::Application.initialize!
 
 begin
-  IRCGateway.instance
+  #IRCGateway.instance
   puts 'IRCGateway initialized'
 rescue
   puts 'COULD NOT INITIALIZE IRC GATEWAY'

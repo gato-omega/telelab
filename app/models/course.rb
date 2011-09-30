@@ -1,6 +1,6 @@
 class Course < ActiveRecord::Base
 
-  #for store hash in database
+  #for storing hash in database
   serialize :options, Hash
 
   #attr_accessible :name, :description, :hashed_password, :options
