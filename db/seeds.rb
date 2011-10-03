@@ -14,7 +14,7 @@ u_email = ["german.collazos@codescrum.com", "miguel.diaz@codescrum.com", "javhur
 u_type = ["Admin", "Admin", "Teacher", "Teacher", "Student", "Technician", "Admin"]
 
 7.times do |n|
-  User.create(:username => u_username[n], :password => u_pass[n], :email => u_email[n], :type => u_type[n], :options => {}, :profile_attributes => {:firstname => u_username[n], :lastname => u_username[n], :codigo => " "})
+  User.create(:username => u_username[n], :password => u_pass[n], :email => u_email[n], :type => u_type[n], :options => {:faye => {}}, :profile_attributes => {:firstname => u_username[n], :lastname => u_username[n], :codigo => " "})
 end
 
 ###### cursos

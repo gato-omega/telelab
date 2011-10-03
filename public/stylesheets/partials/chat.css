@@ -3,7 +3,7 @@
   overflow: auto;
   float: left;
   width: 70%;
-  border: 1px solid red;
+  /*border: 1px solid red;*/
 }
 
 /* line 10, ../../../app/stylesheets/partials/chat.scss */
@@ -11,5 +11,24 @@
   overflow: auto;
   float: right;
   width: 25%;
-  border: 1px solid green;
+  /*border: 1px solid green;*/
+}
+/* line 17, ../../../app/stylesheets/partials/chat.scss */
+.chat_status ul {
+  margin: 0 0 20px 0;
+  padding: 0;
+}
+/* line 22, ../../../app/stylesheets/partials/chat.scss */
+.chat_status ul li {
+  vertical-align: middle;
+  list-style-type: none;
+}
+/* line 27, ../../../app/stylesheets/partials/chat.scss */
+.chat_status ul li img {
+  height: 16px;
+  width: 16px;
+}
+/* line 37, ../../../app/stylesheets/partials/chat.scss */
+.chat_status .presence a {
+  width: 80%;
 }

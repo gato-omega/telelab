@@ -44,4 +44,15 @@ module PracticasHelper
     "#{client_name}.subscribe('#{channel}', function(data){ #{block_js} });"
   end
 
+  def user_chat_status_icon(user, channel)
+    # The images http://en.wikipedia.org/wiki/User:Science4sail/Status/StatusTemplate
+    if user.chat_status(channel).eql? :available
+      image_tag 'icons/status_available.png'
+    elsif user.chat_status(channel).eql? :away
+      image_tag 'icons/status_away.png'
+    elsif user.chat_status(channel).eql? :offline
+      image_tag 'icons/status_offline.png'
+    end
+  end
+
 end

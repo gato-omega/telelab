@@ -27,45 +27,52 @@ class Ability
 
 
     user ||= User.new # guest user
+    @user = user
 
     # TO ALL REGISTERED
-    if user.persisted? #Applies to all registered
+    if @user.persisted? #Applies to all registered
       can [:edit, :update], Profile do |p|
-        p.user == user
+        p.user == @user
       end
-      
-      can :show, Profile
+
+      can :read, Profile
     end
 
     # ROLE BASED STUFF
-    if user.is_a? Admin
+    if @user.is_a? Admin
 
       can :do_admin_stuff, :stuff
       can :manage, :all
-      cannot :see_himself, User do |u|
-        if u == user.userize
-          true
-        else
-          false
-        end
-      end
 
-    elsif user.is_a? Teacher
+      cannot_see_himself
+
+    elsif @user.is_a? Teacher
 
       can :do_teacher_stuff, :stuff
       can :manage, Student
 
-    elsif user.is_a? Technician
+    elsif @user.is_a? Technician
 
       can :do_technician_stuff, :stuff
 
-    elsif user.is_a? Student
+    elsif @user.is_a? Student
 
       can :do_student_stuff, :stuff
 
     else #VISITOR - Unregistered
     end
 
+  end
+
+  private
+  def cannot_see_himself
+    cannot :see_himself, User do |u|
+      if u == @user.userize
+        true
+      else
+        false
+      end
+    end
   end
 
 end

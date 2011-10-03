@@ -5,9 +5,7 @@
 
 .chat_status
   .user_list
-    %ul
-      %li miau
-      %li shaka
-      %li javhur
+    = render :partial => 'practicas/practice_gadgets/chat_status', :locals => {:users => @allowed_users, :channel => @channel}
+
   .presence
     %a{:class => :button} STATUS!

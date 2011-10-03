@@ -3,7 +3,7 @@
     overflow: auto;
     float: left;
     width: 70%;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 }
 
 .chat_status
@@ -11,5 +11,31 @@
     overflow: auto;
     float: right;
     width: 25%;
-    border: 1px solid green;
+    /*border: 1px solid green;*/
+
+    ul
+    {
+        margin: 0 0 20px 0;
+        padding: 0;
+        
+        li
+        {
+            vertical-align: middle;
+            list-style-type: none;
+
+            img
+            {
+                height:16px;
+                width: 16px;
+            }
+        }
+    }
+
+    .presence
+    {
+        a
+        {
+            width: 80%;
+        }
+    }
 }

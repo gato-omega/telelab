@@ -62,11 +62,13 @@ class PracticasController < ApplicationController
   end
 
   def make_practice
-    puts "####################### WHAT DA FAQQQQQQQ class = #{session[:faye].class}"
-    puts "####################### WHAT DA FAQQQQQQQ value = #{session[:faye]}"
-    #allowed_ids = @allowed_users.map {|user| user.id}
-    
-    #allowed_users_sessions = ActiveRecord::SessionStore::Session.where(:data => )
+    channel_sym = "practica_#{@practica.id}".to_sym
+    puts "WHAT DA FAQ?? channel_sym #{channel_sym}"
+    if current_user.options[:faye][channel_sym].nil?
+      current_user.options[:faye][channel_sym] = :available
+      current_user.save
+    end
+    @channel = channel_sym
 
   end
 
@@ -86,7 +88,7 @@ class PracticasController < ApplicationController
       if current_user
         @mensaje[:user] = current_user.username
       else
-        @mensaje[:user] = 'unregistered_user_miau'
+        @mensaje[:user] = 'unregistered_user'
       end
 
       the_irc_gateway = IRCGateway.instance
@@ -163,28 +165,6 @@ class PracticasController < ApplicationController
   # Sends the echo so that the message one user sends can be seen by other users
   def faye_send mensaje
     send_via_faye "#{FAYE_CHANNEL_PREFIX}#{mensaje[:channel]}", mensaje.to_json
-  end
-
-  def initialize_faye_session_keys
-    
-    #session[:faye] ||= {}
-
-    #ActiveRecord::SessionStore::Session.all.each do |ses|
-    #  puts "Session #{ses.id} class #{ses.class}"
-    #  puts "Session #{ses.id} presence #{ses.presence}"
-    #  puts "Session #{ses.id} hash #{ses.hash}"
-    #  puts "Session #{ses.id} to_param #{ses.to_param}"
-    #  puts "Session #{ses.id} to_s #{ses.to_s}"
-    #  puts "Session #{ses.id} data #{ses.data}"
-    #  puts "Session #{ses.id} data.class #{ses.data.class}"
-    #  puts "Session #{ses.id} data.eql #{session.eql? ses.data}"
-    #  puts "Session #{ses.id} data.eqskl #{session.eql? ses.data.symbolize_keys}"
-    #  puts "Session #{ses.id} data.sy #{ses.data[:faye]}"
-    #  puts "Session #{ses.id} data.syk #{ses.data.symbolize_keys}"
-    #  puts "Session #{ses.id} data.sykf #{ses.data.symbolize_keys[:faye]}"
-    #  puts "Session #{ses.id} data.st #{ses.data['faye']}"
-    #
-    #end
   end
 
 end

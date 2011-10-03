@@ -36,6 +36,11 @@ class User < ActiveRecord::Base
     new_record?
   end
 
+  def chat_status(channel)
+    #:offline unless (self.options[:faye][channel] if self.options[:faye])
+    options[:faye][channel] ? options[:faye][channel] : :offline
+  end
+
 
   ## Custom validations
 
@@ -132,9 +137,7 @@ class User < ActiveRecord::Base
   private
   def options_hash_init
     if options.nil?
-      options = {}
-    elsif !options.is_a? Hash
-      options = {}
+      options = {:faye => {}}
     end
   end
 

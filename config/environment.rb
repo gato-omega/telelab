@@ -14,10 +14,14 @@ end
 # Warden hooks
 Warden::Manager.after_authentication do |user,auth,opts|
   puts "Someone logged in> #{user.username}"
+  user.options[:faye] = {}
+  user.save
 end
 
 Warden::Manager.before_logout do |user,auth,opts|
   puts "Someone logged out> #{user.username}"
+  user.options[:faye] = {}
+  user.save
 end
 
 #MetaWhere operator overload
