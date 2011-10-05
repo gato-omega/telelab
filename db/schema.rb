@@ -40,6 +40,15 @@ ActiveRecord::Schema.define(:version => 20110930171559) do
     t.integer "practica_id"
   end
 
+  create_table "events", :force => true do |t|
+    t.string   "name"
+    t.datetime "start"
+    t.datetime "end"
+    t.integer  "practica_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "p_conexions", :force => true do |t|
     t.integer  "vlan"
     t.integer  "practica_id"

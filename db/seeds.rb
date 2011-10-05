@@ -30,7 +30,7 @@ end
 
 ###### dispositivos
 
-d_nombre = ["Switch Catalyst", "Switch Catalyst", "Switch Nortel", "Router 3Com", "Router Cisco", "WinXP VM", "Win7 VM", "Ubuntu VM", "Dedian VM"]
+d_nombre = ["Switch Catalyst", "Switch Catalyst", "Switch Nortel", "Router 3Com", "Router Cisco", "WinXP VM", "Win7 VM", "Ubuntu VM", "Debian VM"]
 d_etiqueta = ["S_2960", "S_2960", "S_2526T", "R_812", "R_827", "WinXP VM","Win7 VM", "Ubuntu VM", "Dedian VM"]
 d_categoria = ["Switch", "Switch", "Switch", "Router", "Router", "VM","VM", "VM", "VM"]
 d_tipo = ["system", "system", "user", "user", "user", "user","user", "user", "user"]

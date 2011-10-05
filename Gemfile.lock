@@ -79,6 +79,7 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     escape_utils (0.2.3)
+    event-calendar (2.3.3)
     eventmachine (0.12.10)
     faye (0.6.3)
       em-hiredis (>= 0.0.1)
@@ -180,6 +181,7 @@ DEPENDENCIES
   compass (>= 0.11.5)
   cucumber-rails
   devise
+  event-calendar
   faye
   formtastic
   haml

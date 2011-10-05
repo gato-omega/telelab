@@ -9,5 +9,4 @@ $(function() {
     $('a.show_button').html("<img src='/images/icons/show.png'>");
     $('a.delete_button').html("<img src='/images/icons/delete.png'>");
 
-
 });

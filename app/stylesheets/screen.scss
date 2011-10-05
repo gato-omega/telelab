@@ -8,8 +8,7 @@
 @mixin site_bar
 {
     overflow: auto;
-
-    background: #333333 url(images/ui-bg_gloss-wave_40_333333_500x100.png) 50% 50% repeat-x; color: #eeeeee; font-weight: bold;
+    background: #f58400 url(images/ui-bg_gloss-wave_40_f58400_500x100.png) 50% 50% repeat-x; color: #ffffff;
 
     min-height: 73px;
 
@@ -31,32 +30,23 @@ body
 header
 {
     @include site_bar;
-    border-bottom: 1px solid white;
+    padding-bottom: 2px;
+    border-bottom: 3px solid gray;
 
     .central
     {
-        padding-bottom: 2px;
         .logo
         {
-            font-weight: bold;
-            float:left;
-            padding: 5px 0 5px 0;
-            .title
-            {
-                font-size: 2.7em;
-            }
-
-            .lema
-            {
-                color: #e47d04;
-            }
+            float: left;
+            text-align: center;
+            padding-top: 6px;
         }
 
         .session_info
         {
             text-align: right;
-            width: 80%;
-            margin: 40px 0 0 0;
+            width: 70%;
+            margin-top: 40px;
             float: right;
         }
     }
@@ -71,7 +61,7 @@ strong
 {
     float: left;
     text-align: right;
-    width: 14%;
+    width: 15%;
     padding-right: 1%;
     margin-top: 60px;
     min-height: 400px;
@@ -83,7 +73,7 @@ strong
 
         li a
         {
-            width: 80%;
+            width: 98%;
             margin-top: 1px;
             font-size: 0.8em;
         }
@@ -94,7 +84,7 @@ section
 {
     overflow: auto;
 
-     background-image: -webkit-gradient(
+    background-image: -webkit-gradient(
           linear,
           left top,
           left bottom,
@@ -112,9 +102,9 @@ section
 }
 
 .main_content
-{   
-    width: 79%;
-    min-height: 600px;
+{
+    width: 80%;
+    min-height: 500px;
     float: left;
     padding-left: 1%;
 }
@@ -122,7 +112,6 @@ section
 footer
 {
     @include site_bar;
-    border-top: 1px solid white;
-    padding-top: 20px;
-    min-height: 53px;
+    padding-top: 2px;
+    border-top: 2px solid black;
 }

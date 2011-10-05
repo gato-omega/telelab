@@ -65,3 +65,5 @@ gem 'mocha', :group => :test # Added by formtastics when called a generate code 
 gem 'cinch'
 gem 'faye'
 gem "compass", ">= 0.11.5"
+
+gem 'event-calendar', :require => 'event_calendar'

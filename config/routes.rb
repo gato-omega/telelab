@@ -1,6 +1,6 @@
 Telelab02::Application.routes.draw do
 
-  resources :users
+  match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
 
   resources :admins
   resources :technicians
@@ -14,11 +14,19 @@ Telelab02::Application.routes.draw do
   resources :dispositivos
   resources :puertos
 
+  resources :users
 
-  ### for that token_input_user works, used in "_form#practica" view #####
-  get '/json_users' => 'users#json_users'
+  scope '/api' do
+    ### for that token_input_user works, used in "_form#practicas" view #####
+    match '/users' => 'users#json_users', :as => 'json_users'
+    ### for that event_calendar works #####
+    match '/practicas' => 'practicas#practice_events', :as => 'json_practicas'
+  end
 
-  ## for /json_users.json, allow token_input users
+  ### for display allowed devices, used in "_form#practicas" view #####
+  match '/practicas/free_devices' => 'practicas#free_devices', :as => 'free_devices', :via => :post
+
+  get '/practicas/:id/practica' => 'practicas#make_practice'
 
   devise_for :users, :path_prefix => 'account'
 
@@ -66,9 +74,6 @@ Telelab02::Application.routes.draw do
   match "/practicas/:id/practica/chat" => 'practicas#chat', :as => 'practica_chat', :via => :post
   match "/practicas/:id/practica/conexion" => 'practicas#conexion', :as => 'practica_conexion', :via => :post
   match "/practicas/:id/practica/chat_status" => 'practicas#chat_status', :as => 'practica_chat_status', :via => :post
-
-  #match "/practicas/:id/practica/:action" => 'practicas' # This route maps to dynamic make_practice action
-
 
   # JAVASCRIPT CONTROLLER
   scope '/javascript_engine' do

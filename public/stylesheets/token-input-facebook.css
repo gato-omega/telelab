@@ -105,10 +105,12 @@ div.token-input-dropdown-facebook ul li {
 
 div.token-input-dropdown-facebook ul li.token-input-dropdown-item-facebook {
     background-color: #fff;
+    color: black;
 }
 
 div.token-input-dropdown-facebook ul li.token-input-dropdown-item2-facebook {
     background-color: #fff;
+    color: black;
 }
 
 div.token-input-dropdown-facebook ul li em {
