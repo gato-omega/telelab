@@ -1,5 +1,15 @@
 .consoles
 {
+    .ui-widget-content
+    {
+        border: 1px solid #666666; background: #eeeeee url(images/ui-bg_inset-soft_25_000000_1x100.png) 50% bottom repeat-x; color: #ffffff;
+    }
+
+    .ui-widget-header
+    {
+        border: 1px solid #ffaf0f; background: #efefef url(images/ui-bg_gloss-wave_40_f58400_500x100.png) 50% 50% repeat-x; color: #ffffff; font-weight: bold;
+    }
+
     .terminal .clipboard
     {
         position: absolute;
