@@ -171,20 +171,6 @@ class PracticasController < AuthorizedController
     end
   end
 
-  # THIS IS PRIVATE !!!
-  private
-
-  # Get practica, associated users and devices
-  def get_practice
-    @practica = Practica.find(params[:id], :include => [:users, :dispositivos])
-    @dispositivos_reservados = @practica.dispositivos
-    @allowed_users = @practica.users
-  end
-
-  def broadcast_chat_status(channel, status)
-    mensaje_raw = FayeMessagesController.new.generate_chat_status_output current_user.id, status
-    send_via_faye "#{FAYE_CHANNEL_PREFIX}#{channel}", mensaje_raw
-  end
 
   def practice_events
     @practice_events = Practica.where("name like ?", "%#{params[:q]}%")
@@ -217,5 +203,22 @@ class PracticasController < AuthorizedController
     p practicas
     render :nothing => true
   end
+
+  # THIS IS PRIVATE !!!
+  private
+
+  # Get practica, associated users and devices
+  def get_practice
+    @practica = Practica.find(params[:id], :include => [:users, :dispositivos])
+    @dispositivos_reservados = @practica.dispositivos
+    @allowed_users = @practica.users
+  end
+
+  def broadcast_chat_status(channel, status)
+    mensaje_raw = FayeMessagesController.new.generate_chat_status_output current_user.id, status
+    send_via_faye "#{FAYE_CHANNEL_PREFIX}#{channel}", mensaje_raw
+  end
+
+
 
 end
