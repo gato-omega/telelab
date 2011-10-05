@@ -19,7 +19,7 @@
             %img{:src => "/images/logo.png", :href => "home_path"}
           .lema
             %img{:src => "/images/lema.png"}
-        .session_info
+        .session_info.ui-corner-all
           - if user_signed_in?
             Conectado como
             %strong= current_user.username

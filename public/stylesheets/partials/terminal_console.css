@@ -1,17 +1,19 @@
-/* line 4, ../../../app/stylesheets/partials/terminal_console.scss */
-.consoles .ui-widget-content {
-  border: 1px solid #666666;
-  background: #eeeeee url(images/ui-bg_inset-soft_25_000000_1x100.png) 50% bottom repeat-x;
-  color: #ffffff;
+/* line 2, ../../../app/stylesheets/partials/terminal_console.scss */
+.consoles {
+  /*.ui-widget-content*/
+  /*{*/
+  /*border: 1px solid #666666; background: #eeeeee url(images/ui-bg_inset-soft_25_000000_1x100.png) 50% bottom repeat-x; color: #ffffff;*/
+  /*}*/
+  /*.ui-widget-header*/
+  /*{*/
+  /*border: 1px solid #ffaf0f; background: #efefef url(images/ui-bg_gloss-wave_40_f58400_500x100.png) 50% 50% repeat-x; color: #ffffff; font-weight: bold;*/
+  /*}*/
+  /*.ui-widget-header*/
+  /*{*/
+  /*border: 1px solid #ffaf0f; background: #f58400 url(images/ui-bg_gloss-wave_40_f58400_500x100.png) 50% 50% repeat-x; color: #ffffff; font-weight: bold;*/
+  /*}*/
 }
-/* line 9, ../../../app/stylesheets/partials/terminal_console.scss */
-.consoles .ui-widget-header {
-  border: 1px solid #ffaf0f;
-  background: #efefef url(images/ui-bg_gloss-wave_40_f58400_500x100.png) 50% 50% repeat-x;
-  color: #ffffff;
-  font-weight: bold;
-}
-/* line 14, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 18, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .clipboard {
   position: absolute;
   bottom: 0;
@@ -20,38 +22,38 @@
   filter: alpha(opacity=0.01);
   filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.01);
 }
-/* line 24, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 28, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .cmd > .clipboard {
   position: fixed;
 }
-/* line 29, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 33, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal {
   padding: 10px;
   position: relative;
   /*overflow: hidden;*/
   overflow-y: scroll;
 }
-/* line 37, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 41, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .cmd {
   padding: 0;
   margin: 0;
   height: 1.3em;
 }
-/* line 43, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 47, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal {
   font-family: monospace;
   color: #aaa;
   background-color: #000;
   font-size: 12px;
 }
-/* line 51, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 55, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .terminal-output {
   font-family: monospace;
   color: #aaa;
   background-color: #000;
   font-size: 12px;
 }
-/* line 59, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 63, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .terminal-output div {
   /*overflow: auto;*/
   overflow-y: auto;
@@ -61,7 +63,7 @@
   background-color: #000;
   font-size: 12px;
 }
-/* line 68, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 72, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .terminal-output div div {
   overflow: hidden;
   font-family: monospace;
@@ -69,38 +71,38 @@
   background-color: #000;
   font-size: 12px;
 }
-/* line 80, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 84, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .cmd {
   font-family: monospace;
   color: #aaa;
   background-color: #000;
   font-size: 12px;
 }
-/* line 93, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 97, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .cmd span, .consoles .terminal .cmd div {
   font-family: monospace;
   color: #aaa;
   background-color: #000;
   font-size: 12px;
 }
-/* line 101, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 105, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .cmd span {
   float: left;
 }
-/* line 107, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 111, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal div::selection, .consoles .terminal span::selection, .consoles .terminal .cmd span.inverted, .consoles .terminal div::-moz-selection, .consoles .terminal span::-moz-selection {
   background-color: #aaa;
   color: #000;
 }
-/* line 113, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 117, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .terminal-output div.error {
   color: red;
 }
-/* line 116, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 120, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .terminal-output div.error div {
   color: red;
 }
-/* line 123, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 127, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .tilda {
   position: fixed;
   top: 0;

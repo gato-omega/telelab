@@ -8,7 +8,7 @@
 @mixin site_bar
 {
     overflow: auto;
-    background: #f58400 url(images/ui-bg_gloss-wave_40_f58400_500x100.png) 50% 50% repeat-x; color: #ffffff;
+    background: #f58400 url(images/ui-bg_gloss-wave_40_f58400_500x100.png) 50% 50% repeat-x; color: #000000;
 
     min-height: 73px;
 
@@ -45,9 +45,11 @@ header
         .session_info
         {
             text-align: right;
-            width: 70%;
-            margin-top: 40px;
+            /*width: 70%;*/
+            margin-top: 30px;
+            padding: 10px;
             float: right;
+            background: #222222; color: #ffffff;
         }
     }
 }
