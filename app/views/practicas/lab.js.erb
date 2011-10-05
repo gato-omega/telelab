@@ -3,6 +3,7 @@
 // Terminals, sort of a Hash
 var terminals = [];
 var username ='<%= @username %>';
+var user_id = '<%= @user_id %>'
 var device_ids = '<%= @dispositivos_reservados.map do |dispositivo| dispositivo.id end.join(',') %>'.split(',');
 var chat_terminal = null;
 
@@ -43,32 +44,14 @@ $(function()
         terminals[0].focus(true);
     }
 
-
 });
 
 // SUBSCRIBE TO FAYE CHANNELS (devices and practice/chat)
 <%= render :partial => 'faye_client', :locals => {:channels => @faye_channels, :faye_server_url => @faye_server_url} %>
 
-// Initialize chat terminal
+// Initialize chat terminal and presence functions
 $(function()
 {
-//    try
-//    {
-//        chat_terminal = $('.chat_main').terminal(function(command, term)
-//                {
-//                    $.post('<%= practica_chat_path(@practica) %>', {message:{content:command,channel:'practica_<%= @practica.id %>'}});
-//                },
-//                {
-//                    greetings: null,
-//                    name: 'chat_terminal',
-//                    height: 300,
-//                    prompt: username+' >'});
-//    }
-//    catch(err)
-//    {
-//        $('.chat_main').html('COULD NOT INITIALIZE CHAT!!!! ');
-//    }
-
     try
     {
         chat_terminal = $('.chat_main').terminal(function(command, term)
@@ -85,4 +68,31 @@ $(function()
     {
         $('.chat_main').html('COULD NOT INITIALIZE CHAT!!!! ');
     }
+
+    $('#status').click(function(){
+        var chat_status_button = $(this);
+        var respuesta;
+        if(chat_status_button.hasClass('available'))
+        {
+            $.post('<%= practica_chat_status_path(@practica) %>', {status:'away'}, function(data, textStatus, jqXHR){
+                chat_status_button.removeClass('available');
+                chat_status_button.addClass('away');
+                chat_status_button.text('Away');
+            });
+        }
+        else if(chat_status_button.hasClass('away'))
+        {
+            $.post('<%= practica_chat_status_path(@practica) %>', {status:'available'}, function(data, textStatus, jqXHR){
+                chat_status_button.removeClass('away');
+                chat_status_button.addClass('available');
+                chat_status_button.text('Available');
+            });
+        }
+
+    });
+
+    // Must go offline if not in practice
+    $(window).unload(function(){
+        $.post('<%= practica_chat_status_path(@practica) %>', {status:'offline'});
+    });
 });

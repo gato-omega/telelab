@@ -8,4 +8,5 @@
     = render :partial => 'practicas/practice_gadgets/chat_status', :locals => {:users => @allowed_users, :channel => @channel}
 
   .presence
-    %a{:class => :button} STATUS!
+    - the_status = (current_user.chat_status @channel)
+    %a#status{:class => "button #{the_status}"}= "#{the_status.to_s.capitalize}"

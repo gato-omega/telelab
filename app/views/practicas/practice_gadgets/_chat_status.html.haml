@@ -1,5 +1,6 @@
 %ul
   - users.each do |user|
-    %li
-      = user_chat_status_icon user, channel
-      = user.username
+    - if can? :see, user
+      %li{:id => "user_status_#{user.id}"}
+        = user_chat_status_icon user, channel
+        %span= user.username

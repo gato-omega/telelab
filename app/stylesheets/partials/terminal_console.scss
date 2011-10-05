@@ -19,7 +19,8 @@
     {
         padding: 10px;
         position: relative;
-        overflow: hidden;
+        /*overflow: hidden;*/
+        overflow-y: scroll;
     }
 
     .cmd
@@ -46,7 +47,8 @@
 
             div
             {
-                overflow: auto;
+                /*overflow: auto;*/
+                overflow-y: auto;
                 display: block;
                 font-family: monospace;
                 color: #aaa;
@@ -54,6 +56,7 @@
                 font-size: 12px;
                 div
                 {
+                    overflow: hidden;
                     font-family: monospace;
                     color: #aaa;
                     background-color: #000;
@@ -70,6 +73,7 @@
         background-color: #000;
         font-size: 12px;
     }
+
 
     .terminal
     {

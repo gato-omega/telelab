@@ -24,7 +24,7 @@
       %th Actions
   %tbody
     - @users.each do |user|
-      - if can? :see_himself, user
+      - if can? :see, user
         %tr
           %td= user.profile.firstname
           %td= user.profile.lastname

@@ -32,3 +32,11 @@
 .chat_status .presence a {
   width: 80%;
 }
+/* line 42, ../../../app/stylesheets/partials/chat.scss */
+.chat_status .presence .available {
+  border: 2px solid green;
+}
+/* line 47, ../../../app/stylesheets/partials/chat.scss */
+.chat_status .presence .away {
+  border: 2px solid orange;
+}

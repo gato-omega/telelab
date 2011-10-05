@@ -1,5 +1,5 @@
 terminals = terminals;
 if(username != '<%= @mensaje[:user] %>')
 {
-    terminals['<%= @terminal_id %>'].echo('[[;#dddddd;#000000]<%= @mensaje[:user] %>> <%= escape_javascript @mensaje[:message].html_safe %>]');
+    terminals['<%= @terminal_id %>'].echo('<%= @mensaje[:user] %> > <%= escape_javascript @mensaje[:message].html_safe %>').css("color", "white");
 }

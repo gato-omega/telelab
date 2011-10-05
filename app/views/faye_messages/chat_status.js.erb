@@ -1,0 +1,7 @@
+username = username;
+user_id=user_id;
+if(user_id != '<%= @user_id %>')
+{
+    $('#user_status_<%= @user_id %> img').remove();
+    $('#user_status_<%= @user_id %> span').before('<%= user_chat_status_icon_by_status @status %>');
+}

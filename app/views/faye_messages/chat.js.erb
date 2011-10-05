@@ -1,5 +1,5 @@
 chat_terminal = chat_terminal;
 if(username != '<%= @mensaje[:user] %>')
 {
-    chat_terminal.echo('[[b;#0000ff;#ffffff]<%= @mensaje[:user] %> >] '+'[[b;#000000;#ffffff] <%= escape_javascript @mensaje[:message].html_safe %>]');
+    chat_terminal.echo('<%= @mensaje[:user] %> > <%= escape_javascript @mensaje[:message].html_safe %>').css('color','blue');
 }

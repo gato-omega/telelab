@@ -29,13 +29,12 @@ class Ability
     user ||= User.new # guest user
     @user = user
 
-    # TO ALL REGISTERED
-    if @user.persisted? #Applies to all registered
+    # TO ALL REGISTERED --whitelist
+    if @user.persisted? #Applies to all registered -- whitelist
       can [:edit, :update], Profile do |p|
         p.user == @user
       end
-
-      can :read, Profile
+      can_see_others
     end
 
     # ROLE BASED STUFF
@@ -44,12 +43,10 @@ class Ability
       can :do_admin_stuff, :stuff
       can :manage, :all
 
-      cannot_see_himself
-
     elsif @user.is_a? Teacher
 
       can :do_teacher_stuff, :stuff
-      can :manage, Student
+      can :manage, Practica
 
     elsif @user.is_a? Technician
 
@@ -62,17 +59,22 @@ class Ability
     else #VISITOR - Unregistered
     end
 
+    # TO ALL REGISTERED -- blacklist
+    if @user.persisted? #Applies to all registered -- blacklist
+      cannot_see_user
+    end
+
   end
 
   private
-  def cannot_see_himself
-    cannot :see_himself, User do |u|
-      if u == @user.userize
-        true
-      else
-        false
-      end
+  def cannot_see_user
+    cannot :see, User do |u|
+      u.id == @user.id
     end
+  end
+
+  def can_see_others
+    can :see, User
   end
 
 end

@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   protected
   # Use layout depending on user type
   def per_user_layout
-    Admin
     if current_user.is_a? Admin
       'admin'
     elsif current_user.is_a? Student

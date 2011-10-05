@@ -1,13 +1,11 @@
-class PracticasController < ApplicationController
+class PracticasController < AuthorizedController
 
   respond_to :html, :only => [:index, :show, :new, :edit]
   before_filter :get_practice, :only => [:show, :edit, :lab, :make_practice]
-  before_filter :initialize_faye_session_keys, :only => [:make_practice]
 
   include CustomFayeSender
 
 
-  # USE INCLUDE!!!!!!!!!!!!!!!  Practica.find(1, :include => :users, :devices.......stuff like that, eager loading)
 
   def index
     @practicas = Practica.all
@@ -63,13 +61,16 @@ class PracticasController < ApplicationController
 
   def make_practice
     channel_sym = "practica_#{@practica.id}".to_sym
-    puts "WHAT DA FAQ?? channel_sym #{channel_sym}"
     if current_user.options[:faye][channel_sym].nil?
       current_user.options[:faye][channel_sym] = :available
-      current_user.save
-    end
-    @channel = channel_sym
 
+      if current_user.save
+        #Send notification
+        broadcast_chat_status channel_sym, :available
+      end
+    end
+
+    @channel = channel_sym
   end
 
   def terminal
@@ -95,10 +96,7 @@ class PracticasController < ApplicationController
 
       #mensaje_raw = the_irc_gateway.message_processor.generate_terminal_user_output @mensaje
       mensaje_raw = FayeMessagesController.new.generate_terminal_user_output @mensaje
-
-
       send_via_faye "#{FAYE_CHANNEL_PREFIX}#{@mensaje[:channel]}", mensaje_raw
-
 
       # Send through IRCGateway...
       the_irc_gateway.zbot.action("##{@mensaje[:channel]}", @mensaje[:message])
@@ -108,6 +106,7 @@ class PracticasController < ApplicationController
 
   end
 
+  # Generates JS for practica
   def lab
     @faye_channels = @dispositivos_reservados.map do |dispositivo| "#{FAYE_CHANNEL_PREFIX}device_#{dispositivo.id}" end
     @faye_channels << "#{FAYE_CHANNEL_PREFIX}practica_#{@practica.id}"
@@ -115,8 +114,10 @@ class PracticasController < ApplicationController
 
     if current_user
       @username = current_user.username
+      @user_id = current_user.id
     else
-      @username = 'unregistered_user'
+      @username = '_non_reg'
+      @user_id = -1
     end
 
     respond_to do |format|
@@ -146,7 +147,6 @@ class PracticasController < ApplicationController
 
       #mensaje_raw = the_irc_gateway.message_processor.generate_terminal_user_output @mensaje
       mensaje_raw = FayeMessagesController.new.generate_chat_output @mensaje
-
       send_via_faye "#{FAYE_CHANNEL_PREFIX}#{@mensaje[:channel]}", mensaje_raw
 
     end
@@ -154,7 +154,26 @@ class PracticasController < ApplicationController
     render :nothing => true
   end
 
+  def chat_status
+    channel = "practica_#{params[:id]}"
+    status = params[:status]
+    if status.eql? 'offline'
+      current_user.options[:faye].delete channel.to_sym
+    else
+      current_user.options[:faye][(channel.to_sym)] = status.to_sym
+    end
+
+    if current_user.save
+      broadcast_chat_status channel, status
+      render :nothing => true
+    else
+      render :status => 500
+    end
+  end
+
+  # THIS IS PRIVATE !!!
   private
+
   # Get practica, associated users and devices
   def get_practice
     @practica = Practica.find(params[:id], :include => [:users, :dispositivos])
@@ -162,9 +181,9 @@ class PracticasController < ApplicationController
     @allowed_users = @practica.users
   end
 
-  # Sends the echo so that the message one user sends can be seen by other users
-  def faye_send mensaje
-    send_via_faye "#{FAYE_CHANNEL_PREFIX}#{mensaje[:channel]}", mensaje.to_json
+  def broadcast_chat_status(channel, status)
+    mensaje_raw = FayeMessagesController.new.generate_chat_status_output current_user.id, status
+    send_via_faye "#{FAYE_CHANNEL_PREFIX}#{channel}", mensaje_raw
   end
 
 end

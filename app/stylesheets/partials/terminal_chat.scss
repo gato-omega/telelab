@@ -19,7 +19,8 @@
     {
         padding: 10px;
         position: relative;
-        overflow: hidden;
+        /*overflow: hidden;*/
+        overflow-y: scroll;
     }
 
     .cmd
@@ -40,7 +41,8 @@
 
             div
             {
-                overflow: auto;
+                /*overflow: auto;*/
+                overflow-y: auto;
                 display: block;
                 font-family: Arial, sans-serif; font-size: 0.9em;
                 color: #000000;
@@ -48,6 +50,7 @@
                 font-size: 12px;
                 div
                 {
+                    overflow: hidden;
                     font-family: Arial, sans-serif; font-size: 0.9em;
                     color: #000000;
                     background-color: #ffffff;

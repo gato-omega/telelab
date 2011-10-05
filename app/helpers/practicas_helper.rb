@@ -55,4 +55,28 @@ module PracticasHelper
     end
   end
 
+  def user_chat_status_icon_by_status(status)
+    # The images http://en.wikipedia.org/wiki/User:Science4sail/Status/StatusTemplate
+    if status.is_a? String
+      status = status.to_sym
+    end
+    if status.eql? :available
+      #image_tag 'icons/status_available.png'
+      #"available"
+      #(content_tag :img, :src => 'icons/status_available.png')
+      tag :img, :src => '/images/icons/status_available.png'
+    elsif status.eql? :away
+      #image_tag 'icons/status_away.png'
+      #"away"
+      #(content_tag :img, :src => 'icons/status_away.png')
+      tag :img, :src => '/images/icons/status_away.png'
+    elsif status.eql? :offline
+      #image_tag 'icons/status_offline.png'
+      tag :img, :src => '/images/icons/status_offline.png'
+    else
+      #image_tag 'icons/status_offline.png'
+      tag :img, :src => '/images/icons/status_offline.png'
+    end
+  end
+
 end

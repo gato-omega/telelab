@@ -3,16 +3,17 @@
 # send Faye Messages eval javascript to browsers
 # Define your faye message in the corresponding view!
 class FayeMessagesController < AbstractController::Base
-      
+
   include AbstractController::Rendering
-  #include AbstractController::Layouts
+  include AbstractController::Layouts
   include AbstractController::Helpers
   include AbstractController::Translation
   include AbstractController::AssetPaths
-  #include ActionController::UrlWriter
+  include ActionController::UrlWriter
 
   # Uncomment if you want to use helpers defined in ApplicationHelper in your views
   # helper ApplicationHelper
+  helper PracticasHelper
 
   # Make sure your controller can find views
   self.view_paths = "app/views"
@@ -53,9 +54,9 @@ class FayeMessagesController < AbstractController::Base
     end
 
     if msg_type == 'practica'
-      processed_message_output = generate_chat_output item_id, rcvd_message
+      #processed_message_output = generate_chat_output item_id, rcvd_message
     end
-    
+
     puts "Processed message output > #{processed_message_output}"
     processed_message_output
   end
@@ -78,6 +79,13 @@ class FayeMessagesController < AbstractController::Base
   def generate_chat_output(mensaje)
     @mensaje = mensaje
     render template: "faye_messages/chat"
+  end
+
+  #Generates chat output for the pratice channel
+  def generate_chat_status_output(user_id, status)
+    @user_id = user_id
+    @status = status
+    render template: "faye_messages/chat_status"
   end
 
 end

@@ -65,6 +65,7 @@ Telelab02::Application.routes.draw do
   match "/practicas/:id/practica/terminal" => 'practicas#terminal', :as => 'practica_terminal', :via => :post
   match "/practicas/:id/practica/chat" => 'practicas#chat', :as => 'practica_chat', :via => :post
   match "/practicas/:id/practica/conexion" => 'practicas#conexion', :as => 'practica_conexion', :via => :post
+  match "/practicas/:id/practica/chat_status" => 'practicas#chat_status', :as => 'practica_chat_status', :via => :post
 
   #match "/practicas/:id/practica/:action" => 'practicas' # This route maps to dynamic make_practice action
 
