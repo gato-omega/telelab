@@ -1,6 +1,11 @@
 - content_for :head do
   = stylesheet_link_tag "token-input-facebook"
+  = stylesheet_link_tag 'fullcalendar'
+  = stylesheet_link_tag 'calendar'
+
   = javascript_include_tag 'tokeninput'
+  = javascript_include_tag 'fullcalendar.min'
+  = javascript_include_tag 'calendar'
 
 = form_for(@practica) do |f|
   - if @practica.errors.any?
@@ -11,24 +16,24 @@
       %ul
         - @practica.errors.full_messages.each do |msg|
           %li= msg
+  .calendar
+    #reservation_calendar
   .field
     = f.label :name
     %br/
-    = f.text_field :name
+    = f.text_field :name, :readonly => "readonly"
   .field
     = f.label :start
     %br/
-    = f.datetime_select :start
-    / %= f.text_field :start_at_string %
+    = f.text_field :start, :readonly => "readonly"
   .field
     = f.label :end
     %br/
-    = f.datetime_select :end
-    / %= f.text_field :end %
+    = f.text_field :end, :readonly => "readonly"
   .field
     = f.label :estado
     %br/
-    = f.text_field :estado
+    = f.text_field :estado, :readonly => "readonly"
   %p
   %div
     = f.label :devices, "Dispositivos"

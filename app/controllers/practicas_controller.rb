@@ -84,4 +84,36 @@ class PracticasController < ApplicationController
     @allowed_users = @practica.users
   end
 
+  def practice_events
+    @practice_events = Practica.where("name like ?", "%#{params[:q]}%")
+    respond_to do |format|
+      format.json { render :json => @practice_events.collect { |event| {:title => event.name, :start => event.start, :end => event.end} } }
+    end
+  end
+
+  def free_devices
+    _start = DateTime.parse params[:start]
+    _end = DateTime.parse params[:end]
+    p '###################################'
+    p 'Inicio de practica seleccionada ' + _start.to_s
+    p 'Fin de practica seleccionada ' + _end.to_s
+    p '###################################'
+    Practica.all.each do |prac|
+      if (prac.start > _start)
+        p 'inicio de ' + prac.name + ' = ' + ' es mayor'
+      elsif (prac.start < _start)
+        p 'inicio de ' + prac.name + ' es menor'
+      end
+      if (prac.end > _end)
+        p 'fin de ' + prac.name + ' es mayor'
+      elsif (prac.end < _end)
+        p 'fin de ' + prac.name + ' es menor'
+      end
+    end
+    p '###################################'
+    practicas = Practica.where(((:start >= _start) & (:end <= _end)) | ((:start < _start) & (:end > _start)) | ((:start < _end) & (:end > _end)) | ((:start <= _start) & (:end >= _end)))
+    p practicas
+    render :nothing => true
+  end
+
 end
