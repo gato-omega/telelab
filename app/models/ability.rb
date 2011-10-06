@@ -51,6 +51,8 @@ class Ability
     elsif @user.is_a? Technician
 
       can :do_technician_stuff, :stuff
+      can :manage, Puerto
+      can :manage, Dispositivo
 
     elsif @user.is_a? Student
 
