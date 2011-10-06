@@ -1,5 +1,5 @@
 class Puerto < ActiveRecord::Base
-  belongs_to :dispositivo, :dependent => :destroy
+  belongs_to :dispositivo
   has_one :device_connection
   has_one :endpoint, :through => :device_connection#, :class_name => 'Puerto'
 
@@ -21,7 +21,7 @@ class Puerto < ActiveRecord::Base
 
   #Disconnects self from endpoint and returns endpoint instance
   def desconectar
-    was_endpoint=self.endpoint
+    was_endpoint= self.endpoint
     if was_endpoint
       self.endpoint.endpoint=nil
       self.endpoint=nil
