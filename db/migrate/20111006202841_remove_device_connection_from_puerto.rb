@@ -1,11 +1,11 @@
 class RemoveDeviceConnectionFromPuerto < ActiveRecord::Migration
   def self.up
-    remove_column :puertos, :dispositivo_id
+    remove_column :puertos, :device_connection_id
   end
 
   def self.down
     change_table :puertos do |t|
-      t.references :dispositivo
+      t.references :device_connection_id
     end
   end
 end

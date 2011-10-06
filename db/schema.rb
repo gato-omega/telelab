@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110930171559) do
+ActiveRecord::Schema.define(:version => 20111006202841) do
 
   create_table "courses", :force => true do |t|
     t.string "name"
@@ -49,15 +49,6 @@ ActiveRecord::Schema.define(:version => 20110930171559) do
     t.datetime "updated_at"
   end
 
-  create_table "p_conexions", :force => true do |t|
-    t.integer  "vlan"
-    t.integer  "practica_id"
-    t.integer  "puerto_id"
-    t.integer  "endpoint_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "practicas", :force => true do |t|
     t.string   "name"
     t.datetime "start"
@@ -86,7 +77,6 @@ ActiveRecord::Schema.define(:version => 20110930171559) do
     t.string  "etiqueta"
     t.string  "estado"
     t.integer "dispositivo_id"
-    t.integer "device_connection_id"
   end
 
   create_table "sessions", :force => true do |t|
