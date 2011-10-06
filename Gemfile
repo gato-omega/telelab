@@ -67,3 +67,4 @@ gem 'faye'
 gem "compass", ">= 0.11.5"
 
 gem 'event-calendar', :require => 'event_calendar'
+gem 'nested_form'

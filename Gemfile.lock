@@ -123,6 +123,7 @@ GEM
     mime-types (1.16)
     mocha (0.9.12)
     mysql2 (0.2.7)
+    nested_form (0.1.1)
     nifty-generators (0.4.6)
     nokogiri (1.4.4)
     orm_adapter (0.0.4)
@@ -191,6 +192,7 @@ DEPENDENCIES
   meta_where
   mocha
   mysql2
+  nested_form
   nifty-generators
   rails (= 3.0.6)
   wirb
