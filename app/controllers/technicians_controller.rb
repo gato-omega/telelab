@@ -15,6 +15,7 @@ class TechniciansController < ApplicationController
   def new
     @technician = Technician.new
     @technician.build_profile
+    @current_method = "new"
     respond_with @technician
   end
 
@@ -25,10 +26,11 @@ class TechniciansController < ApplicationController
 
   def create
     @technician = Technician.new(params[:technician])
+    @current_method = "new"
 
     respond_to do |format|
       if @technician.save
-        format.html { redirect_to(@technician, :notice => 'Technician was successfully created.') }
+        format.html { redirect_to(technicians_url, :notice => 'Technician was successfully created.') }
         format.xml  { render :xml => @technician, :status => :created, :location => @technician }
       else
         format.html { render :action => "new" }
@@ -42,7 +44,7 @@ class TechniciansController < ApplicationController
 
     respond_to do |format|
       if @technician.update_attributes(params[:technician])
-        format.html { redirect_to(@technician, :notice => 'Technician was successfully updated.') }
+        format.html { redirect_to(technicians_url, :notice => 'Technician was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
