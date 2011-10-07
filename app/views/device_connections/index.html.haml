@@ -1,0 +1,21 @@
+%h1 Listing device_connections
+
+%table
+  %tr
+    %th Puerto
+    %th Endpoint
+    %th
+    %th
+    %th
+
+  - @device_connections.each do |device_connection|
+    %tr
+      %td= device_connection.puerto
+      %td= device_connection.endpoint
+      %td= link_to 'Show', device_connection
+      %td= link_to 'Edit', edit_device_connection_path(device_connection)
+      %td= link_to 'Destroy', device_connection, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Device connection', new_device_connection_path

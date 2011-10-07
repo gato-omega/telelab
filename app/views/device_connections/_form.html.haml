@@ -1,0 +1,16 @@
+= form_for @device_connection do |f|
+  -if @device_connection.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@device_connection.errors.count, "error")} prohibited this device_connection from being saved:"
+      %ul
+        - @device_connection.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :puerto
+    = f.text_field :puerto
+  .field
+    = f.label :endpoint
+    = f.text_field :endpoint
+  .actions
+    = f.submit 'Save'
