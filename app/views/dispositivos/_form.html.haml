@@ -13,27 +13,27 @@
   .inline_fields
     .field
       = f.label :nombre
-      %br/
+      %br
       = f.text_field :nombre
     .field
       = f.label :etiqueta
-      %br/
+      %br
       = f.text_field :etiqueta
     .field
       = f.label :tipo
-      %br/
-      = f.text_field :tipo
+      %br
+      = f.select(:tipo, @types, { :prompt => 'Seleccione el tipo' })
     .field
       = f.label :categoria
-      %br/
-      = f.text_field :categoria
+      %br
+      = f.select(:categoria, @categories, { :prompt => 'Seleccione la categoria' })
     .field
       = f.label :estado
-      %br/
+      %br
       = f.text_field :estado
     .field
       = f.label :com
-      %br/
+      %br
       = f.text_field :com
 
     = f.fields_for :puertos

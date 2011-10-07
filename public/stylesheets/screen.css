@@ -136,9 +136,3 @@ footer .central {
   font-size: 12px;
   list-style: square;
 }
-
-/* line 165, ../../app/stylesheets/screen.scss */
-.inline_fields .fields {
-  display: inline;
-  float: left;
-}

@@ -1,6 +1,7 @@
 class DispositivosController < ApplicationController
-  # GET /dispositivos
-  # GET /dispositivos.xml
+
+  before_filter :get_dispositivo_constants, :only => [:new, :edit, :create, :update]
+
   def index
     @dispositivos = Dispositivo.all
 
@@ -10,8 +11,6 @@ class DispositivosController < ApplicationController
     end
   end
 
-  # GET /dispositivos/1
-  # GET /dispositivos/1.xml
   def show
     @dispositivo = Dispositivo.find(params[:id])
 
@@ -21,8 +20,6 @@ class DispositivosController < ApplicationController
     end
   end
 
-  # GET /dispositivos/new
-  # GET /dispositivos/new.xml
   def new
     @dispositivo = Dispositivo.new
 
@@ -32,13 +29,10 @@ class DispositivosController < ApplicationController
     end
   end
 
-  # GET /dispositivos/1/edit
   def edit
     @dispositivo = Dispositivo.find(params[:id])
   end
 
-  # POST /dispositivos
-  # POST /dispositivos.xml
   def create
     @dispositivo = Dispositivo.new(params[:dispositivo])
 
@@ -53,8 +47,6 @@ class DispositivosController < ApplicationController
     end
   end
 
-  # PUT /dispositivos/1
-  # PUT /dispositivos/1.xml
   def update
     @dispositivo = Dispositivo.find(params[:id])
 
@@ -69,8 +61,6 @@ class DispositivosController < ApplicationController
     end
   end
 
-  # DELETE /dispositivos/1
-  # DELETE /dispositivos/1.xml
   def destroy
     @dispositivo = Dispositivo.find(params[:id])
     @dispositivo.destroy
@@ -79,5 +69,11 @@ class DispositivosController < ApplicationController
       format.html { redirect_to(dispositivos_url) }
       format.xml  { head :ok }
     end
+  end
+
+  private
+  def get_dispositivo_constants
+    @categories = Dispositivo::CATEGORIAS
+    @types = Dispositivo::TYPES
   end
 end

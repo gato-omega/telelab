@@ -6,6 +6,16 @@ class Dispositivo < ActiveRecord::Base
   #has_many :endpoints, :through => :device_connections
   #has_many :endpoints, :through => :device_connections, :class_name => 'Puerto', :source => :endpoint
 
+  ## Constants
+
+  # User - modifiable , VLAN - VLAN Switch
+
+  TYPES = %w[User VLAN]
+  CATEGORIAS =%w[Switch Router]
+
+  validates :tipo, :presence => true
+  validates :categoria, :presence => true
+
   accepts_nested_attributes_for :puertos
 
 end
