@@ -10,36 +10,35 @@
       %ul
         - @dispositivo.errors.full_messages.each do |msg|
           %li= msg
-  .field
-    = f.label :nombre
-    %br/
-    = f.text_field :nombre
-  .field
-    = f.label :etiqueta
-    %br/
-    = f.text_field :etiqueta
-  .field
-    = f.label :tipo
-    %br/
-    = f.text_field :tipo
-  .field
-    = f.label :categoria
-    %br/
-    = f.text_field :categoria
-  .field
-    = f.label :estado
-    %br/
-    = f.text_field :estado
-  .field
-    = f.label :com
-    %br/
-    = f.text_field :com
-
-  = f.fields_for :puertos do |puerto_form|
+  .inline_fields
     .field
-      = puerto_form.text_field :nombre
-    = puerto_form.link_to_remove "Quitar este puerto"
-  = f.link_to_add 'Agregar puerto' , :puertos
+      = f.label :nombre
+      %br/
+      = f.text_field :nombre
+    .field
+      = f.label :etiqueta
+      %br/
+      = f.text_field :etiqueta
+    .field
+      = f.label :tipo
+      %br/
+      = f.text_field :tipo
+    .field
+      = f.label :categoria
+      %br/
+      = f.text_field :categoria
+    .field
+      = f.label :estado
+      %br/
+      = f.text_field :estado
+    .field
+      = f.label :com
+      %br/
+      = f.text_field :com
+
+    = f.fields_for :puertos
+
+    = f.link_to_add 'Agregar puerto' , :puertos
 
   .actions
     = f.submit

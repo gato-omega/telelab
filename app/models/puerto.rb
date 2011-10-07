@@ -3,6 +3,8 @@ class Puerto < ActiveRecord::Base
   has_one :device_connection
   has_one :endpoint, :through => :device_connection#, :class_name => 'Puerto'
 
+  validates :nombre, :presence => true
+
   # Conecta un puerto con otro, haciendo la referencia bidireccional en endpoint
   def conectar(puerto)
     #Was I connected?...disconnect other end
