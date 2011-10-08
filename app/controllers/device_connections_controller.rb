@@ -1,8 +1,9 @@
 class DeviceConnectionsController < ApplicationController
-  # GET /device_connections
-  # GET /device_connections.xml
+
+  before_filter :get_puertos, :only => [:new, :update, :create, :edit]
+
   def index
-    @device_connections = DeviceConnection.all
+    @device_connections = DeviceConnection.without_duplicates
 
     respond_to do |format|
       format.html # index.html.erb
@@ -10,8 +11,6 @@ class DeviceConnectionsController < ApplicationController
     end
   end
 
-  # GET /device_connections/1
-  # GET /device_connections/1.xml
   def show
     @device_connection = DeviceConnection.find(params[:id])
 
@@ -21,8 +20,6 @@ class DeviceConnectionsController < ApplicationController
     end
   end
 
-  # GET /device_connections/new
-  # GET /device_connections/new.xml
   def new
     @device_connection = DeviceConnection.new
 
@@ -32,29 +29,27 @@ class DeviceConnectionsController < ApplicationController
     end
   end
 
-  # GET /device_connections/1/edit
   def edit
     @device_connection = DeviceConnection.find(params[:id])
   end
 
-  # POST /device_connections
-  # POST /device_connections.xml
   def create
     @device_connection = DeviceConnection.new(params[:device_connection])
+    p = @device_connection.puerto
+    e = @device_connection.endpoint
 
     respond_to do |format|
-      if @device_connection.save
+      begin
+        p.conectar e
         format.html { redirect_to(@device_connection, :notice => 'Device connection was successfully created.') }
         format.xml  { render :xml => @device_connection, :status => :created, :location => @device_connection }
-      else
+      rescue
         format.html { render :action => "new" }
         format.xml  { render :xml => @device_connection.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # PUT /device_connections/1
-  # PUT /device_connections/1.xml
   def update
     @device_connection = DeviceConnection.find(params[:id])
 
@@ -69,15 +64,24 @@ class DeviceConnectionsController < ApplicationController
     end
   end
 
-  # DELETE /device_connections/1
-  # DELETE /device_connections/1.xml
   def destroy
     @device_connection = DeviceConnection.find(params[:id])
-    @device_connection.destroy
+    #@device_connection.destroy
+
+    p = @device_connection.puerto
+
+    p.desconectar
 
     respond_to do |format|
       format.html { redirect_to(device_connections_url) }
       format.xml  { head :ok }
+    end
+  end
+
+  def get_puertos
+    @puertos = Puerto.all
+    @puertos.collect! do |p|
+      [p.etiqueta,p.id]
     end
   end
 end

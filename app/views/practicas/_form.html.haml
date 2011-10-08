@@ -45,7 +45,7 @@
   %div
     = f.label :user_list, "Users"
     %br/
-    = f.text_field :user_list, "data-pre" => @allowed_users.collect{|user| {:id => user.id, :name => user.username}}.to_json, :class => 'tokeninput'
+    = f.text_field :user_list, "data-pre" => @allowed_users.collect{|user| {:id => user.id, :name => user.username}}.to_json, :class => 'tokeninput', 'data-source' => '/api/users.json'
   %p
   .actions
     = f.submit

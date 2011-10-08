@@ -6,4 +6,8 @@ class DeviceConnection < ActiveRecord::Base
   #has_many :dispositivos, :through => :puertos
   #has_one :dispositivo, :through => :endpoint
   #has_one :dispositivo, :through => :puerto
+
+  # Halves the results to aviod duplication on show (only for presentation matters)
+  scope :without_duplicates, where('puerto_id < endpoint_id')
+
 end

@@ -35,6 +35,7 @@ class Ability
         p.user == @user
       end
       can_see_others
+      can_api
     end
 
     # ROLE BASED STUFF
@@ -53,7 +54,9 @@ class Ability
       can :do_technician_stuff, :stuff
       can :manage, Puerto
       can :manage, Dispositivo
-
+      can :manage, DeviceConnection
+      can :manage, Practica
+      
     elsif @user.is_a? Student
 
       can :do_student_stuff, :stuff
@@ -77,6 +80,10 @@ class Ability
 
   def can_see_others
     can :see, User
+  end
+
+  def can_api
+    can :json_users, User
   end
 
 end

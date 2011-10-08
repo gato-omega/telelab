@@ -8,9 +8,9 @@
 
   .field
     = f.label :puerto
-    = f.text_field :puerto
+    = f.select(:puerto_id, @puertos, { :prompt => 'Seleccione el puerto' })
   .field
     = f.label :endpoint
-    = f.text_field :endpoint
+    = f.select(:endpoint_id, @puertos, { :prompt => 'Seleccione el otro puerto' })
   .actions
     = f.submit 'Save'

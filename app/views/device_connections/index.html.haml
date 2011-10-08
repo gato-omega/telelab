@@ -1,21 +1,44 @@
-%h1 Listing device_connections
+- title 'Listando Conexiones Fisicas'
+= content_for :head do
+  = stylesheet_link_tag 'telelab_datatables'
 
-%table
-  %tr
-    %th Puerto
-    %th Endpoint
-    %th
-    %th
-    %th
+  = javascript_include_tag :jquery_datatables
+  = javascript_include_tag 'datatable'
 
-  - @device_connections.each do |device_connection|
+%table.display{:cellpadding=> "0", :cellspacing => "0", 'datatable' => true}
+  %thead
     %tr
-      %td= device_connection.puerto
-      %td= device_connection.endpoint
-      %td= link_to 'Show', device_connection
-      %td= link_to 'Edit', edit_device_connection_path(device_connection)
-      %td= link_to 'Destroy', device_connection, :confirm => 'Are you sure?', :method => :delete
+      %th Dispositivo A
+      %th Etiqueta A
+      %th Nombre A
+      %th Dispositivo B
+      %th Nombre B
+      %th Etiqueta B
+      %th Actions
+  %tfoot
+    %tr
+      %th Dispositivo A
+      %th Etiqueta A
+      %th Nombre A
+      %th Dispositivo B
+      %th Nombre B
+      %th Etiqueta B
+      %th Actions
+  %tbody
+    - @device_connections.each do |conexion|
+      - puerto = conexion.puerto
+      - endpoint = conexion.endpoint
+      %tr
+        %td= link_to puerto.dispositivo.etiqueta, edit_dispositivo_path(puerto.dispositivo)
+        %td= puerto.etiqueta
+        %td= puerto.nombre
+        %td= link_to endpoint.dispositivo.etiqueta, edit_dispositivo_path(endpoint.dispositivo)
+        %td= endpoint.etiqueta
+        %td= endpoint.nombre
+        %td{ :style => "text-align: center"}
+          = link_to 'Show', conexion, :class => 'show_button'
+          = link_to 'Edit', edit_device_connection_path(conexion), :class => 'edit_button'
+          = link_to 'Destroy', conexion, :confirm => 'Are you sure?', :method => :delete, :class => 'delete_button'
 
-%br
-
-= link_to 'New Device connection', new_device_connection_path
+%br/
+= link_to 'Nueva conexion', new_device_connection_path, :class => 'button'

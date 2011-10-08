@@ -1,6 +1,5 @@
 class PuertosController < ApplicationController
-  # GET /puertos
-  # GET /puertos.xml
+
   def index
     @puertos = Puerto.all
 
@@ -10,8 +9,6 @@ class PuertosController < ApplicationController
     end
   end
 
-  # GET /puertos/1
-  # GET /puertos/1.xml
   def show
     @puerto = Puerto.find(params[:id])
 
@@ -21,8 +18,6 @@ class PuertosController < ApplicationController
     end
   end
 
-  # GET /puertos/new
-  # GET /puertos/new.xml
   def new
     @puerto = Puerto.new
 
@@ -32,13 +27,10 @@ class PuertosController < ApplicationController
     end
   end
 
-  # GET /puertos/1/edit
   def edit
     @puerto = Puerto.find(params[:id])
   end
 
-  # POST /puertos
-  # POST /puertos.xml
   def create
     @puerto = Puerto.new(params[:puerto])
 
@@ -53,8 +45,6 @@ class PuertosController < ApplicationController
     end
   end
 
-  # PUT /puertos/1
-  # PUT /puertos/1.xml
   def update
     @puerto = Puerto.find(params[:id])
 
@@ -69,8 +59,6 @@ class PuertosController < ApplicationController
     end
   end
 
-  # DELETE /puertos/1
-  # DELETE /puertos/1.xml
   def destroy
     @puerto = Puerto.find(params[:id])
     @puerto.destroy
@@ -80,4 +68,14 @@ class PuertosController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  #For tokeninput plugin!
+  def json_puertos
+    @puertos = Puerto.where("etiqueta like ?", "%#{params[:q]}%")
+
+    respond_to do |format|
+      format.json { render :json => @puertos.collect { |puerto| {:id => puerto.id, :name => puerto.etiqueta} } }
+    end
+  end
+
 end

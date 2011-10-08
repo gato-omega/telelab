@@ -21,6 +21,8 @@ Telelab02::Application.routes.draw do
   scope '/api' do
     ### for that token_input_user works, used in "_form#practicas" view #####
     match '/users' => 'users#json_users', :as => 'json_users'
+    #for that token_input_user works, used in "_form#puertos" view #####
+    match '/puertos' => 'puertos#json_puertos', :as => 'json_puertos'
     ### for that event_calendar works #####
     match '/practicas' => 'practicas#practice_events', :as => 'json_practicas'
   end
@@ -70,7 +72,6 @@ Telelab02::Application.routes.draw do
   get "/practicas/:id/practica" => 'practicas#make_practice'
   # Javascript generator
   match "/practicas/:id/lab" => 'practicas#lab', :as => 'practica_lab'
-  match "/message" => 'practicas#message', :as => 'message', :via => :post
 
   match "/practicas/:id/practica/terminal" => 'practicas#terminal', :as => 'practica_terminal', :via => :post
   match "/practicas/:id/practica/chat" => 'practicas#chat', :as => 'practica_chat', :via => :post
