@@ -1,5 +1,7 @@
 Telelab02::Application.routes.draw do
 
+  resources :vlans
+
   resources :device_connections
 
   match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}

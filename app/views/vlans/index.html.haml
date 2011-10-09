@@ -1,0 +1,25 @@
+%h1 Listing vlans
+
+%table
+  %tr
+    %th Numero
+    %th Practica
+    %th Puerto
+    %th Endpoint
+    %th
+    %th
+    %th
+
+  - @vlans.each do |vlan|
+    %tr
+      %td= vlan.numero
+      %td= vlan.practica
+      %td= vlan.puerto
+      %td= vlan.endpoint
+      %td= link_to 'Show', vlan
+      %td= link_to 'Edit', edit_vlan_path(vlan)
+      %td= link_to 'Destroy', vlan, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Vlan', new_vlan_path

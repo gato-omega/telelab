@@ -3,6 +3,8 @@ class Puerto < ActiveRecord::Base
   has_one :device_connection
   has_one :endpoint, :through => :device_connection#, :class_name => 'Puerto'
 
+  has_many :vlans
+
   validates :nombre, :presence => true
   validates :etiqueta, :uniqueness => true
 
