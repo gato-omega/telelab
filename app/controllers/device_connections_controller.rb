@@ -40,7 +40,7 @@ class DeviceConnectionsController < ApplicationController
 
     respond_to do |format|
       begin
-        p.conectar e
+        p.conectar_fisicamente e
         format.html { redirect_to(@device_connection, :notice => 'Device connection was successfully created.') }
         format.xml  { render :xml => @device_connection, :status => :created, :location => @device_connection }
       rescue
@@ -70,7 +70,7 @@ class DeviceConnectionsController < ApplicationController
 
     p = @device_connection.puerto
 
-    p.desconectar
+    p.desconectar_fisicamente
 
     respond_to do |format|
       format.html { redirect_to(device_connections_url) }
