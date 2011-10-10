@@ -9,7 +9,7 @@ class Puerto < ActiveRecord::Base
   validates :nombre, :presence => true
   validates :etiqueta, :uniqueness => true
 
-  ## RUNTIME METHODS
+  ## RUNTIME ATTRIBUTES
   attr_accessor :current_practica
   attr_accessor :current_vlan
 
@@ -45,49 +45,83 @@ class Puerto < ActiveRecord::Base
     self.endpoint
   end
 
-  ##LOGICAMENTE
-  
+  ##LOGICAMENTE -- needs context
+
 
   # Conecta un puerto con otro, haciendo la referencia bidireccional en endpoint
   def conectar_logicamente(other)
     check_context
-    @current_vlan = Vlan.new
-    @current_vlan.puerto = self
-    @current_vlan.endpoint = other
-    @current_vlan.practica =  @current_practica
-    if @current_vlan.save
-      @current_vlan
+    desconectar_logicamente
+    if other.check_context.eql? @current_practica
+      puts "seee entra @current_practica 1 #{@current_practica} "
+      puts "seee entra @current_vlan 1 #{@current_vlan} "
+
+      @current_vlan = Vlan.new
+      @current_vlan.puerto = self
+      @current_vlan.endpoint = other
+      @current_vlan.practica =  @current_practica
+      if @current_vlan.save
+        @current_vlan.endpoint.check_context
+        @current_vlan
+      else
+        raise "Could not connect!#{@current_vlan.errors.inspect}"
+      end
+    else
+      raise 'Practica contexts dont match'
     end
+
   end
 
   #Disconnects self from endpoint and returns endpoint instance
   def desconectar_logicamente
     check_context
+    if @current_vlan
+      was_endpoint = @current_vlan.endpoint
+      if was_endpoint.eql? self
+        was_endpoint = @current_vlan.puerto
+      end
+      @current_vlan.destroy
+      was_endpoint.check_context
+      was_endpoint
+    end
   end
 
   def conectado_logicamente?
-    check_context
+    logical_endpoint
   end
 
   def check_context
+    puts "Checking context"
     check_ok = false
     begin
-      @current_practica = Practica.find(@current_practica.id)
       if @current_practica
+        get_vlan
         check_ok=true
       end
     rescue
     end
-    if !check_ok
-      raise 'Invalid vlan conenction context, check self.current_practica'
+    if check_ok
+      @current_practica
+    else
+      raise 'Invalid vlan conenction context, check @current_practica'
     end
   end
 
-  #def check_vlan
-  #  check_context
-  #  if @current_vlan
-  #
-  #  end
-  #end
+  def logical_endpoint
+    check_context
+    if @current_vlan
+      @current_vlan.endpoint
+    else
+      nil
+    end
+  end
+
+  def logical_endpoint=(other)
+    self.conectar_logicamente other
+  end
+
+  def get_vlan
+    @current_vlan = Vlan.where((:puerto_id >> self.id || :endpoint_id >> self.id) && :practica_id >> @current_practica.id).first
+  end
 
 end
