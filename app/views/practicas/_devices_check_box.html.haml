@@ -1,0 +1,4 @@
+- free_devices.each do |dispositivo|
+  %div
+    = check_box_tag "practica[dispositivo_ids][]", dispositivo.id
+    = dispositivo.nombre

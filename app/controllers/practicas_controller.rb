@@ -20,10 +20,11 @@ class PracticasController < AuthorizedController
     @dispositivos = Dispositivo.all
     @dispositivos_reservados = []
     @allowed_users = []
+    @show_first = false
   end
 
   def edit
-    @dispositivos = Dispositivo.all
+    @show_first = true
   end
 
   def create
@@ -182,26 +183,17 @@ class PracticasController < AuthorizedController
   def free_devices
     _start = DateTime.parse params[:start]
     _end = DateTime.parse params[:end]
-    p '###################################'
-    p 'Inicio de practica seleccionada ' + _start.to_s
-    p 'Fin de practica seleccionada ' + _end.to_s
-    p '###################################'
-    Practica.all.each do |prac|
-      if (prac.start > _start)
-        p 'inicio de ' + prac.name + ' = ' + ' es mayor'
-      elsif (prac.start < _start)
-        p 'inicio de ' + prac.name + ' es menor'
-      end
-      if (prac.end > _end)
-        p 'fin de ' + prac.name + ' es mayor'
-      elsif (prac.end < _end)
-        p 'fin de ' + prac.name + ' es menor'
-      end
+    filtered_practices = Practica.where(((:start >= _start) & (:end <= _end)) | ((:start < _start) & (:end > _start)) | ((:start < _end) & (:end > _end)) | ((:start <= _start) & (:end >= _end)))
+    p filtered_practices
+    reserved_devices = []
+    filtered_practices.each do |practica|
+      reserved_devices += practica.dispositivos
     end
+    reserved_devices.uniq
+    @dispositivos = Dispositivo.all
+    @free_devices = @dispositivos - reserved_devices
     p '###################################'
-    practicas = Practica.where(((:start >= _start) & (:end <= _end)) | ((:start < _start) & (:end > _start)) | ((:start < _end) & (:end > _end)) | ((:start <= _start) & (:end >= _end)))
-    p practicas
-    render :nothing => true
+    p @free_devices
   end
 
   # THIS IS PRIVATE !!!
@@ -218,7 +210,5 @@ class PracticasController < AuthorizedController
     mensaje_raw = FayeMessagesController.new.generate_chat_status_output current_user.id, status
     send_via_faye "#{FAYE_CHANNEL_PREFIX}#{channel}", mensaje_raw
   end
-
-
 
 end

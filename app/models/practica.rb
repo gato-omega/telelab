@@ -9,4 +9,10 @@ class Practica < ActiveRecord::Base
     self.user_ids = ids.split(",")
   end
 
+  def done
+    p '############# realizada ##############'
+  end
+
+  handle_asynchronously :done
+
 end

@@ -37,10 +37,13 @@
   %p
   %div
     = f.label :devices, "Dispositivos"
-    - @dispositivos.each do |dispositivo|
-      %div
-        = check_box_tag "practica[dispositivo_ids][]", dispositivo.id, @dispositivos_reservados.include?(dispositivo)
-        = dispositivo.nombre
+    #devices_offer
+      - if @show_first
+        - @dispositivos_reservados.each do |dispositivo|
+          %div
+            = check_box_tag "practica[dispositivo_ids][]", dispositivo.id, true
+            = dispositivo.nombre
+
   %p
   %div
     = f.label :user_list, "Users"

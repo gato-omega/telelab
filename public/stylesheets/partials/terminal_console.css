@@ -1,19 +1,4 @@
-/* line 2, ../../../app/stylesheets/partials/terminal_console.scss */
-.consoles {
-  /*.ui-widget-content*/
-  /*{*/
-  /*border: 1px solid #666666; background: #eeeeee url(images/ui-bg_inset-soft_25_000000_1x100.png) 50% bottom repeat-x; color: #ffffff;*/
-  /*}*/
-  /*.ui-widget-header*/
-  /*{*/
-  /*border: 1px solid #ffaf0f; background: #efefef url(images/ui-bg_gloss-wave_40_f58400_500x100.png) 50% 50% repeat-x; color: #ffffff; font-weight: bold;*/
-  /*}*/
-  /*.ui-widget-header*/
-  /*{*/
-  /*border: 1px solid #ffaf0f; background: #f58400 url(images/ui-bg_gloss-wave_40_f58400_500x100.png) 50% 50% repeat-x; color: #ffffff; font-weight: bold;*/
-  /*}*/
-}
-/* line 18, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 4, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .clipboard {
   position: absolute;
   bottom: 0;
@@ -22,38 +7,38 @@
   filter: alpha(opacity=0.01);
   filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.01);
 }
-/* line 28, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 14, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .cmd > .clipboard {
   position: fixed;
 }
-/* line 33, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 19, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal {
   padding: 10px;
   position: relative;
   /*overflow: hidden;*/
   overflow-y: scroll;
 }
-/* line 41, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 27, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .cmd {
   padding: 0;
   margin: 0;
   height: 1.3em;
 }
-/* line 47, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 33, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal {
   font-family: monospace;
   color: #aaa;
   background-color: #000;
   font-size: 12px;
 }
-/* line 55, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 41, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .terminal-output {
   font-family: monospace;
   color: #aaa;
   background-color: #000;
   font-size: 12px;
 }
-/* line 63, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 49, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .terminal-output div {
   /*overflow: auto;*/
   overflow-y: auto;
@@ -63,7 +48,7 @@
   background-color: #000;
   font-size: 12px;
 }
-/* line 72, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 58, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .terminal-output div div {
   overflow: hidden;
   font-family: monospace;
@@ -71,38 +56,38 @@
   background-color: #000;
   font-size: 12px;
 }
-/* line 84, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 70, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .cmd {
   font-family: monospace;
   color: #aaa;
   background-color: #000;
   font-size: 12px;
 }
-/* line 97, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 83, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .cmd span, .consoles .terminal .cmd div {
   font-family: monospace;
   color: #aaa;
   background-color: #000;
   font-size: 12px;
 }
-/* line 105, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 91, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .cmd span {
   float: left;
 }
-/* line 111, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 97, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal div::selection, .consoles .terminal span::selection, .consoles .terminal .cmd span.inverted, .consoles .terminal div::-moz-selection, .consoles .terminal span::-moz-selection {
   background-color: #aaa;
   color: #000;
 }
-/* line 117, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 103, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .terminal-output div.error {
   color: red;
 }
-/* line 120, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 106, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .terminal-output div.error div {
   color: red;
 }
-/* line 127, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 113, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .tilda {
   position: fixed;
   top: 0;
