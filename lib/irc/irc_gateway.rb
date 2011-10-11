@@ -1,5 +1,6 @@
 require 'bayeux/custom_faye_sender'
 require 'irc/g_bot'
+require 'serial/device_command_controller'
 
 # The middleware gateway for IRC-BAYEUX (irc-faye)
 # Has an irc transceiver and a faye sender
@@ -7,6 +8,7 @@ class IRCGateway
 
   include Singleton
   include CustomFayeSender
+  include DeviceCommandController
 
   attr_accessor :zbot
   attr_accessor :config
@@ -53,7 +55,7 @@ class IRCGateway
       #Listen and do...
       on :message do |m|
         # self === Callback.new
-        
+
         # Retrieve important params
         rcvd_message = m.message # "the message" the actual message
         rcvd_channel = m.channel.name # "#lobby" the channel it was sent on
@@ -88,6 +90,7 @@ class IRCGateway
     if real_channel
       real_channel.action(message)
     else
+      puts "############## CHANNEL #{channel} NOT FOUND !"
     end
   end
 
@@ -103,6 +106,20 @@ class IRCGateway
   def start
     @bot_thread = Thread.new do
       @zbot.start
+    end
+  end
+
+  def create_vlan(vlan)
+    vlan_switch = Dispositivo.where(:tipo => 'vlan').first
+    if vlan_switch
+      canal = "device_#{vlan_switch.id}"
+      commands = serial_create_vlan vlan
+      commands.each do |command|
+        send_irc canal, command
+        #puts "SENDING #{canal}, #{command}"
+      end
+    else
+      raise 'NO VLAN SWITCH TO USE!'
     end
   end
 
@@ -125,16 +142,12 @@ class IRCGateway
     #Dispositivo.where(:estado => 'ok', :tipo => 'user').each do |dispositivo|
     #  @device_channels << "#device_#{dispositivo.id}"
     #end
-    
+
     Dispositivo.all.each do |dispositivo|
       @device_channels << "#device_#{dispositivo.id}"
     end
 
     @device_channels
-  end
-
-  def self.lol
-    "as"
   end
 
 end

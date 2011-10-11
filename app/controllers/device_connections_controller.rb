@@ -81,7 +81,11 @@ class DeviceConnectionsController < ApplicationController
   def get_puertos
     @puertos = Puerto.all
     @puertos.collect! do |p|
-      [p.etiqueta,p.id]
+      if p.dispositivo
+        ["#{p.dispositivo.nombre} - #{p.etiqueta}",p.id]
+      else
+        ["N/A - #{p.etiqueta}",p.id]
+      end
     end
   end
 end

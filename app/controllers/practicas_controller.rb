@@ -99,7 +99,7 @@ class PracticasController < AuthorizedController
       send_via_faye "#{FAYE_CHANNEL_PREFIX}#{@mensaje[:channel]}", mensaje_raw
 
       # Send through IRCGateway...
-      the_irc_gateway.zbot.action("##{@mensaje[:channel]}", @mensaje[:message])
+      the_irc_gateway.send_irc("##{@mensaje[:channel]}", @mensaje[:message])
     end
 
     render :nothing => true
