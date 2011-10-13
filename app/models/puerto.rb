@@ -7,7 +7,11 @@ class Puerto < ActiveRecord::Base
   has_many :vlans
 
   validates :nombre, :presence => true
-  validates :etiqueta, :uniqueness => true
+  validates :etiqueta, :uniqueness => {:scope => :dispositivo_id}
+
+  ## CONSTANTS
+  ESTADOS = %w[ok bad]
+
 
   ## RUNTIME ATTRIBUTES
   attr_accessor :current_practica

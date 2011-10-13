@@ -10,8 +10,9 @@ class Dispositivo < ActiveRecord::Base
 
   # User - modifiable , VLAN - VLAN Switch
 
-  TYPES = %w[User VLAN]
-  CATEGORIAS =%w[Switch Router]
+  TYPES = %w[user vlan]
+  CATEGORIAS = %w[switch router]
+  ESTADOS = %w[ok bad stock]
 
   validates :tipo, :presence => true
   validates :categoria, :presence => true

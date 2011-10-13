@@ -6,6 +6,8 @@ class Practica < ActiveRecord::Base
 
   has_many :vlans
 
+  ESTADOS = %w[reserved open closed]
+
 
   attr_reader :user_list
 

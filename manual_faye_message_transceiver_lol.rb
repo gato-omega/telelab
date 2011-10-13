@@ -54,7 +54,6 @@ else
 
   #EventMachine init
   begin
-
     listen_thread = Thread.new do
       EM.run do
         canales.each do |canal|
