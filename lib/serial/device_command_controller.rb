@@ -12,7 +12,28 @@ module DeviceCommandController
     pxname = px.nombre
     qxname = qx.nombre
 
-    commands = "en\nconft\ninterface #{pxname}\nswitch mode access vlan #{n}\nswtich mode access\nno shutdown\nexit\ninterface #{qxname}\nswitch mode access vlan #{n}\nswtich mode access\nno shutdown".split "\n"
+    commands = [
+
+        "#ENTER",
+        "enable",
+        "configure terminal",
+        "interface #{pxname}",
+        "switch mode access vlan #{n}",
+        "swtich mode access",
+        "no shutdown",
+        "exit",
+        "interface #{qxname}",
+        "switch mode access vlan #{n}",
+        "swtich mode access",
+        "no shutdown",
+        "exit",
+        "exit",
+        "exit"
+
+    ]
+
+    commands
+    
   end
 
 end

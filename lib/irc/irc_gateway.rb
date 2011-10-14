@@ -112,7 +112,7 @@ class IRCGateway
   def create_vlan(vlan)
     vlan_switch = Dispositivo.where(:tipo => 'vlan').first
     if vlan_switch
-      canal = "device_#{vlan_switch.id}"
+      canal = "#device_#{vlan_switch.id}"
       commands = serial_create_vlan vlan
       commands.each do |command|
         send_irc canal, command

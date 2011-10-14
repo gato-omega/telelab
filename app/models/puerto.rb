@@ -66,13 +66,13 @@ class Puerto < ActiveRecord::Base
       @current_vlan.practica =  @current_practica
       if @current_vlan.save
         @current_vlan.endpoint.check_context
-        @current_vlan
       else
         raise "Could not connect!#{@current_vlan.errors.inspect}"
       end
     else
       raise 'Practica contexts dont match'
     end
+    @current_vlan
 
   end
 
@@ -94,6 +94,7 @@ class Puerto < ActiveRecord::Base
     logical_endpoint
   end
 
+  # Checks if puerto instance has an associated practica to allow logical connections
   def check_context
     puts "Checking context"
     check_ok = false
@@ -107,10 +108,11 @@ class Puerto < ActiveRecord::Base
     if check_ok
       @current_practica
     else
-      raise 'Invalid vlan conenction context, check @current_practica'
+      raise 'Invalid vlan connection context, check @current_practica'
     end
   end
 
+  # Returns logical endpoint
   def logical_endpoint
     check_context
     if @current_vlan
@@ -120,10 +122,13 @@ class Puerto < ActiveRecord::Base
     end
   end
 
+  # Sets logical endpoint
   def logical_endpoint=(other)
     self.conectar_logicamente other
   end
 
+  # Gets the vlan from database
+  private
   def get_vlan
     @current_vlan = Vlan.where((:puerto_id >> self.id || :endpoint_id >> self.id) && :practica_id >> @current_practica.id).first
   end

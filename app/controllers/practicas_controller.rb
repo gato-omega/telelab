@@ -171,6 +171,34 @@ class PracticasController < AuthorizedController
     end
   end
 
+  def conexion
+    puerto_id = params[:puerto_id]
+    endpoint_id = params[:endpoint_id]
+
+    puerto = Puerto.find(puerto_id)
+    endpoint = Puerto.find(endpoint_id)
+
+    the_practica = Practica.find(params[:id])
+
+    puerto.current_practica = the_practica
+    endpoint.current_practica = the_practica
+
+    puts "DEBUG ##################3 practica is #{the_practica.inspect}"
+
+    the_vlan = puerto.conectar_logicamente endpoint
+
+    puts "DEBUG ##################3 the_vlan is #{the_vlan.inspect}"
+
+    if the_vlan
+      IRCGateway.instance.create_vlan the_vlan
+      channel = "practica_#{the_practica.id}"
+      mensaje_raw = FayeMessagesController.new.normal_method_is "#{the_vlan} created"
+      send_via_faye "#{FAYE_CHANNEL_PREFIX}#{channel}", mensaje_raw
+    end
+
+    render :nothing => true
+
+  end
 
   def practice_events
     @practice_events = Practica.where("name like ?", "%#{params[:q]}%")
