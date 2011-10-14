@@ -17,7 +17,16 @@ class Puerto < ActiveRecord::Base
   attr_accessor :current_practica
   attr_accessor :current_vlan
 
-  ## FISICAMENTE
+
+  # Returns only physically connected ports
+  # @return [Array]
+  def self.conectados_fisicamente
+    all.select do |puerto|
+      puerto.conectado_fisicamente?
+    end
+  end
+
+  ## CONEXIONES FISICAS
 
   # Conecta un puerto con otro, haciendo la referencia bidireccional en endpoint
   def conectar_fisicamente(other)
@@ -55,8 +64,8 @@ class Puerto < ActiveRecord::Base
   # Conecta un puerto con otro, haciendo la referencia bidireccional en endpoint
   def conectar_logicamente(other)
     check_context
-    desconectar_logicamente
     if other.check_context.eql? @current_practica
+      desconectar_logicamente
       puts "seee entra @current_practica 1 #{@current_practica} "
       puts "seee entra @current_vlan 1 #{@current_vlan} "
 

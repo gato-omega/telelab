@@ -19,4 +19,12 @@ class Dispositivo < ActiveRecord::Base
 
   accepts_nested_attributes_for :puertos
 
+  # Returns only physically connected ports
+  # @return [Array]
+  def puertos_utiles
+    puertos.select do |puerto|
+      puerto.conectado_fisicamente?
+    end
+  end
+
 end
