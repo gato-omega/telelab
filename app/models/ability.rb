@@ -60,6 +60,11 @@ class Ability
     elsif @user.is_a? Student
 
       can :do_student_stuff, :stuff
+      can :manage, Practica do |practica|
+        practica.users.include? @user
+      end
+
+      can :create, Practica
 
     else #VISITOR - Unregistered
     end

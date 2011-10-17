@@ -62,6 +62,7 @@ Telelab02::Application.routes.draw do
   #DO STUDENT STUFF HERE
   scope '/student' do
     get '/' => 'student#index', :as => 'student_home'
+    match '/practicas' => 'student#practicas', :as => 'student_practicas'
   end
 
   #DO TECHNICIAN STUFF HERE

@@ -5,10 +5,8 @@ class PracticasController < AuthorizedController
 
   include CustomFayeSender
 
-
-
   def index
-    @practicas = Practica.all
+    @practicas = Practica.order(:start)
   end
 
   def show
@@ -68,6 +66,8 @@ class PracticasController < AuthorizedController
         #Send notification
         broadcast_chat_status channel_sym, :available
       end
+    else
+      broadcast_chat_status channel_sym, current_user.options[:faye][channel_sym]
     end
 
     @channel = channel_sym

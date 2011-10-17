@@ -139,9 +139,16 @@ class IRCGateway
 
   def initialize_device_channels
     @device_channels = []
-   
-    Dispositivo.where(:estado >> 'ok') do |dispositivo|
+
+    Dispositivo.where(:estado >> 'ok').each do |dispositivo|
       @device_channels << "#device_#{dispositivo.id}"
+    end
+
+    #Safeguard
+    if @device_channels.empty?
+      Dispositivo.all.each do |dispositivo|
+        @device_channels << "#device_#{dispositivo.id}"
+      end
     end
 
     @device_channels
