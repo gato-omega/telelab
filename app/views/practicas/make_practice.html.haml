@@ -17,8 +17,8 @@
       .title This is DIAGRAM
 
     .connections
-      .title This is CONSOLES
-      = render :partial => "practicas/practice_gadgets/connections"
+      .title This is CONNECTIONS
+      = render :partial => "practicas/practice_gadgets/connections", :locals => {:conexiones => @logical_connections}
   .viewport_row
     .consoles
       .title This is CONSOLES

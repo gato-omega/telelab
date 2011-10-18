@@ -94,7 +94,7 @@ class Puerto < ActiveRecord::Base
         was_endpoint = @current_vlan.puerto
       end
       @current_vlan.destroy
-      was_endpoint.check_context
+      was_endpoint.check_context false
       was_endpoint
     end
   end
@@ -104,7 +104,7 @@ class Puerto < ActiveRecord::Base
   end
 
   # Checks if puerto instance has an associated practica to allow logical connections
-  def check_context
+  def check_context(enforce=true)
     puts "Checking context"
     check_ok = false
     begin
@@ -117,7 +117,11 @@ class Puerto < ActiveRecord::Base
     if check_ok
       @current_practica
     else
-      raise 'Invalid vlan connection context, check @current_practica'
+      if enforce
+        raise 'Invalid vlan connection context, check @current_practica'
+      else
+        nil
+      end
     end
   end
 

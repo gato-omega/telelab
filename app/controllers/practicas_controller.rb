@@ -71,6 +71,7 @@ class PracticasController < AuthorizedController
     end
 
     @channel = channel_sym
+    @logical_connections = Vlan.where(:practica_id >> @practica.id)
   end
 
   def terminal
