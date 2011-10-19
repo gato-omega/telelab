@@ -1,0 +1,10 @@
+@import "mixins";
+
+.reserve_data
+    {
+        overflow: auto;
+        width: 53%;
+        border: 2px solid #f58400;
+        margin-bottom: 9px;
+        @include dark-container;
+    }

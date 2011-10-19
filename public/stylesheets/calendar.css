@@ -3,14 +3,15 @@
   text-align: center;
   font-size: 14px;
   font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+  float: left;
+  margin-bottom: 10px;
   color: black;
 }
 
-/* line 10, ../../app/stylesheets/calendar.scss */
+/* line 12, ../../app/stylesheets/calendar.scss */
 #reservation_calendar {
-  width: 1020px;
+  width: 1051px;
   margin: auto;
   border: 2px solid #f58400;
-  /*background: #0078a3 url(images/ui-bg_glass_40_0078a3_1x400.png) 50% 50% repeat-x;*/
   background: #ffffff;
 }
