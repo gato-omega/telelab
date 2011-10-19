@@ -1,4 +1,7 @@
-= form_for(@dispositivo) do |f|
+- content_for :head do
+  = javascript_include_tag 'nested_form'
+
+= nested_form_for @dispositivo do |f|
   - if @dispositivo.errors.any?
     #error_explanation
       %h2
@@ -7,29 +10,35 @@
       %ul
         - @dispositivo.errors.full_messages.each do |msg|
           %li= msg
-  .field
-    = f.label :nombre
-    %br/
-    = f.text_field :nombre
-  .field
-    = f.label :etiqueta
-    %br/
-    = f.text_field :etiqueta
-  .field
-    = f.label :tipo
-    %br/
-    = f.text_field :tipo
-  .field
-    = f.label :categoria
-    %br/
-    = f.text_field :categoria
-  .field
-    = f.label :estado
-    %br/
-    = f.text_field :estado
-  .field
-    = f.label :com
-    %br/
-    = f.text_field :com
+  .inline_fields
+    .field
+      = f.label :nombre
+      %br
+      = f.text_field :nombre
+    .field
+      = f.label :etiqueta
+      %br
+      = f.text_field :etiqueta
+    .field
+      = f.label :tipo
+      %br
+      = f.select(:tipo, @types, { :prompt => 'Seleccione el tipo' })
+    .field
+      = f.label :categoria
+      %br
+      = f.select(:categoria, @categories, { :prompt => 'Seleccione la categoria' })
+    .field
+      = f.label :estado
+      %br
+      = f.text_field :estado
+    .field
+      = f.label :com
+      %br
+      = f.text_field :com
+
+    = f.fields_for :puertos
+
+    = f.link_to_add 'Agregar puerto' , :puertos
+
   .actions
     = f.submit

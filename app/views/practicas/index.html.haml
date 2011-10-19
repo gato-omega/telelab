@@ -1,37 +1,36 @@
--#%p add from practica_index old
--#
--#- content_for :head do
--#  -#= javascript_include_tag 'practica_faye'
--#  -#= javascript_include_tag "#{FAYE_SERVER_URL}.js"
--#  -#= javascript_include_tag js_faye_init_path
+- title 'Listando Practicas'
+= content_for :head do
+  = stylesheet_link_tag 'telelab_datatables'
+  
+  = javascript_include_tag :jquery_datatables
+  = javascript_include_tag 'datatable'
 
-%h1 Listing practicas
-%table
-  %tr
-    %th Name
-    / <th>Start</th>
-    / <th>End</th>
-    %th Estado
-    %th
-    %th
-    %th
-  - @practicas.each do |practica|
+%table.display{:cellpadding=> "0", :cellspacing => "0", 'datatable' => true}
+  %thead
     %tr
-      %td= practica.name
-      / <td></haml:block><haml:silent></haml:silent><haml:block></td>
-      / <td></haml:block><haml:silent></haml:silent><haml:block></td>
-      %td= practica.estado
-      %td= link_to 'Show', practica
-      %td= link_to 'Edit', edit_practica_path(practica)
-      %td= link_to 'Destroy', practica, :confirm => 'Are you sure?', :method => :delete
+      %td Nombre
+      %td Inicio
+      %td Fin
+      %td Estado
+      %th Actions
+  %tfoot
+    %tr
+      %td Nombre
+      %td Inicio
+      %td Fin
+      %td Estado
+      %th Actions
+  %tbody
+    - @practicas.each do |practica|
+      %tr
+        %td= practica.name
+        %td= practica.start
+        %td= practica.end
+        %td= practica.estado
+        %td{ :style => "text-align: center"}
+          = link_to 'Show', practica, :class => 'show_button'
+          = link_to 'Edit', edit_practica_path(practica), :class => 'edit_button'
+          = link_to 'Destroy', practica, :confirm => 'Are you sure?', :method => :delete, :class => 'delete_button'
+
 %br/
-
--#%p add from practica_index old
--#
--#= text_area(:irc, :area, :cols => 30, :rows => 10)
--#= form_tag message_path, :remote => true, :id => 'chat' do
--#= label_tag(:message, "Mensaje:")
--#= text_field_tag(:message)
--#= submit_tag("Enviar")
-
-= link_to 'New Practica', new_practica_path
+= link_to 'New practica', new_practica_path, :class => 'button'

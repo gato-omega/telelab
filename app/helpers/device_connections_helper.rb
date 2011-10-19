@@ -1,0 +1,2 @@
+module DeviceConnectionsHelper
+end

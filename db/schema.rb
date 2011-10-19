@@ -101,7 +101,6 @@ ActiveRecord::Schema.define(:version => 20111011230152) do
     t.string  "etiqueta"
     t.string  "estado"
     t.integer "dispositivo_id"
-    t.integer "device_connection_id"
   end
 
   create_table "sessions", :force => true do |t|
@@ -142,6 +141,15 @@ ActiveRecord::Schema.define(:version => 20111011230152) do
   create_table "users_courses", :id => false, :force => true do |t|
     t.integer "user_id"
     t.integer "course_id"
+  end
+
+  create_table "vlans", :force => true do |t|
+    t.integer  "numero"
+    t.integer  "practica_id"
+    t.integer  "puerto_id"
+    t.integer  "endpoint_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

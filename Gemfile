@@ -54,6 +54,7 @@ group :development do
   gem 'wirb'
   gem 'awesome_print'
   gem 'active_reload', '0.6.0'
+  gem 'colorize'
 end
 
 gem 'cancan' # The permissions gem
@@ -69,3 +70,5 @@ gem "compass", ">= 0.11.5"
 gem 'event-calendar', :require => 'event_calendar'
 
 gem 'delayed_job'
+
+gem 'nested_form'

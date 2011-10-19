@@ -1,25 +1,42 @@
-%h1 Listing dispositivos
-%table
-  %tr
-    %th Nombre
-    %th Etiqueta
-    %th Tipo
-    %th Categoria
-    %th Estado
-    %th Com
-    %th
-    %th
-    %th
-  - @dispositivos.each do |dispositivo|
+- title 'Listando Dispositivos'
+= content_for :head do
+  = stylesheet_link_tag 'telelab_datatables'
+
+  = javascript_include_tag :jquery_datatables
+  = javascript_include_tag 'datatable'
+
+%table.display{:cellpadding=> "0", :cellspacing => "0", 'datatable' => true}
+  %thead
     %tr
-      %td= dispositivo.nombre
-      %td= dispositivo.etiqueta
-      %td= dispositivo.tipo
-      %td= dispositivo.categoria
-      %td= dispositivo.estado
-      %td= dispositivo.com
-      %td= link_to 'Show', dispositivo
-      %td= link_to 'Edit', edit_dispositivo_path(dispositivo)
-      %td= link_to 'Destroy', dispositivo, :confirm => 'Are you sure?', :method => :delete
+      %th Nombre
+      %th Etiqueta
+      %th Tipo
+      %th Categoria
+      %th Estado
+      %th Com
+      %th Actions
+  %tfoot
+    %tr
+      %th Nombre
+      %th Etiqueta
+      %th Tipo
+      %th Categoria
+      %th Estado
+      %th Com
+      %th Actions
+  %tbody
+    - @dispositivos.each do |dispositivo|
+      %tr
+        %td= link_to dispositivo.nombre, edit_dispositivo_path(dispositivo)
+        %td= dispositivo.etiqueta
+        %td= dispositivo.tipo
+        %td= dispositivo.categoria
+        %td= dispositivo.estado
+        %td= dispositivo.com
+        %td{ :style => "text-align: center"}
+          = link_to 'Show', dispositivo, :class => 'show_button'
+          = link_to 'Edit', edit_dispositivo_path(dispositivo), :class => 'edit_button'
+          = link_to 'Destroy', dispositivo, :confirm => 'Are you sure?', :method => :delete, :class => 'delete_button'
+
 %br/
-= link_to 'New Dispositivo', new_dispositivo_path
+= link_to 'Nuevo Dispositivo', new_dispositivo_path, :class => 'button'

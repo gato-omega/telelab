@@ -11,4 +11,10 @@ class StudentController < ApplicationController
     authorize! :do_student_stuff, :stuff
   end
 
+  def practicas
+    authorize! :do_student_stuff, :stuff
+    @practicas = current_user.practicas
+    render 'practicas/index'
+  end
+
 end

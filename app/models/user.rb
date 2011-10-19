@@ -13,7 +13,6 @@ class User < ActiveRecord::Base
 
   ## PROFILE
   has_one :profile, :dependent => :destroy
-  #before_create :create_default_profile
 
   accepts_nested_attributes_for :profile
   attr_accessible :profile_attributes
@@ -37,7 +36,6 @@ class User < ActiveRecord::Base
   end
 
   def chat_status(channel)
-    #:offline unless (self.options[:faye][channel] if self.options[:faye])
     options[:faye][channel] ? options[:faye][channel] : :offline
   end
 
@@ -60,7 +58,7 @@ class User < ActiveRecord::Base
   #for storing hash in database
   serialize :options, Hash
   attr_accessible :options
-  before_validation :options_hash_init
+  validate :options_hash_init
 
 
   ### PROTECTED
@@ -112,33 +110,11 @@ class User < ActiveRecord::Base
     where(["username = :value OR email = :value", {:value => login}]).first
   end
 
+  # CUSTOM PROTECTED
 
-  ### PRIVATE
-
-  private
-  def create_default_profile
-    # build default profile instance. Will use default params.
-    # The foreign key to the owning User model is set automatically
-    if !self.profile
-      #noinspection RubyArgCount
-      create_profile({:firstname => "#{username}"})
-    end
-
-    true # Always return true in callbacks as the normal 'continue' state
-    # Assumes that the default_profile can **always** be created.
-    # or
-    # Check the validation of the profile. If it is not valid, then
-    # return false from the callback. Best to use a before_validation
-    # if doing this. View code should check the errors of the child.
-    # Or add the child's errors to the User model's error array of the :base
-    # error item
-  end
-
-  private
   def options_hash_init
-    if options.nil?
-      options = {:faye => {}}
-    end
+    self.options = {:faye => {}} unless self.options.is_a? Hash
+    true
   end
 
 end

@@ -1,12 +1,11 @@
-require 'bayeux/custom_faye_sender'
 require 'irc/g_bot'
+require 'serial/device_command_processor'
 
 # The middleware gateway for IRC-BAYEUX (irc-faye)
 # Has an irc transceiver and a faye sender
 class IRCGateway
 
   include Singleton
-  include CustomFayeSender
 
   attr_accessor :zbot
   attr_accessor :config
@@ -22,18 +21,20 @@ class IRCGateway
     # Objects noted with the 'the_' prefix are used to be passed without risking
     # execution context name collisions
 
-    # Initialize the message processor instance # THE
-    the_message_processor = initialize_message_processor
-
     # Put itself to be referenced by the internal irc bot #THE
-    the_faye_sender = self
+    #the_faye_sender = self
 
     # Load IRC config part from APP_CONFIG #THE
     load_irc_config
     the_irc_config = @config
 
     #Load device_channels #THE
-    the_device_channels = initialize_device_channels
+    the_device_channels = get_device_channels(true)
+
+    # Initialize the message processor instance # THE
+    the_message_processor = initialize_message_processor
+    the_irc_gateway = self
+
 
     # Create the ZBOT, instance of GBot...lol
     @zbot = GBot.new do
@@ -53,7 +54,7 @@ class IRCGateway
       #Listen and do...
       on :message do |m|
         # self === Callback.new
-        
+
         # Retrieve important params
         rcvd_message = m.message # "the message" the actual message
         rcvd_channel = m.channel.name # "#lobby" the channel it was sent on
@@ -61,25 +62,22 @@ class IRCGateway
 
         # Process it and get the required data to send
 
-        # PLEASE ELIMINATE THIS!
-        the_message_processor=FayeMessagesController.new
+        # ELIMINATE
+        the_message_processor=DeviceCommandProcessor.new(the_irc_gateway)
 
-        mensaje_raw = the_message_processor.process_irc_message rcvd_channel, rcvd_user, rcvd_message
+        the_message_processor.process_irc_message rcvd_channel, rcvd_user, rcvd_message
 
-        # Send it using the CustomFayeSender module of the_faye_sender
-
-        # Get this users faye channel to send to
-        # rcvd_channel is in the form #<resource>_<id>
-        # faye_channel is in the form <resource>_<id>
-        faye_channel = "#{FAYE_CHANNEL_PREFIX}#{(rcvd_channel.split '#').last}"
-
-        # ...and send via internal bot reference
-        the_faye_sender.send_via_faye faye_channel, mensaje_raw
       end
     end
 
     # Finally...start da bot
     start
+  end
+
+  def create_vlan(vlan)
+    # UNCOMMENT
+    #@message_processor.create_vlan(vlan)
+    DeviceCommandProcessor.new(self).create_vlan(vlan)
   end
 
   # Send a IRC message to a channel
@@ -88,6 +86,7 @@ class IRCGateway
     if real_channel
       real_channel.action(message)
     else
+      puts "############## CHANNEL #{channel} NOT FOUND !"
     end
   end
 
@@ -117,24 +116,31 @@ class IRCGateway
   end
 
   def initialize_message_processor
-    @message_processor = FayeMessagesController.new
+    @message_processor = DeviceCommandProcessor.new(self)
   end
 
-  def initialize_device_channels
+  def get_device_channels(force_reload=false)
+
+    #if @device_channels && !force_reload
+    #  @device_channels
+    #else
     @device_channels = []
-    #Dispositivo.where(:estado => 'ok', :tipo => 'user').each do |dispositivo|
-    #  @device_channels << "#device_#{dispositivo.id}"
-    #end
-    
-    Dispositivo.all.each do |dispositivo|
+
+    Dispositivo.where(:estado >> 'ok').each do |dispositivo|
       @device_channels << "#device_#{dispositivo.id}"
     end
 
-    @device_channels
-  end
+    #Safeguard
+    if @device_channels.empty?
+      Dispositivo.all.each do |dispositivo|
+        @device_channels << "#device_#{dispositivo.id}"
+      end
+    end
 
-  def self.lol
-    "as"
+    @device_channels
+
+    #end
+
   end
 
 end

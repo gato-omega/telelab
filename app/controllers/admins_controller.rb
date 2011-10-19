@@ -15,6 +15,7 @@ class AdminsController < ApplicationController
   def new
     @admin = Admin.new
     @admin.build_profile
+    @current_method = "new"
     respond_with @admin
   end
 
@@ -25,10 +26,11 @@ class AdminsController < ApplicationController
 
   def create
     @admin = Admin.new(params[:admin])
-
+    @current_method = "new"
+    
     respond_to do |format|
       if @admin.save
-        format.html { redirect_to(@admin, :notice => 'admin was successfully created.') }
+        format.html { redirect_to(admins_url, :notice => 'admin was successfully created.') }
         format.xml  { render :xml => @admin, :status => :created, :location => @admin }
       else
         format.html { render :action => "new" }
@@ -42,7 +44,7 @@ class AdminsController < ApplicationController
 
     respond_to do |format|
       if @admin.update_attributes(params[:admin])
-        format.html { redirect_to(@admin, :notice => 'admin was successfully updated.') }
+        format.html { redirect_to(admins_url, :notice => 'admin was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

@@ -11,17 +11,18 @@
   = javascript_include_tag practica_lab_path @practica
 
 #practica
-  .main_title WHAT IS THIS??
+  .main_title= @practica.name
   .viewport_row
     .diagram
       .title This is DIAGRAM
 
     .connections
       .title This is CONNECTIONS
+      = render :partial => "practicas/practice_gadgets/connections", :locals => {:conexiones => @logical_connections}
   .viewport_row
     .consoles
       .title This is CONSOLES
       = render :partial => "practicas/practice_gadgets/console"
-    .chat
+    .chat.ui-corner-all
       .title This is CHAT
       = render :partial => "practicas/practice_gadgets/chat"

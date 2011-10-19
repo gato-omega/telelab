@@ -15,6 +15,7 @@ class TeachersController < AuthorizedController
   def new
     @teacher = Teacher.new
     @teacher.build_profile
+    @current_method = "new"
     respond_with @teacher
   end
 
@@ -25,10 +26,11 @@ class TeachersController < AuthorizedController
 
   def create
     @teacher = Teacher.new(params[:teacher])
+    @current_method = "new"
 
     respond_to do |format|
       if @teacher.save
-        format.html { redirect_to(@teacher, :notice => 'Teacher was successfully created.') }
+        format.html { redirect_to(teachers_url, :notice => 'Teacher was successfully created.') }
         format.xml  { render :xml => @teacher, :status => :created, :location => @teacher }
       else
         format.html { render :action => "new" }
@@ -42,7 +44,7 @@ class TeachersController < AuthorizedController
 
     respond_to do |format|
       if @teacher.update_attributes(params[:teacher])
-        format.html { redirect_to(@teacher, :notice => 'Teacher was successfully updated.') }
+        format.html { redirect_to(teachers_url, :notice => 'Teacher was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

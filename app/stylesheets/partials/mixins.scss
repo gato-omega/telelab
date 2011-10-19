@@ -1,0 +1,14 @@
+@mixin round-corners($radius:6px)
+{
+    -moz-border-radius-topleft: $radius; -webkit-border-top-left-radius: $radius; -khtml-border-top-left-radius: $radius; border-top-left-radius: $radius;
+    -moz-border-radius-topright: $radius; -webkit-border-top-right-radius: $radius; -khtml-border-top-right-radius: $radius; border-top-right-radius: $radius;
+    -moz-border-radius-bottomleft: $radius; -webkit-border-bottom-left-radius: $radius; -khtml-border-bottom-left-radius: $radius; border-bottom-left-radius: $radius;
+    -moz-border-radius-bottomright: $radius; -webkit-border-bottom-right-radius: $radius; -khtml-border-bottom-right-radius: $radius; border-bottom-right-radius: $radius;
+}
+
+@mixin dark-container($padding:1%)
+{
+    background: #222222;
+    padding: $padding;
+    @include round-corners;
+}

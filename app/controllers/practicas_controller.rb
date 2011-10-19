@@ -5,10 +5,8 @@ class PracticasController < AuthorizedController
 
   include CustomFayeSender
 
-
-
   def index
-    @practicas = Practica.all
+    @practicas = Practica.order(:start)
   end
 
   def show
@@ -71,9 +69,16 @@ class PracticasController < AuthorizedController
         #Send notification
         broadcast_chat_status channel_sym, :available
       end
+    else
+      broadcast_chat_status channel_sym, current_user.options[:faye][channel_sym]
     end
 
     @channel = channel_sym
+    @logical_connections = Vlan.where(:practica_id >> @practica.id)
+    @logical_connections << "meeeow"
+    @logical_connections << "meeeow2"
+    @logical_connections << "meeeow3"
+
   end
 
   def terminal
@@ -102,7 +107,7 @@ class PracticasController < AuthorizedController
       send_via_faye "#{FAYE_CHANNEL_PREFIX}#{@mensaje[:channel]}", mensaje_raw
 
       # Send through IRCGateway...
-      the_irc_gateway.zbot.action("##{@mensaje[:channel]}", @mensaje[:message])
+      the_irc_gateway.send_irc("##{@mensaje[:channel]}", @mensaje[:message])
     end
 
     render :nothing => true
@@ -174,6 +179,41 @@ class PracticasController < AuthorizedController
     end
   end
 
+  def conexion
+    puerto_id = params[:puerto_id]
+    endpoint_id = params[:endpoint_id]
+
+    puerto = Puerto.find(puerto_id)
+    endpoint = Puerto.find(endpoint_id)
+
+    the_practica = Practica.find(params[:id])
+
+    puerto.current_practica = the_practica
+    endpoint.current_practica = the_practica
+
+    the_vlan = Vlan.new
+
+    the_vlan.practica = the_practica
+    the_vlan.puerto = puerto
+    the_vlan.endpoint = endpoint
+
+
+    #puts "DEBUG ##################3 practica is #{the_practica.inspect}"
+    #
+    #the_vlan = puerto.conectar_logicamente endpoint
+    #
+    #puts "DEBUG ##################3 the_vlan is #{the_vlan.inspect}"
+
+    if the_vlan.save
+      IRCGateway.instance.create_vlan the_vlan
+      channel = "practica_#{the_practica.id}"
+      mensaje_raw = FayeMessagesController.new.normal_method_is "#{the_vlan} created"
+      send_via_faye "#{FAYE_CHANNEL_PREFIX}#{channel}", mensaje_raw
+    end
+
+    render :nothing => true
+
+  end
 
   def practice_events
     @practice_events = Practica.where("name like ?", "%#{params[:q]}%")
@@ -217,6 +257,7 @@ class PracticasController < AuthorizedController
     @allowed_users = @practica.users
   end
 
+  # Broadcast this user's chat status in a specific channel'
   def broadcast_chat_status(channel, status)
     mensaje_raw = FayeMessagesController.new.generate_chat_status_output current_user.id, status
     send_via_faye "#{FAYE_CHANNEL_PREFIX}#{channel}", mensaje_raw

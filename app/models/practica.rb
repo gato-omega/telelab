@@ -3,6 +3,12 @@ class Practica < ActiveRecord::Base
   has_and_belongs_to_many :dispositivos
   has_and_belongs_to_many :users
   has_one :event
+
+  has_many :vlans
+
+  ESTADOS = %w[reserved open closed]
+
+
   attr_reader :user_list
 
   def user_list=(ids)
