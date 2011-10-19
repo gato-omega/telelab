@@ -201,7 +201,7 @@ class PracticasController < AuthorizedController
     #
     #puts "DEBUG ##################3 the_vlan is #{the_vlan.inspect}"
 
-    if the_vlan
+    if the_vlan.save
       IRCGateway.instance.create_vlan the_vlan
       channel = "practica_#{the_practica.id}"
       mensaje_raw = FayeMessagesController.new.normal_method_is "#{the_vlan} created"

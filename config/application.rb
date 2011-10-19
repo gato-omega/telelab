@@ -22,7 +22,7 @@ module Telelab02
     # NEW! -- good and not so good when plugins have Singleton classes
     #config.autoload_paths += %W(#{config.root}/lib)
     #config.autoload_paths += Dir["#{config.root}/lib/**/"]
-    config.autoload_paths += Dir["#{config.root}/lib/serial/**"]
+    config.autoload_paths += Dir["#{config.root}/lib/serial"]
 
 
 

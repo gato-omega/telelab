@@ -93,7 +93,7 @@ class DeviceCommandProcessor
   end
 
   def process_vlan_output output
-
+    puts "ASDADASD"
   end
 
   def create_vlan(vlan)

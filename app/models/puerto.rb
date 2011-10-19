@@ -17,13 +17,10 @@ class Puerto < ActiveRecord::Base
   attr_accessor :current_practica
   attr_accessor :current_vlan
 
-
   # Returns only physically connected ports
-  # @return [Array]
+  # @return [ActiveRecord::Relation]
   def self.conectados_fisicamente
-    all.select do |puerto|
-      puerto.conectado_fisicamente?
-    end
+    Puerto.joins(:device_connection)
   end
 
   ## CONEXIONES FISICAS
