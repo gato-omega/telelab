@@ -5,6 +5,7 @@ class Vlan < ActiveRecord::Base
 
 
   validates_presence_of :puerto_id, :endpoint_id, :practica_id
+  validates :puerto_id, :uniqueness => {:scope => :practica_id}
 
   before_validation :assign_number
 
@@ -24,5 +25,6 @@ class Vlan < ActiveRecord::Base
     end
     self.numero = numero
   end
+  
 
 end

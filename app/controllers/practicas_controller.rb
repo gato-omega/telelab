@@ -72,6 +72,10 @@ class PracticasController < AuthorizedController
 
     @channel = channel_sym
     @logical_connections = Vlan.where(:practica_id >> @practica.id)
+    @logical_connections << "meeeow"
+    @logical_connections << "meeeow2"
+    @logical_connections << "meeeow3"
+
   end
 
   def terminal
@@ -184,11 +188,18 @@ class PracticasController < AuthorizedController
     puerto.current_practica = the_practica
     endpoint.current_practica = the_practica
 
-    puts "DEBUG ##################3 practica is #{the_practica.inspect}"
+    the_vlan = Vlan.new
 
-    the_vlan = puerto.conectar_logicamente endpoint
+    the_vlan.practica = the_practica
+    the_vlan.puerto = puerto
+    the_vlan.endpoint = endpoint
 
-    puts "DEBUG ##################3 the_vlan is #{the_vlan.inspect}"
+
+    #puts "DEBUG ##################3 practica is #{the_practica.inspect}"
+    #
+    #the_vlan = puerto.conectar_logicamente endpoint
+    #
+    #puts "DEBUG ##################3 the_vlan is #{the_vlan.inspect}"
 
     if the_vlan
       IRCGateway.instance.create_vlan the_vlan

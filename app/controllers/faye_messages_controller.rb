@@ -35,32 +35,6 @@ class FayeMessagesController < AbstractController::Base
     whatever("your param here> #{something}")
   end
 
-  # This method processes the incoming message from irc and
-  # returns the data as-is to be delivered to a FayeSender
-  def process_irc_message(rcvd_channel, rcvd_user, rcvd_message)
-    # do normal_method_is
-    processed_message_output = ''
-    puts "############## PROCESSING A >>> channel: #{rcvd_channel}, user: #{rcvd_user}, message: #{rcvd_message} ####"
-
-    rcvd_channel = (rcvd_channel.split '#').last
-    msg_type = (rcvd_channel.split '_').first
-    item_id = (rcvd_channel.split '_').last
-
-    puts "############## PROCESSING B >>> channel: #{rcvd_channel}, msg_type: #{msg_type}, item_id: #{item_id} ####"
-
-
-    if msg_type == 'device'
-      processed_message_output=generate_terminal_output item_id, rcvd_message
-    end
-
-    if msg_type == 'practica'
-      #processed_message_output = generate_chat_output item_id, rcvd_message
-    end
-
-    puts "Processed message output > #{processed_message_output}"
-    processed_message_output
-  end
-
   # Generates a console terminal output, when received from device channel
   def generate_terminal_output(device_id, message)
     @device_id = device_id

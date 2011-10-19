@@ -46,7 +46,8 @@ Telelab02::Application.configure do
   ## AUTOLOAD LIB FOLDER
 
   #ActiveSupport::Dependencies.explicitly_unloadable_constants << 'IRCGateway'
-  #ActiveSupport::Dependencies.explicitly_unloadable_constants << 'GBot'
+  ActiveSupport::Dependencies.explicitly_unloadable_constants << 'DeviceCommandProcessor'
+
   #ActiveSupport::Dependencies.autoload_paths << "#{Rails.root}/lib/irc"
   #ActiveSupport::Dependencies.autoload_paths << "#{Rails.root}/lib/bayeux"
 
