@@ -9,10 +9,11 @@ class Practica < ActiveRecord::Base
     self.user_ids = ids.split(",")
   end
 
-  def done
-    p '############# realizada ##############'
+  def abrir
+    update_attribute :estado, 'open'
   end
 
-  handle_asynchronously :done
-
+  def cerrar
+    update_attribute :estado, 'closed'
+  end
 end
