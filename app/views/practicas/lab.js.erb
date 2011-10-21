@@ -6,6 +6,7 @@ var username ='<%= @username %>';
 var user_id = '<%= @user_id %>'
 var device_ids = '<%= @dispositivos_reservados.map do |dispositivo| dispositivo.id end.join(',') %>'.split(',');
 var chat_terminal = null;
+var conexiones_datatable = null;
 
 // Initialize terminals in tabs
 $(function()
@@ -96,3 +97,26 @@ $(function()
         $.post('<%= practica_chat_status_path(@practica) %>', {status:'offline'});
     });
 });
+
+$(function()
+{
+    try
+    {
+        conexiones_datatable=$("table[datatable][conexiones]").dataTable({
+        "bJQueryUI": true,
+        "bPaginate": false,
+        "bLengthChange": false,
+        "bFilter": false,
+        "bSort": false,
+        "bInfo": false,
+        "bAutoWidth": false
+    });
+    }
+    catch(err)
+    {
+        $("table[datatable][conexiones]").html('COULD NOT INITIALIZE CONNECTIONS!!!! ');
+    }
+
+});
+
+

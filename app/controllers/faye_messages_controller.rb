@@ -62,4 +62,22 @@ class FayeMessagesController < AbstractController::Base
     render template: "faye_messages/chat_status"
   end
 
+  def generate_remove_conexion_output(vlan)
+    # remove the thing with id vlan.id
+    @vlan = vlan
+    @id = vlan.id
+    render template: "faye_messages/remove_connection"
+  end
+
+  def generate_new_conexion_output(vlan)
+    @vlan =  vlan
+    @vlan_hash = {}
+    @vlan_hash[:practica_id] = @vlan.practica.id
+    @vlan_hash[:id] = @vlan.id
+    @vlan_hash[:puerto] = @vlan.puerto.fullname
+    @vlan_hash[:endpoint] = @vlan.endpoint.fullname
+
+    render template: "faye_messages/new_conexion"
+  end
+
 end

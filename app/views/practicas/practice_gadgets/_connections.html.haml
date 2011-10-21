@@ -1,6 +1,41 @@
 - content_for :head do
   = stylesheet_link_tag 'partials/connections'
+  = stylesheet_link_tag 'telelab_datatables'
+  = javascript_include_tag :jquery_datatables
+  = javascript_include_tag 'datatable'
 
-%ul
-  - conexiones.each do |conexion|
-    %li= "Miau #{conexion.inspect}"
+%table#conexiones_table.display{:cellpadding=> "0", :cellspacing => "0", 'datatable' => true, 'conexiones' => true}
+  %thead
+    %tr
+      %th ID
+      %th Puerto A
+      %th Puerto B
+      %th Accion
+  %tbody
+    - for conexion_i in conexiones
+      %tr
+        %td= conexion_i.id
+        %td= conexion_i.puerto.fullname
+        %td= conexion_i.endpoint.fullname
+        %td{ :style => "text-align: center"}
+          = link_to "Destroy", practica_remove_conexion_path(@practica, conexion_i), :confirm => 'Are you sure?', :method => :delete, :remote => true,:class => 'delete_button'
+
+-#= form_for :conexion do |f|
+-#  - if conexion.errors.any?
+-#    #error_explanation
+-#      %h2
+-#        = pluralize(conexion.errors.count, "error")
+-#        prohibited this admin from being saved:
+-#      %ul
+-#        - conexion.errors.full_messages.each do |msg|
+-#          %li= msg
+-#  .field
+-#    = f.label :username
+-#    %br
+-#    = f.text_field :username
+-#  .field
+-#    = f.label :email
+-#    %br
+-#    = f.text_field :email
+-#  .actions
+-#    = f.submit
