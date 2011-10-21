@@ -15,21 +15,23 @@ class PracticasController < AuthorizedController
 
   def new
     @practica = Practica.new
+    @practica.estado = "reserved"
     @dispositivos = Dispositivo.all
     @dispositivos_reservados = []
     @allowed_users = []
+    @show_first = false
   end
 
   def edit
-    @dispositivos = Dispositivo.all
+    @show_first = true
   end
 
   def create
     @practica = Practica.new(params[:practica])
-
     respond_to do |format|
       if @practica.save
         format.html { redirect_to(@practica, :notice => 'Practica was successfully created.') }
+        practice_jobs @practica, 'created'
       else
         format.html { render :action => "new" }
       end
@@ -43,6 +45,7 @@ class PracticasController < AuthorizedController
     respond_to do |format|
       if @practica.update_attributes(params[:practica])
         format.html { redirect_to(@practica, :notice => 'Practica was successfully updated.') }
+        practice_jobs @practica, 'updated'
       else
         format.html { render :action => "edit" }
       end
@@ -232,26 +235,26 @@ class PracticasController < AuthorizedController
   def free_devices
     _start = DateTime.parse params[:start]
     _end = DateTime.parse params[:end]
-    p '###################################'
-    p 'Inicio de practica seleccionada ' + _start.to_s
-    p 'Fin de practica seleccionada ' + _end.to_s
-    p '###################################'
-    Practica.all.each do |prac|
-      if (prac.start > _start)
-        p 'inicio de ' + prac.name + ' = ' + ' es mayor'
-      elsif (prac.start < _start)
-        p 'inicio de ' + prac.name + ' es menor'
-      end
-      if (prac.end > _end)
-        p 'fin de ' + prac.name + ' es mayor'
-      elsif (prac.end < _end)
-        p 'fin de ' + prac.name + ' es menor'
-      end
+    filtered_practices = Practica.where(((:start >= _start) & (:end <= _end)) | ((:start < _start) & (:end > _start)) | ((:start < _end) & (:end > _end)) | ((:start <= _start) & (:end >= _end)))
+    reserved_devices = []
+    filtered_practices.each do |practica|
+      reserved_devices += practica.dispositivos
     end
-    p '###################################'
-    practicas = Practica.where(((:start >= _start) & (:end <= _end)) | ((:start < _start) & (:end > _start)) | ((:start < _end) & (:end > _end)) | ((:start <= _start) & (:end >= _end)))
-    p practicas
-    render :nothing => true
+    reserved_devices.uniq
+    @dispositivos = Dispositivo.all
+    @free_devices = @dispositivos - reserved_devices
+  end
+
+  def practice_jobs practica, function
+    time1 = 0
+    if function.eql? 'created'
+      time1 = practica.start - practica.created_at
+    elsif function.eql? 'updated'
+      time1 = practica.start - practica.updated_at
+    end
+    time2 = time1 + ( practica.end - practica.start )
+    Delayed::Job.enqueue(PracticeJob.new(practica.id, :abrir), 0, time1.seconds.from_now)
+    Delayed::Job.enqueue(PracticeJob.new(practica.id, :cerrar), 0, time2.seconds.from_now)
   end
 
   # THIS IS PRIVATE !!!

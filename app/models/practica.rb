@@ -15,4 +15,11 @@ class Practica < ActiveRecord::Base
     self.user_ids = ids.split(",")
   end
 
+  def abrir
+    update_attribute :estado, 'open'
+  end
+
+  def cerrar
+    update_attribute :estado, 'closed'
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111009200306) do
+ActiveRecord::Schema.define(:version => 20111011230152) do
 
   create_table "courses", :force => true do |t|
     t.string "name"
@@ -20,6 +20,21 @@ ActiveRecord::Schema.define(:version => 20111009200306) do
   end
 
   add_index "courses", ["name"], :name => "index_courses_on_name"
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "device_connections", :force => true do |t|
     t.integer "puerto_id"
@@ -45,6 +60,15 @@ ActiveRecord::Schema.define(:version => 20111009200306) do
     t.datetime "start"
     t.datetime "end"
     t.integer  "practica_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "p_conexions", :force => true do |t|
+    t.integer  "vlan"
+    t.integer  "practica_id"
+    t.integer  "puerto_id"
+    t.integer  "endpoint_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
