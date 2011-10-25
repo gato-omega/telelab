@@ -23,3 +23,11 @@
   -khtml-border-bottom-right-radius: 6px;
   border-bottom-right-radius: 6px;
 }
+
+/* line 13, ../../../app/stylesheets/partials/reserve_practice.scss */
+.title {
+  text-align: center;
+  padding: 5px;
+  color: #f58400;
+  font-weight: bold;
+}

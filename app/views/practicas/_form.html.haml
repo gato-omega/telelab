@@ -20,7 +20,8 @@
   .calendar
     #reservation_calendar
   .reserve_data
-    Datos de la reserva
+    .title
+      Datos de la reserva
     .field
       = f.label :name
       %br/
@@ -37,7 +38,6 @@
       = f.label :estado
       %br/
       = f.text_field :estado, :value => @practica.estado, :readonly => "readonly"
-      -#= f.text_field :estado, :readonly => "readonly"
     %p
     %div
       = f.label :devices, "Dispositivos"

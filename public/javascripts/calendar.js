@@ -21,7 +21,7 @@ $(document).ready(function() {
         events: '/api/practicas.json',
         selectHelper: false,
         select: function(start, end) {
-            var current_date = $('#reservation_calendar').fullCalendar('getDate');
+            var current_date = new Date();
             if (start > current_date) {
                 var title = prompt('Event Title:');
                 if (title) {

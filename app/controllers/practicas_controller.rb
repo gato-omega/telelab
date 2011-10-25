@@ -55,6 +55,9 @@ class PracticasController < AuthorizedController
   def destroy
     @practica.destroy
 
+    #for destroy delayed_jobs
+    Delayed::Job.where("handler like ?", "%practice_id: #{@practica.id}%").destroy_all
+
     respond_to do |format|
       format.html { redirect_to(practicas_url) }
     end
@@ -86,12 +89,12 @@ class PracticasController < AuthorizedController
     @mensaje = {}
     @mensaje[:message] = params[:message][:content]
 
-    # Filter non-permitted commands and log, whatever we want
+      # Filter non-permitted commands and log, whatever we want
     if not @mensaje[:message].empty?
 
       # Send through faye first to provide echo
       @mensaje[:channel] = params[:message][:channel]
-      # Set echo to true if sending to himself via faye is required
+        # Set echo to true if sending to himself via faye is required
       @mensaje[:echo] = false
 
       if current_user
@@ -102,11 +105,11 @@ class PracticasController < AuthorizedController
 
       the_irc_gateway = IRCGateway.instance
 
-      #mensaje_raw = the_irc_gateway.message_processor.generate_terminal_user_output @mensaje
+        #mensaje_raw = the_irc_gateway.message_processor.generate_terminal_user_output @mensaje
       mensaje_raw = FayeMessagesController.new.generate_terminal_user_output @mensaje
       send_via_faye "#{FAYE_CHANNEL_PREFIX}#{@mensaje[:channel]}", mensaje_raw
 
-      # Send through IRCGateway...
+        # Send through IRCGateway...
       the_irc_gateway.send_irc("##{@mensaje[:channel]}", @mensaje[:message])
     end
 
@@ -114,9 +117,11 @@ class PracticasController < AuthorizedController
 
   end
 
-  # Generates JS for practica
+    # Generates JS for practica
   def lab
-    @faye_channels = @dispositivos_reservados.map do |dispositivo| "#{FAYE_CHANNEL_PREFIX}device_#{dispositivo.id}" end
+    @faye_channels = @dispositivos_reservados.map do |dispositivo|
+      "#{FAYE_CHANNEL_PREFIX}device_#{dispositivo.id}"
+    end
     @faye_channels << "#{FAYE_CHANNEL_PREFIX}practica_#{@practica.id}"
     @faye_server_url = FAYE_SERVER_URL
 
@@ -137,12 +142,12 @@ class PracticasController < AuthorizedController
     @mensaje = {}
     @mensaje[:message] = params[:message][:content]
 
-    # Filter non-permitted commands and log, whatever we want
+      # Filter non-permitted commands and log, whatever we want
     if not @mensaje[:message].empty?
 
       # Send through faye first to provide echo
       @mensaje[:channel] = params[:message][:channel]
-      # Set echo to true if sending to himself via faye is required
+        # Set echo to true if sending to himself via faye is required
       @mensaje[:echo] = false
 
       if current_user
@@ -153,7 +158,7 @@ class PracticasController < AuthorizedController
 
       the_irc_gateway = IRCGateway.instance
 
-      #mensaje_raw = the_irc_gateway.message_processor.generate_terminal_user_output @mensaje
+        #mensaje_raw = the_irc_gateway.message_processor.generate_terminal_user_output @mensaje
       mensaje_raw = FayeMessagesController.new.generate_chat_output @mensaje
       send_via_faye "#{FAYE_CHANNEL_PREFIX}#{@mensaje[:channel]}", mensaje_raw
 
@@ -198,11 +203,11 @@ class PracticasController < AuthorizedController
     the_vlan.endpoint = endpoint
 
 
-    #puts "DEBUG ##################3 practica is #{the_practica.inspect}"
-    #
-    #the_vlan = puerto.conectar_logicamente endpoint
-    #
-    #puts "DEBUG ##################3 the_vlan is #{the_vlan.inspect}"
+      #puts "DEBUG ##################3 practica is #{the_practica.inspect}"
+      #
+      #the_vlan = puerto.conectar_logicamente endpoint
+      #
+      #puts "DEBUG ##################3 the_vlan is #{the_vlan.inspect}"
 
     if the_vlan.save
       IRCGateway.instance.create_vlan the_vlan
@@ -236,28 +241,34 @@ class PracticasController < AuthorizedController
   end
 
   def practice_jobs practica, function
-    time1 = 0
     if function.eql? 'created'
       time1 = practica.start - practica.created_at
+      time2 = time1 + (practica.end - practica.start)
+      Delayed::Job.enqueue(PracticeJob.new(practica.id, :abrir), 0, time1.seconds.from_now)
+      Delayed::Job.enqueue(PracticeJob.new(practica.id, :cerrar), 0, time2.seconds.from_now)
     elsif function.eql? 'updated'
-      time1 = practica.start - practica.updated_at
+      jobs = Delayed::Job.where("handler like ?", "%practice_id: #{practica.id}%")
+      jobs.each do |job|
+        if job.handler.include? 'abrir'
+          job.update_attribute(:run_at, practica.start)
+        elsif job.handler.include? 'cerrar'
+          job.update_attribute(:run_at, practica.end)
+        end
+      end
     end
-    time2 = time1 + ( practica.end - practica.start )
-    Delayed::Job.enqueue(PracticeJob.new(practica.id, :abrir), 0, time1.seconds.from_now)
-    Delayed::Job.enqueue(PracticeJob.new(practica.id, :cerrar), 0, time2.seconds.from_now)
   end
 
-  # THIS IS PRIVATE !!!
+    # THIS IS PRIVATE !!!
   private
 
-  # Get practica, associated users and devices
+    # Get practica, associated users and devices
   def get_practice
     @practica = Practica.find(params[:id], :include => [:users, :dispositivos])
     @dispositivos_reservados = @practica.dispositivos
     @allowed_users = @practica.users
   end
 
-  # Broadcast this user's chat status in a specific channel'
+    # Broadcast this user's chat status in a specific channel'
   def broadcast_chat_status(channel, status)
     mensaje_raw = FayeMessagesController.new.generate_chat_status_output current_user.id, status
     send_via_faye "#{FAYE_CHANNEL_PREFIX}#{channel}", mensaje_raw
