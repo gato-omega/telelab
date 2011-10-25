@@ -23,6 +23,10 @@ class Puerto < ActiveRecord::Base
     Puerto.joins(:device_connection)
   end
 
+  def fullname
+    "#{self.dispositivo.etiqueta} - #{self.etiqueta}"
+  end
+
   ## CONEXIONES FISICAS
 
   # Conecta un puerto con otro, haciendo la referencia bidireccional en endpoint

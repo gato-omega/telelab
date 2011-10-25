@@ -1,0 +1,6 @@
+//$('table #conexion_<%= @id %>').remove();
+the_row = $("#conexiones_table tbody tr td").filter(function(){
+    return $(this).text() === "<%= @id %>";
+}).parent()[0];
+
+conexiones_datatable.fnDeleteRow(the_row);

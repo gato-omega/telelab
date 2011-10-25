@@ -39,6 +39,10 @@ class User < ActiveRecord::Base
     options[:faye][channel] ? options[:faye][channel] : :offline
   end
 
+  def clear_chat_statuses
+    update_attribute :options, {:faye => {}}
+  end
+
 
   ## Custom validations
 

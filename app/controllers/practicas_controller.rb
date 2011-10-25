@@ -78,9 +78,7 @@ class PracticasController < AuthorizedController
 
     @channel = channel_sym
     @logical_connections = Vlan.where(:practica_id >> @practica.id)
-    @logical_connections << "meeeow"
-    @logical_connections << "meeeow2"
-    @logical_connections << "meeeow3"
+    @conexion = Vlan.new
 
   end
 
@@ -184,7 +182,7 @@ class PracticasController < AuthorizedController
     end
   end
 
-  def conexion
+  def new_conexion
     puerto_id = params[:puerto_id]
     endpoint_id = params[:endpoint_id]
 
@@ -212,12 +210,24 @@ class PracticasController < AuthorizedController
     if the_vlan.save
       IRCGateway.instance.create_vlan the_vlan
       channel = "practica_#{the_practica.id}"
-      mensaje_raw = FayeMessagesController.new.normal_method_is "#{the_vlan} created"
+      mensaje_raw = FayeMessagesController.new.generate_new_conexion_output the_vlan
       send_via_faye "#{FAYE_CHANNEL_PREFIX}#{channel}", mensaje_raw
     end
 
     render :nothing => true
 
+  end
+
+  def remove_conexion
+    #@vlan = Vlan.find(params[:id])
+    puts "############### FUNCIONA !!! #{params[:id]}, #{params[:con_id]}"
+    vlan = Vlan.find(params[:con_id])
+    if vlan.destroy
+      channel = "practica_#{params[:id]}"
+      mensaje_raw = FayeMessagesController.new.generate_remove_conexion_output vlan
+      send_via_faye "#{FAYE_CHANNEL_PREFIX}#{channel}", mensaje_raw
+    end
+    render :nothing => true
   end
 
   def practice_events
