@@ -2,6 +2,7 @@
   = stylesheet_link_tag "token-input-facebook"
   = stylesheet_link_tag 'fullcalendar'
   = stylesheet_link_tag 'calendar'
+  = stylesheet_link_tag 'partials/reserve_practice'
 
   = javascript_include_tag 'tokeninput'
   = javascript_include_tag 'fullcalendar.min'
@@ -18,38 +19,40 @@
           %li= msg
   .calendar
     #reservation_calendar
-  .field
-    = f.label :name
-    %br/
-    = f.text_field :name, :readonly => "readonly"
-  .field
-    = f.label :start
-    %br/
-    = f.text_field :start, :readonly => "readonly"
-  .field
-    = f.label :end
-    %br/
-    = f.text_field :end, :readonly => "readonly"
-  .field
-    = f.label :estado
-    %br/
-    = f.text_field :estado, :value => @practica.estado, :readonly => "readonly"
-    -#= f.text_field :estado, :readonly => "readonly"
-  %p
-  %div
-    = f.label :devices, "Dispositivos"
-    #devices_offer
-      - if @show_first
-        - @dispositivos_reservados.each do |dispositivo|
-          %div
-            = check_box_tag "practica[dispositivo_ids][]", dispositivo.id, true
-            = dispositivo.nombre
+  .reserve_data
+    .title
+      Datos de la reserva
+    .field
+      = f.label :name
+      %br/
+      = f.text_field :name, :readonly => "readonly"
+    .field
+      = f.label :start
+      %br/
+      = f.text_field :start, :readonly => "readonly"
+    .field
+      = f.label :end
+      %br/
+      = f.text_field :end, :readonly => "readonly"
+    .field
+      = f.label :estado
+      %br/
+      = f.text_field :estado, :value => @practica.estado, :readonly => "readonly"
+    %p
+    %div
+      = f.label :devices, "Dispositivos"
+      #devices_offer
+        - if @show_first
+          - @dispositivos_reservados.each do |dispositivo|
+            %div
+              = check_box_tag "practica[dispositivo_ids][]", dispositivo.id, true
+              = dispositivo.nombre
 
-  %p
-  %div
-    = f.label :user_list, "Users"
-    %br/
-    = f.text_field :user_list, "data-pre" => @allowed_users.collect{|user| {:id => user.id, :name => user.username}}.to_json, :class => 'tokeninput', 'data-source' => '/api/users.json'
-  %p
-  .actions
-    = f.submit
+    %p
+    %div
+      = f.label :user_list, "Users"
+      %br/
+      = f.text_field :user_list, "data-pre" => @allowed_users.collect{|user| {:id => user.id, :name => user.username}}.to_json, :class => 'tokeninput', 'data-source' => '/api/users.json'
+    %p
+    .actions
+      = f.submit
