@@ -84,7 +84,7 @@ class IRCGateway
   def send_irc(channel, message)
     real_channel = @zbot.get_channel(channel)
     if real_channel
-      real_channel.action(message)
+      real_channel.send(message)
     else
       puts "############## CHANNEL #{channel} NOT FOUND !"
     end

@@ -77,6 +77,21 @@ class PracticasController < AuthorizedController
     @logical_connections = Vlan.where(:practica_id >> @practica.id)
     @conexion = Vlan.new
 
+    @puertos = []
+    @dispositivos_reservados.each do |dispositivo|
+      @puertos += dispositivo.puertos
+    end
+
+    puts @puertos.inspect
+
+    @puertos.collect! do |p|
+      if p.dispositivo
+        ["#{p.dispositivo.nombre} - #{p.etiqueta}",p.id]
+      else
+        ["N/A - #{p.etiqueta}",p.id]
+      end
+    end
+
   end
 
   def terminal
@@ -151,7 +166,7 @@ class PracticasController < AuthorizedController
 
       the_irc_gateway = IRCGateway.instance
 
-      #mensaje_raw = the_irc_gateway.message_processor.generate_terminal_user_output @mensaje
+      #mensaje_raw = the_irc_gateway.message_processor.faye_processor.generate_terminal_user_output @mensaje
       mensaje_raw = FayeMessagesController.new.generate_chat_output @mensaje
       send_via_faye "#{FAYE_CHANNEL_PREFIX}#{@mensaje[:channel]}", mensaje_raw
 
@@ -178,23 +193,12 @@ class PracticasController < AuthorizedController
   end
 
   def new_conexion
-    puerto_id = params[:puerto_id]
-    endpoint_id = params[:endpoint_id]
-
-    puerto = Puerto.find(puerto_id)
-    endpoint = Puerto.find(endpoint_id)
 
     the_practica = Practica.find(params[:id])
 
-    puerto.current_practica = the_practica
-    endpoint.current_practica = the_practica
-
-    the_vlan = Vlan.new
+    the_vlan = Vlan.new(params[:vlan])
 
     the_vlan.practica = the_practica
-    the_vlan.puerto = puerto
-    the_vlan.endpoint = endpoint
-
 
     #puts "DEBUG ##################3 practica is #{the_practica.inspect}"
     #

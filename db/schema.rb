@@ -64,15 +64,6 @@ ActiveRecord::Schema.define(:version => 20111011230152) do
     t.datetime "updated_at"
   end
 
-  create_table "p_conexions", :force => true do |t|
-    t.integer  "vlan"
-    t.integer  "practica_id"
-    t.integer  "puerto_id"
-    t.integer  "endpoint_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "practicas", :force => true do |t|
     t.string   "name"
     t.datetime "start"

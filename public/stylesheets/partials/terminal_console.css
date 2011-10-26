@@ -34,60 +34,62 @@
 /* line 41, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .terminal-output {
   font-family: monospace;
+  display: inline-block;
   color: #aaa;
   background-color: #000;
   font-size: 12px;
 }
-/* line 49, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 50, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .terminal-output div {
-  /*overflow: auto;*/
+  overflow: auto;
   overflow-y: auto;
-  display: block;
+  /*position: relative;*/
+  /*display: inline-block;*/
   font-family: monospace;
   color: #aaa;
   background-color: #000;
   font-size: 12px;
 }
-/* line 58, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 61, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .terminal-output div div {
-  overflow: hidden;
+  /*overflow: hidden;*/
   font-family: monospace;
   color: #aaa;
   background-color: #000;
   font-size: 12px;
 }
-/* line 70, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 73, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .cmd {
   font-family: monospace;
   color: #aaa;
   background-color: #000;
   font-size: 12px;
 }
-/* line 83, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 86, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .cmd span, .consoles .terminal .cmd div {
   font-family: monospace;
   color: #aaa;
   background-color: #000;
   font-size: 12px;
 }
-/* line 91, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 94, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .cmd span {
   float: left;
 }
-/* line 97, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 100, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal div::selection, .consoles .terminal span::selection, .consoles .terminal .cmd span.inverted, .consoles .terminal div::-moz-selection, .consoles .terminal span::-moz-selection {
   background-color: #aaa;
   color: #000;
 }
-/* line 103, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 106, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .terminal-output div.error {
   color: red;
 }
-/* line 106, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 109, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .terminal .terminal-output div.error div {
   color: red;
 }
-/* line 113, ../../../app/stylesheets/partials/terminal_console.scss */
+/* line 116, ../../../app/stylesheets/partials/terminal_console.scss */
 .consoles .tilda {
   position: fixed;
   top: 0;

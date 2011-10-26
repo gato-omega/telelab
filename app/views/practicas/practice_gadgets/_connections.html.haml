@@ -20,22 +20,12 @@
         %td{ :style => "text-align: center"}
           = link_to "Destroy", practica_remove_conexion_path(@practica, conexion_i), :confirm => 'Are you sure?', :method => :delete, :remote => true,:class => 'delete_button'
 
--#= form_for :conexion do |f|
--#  - if conexion.errors.any?
--#    #error_explanation
--#      %h2
--#        = pluralize(conexion.errors.count, "error")
--#        prohibited this admin from being saved:
--#      %ul
--#        - conexion.errors.full_messages.each do |msg|
--#          %li= msg
--#  .field
--#    = f.label :username
--#    %br
--#    = f.text_field :username
--#  .field
--#    = f.label :email
--#    %br
--#    = f.text_field :email
--#  .actions
--#    = f.submit
+= form_for conexion, :url => practica_new_conexion_path,  :remote => true do |f|
+  .field
+    = f.label :puerto_a
+    = f.select(:puerto_id, the_puertos, { :prompt => 'Seleccione un puerto' })
+  .field
+    = f.label :puerto_b
+    = f.select(:endpoint_id, the_puertos, { :prompt => 'Seleccione el otro puerto' })
+  .actions
+    = f.submit

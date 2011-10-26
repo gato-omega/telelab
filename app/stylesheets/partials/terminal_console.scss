@@ -41,22 +41,25 @@
         {
 
             font-family: monospace;
+            display: inline-block;
             color: #aaa;
             background-color: #000;
             font-size: 12px;
 
             div
             {
-                /*overflow: auto;*/
+                overflow: auto;
                 overflow-y: auto;
-                display: block;
+                /*position: relative;*/
+
+                /*display: inline-block;*/
                 font-family: monospace;
                 color: #aaa;
                 background-color: #000;
                 font-size: 12px;
                 div
                 {
-                    overflow: hidden;
+                    /*overflow: hidden;*/
                     font-family: monospace;
                     color: #aaa;
                     background-color: #000;

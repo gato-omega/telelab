@@ -78,7 +78,7 @@ Telelab02::Application.routes.draw do
 
   match "/practicas/:id/practica/terminal" => 'practicas#terminal', :as => 'practica_terminal', :via => :post
   match "/practicas/:id/practica/chat" => 'practicas#chat', :as => 'practica_chat', :via => :post
-  match "/practicas/:id/practica/new_conexion" => 'practicas#new_conexion', :as => 'practica_conexion', :via => :post
+  match "/practicas/:id/practica/new_conexion" => 'practicas#new_conexion', :as => 'practica_new_conexion', :via => :post
   match "/practicas/:id/practica/chat_status" => 'practicas#chat_status', :as => 'practica_chat_status', :via => :post
   match "/practicas/:id/practica/remove_conexion/:con_id" => 'practicas#remove_conexion', :as => 'practica_remove_conexion', :via => :delete
 
