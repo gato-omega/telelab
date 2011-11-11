@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Course:
+  = @horario.course
+
+= link_to 'Edit', edit_horario_path(@horario)
+\|
+= link_to 'Back', horarios_path

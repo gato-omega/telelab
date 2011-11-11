@@ -1,0 +1,19 @@
+%h1 Listing horarios
+
+%table
+  %tr
+    %th Course
+    %th
+    %th
+    %th
+
+  - @horarios.each do |horario|
+    %tr
+      %td= horario.course
+      %td= link_to 'Show', horario
+      %td= link_to 'Edit', edit_horario_path(horario)
+      %td= link_to 'Destroy', horario, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Horario', new_horario_path

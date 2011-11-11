@@ -1,0 +1,13 @@
+= form_for @horario do |f|
+  -if @horario.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@horario.errors.count, "error")} prohibited this horario from being saved:"
+      %ul
+        - @horario.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :course
+    = f.text_field :course
+  .actions
+    = f.submit 'Save'

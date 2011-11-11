@@ -1,5 +1,7 @@
 Telelab02::Application.routes.draw do
 
+  resources :horarios
+
   resources :vlans
 
   resources :device_connections
