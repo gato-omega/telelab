@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111011230152) do
+ActiveRecord::Schema.define(:version => 20111111205148) do
 
   create_table "courses", :force => true do |t|
     t.string "name"
@@ -59,15 +59,14 @@ ActiveRecord::Schema.define(:version => 20111011230152) do
     t.string   "name"
     t.datetime "start"
     t.datetime "end"
-    t.integer  "practica_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "eventable_id"
+    t.string   "eventable_type"
   end
 
   create_table "practicas", :force => true do |t|
     t.string   "name"
-    t.datetime "start"
-    t.datetime "end"
     t.string   "estado"
     t.datetime "created_at"
     t.datetime "updated_at"
