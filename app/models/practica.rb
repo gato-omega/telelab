@@ -3,7 +3,7 @@ class Practica < ActiveRecord::Base
   has_and_belongs_to_many :dispositivos
   has_and_belongs_to_many :users
   has_one :event, :dependent => :destroy, :as => :eventable
-  
+
   has_many :vlans
 
   ESTADOS = %w[reserved open closed]
@@ -31,7 +31,7 @@ class Practica < ActiveRecord::Base
 
   def end
     self.event.end
-    end
+  end
 
   def start=(start_time)
     self.event.start = start_time
