@@ -158,6 +158,7 @@ GEM
       ffi (>= 1.0.7)
       json_pure
       rubyzip
+    state_machine (1.1.0)
     term-ansicolor (1.0.5)
     thin (1.2.11)
       daemons (>= 1.0.9)
@@ -201,5 +202,6 @@ DEPENDENCIES
   nested_form
   nifty-generators
   rails (= 3.0.6)
+  state_machine (= 1.1.0)
   wirb
   wirble
