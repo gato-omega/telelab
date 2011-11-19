@@ -15,7 +15,6 @@ class PracticasController < AuthorizedController
 
   def new
     @practica = Practica.new
-    @practica.estado = "reserved"
     @dispositivos = Dispositivo.all
     @dispositivos_reservados = []
     @allowed_users = []
@@ -254,18 +253,18 @@ class PracticasController < AuthorizedController
     @free_devices = @dispositivos - reserved_devices
   end
 
-  def practice_jobs practica, function
-    if function.eql? 'created'
+  def practice_jobs practica, action
+    if action.eql? 'created'
       time1 = practica.start - practica.created_at
       time2 = time1 + (practica.end - practica.start)
-      Delayed::Job.enqueue(PracticeJob.new(practica.id, :abrir), 0, time1.seconds.from_now)
-      Delayed::Job.enqueue(PracticeJob.new(practica.id, :cerrar), 0, time2.seconds.from_now)
-    elsif function.eql? 'updated'
+      Delayed::Job.enqueue(PracticeJob.new(practica.id, :open), 0, time1.seconds.from_now)
+      Delayed::Job.enqueue(PracticeJob.new(practica.id, :close), 0, time2.seconds.from_now)
+    elsif action.eql? 'updated'
       jobs = Delayed::Job.where("handler like ?", "%practice_id: #{practica.id}%")
       jobs.each do |job|
-        if job.handler.include? 'abrir'
+        if job.handler.include? 'open'
           job.update_attribute(:run_at, practica.start)
-        elsif job.handler.include? 'cerrar'
+        elsif job.handler.include? 'close'
           job.update_attribute(:run_at, practica.end)
         end
       end

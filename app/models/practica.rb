@@ -6,23 +6,12 @@ class Practica < ActiveRecord::Base
 
   has_many :vlans
 
-  ESTADOS = %w[reserved open closed]
-
-
   before_save :check_event
 
   attr_reader :user_list
 
   def user_list=(ids)
     self.user_ids = ids.split(",")
-  end
-
-  def abrir
-    update_attribute :estado, 'open'
-  end
-
-  def cerrar
-    update_attribute :estado, 'closed'
   end
 
   def start
@@ -47,4 +36,23 @@ class Practica < ActiveRecord::Base
       self.create_event(:start => DateTime.now, :end => (DateTime.now + 1.hour))
     end
   end
+
+  scope :open, where(:estado => 'open')
+  scope :closed, where(:estado => 'closed')
+  scope :reserved, where(:estado => 'reserved')
+
+  state_machine :estado, :initial => :reserved do
+    state :reserved
+    state :open
+    state :closed
+
+    event :open do
+      transition all => :open
+    end
+
+    event :close do
+      transition all => :closed
+    end
+  end
+
 end

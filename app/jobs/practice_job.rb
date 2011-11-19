@@ -3,11 +3,11 @@ class PracticeJob < Struct.new(:practice_id, :transition)
   #include CustomFayeSender
   def perform
     practica = Practica.find(practice_id)
-    if transition.eql? :abrir
-      practica.abrir
+    if transition.eql? :open
+      practica.open
       # Mandar la notification por faye de que esta abierta
-    elsif transition.eql? :cerrar
-      practica.cerrar
+    elsif transition.eql? :close
+      practica.close
       # Mandar la notification por faye de que esta cerrada
     end
   end
