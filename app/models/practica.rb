@@ -4,9 +4,13 @@ class Practica < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_one :event, :dependent => :destroy, :as => :eventable
 
-  has_many :vlans
+  accepts_nested_attributes_for :event
 
-  before_save :check_event
+  after_initialize do
+    initialize_event
+  end
+
+  has_many :vlans
 
   attr_reader :user_list
 
@@ -30,13 +34,6 @@ class Practica < ActiveRecord::Base
     self.event.end = end_time
   end
 
-  def check_event
-    if self.event
-    else
-      self.create_event(:start => DateTime.now, :end => (DateTime.now + 1.hour))
-    end
-  end
-
   scope :open, where(:estado => 'open')
   scope :closed, where(:estado => 'closed')
   scope :reserved, where(:estado => 'reserved')
@@ -53,6 +50,11 @@ class Practica < ActiveRecord::Base
     event :close do
       transition all => :closed
     end
+  end
+
+  private
+  def initialize_event
+    self.build_event(:start => DateTime.now, :end => (DateTime.now + 1.hour))
   end
 
 end

@@ -26,14 +26,15 @@
       = f.label :name
       %br/
       = f.text_field :name, :readonly => "readonly"
-    .field
-      = f.label :start
-      %br/
-      = f.text_field :start, :readonly => "readonly"
-    .field
-      = f.label :end
-      %br/
-      = f.text_field :end, :readonly => "readonly"
+    - fields_for :event do |ev|
+      .field
+        = ev.label :start
+        %br/
+        = ev.text_field :start, :readonly => "readonly"
+      .field
+        = ev.label :end
+        %br/
+        = ev.text_field :end, :readonly => "readonly"
     .field
       = f.label :estado
       %br/

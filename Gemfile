@@ -56,6 +56,7 @@ group :development do
   gem 'awesome_print'
   gem 'active_reload', '0.6.0'
   gem 'colorize'
+  gem 'railroady'
 end
 
 gem 'cancan' # The permissions gem

@@ -19,6 +19,10 @@ class PracticasController < AuthorizedController
     @dispositivos_reservados = []
     @allowed_users = []
     @show_first = false
+    puts @practica.awesome_inspect
+    puts "#################### #{@practica.event.awesome_inspect}"
+    puts "#################### #{@practica.to_yaml}"
+
   end
 
   def edit

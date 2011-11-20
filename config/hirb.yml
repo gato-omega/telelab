@@ -71,3 +71,12 @@
       - id
       - puerto_id
       - endpoint_id
+  Practica:
+    :options:
+      :fields:
+      - id
+      - name
+      - estado
+      - start
+      - end
+      - created_at
