@@ -64,6 +64,7 @@
       - nombre
       - etiqueta
       - dispositivo_id
+      - numero
   DeviceConnection:
     :options:
       :fields:

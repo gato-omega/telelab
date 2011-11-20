@@ -49,7 +49,6 @@ class DeviceCommandProcessor
         "exit"
     ]
 
-    @vlan_output_buffer << commands
     commands
 
   end

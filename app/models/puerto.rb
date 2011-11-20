@@ -8,6 +8,7 @@ class Puerto < ActiveRecord::Base
 
   validates :nombre, :presence => true
   validates :etiqueta, :uniqueness => {:scope => :dispositivo_id}
+  validates :numero, :uniqueness => {:scope => :dispositivo_id}
 
   ## CONSTANTS
   ESTADOS = %w[ok bad]
@@ -16,6 +17,11 @@ class Puerto < ActiveRecord::Base
   ## RUNTIME ATTRIBUTES
   attr_accessor :current_practica
   attr_accessor :current_vlan
+
+  ##CALLBACKS
+  before_create :assign_number
+  before_destroy :reload_device_port_numbers
+
 
   # Returns only physically connected ports
   # @return [ActiveRecord::Relation]
@@ -141,10 +147,36 @@ class Puerto < ActiveRecord::Base
     self.conectar_logicamente other
   end
 
+  # Asigns a consecutive number for the port, on the scope of its associated dispositivo, smart calculation
+  # If a puerto 'gets lost' use this to recover its number
+  def auto_assign_number
+    if self.dispositivo
+      the_number = 0
+      dispositivo.puertos.each do |puerto|
+        the_number += 1
+        if puerto == self
+          self.numero=the_number
+          self.save
+          break
+        end
+      end
+    end
+  end
+
   # Gets the vlan from database
   private
   def get_vlan
     @current_vlan = Vlan.where((:puerto_id >> self.id || :endpoint_id >> self.id) && :practica_id >> @current_practica.id).first
+  end
+
+  # Recalculate associated dispositivo port numbers
+  def reload_device_port_numbers
+    self.dispositivo.recalcuate_port_numbers
+  end
+
+  # Asigns the next number for the port, on the scope of its associated dispositivo
+  def assign_number
+    self.numero = dispositivo.puertos.count + 1 if self.dispositivo
   end
 
 end
