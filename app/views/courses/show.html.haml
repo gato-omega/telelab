@@ -1,18 +1,42 @@
-- title "Course"
+- title "Curso> #{@course.name}"
+
 %p
-  %strong Name:
+  %strong Nombre:
   = @course.name
 %p
-  %strong Description:
+  %strong Acerca del curso:
   = @course.description
 %p
-  %strong Hashed Password:
-  = @course.hashed_password
+  %strong Docentes encargados:
+  %ul
+  - teachers = @course.teachers
+  - if teachers.empty?
+    No hay docentes encargados
+    = link_to 'asignar uno ahora.'
+  - else
+    - @course.teachers.each do |teacher|
+      %li
+        = teacher.name
+    = link_to 'Asignar otro docente' if can? :assign_teacher, @course
+
+
+- if can? :edit, @course
+  %p
+    %strong Password:
+    = @course.password
 %p
-  %strong Options:
-  = @course.options
-%p
-  = link_to "Edit", edit_course_path(@course)
-  |
-  \#{link_to "Destroy", @course, :confirm => 'Are you sure?', :method => :delete} |
-  \#{link_to "View All", courses_path}
+  = link_to "Editar curso", edit_course_path(@course), :class => 'button'
+  = link_to "Borrar", @course, :confirm => 'Are you sure?', :method => :delete, :class => 'button'
+  %br
+  = render :partial => 'register', :locals => {:course => @course}
+
+.white_links
+  = link_to "Ver todos", courses_path
+  %br
+  -if can? :see_users, @course
+    %p
+      %strong Estudiantes viendo este curso:
+      %ul
+      - @course.students.each do |student|
+        %li
+          = link_to student.name, student

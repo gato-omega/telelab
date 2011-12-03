@@ -3,7 +3,12 @@
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 /*@import "compass/reset";*/
-/* line 24, ../../app/stylesheets/screen.scss */
+/* line 6, ../../app/stylesheets/partials/elemental.scss */
+h5 {
+  margin-top: 2px;
+}
+
+/* line 26, ../../app/stylesheets/screen.scss */
 body {
   color: #ffffff;
   font-family: Arial, sans-serif;
@@ -11,7 +16,7 @@ body {
   background-color: #f3f3f3;
 }
 
-/* line 31, ../../app/stylesheets/screen.scss */
+/* line 33, ../../app/stylesheets/screen.scss */
 header {
   overflow: auto;
   background: #f58400 url(images/ui-bg_gloss-wave_40_f58400_500x100.png) 50% 50% repeat-x;
@@ -20,19 +25,19 @@ header {
   padding-bottom: 2px;
   border-bottom: 3px solid gray;
 }
-/* line 16, ../../app/stylesheets/screen.scss */
+/* line 18, ../../app/stylesheets/screen.scss */
 header .central {
   overflow: auto;
   width: 79%;
   margin: 0 auto 0 16%;
 }
-/* line 39, ../../app/stylesheets/screen.scss */
+/* line 41, ../../app/stylesheets/screen.scss */
 header .central .logo {
   float: left;
   text-align: center;
   padding-top: 6px;
 }
-/* line 46, ../../app/stylesheets/screen.scss */
+/* line 48, ../../app/stylesheets/screen.scss */
 header .central .session_info {
   text-align: right;
   /*width: 70%;*/
@@ -43,12 +48,12 @@ header .central .session_info {
   color: #ffffff;
 }
 
-/* line 58, ../../app/stylesheets/screen.scss */
+/* line 60, ../../app/stylesheets/screen.scss */
 strong {
   font-weight: bolder;
 }
 
-/* line 63, ../../app/stylesheets/screen.scss */
+/* line 65, ../../app/stylesheets/screen.scss */
 .left_nav {
   float: left;
   width: 15%;
@@ -58,27 +63,27 @@ strong {
   min-height: 400px;
   border-right: 1px solid #ffffff;
 }
-/* line 73, ../../app/stylesheets/screen.scss */
+/* line 75, ../../app/stylesheets/screen.scss */
 .left_nav ul {
   margin: 0;
   padding: 0 0 0 0;
   list-style-type: none;
 }
-/* line 79, ../../app/stylesheets/screen.scss */
+/* line 81, ../../app/stylesheets/screen.scss */
 .left_nav ul li a {
   width: 98%;
   margin-top: 1px;
   font-size: 0.8em;
 }
 
-/* line 88, ../../app/stylesheets/screen.scss */
+/* line 90, ../../app/stylesheets/screen.scss */
 section {
   overflow: auto;
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.2, #292929), color-stop(0.44, #7a7a7a), color-stop(1, #cccccc));
   background-image: -moz-linear-gradient(center top, #292929 20%, #7a7a7a 44%, #cccccc 100%);
 }
 
-/* line 109, ../../app/stylesheets/screen.scss */
+/* line 111, ../../app/stylesheets/screen.scss */
 .main_content {
   width: 80%;
   min-height: 500px;
@@ -87,7 +92,7 @@ section {
   padding-bottom: 15px;
 }
 
-/* line 118, ../../app/stylesheets/screen.scss */
+/* line 120, ../../app/stylesheets/screen.scss */
 footer {
   overflow: auto;
   background: #f58400 url(images/ui-bg_gloss-wave_40_f58400_500x100.png) 50% 50% repeat-x;
@@ -96,21 +101,21 @@ footer {
   padding-top: 2px;
   border-top: 2px solid black;
 }
-/* line 16, ../../app/stylesheets/screen.scss */
+/* line 18, ../../app/stylesheets/screen.scss */
 footer .central {
   overflow: auto;
   width: 79%;
   margin: 0 auto 0 16%;
 }
 
-/* line 127, ../../app/stylesheets/screen.scss */
+/* line 129, ../../app/stylesheets/screen.scss */
 .field_with_errors {
   padding: 1px;
   background-color: red;
   display: table;
 }
 
-/* line 134, ../../app/stylesheets/screen.scss */
+/* line 136, ../../app/stylesheets/screen.scss */
 #error_explanation {
   width: 450px;
   border: 2px solid red;
@@ -119,7 +124,7 @@ footer .central {
   margin-bottom: 20px;
   background-color: #f0f0f0;
 }
-/* line 143, ../../app/stylesheets/screen.scss */
+/* line 145, ../../app/stylesheets/screen.scss */
 #error_explanation h2 {
   text-align: left;
   font-weight: bold;
@@ -130,9 +135,80 @@ footer .central {
   background-color: #c00;
   color: #fff;
 }
-/* line 155, ../../app/stylesheets/screen.scss */
+/* line 157, ../../app/stylesheets/screen.scss */
 #error_explanation ul li {
   color: black;
   font-size: 12px;
   list-style: square;
+}
+
+/* line 164, ../../app/stylesheets/screen.scss */
+.tooltip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  display: none;
+}
+
+/* line 172, ../../app/stylesheets/screen.scss */
+.align_top {
+  vertical-align: top;
+}
+
+/* line 174, ../../app/stylesheets/screen.scss */
+.dark_container {
+  background: #222222;
+  padding: 1%;
+  -moz-border-radius-topleft: 6px;
+  -webkit-border-top-left-radius: 6px;
+  -khtml-border-top-left-radius: 6px;
+  border-top-left-radius: 6px;
+  -moz-border-radius-topright: 6px;
+  -webkit-border-top-right-radius: 6px;
+  -khtml-border-top-right-radius: 6px;
+  border-top-right-radius: 6px;
+  -moz-border-radius-bottomleft: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  -khtml-border-bottom-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  -webkit-border-bottom-right-radius: 6px;
+  -khtml-border-bottom-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+/* line 179, ../../app/stylesheets/screen.scss */
+.light_container {
+  background: #666666;
+  padding: 1%;
+  -moz-border-radius-topleft: 6px;
+  -webkit-border-top-left-radius: 6px;
+  -khtml-border-top-left-radius: 6px;
+  border-top-left-radius: 6px;
+  -moz-border-radius-topright: 6px;
+  -webkit-border-top-right-radius: 6px;
+  -khtml-border-top-right-radius: 6px;
+  border-top-right-radius: 6px;
+  -moz-border-radius-bottomleft: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  -khtml-border-bottom-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  -webkit-border-bottom-right-radius: 6px;
+  -khtml-border-bottom-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+/* line 184, ../../app/stylesheets/screen.scss */
+.white_links {
+  color: #eeeeee;
+}
+/* line 186, ../../app/stylesheets/screen.scss */
+.white_links a:visited {
+  color: white;
+}
+/* line 187, ../../app/stylesheets/screen.scss */
+.white_links a {
+  color: white;
 }

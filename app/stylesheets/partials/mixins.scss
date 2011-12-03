@@ -12,3 +12,10 @@
     padding: $padding;
     @include round-corners;
 }
+
+@mixin light-container($padding:1%)
+{
+    background: #666666;
+    padding: $padding;
+    @include round-corners;
+}

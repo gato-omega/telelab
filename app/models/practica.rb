@@ -12,8 +12,6 @@ class Practica < ActiveRecord::Base
 
   has_many :vlans
 
-  attr_reader :user_list
-
   def user_list=(ids)
     self.user_ids = ids.split(",")
   end
@@ -34,27 +32,31 @@ class Practica < ActiveRecord::Base
     self.event.end = end_time
   end
 
-  scope :open, where(:estado => 'open')
-  scope :closed, where(:estado => 'closed')
-  scope :reserved, where(:estado => 'reserved')
+  scope :openned, where(:estado => 'abierta')
+  scope :closed, where(:estado => 'cerrada')
+  scope :reserved, where(:estado => 'reservada')
 
-  state_machine :estado, :initial => :reserved do
-    state :reserved
-    state :open
-    state :closed
+  state_machine :estado, :initial => :reservada do
+    state :reservada
+    state :abierta
+    state :cerrada
 
-    event :open do
-      transition all => :open
+    event :abrir do
+      transition all => :abierta
     end
 
-    event :close do
-      transition all => :closed
+    event :cerrar do
+      transition all => :cerrada
+    end
+
+    event :reservar do
+      transition all => :reservada
     end
   end
 
   private
   def initialize_event
-    self.build_event(:start => DateTime.now, :end => (DateTime.now + 1.hour))
+    self.build_event(:start => DateTime.now, :end => (DateTime.now + 1.hour)) unless event
   end
 
 end

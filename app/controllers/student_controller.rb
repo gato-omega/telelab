@@ -6,15 +6,24 @@ class StudentController < ApplicationController
   end
 
   before_filter :authenticate_user!
+  before_filter :authenticate_student
 
   def index
-    authorize! :do_student_stuff, :stuff
   end
 
   def practicas
-    authorize! :do_student_stuff, :stuff
     @practicas = current_user.practicas
     render 'practicas/index'
+  end
+
+  def courses
+    @courses = current_user.courses
+    render 'courses/index'
+  end
+
+  private
+  def authenticate_student
+    authorize! :do_student_stuff, :stuff
   end
 
 end

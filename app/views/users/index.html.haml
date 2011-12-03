@@ -8,17 +8,17 @@
 %table.display{:cellpadding=> "0", :cellspacing => "0", 'datatable' => true, :fulltable => true}
   %thead
     %tr
+      %th Username
       %th Firstname
       %th Lastname
-      %th Username
       %th Email
       %th Type
       %th Actions
   %tfoot
     %tr
+      %th Username
       %th Firstname
       %th Lastname
-      %th Username
       %th Email
       %th Type
       %th Actions
@@ -26,14 +26,14 @@
     - @users.each do |user|
       - if can? :see, user
         %tr
-          %td= user.profile.firstname
+          %td= link_to user.username, user
           %td= user.profile.lastname
-          %td= user.username
+          %td= user.profile.firstname
           %td= user.email
           %td= user.type
           %td{ :style => "text-align: center"}
             = link_to 'Show', user, :class => 'show_button'
-            = link_to 'Edit', edit_user_path(user), :class => 'edit_button'
+            = link_to 'Editar', edit_user_path(user), :class => 'edit_button'
             = link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete, :class => 'delete_button'
 
 %br/

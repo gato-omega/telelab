@@ -1,0 +1,15 @@
+.register_in_course
+  - if can? :register, course
+    .light_container
+      - if can? :unregister, course
+
+        %h5 Abandonar el curso
+        = button_to "Abandonar este curso", unregister_course_path(course), :class => 'button'
+
+      - else can? :unregister, course
+
+        %h5 Registrarme en este curso
+        = form_tag register_course_path(course) do
+          = label_tag 'Password de matricula'
+          = password_field_tag :password
+          = submit_tag "Registrarse en este curso", :class => 'button'

@@ -1,8 +1,5 @@
-%p#notice= notice
-%p
-  %b Username:
-  = @student.username
+- title "Estudiante #{@student.name}"
 
-= link_to 'Edit', edit_student_path(@student)
+= link_to 'Editar', edit_student_path(@student)
 |
 = link_to 'Back', students_path

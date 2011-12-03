@@ -49,6 +49,7 @@ module Telelab02
 
     config.action_view.javascript_expansions[:jquery_datatables] = %w(jquery.dataTables.1.8.0.min)
     config.action_view.javascript_expansions[:jquery_tokeninput] = %w(jquery.tokeninput.1.6.0)
+    config.action_view.javascript_expansions[:jquery_tooltip] = %w(jquery.simpletip-1.3.1.min)
 
 
     #STYLESHEETS

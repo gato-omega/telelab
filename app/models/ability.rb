@@ -30,6 +30,9 @@ class Ability
     @user = user
 
     # TO ALL REGISTERED --whitelist
+    # This applies to everyone --whitelist
+    can :read, Course
+    # end of everyone --whitelist
     if @user.persisted? #Applies to all registered -- whitelist
       can [:edit, :update], Profile do |p|
         p.user == @user
@@ -43,11 +46,17 @@ class Ability
 
       can :do_admin_stuff, :stuff
       can :manage, :all
+      #cannot :registrar, Course
 
     elsif @user.is_a? Teacher
 
       can :do_teacher_stuff, :stuff
       can :manage, Practica
+      
+      can :control, :course
+      can :manage, Course do |course|
+        course.users.include? @user
+      end
 
     elsif @user.is_a? Technician
 
@@ -65,6 +74,12 @@ class Ability
       end
 
       can :create, Practica
+      can :see_users, Course do |course|
+        course.users.include? @user
+      end
+
+      can_register_in_course
+      can :read, Course
 
     else #VISITOR - Unregistered
     end
@@ -89,6 +104,13 @@ class Ability
 
   def can_api
     can :json_users, User
+  end
+
+  def can_register_in_course
+    can :register, Course
+    can :unregister, Course do |course|
+      course.users.include? @user
+    end
   end
 
 end

@@ -8,31 +8,28 @@
 %table.display{:cellpadding=> "0", :cellspacing => "0", 'datatable' => true, :fulltable => true}
   %thead
     %tr
+      %th Username
       %th Firstname
       %th Lastname
-      %th Username
       %th Email
-      %th Type
       %th Actions
   %tfoot
     %tr
+      %th Username
       %th Firstname
       %th Lastname
-      %th Username
       %th Email
-      %th Type
       %th Actions
   %tbody
     - @technicians.each do |technician|
       %tr
+        %td= link_to technician.username, technician
         %td= technician.profile.firstname
         %td= technician.profile.lastname
-        %td= technician.username
         %td= technician.email
-        %td= technician.type
         %td{ :style => "text-align: center"}
           = link_to 'Show', technician, :class => 'show_button'
-          = link_to 'Edit', edit_technician_path(technician), :class => 'edit_button'
+          = link_to 'Editar', edit_technician_path(technician), :class => 'edit_button'
           = link_to 'Destroy', technician, :confirm => 'Are you sure?', :method => :delete, :class => 'delete_button'
 
 %br/

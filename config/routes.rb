@@ -13,7 +13,10 @@ Telelab02::Application.routes.draw do
   resources :students
   resources :teachers
 
-  resources :courses
+  resources :courses do
+    post 'register', :on => :member
+    post 'unregister', :on => :member
+  end
 
   resources :practicas
 
@@ -65,6 +68,7 @@ Telelab02::Application.routes.draw do
   scope '/student' do
     get '/' => 'student#index', :as => 'student_home'
     match '/practicas' => 'student#practicas', :as => 'student_practicas'
+    match '/cursos' => 'student#courses', :as => 'student_courses'
   end
 
   #DO TECHNICIAN STUFF HERE

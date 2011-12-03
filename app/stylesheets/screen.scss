@@ -4,6 +4,8 @@
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
 /*@import "compass/reset";*/
+@import 'partials/mixins.scss';
+@import 'partials/elemental.scss';
 
 @mixin site_bar
 {
@@ -159,3 +161,28 @@ footer
     }
 }
 
+.tooltip{
+   position: absolute;
+   top: 0;
+   left: 0;
+   z-index: 9;
+   display: none;
+}
+
+.align_top{vertical-align: top;}
+.dark_container
+{
+    @include dark-container;
+}
+
+.light_container
+{
+    @include light-container;
+}
+
+.white_links
+{
+    color: #eeeeee;
+    a:visited{color: white;}
+    a{color: white;}
+}

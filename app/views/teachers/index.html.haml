@@ -1,35 +1,35 @@
+- title "Listando docentes"
 = content_for :head do
   = stylesheet_link_tag 'telelab_datatables'
   
   = javascript_include_tag :jquery_datatables
   = javascript_include_tag 'datatable'
 
-%h1 Listing teachers
 %table.display{:cellpadding=> "0", :cellspacing => "0", 'datatable' => true, :fulltable => true}
   %thead
     %tr
+      %th Username
       %th Firstname
       %th Lastname
-      %th Username
       %th Email
       %th Actions
   %tfoot
     %tr
+      %th Username
       %th Firstname
       %th Lastname
-      %th Username
       %th Email
       %th Actions
   %tbody
     - @teachers.each do |teacher|
       %tr
+        %td= link_to teacher.username, teacher
         %td= teacher.profile.firstname
         %td= teacher.profile.lastname
-        %td= teacher.username
         %td= teacher.email
         %td{ :style => "text-align: center"}
           = link_to 'Show', teacher, :class => 'show_button'
-          = link_to 'Edit', edit_teacher_path(teacher), :class => 'edit_button'
+          = link_to 'Editar', edit_teacher_path(teacher), :class => 'edit_button'
           = link_to 'Destroy', teacher, :confirm => 'Are you sure?', :method => :delete, :class => 'delete_button'
 
 %br/

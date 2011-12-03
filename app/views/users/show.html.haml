@@ -1,4 +1,4 @@
-- title "Showing user #{@user.username}"
+- title "#{@user.type} #{@user.username}"
 %p#notice= notice
 %p
   %b Email:
@@ -6,6 +6,6 @@
 %p
   %b Username:
   = @user.username
-= link_to 'Edit', edit_user_path(@user)
+= link_to 'Editar', edit_user_path(@user)
 |
 \#{link_to 'Back', users_path}

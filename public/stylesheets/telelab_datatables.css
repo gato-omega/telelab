@@ -330,11 +330,16 @@ td.details {
   background-color: #99B3FF;
 }
 
-/* line 253, ../../app/stylesheets/telelab_datatables.scss */
+/* line 252, ../../app/stylesheets/telelab_datatables.scss */
+table.display tr {
+  /*a:visited{ color: black;}*/
+  /*a{color: blue;}*/
+}
+/* line 255, ../../app/stylesheets/telelab_datatables.scss */
 table.display tr.even.row_selected td {
   background-color: #B0BED9;
 }
-/* line 255, ../../app/stylesheets/telelab_datatables.scss */
+/* line 256, ../../app/stylesheets/telelab_datatables.scss */
 table.display tr.odd.row_selected td {
   background-color: #9FAFD1;
 }

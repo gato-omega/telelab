@@ -1,7 +1,8 @@
 class Profile < ActiveRecord::Base
   belongs_to :user
 
-  #validates :firstname, :presence => true
+  def name
+    "#{self.firstname} #{self.lastname}"
+  end
 
-  #attr_accessible :user_id, :firstname, :lastname
 end

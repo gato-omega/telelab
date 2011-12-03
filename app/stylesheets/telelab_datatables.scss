@@ -250,10 +250,10 @@ td {
     background-color: #99B3FF; } }
 
 table.display tr {
-  &.even.row_selected td {
-    background-color: #B0BED9; }
-  &.odd.row_selected td {
-    background-color: #9FAFD1; } }
+    /*a:visited{ color: black;}*/
+    /*a{color: blue;}*/
+  &.even.row_selected td{background-color: #B0BED9;}
+  &.odd.row_selected td {background-color: #9FAFD1;} }
 
 /*
  * Sorting classes for columns

@@ -12,14 +12,14 @@
       %td Inicio
       %td Fin
       %td Estado
-      %th Actions
+      %th Acciones
   %tfoot
     %tr
       %td Nombre
       %td Inicio
       %td Fin
       %td Estado
-      %th Actions
+      %th Acciones
   %tbody
     - @practicas.each do |practica|
       %tr
@@ -29,7 +29,7 @@
         %td= practica.estado
         %td{ :style => "text-align: center"}
           = link_to 'Show', practica, :class => 'show_button'
-          = link_to 'Edit', edit_practica_path(practica), :class => 'edit_button'
+          = link_to 'Editar', edit_practica_path(practica), :class => 'edit_button'
           = link_to 'Destroy', practica, :confirm => 'Are you sure?', :method => :delete, :class => 'delete_button'
 
 %br/

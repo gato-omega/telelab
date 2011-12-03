@@ -10,26 +10,30 @@
     %tr
       %th Nombre
       %th Descripcion
-      %th Password
-      %th Opciones HASH
+      - if can? :control, :course
+        %th Password
       %th Acciones
   %tfoot
     %tr
       %th Nombre
       %th Descripcion
-      %th Password
-      %th Opciones HASH
+      - if can? :control, :course
+        %th Password
       %th Acciones
   %tbody
     - for course in @courses
       %tr
-        %td= course.name
+        %td= link_to course.name, course
         %td= course.description
-        %td= course.hashed_password
-        %td= course.options
+        - if can? :set_password, course
+          %td= course.password
+        - elsif (can? :control, :course)
+          %td bloqueado
         %td{ :style => "text-align: center"}
           = link_to "Show", course, :class => 'show_button'
-          = link_to "Edit", edit_course_path(course), :class => 'edit_button'
-          = link_to "Destroy", course, :confirm => 'Are you sure?', :method => :delete, :class => 'delete_button'
+          = link_to "Matricular", register_course_path(course), :class => 'button align_top', :method => :post if can? :registrar, course
+          = link_to "Edit", edit_course_path(course), :class => 'edit_button' if can? :edit, course
+          = link_to "Borrar", course, :confirm => 'Are you sure?', :method => :delete, :class => 'delete_button' if can? :destroy, course
           
 %p= link_to "New Course", new_course_path, :class => 'button'
+  

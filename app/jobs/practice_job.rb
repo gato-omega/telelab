@@ -4,10 +4,10 @@ class PracticeJob < Struct.new(:practice_id, :transition)
   def perform
     practica = Practica.find(practice_id)
     if transition.eql? :open
-      practica.open
+      practica.abrir
       # Mandar la notification por faye de que esta abierta
     elsif transition.eql? :close
-      practica.close
+      practica.cerrar
       # Mandar la notification por faye de que esta cerrada
     end
   end

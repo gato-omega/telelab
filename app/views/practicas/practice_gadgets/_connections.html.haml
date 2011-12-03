@@ -18,7 +18,7 @@
         %td= conexion_i.puerto.fullname
         %td= conexion_i.endpoint.fullname
         %td{ :style => "text-align: center"}
-          = link_to "Destroy", practica_remove_conexion_path(@practica, conexion_i), :confirm => 'Are you sure?', :method => :delete, :remote => true,:class => 'delete_button'
+          = link_to "Borrar", practica_remove_conexion_path(@practica, conexion_i), :confirm => 'Are you sure?', :method => :delete, :remote => true,:class => 'delete_button'
 
 = form_for conexion, :url => practica_new_conexion_path,  :remote => true do |f|
   .field

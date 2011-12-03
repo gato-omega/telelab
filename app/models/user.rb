@@ -43,6 +43,10 @@ class User < ActiveRecord::Base
     update_attribute :options, {:faye => {}}
   end
 
+  def name
+    self.profile.name
+  end
+
 
   ## Custom validations
 
