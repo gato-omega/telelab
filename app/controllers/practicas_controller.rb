@@ -6,8 +6,7 @@ class PracticasController < AuthorizedController
   include CustomFayeSender
 
   def index
-    @practicas = Event.where(:eventable_type => 'Practica').order(:start)
-    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #{Event.where(:eventable_type => 'Practica').order(:start).joins(:practicas).to_sql}"
+    @practicas = Practica.all
   end
 
   def show
@@ -28,6 +27,7 @@ class PracticasController < AuthorizedController
 
   def create
     @practica = Practica.new(params[:practica])
+    @practica.users << current_user if (current_user.is_a? Student) || (current_user.is_a? Teacher)
     respond_to do |format|
       if @practica.save
         format.html { redirect_to(@practica, :notice => 'Practica was successfully created.') }

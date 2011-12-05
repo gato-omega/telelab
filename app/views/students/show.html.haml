@@ -1,5 +1,6 @@
 - title "Estudiante #{@student.name}"
-
-= link_to 'Editar', edit_student_path(@student)
+- if can? :see_details, @student
+  %p LA MADRE SI NO
+= link_to 'Editar', edit_student_path(@student) if can? :edit, @student
 |
-= link_to 'Back', students_path
+= link_to 'Atras', :back

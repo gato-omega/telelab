@@ -1,15 +1,20 @@
 = form_for @course do |f|
   = f.error_messages
   %p
-    = f.label :name
+    = f.label :nombre
     %br/
     = f.text_field :name
   %p
-    = f.label :description
+    = f.label :descripcion
     %br/
     = f.text_area :description
-  %p
-    = f.label :password
-    %br/
-    = f.text_field :password
-  %p= f.submit
+  - if can? :control, @course
+    %p
+      = f.label :password
+      %br/
+      = f.password_field :password
+    %p
+      = f.label :password_confirmation
+      %br/
+      = f.password_field :password_confirmation
+    %p= f.submit

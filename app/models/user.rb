@@ -7,6 +7,10 @@ class User < ActiveRecord::Base
   attr_accessible :username, :type, :email, :password, :password_confirmation, :remember_me
 
 
+  ## Constants
+
+  ROLES = %w[Admin Teacher Technician Student]
+
   ## The following are the relationships
 
   has_and_belongs_to_many :practicas
@@ -50,12 +54,8 @@ class User < ActiveRecord::Base
 
   ## Custom validations
 
-  validates :type, :presence => true
+  validates :type, :presence => true, :inclusion => ROLES
 
-
-  ## Constants
-
-  ROLES = %w[Admin Teacher Technician Student]
 
   ################################################################################################
   ## Added by gato -- add sign in by username or email

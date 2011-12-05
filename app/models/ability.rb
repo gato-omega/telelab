@@ -51,12 +51,20 @@ class Ability
     elsif @user.is_a? Teacher
 
       can :do_teacher_stuff, :stuff
-      can :manage, Practica
+      can :manage, Practica do |practica|
+        practica.users.include? @user
+      end
       
       can :control, :course
       can :manage, Course do |course|
         course.users.include? @user
       end
+
+      can_register_in_course
+
+      cannot :create, Course
+      cannot :destroy, Course
+      cannot :assign_teacher, Course
 
     elsif @user.is_a? Technician
 
@@ -69,17 +77,31 @@ class Ability
     elsif @user.is_a? Student
 
       can :do_student_stuff, :stuff
+
+      can :create, Practica
+      can :read, Student
+
+      can :manage, [User, Student] do |uos|
+        uos.id.eql? @user.id
+      end
+
       can :manage, Practica do |practica|
         practica.users.include? @user
       end
 
-      can :create, Practica
       can :see_users, Course do |course|
         course.users.include? @user
       end
 
+      # Is any of the courses shared with student?
+      can :see_details, [Student, User] do |uos|
+        @user.courses.any? {|course| course.users.include? uos}
+      end
+
       can_register_in_course
       can :read, Course
+      
+      cannot :destroy, [User, Student]
 
     else #VISITOR - Unregistered
     end

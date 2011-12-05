@@ -12,7 +12,7 @@
   - teachers = @course.teachers
   - if teachers.empty?
     No hay docentes encargados
-    = link_to 'asignar uno ahora.'
+    = link_to 'asignar uno ahora.' if can? :assign_teacher, @course
   - else
     - @course.teachers.each do |teacher|
       %li
@@ -20,13 +20,13 @@
     = link_to 'Asignar otro docente' if can? :assign_teacher, @course
 
 
-- if can? :edit, @course
-  %p
-    %strong Password:
-    = @course.password
+- #if can? :edit, @course
+-#%p
+-#  %strong Password:
+-#  = @course.password
 %p
-  = link_to "Editar curso", edit_course_path(@course), :class => 'button'
-  = link_to "Borrar", @course, :confirm => 'Are you sure?', :method => :delete, :class => 'button'
+  = link_to "Editar curso", edit_course_path(@course), :class => 'button' if can? :edit, @course
+  = link_to "Borrar", @course, :confirm => 'Are you sure?', :method => :delete, :class => 'button' if can? :destroy, @course
   %br
   = render :partial => 'register', :locals => {:course => @course}
 

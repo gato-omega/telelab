@@ -1,5 +1,5 @@
-.register_in_course
-  - if can? :register, course
+- if can? :register, course
+  .register_in_course
     .light_container
       - if can? :unregister, course
 
@@ -10,6 +10,6 @@
 
         %h5 Registrarme en este curso
         = form_tag register_course_path(course) do
-          = label_tag 'Password de matricula'
+          = label_tag 'Password de registro'
           = password_field_tag :password
           = submit_tag "Registrarse en este curso", :class => 'button'

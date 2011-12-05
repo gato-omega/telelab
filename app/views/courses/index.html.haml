@@ -31,9 +31,9 @@
           %td bloqueado
         %td{ :style => "text-align: center"}
           = link_to "Show", course, :class => 'show_button'
-          = link_to "Matricular", register_course_path(course), :class => 'button align_top', :method => :post if can? :registrar, course
+          = link_to "Matricular", register_course_path(course), :class => 'button align_top', :method => :post if (can? :registrar, course) && (cannot? :unregister, course)
           = link_to "Edit", edit_course_path(course), :class => 'edit_button' if can? :edit, course
           = link_to "Borrar", course, :confirm => 'Are you sure?', :method => :delete, :class => 'delete_button' if can? :destroy, course
           
-%p= link_to "New Course", new_course_path, :class => 'button'
+%p= link_to "New Course", new_course_path, :class => 'button' if can? :create, Course
   

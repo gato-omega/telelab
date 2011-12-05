@@ -61,7 +61,10 @@ Telelab02::Application.routes.draw do
 
   #DO TEACHER STUFF HERE
   scope '/teacher' do
-    get '/' => 'teacher#index', :as => 'teacher_home'
+    match '/' => 'teacher#index', :as => 'teacher_home'
+    match '/practicas' => 'teacher#practicas', :as => 'teacher_practicas'
+    match '/students' => 'teacher#students', :as => 'teacher_students'
+    match '/cursos' => 'teacher#courses', :as => 'teacher_courses'
   end
 
   #DO STUDENT STUFF HERE

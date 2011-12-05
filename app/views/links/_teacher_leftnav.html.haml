@@ -1,7 +1,13 @@
 %ul
   %li
-    = link_to "Gestionar Estudiantes", students_path, :class => 'button'
+    = link_to "Inicio", teacher_home_path, :class => 'button'
+  %br
   %li
-    = link_to "Gestionar Practicas", practicas_path, :class => 'button'
+    = link_to "Todos los cursos", courses_path, :class => 'button'
+  %br
   %li
-    = link_to "Mis Cursos", practicas_path, :class => 'button'
+    = link_to "Mis Cursos", teacher_courses_path, :class => 'button'
+  %li
+    = link_to "Mis Estudiantes", teacher_students_path, :class => 'button'
+  %li
+    = link_to "Gestionar Practicas", teacher_practicas_path, :class => 'button'

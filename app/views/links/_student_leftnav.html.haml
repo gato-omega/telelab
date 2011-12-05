@@ -1,11 +1,16 @@
 %ul
   %li
-    = link_to "Bienvenido", home_path, :class => 'button'
+    = link_to "Inicio", student_home_path, :class => 'button'
+  %br
+  %li
+    = link_to "Ver todos los cursos", courses_path, :class => 'button'
+  %br
   %li
     = link_to "Mis cursos", student_courses_path, :class => 'button'
   %li
     = link_to "Mis Practicas", student_practicas_path, :class => 'button'
   %li
     = link_to "Reservar Practica", new_practica_path, :class => 'button'
+  %br
   %li
     = link_to "Manual de usuario",'http://www.google.com', :class => 'button'

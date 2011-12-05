@@ -23,7 +23,7 @@
   %tbody
     - @practicas.each do |practica|
       %tr
-        %td= practica.name
+        %td= link_to practica.name, practica
         %td= practica.start
         %td= practica.end
         %td= practica.estado
