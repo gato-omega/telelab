@@ -1,24 +1,33 @@
 - title @practica.name
+
 %p
   %b Name:
   = @practica.name
 %p
-  %b Start:
-  = @practica.start
+  %b Inicio:
+  = @practica.start_humanized
 %p
-  %b End:
-  = @practica.end
+  %b Fin:
+  = @practica.end_humanized
 %b Dispositivo(s):
 %ul
   - @dispositivos_reservados.each do |devices|
     %li= devices.nombre
-%b Usuario(s):
+
+%b Docentes asignados:
 %ul
-  - @allowed_users.each do |users|
-    %li= users.username
+  - @practica.teachers.each do |teacher|
+    %li= teacher.username
+
+%b Estudiantes:
+%ul
+  - @practica.students.each do |student|
+    %li= student.username
+
 %p
   %b Estado:
   = @practica.estado
-= link_to 'Editar', edit_practica_path(@practica)
-|
-\#{link_to 'Atras', practicas_path}
+.white_links
+  = link_to 'Editar', edit_practica_path(@practica) if can? :edit, @practica
+  = link_to 'Atras', :back
+  

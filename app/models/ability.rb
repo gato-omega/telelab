@@ -54,7 +54,7 @@ class Ability
       can :manage, Practica do |practica|
         practica.users.include? @user
       end
-      
+
       can :control, :course
       can :manage, Course do |course|
         course.users.include? @user
@@ -73,21 +73,22 @@ class Ability
       can :manage, Dispositivo
       can :manage, DeviceConnection
       can :manage, Practica
-      
+
+      cannot :destroy, Practica do |practica|
+        practica.abierta?
+      end
+
     elsif @user.is_a? Student
 
       can :do_student_stuff, :stuff
-
-      can :create, Practica
       can :read, Student
-
+      # Manage himself
       can :manage, [User, Student] do |uos|
         uos.id.eql? @user.id
       end
 
-      can :manage, Practica do |practica|
-        practica.users.include? @user
-      end
+      # Practice things over here
+      can_do_normal_labs
 
       can :see_users, Course do |course|
         course.users.include? @user
@@ -100,7 +101,8 @@ class Ability
 
       can_register_in_course
       can :read, Course
-      
+      can_detail_practices
+
       cannot :destroy, [User, Student]
 
     else #VISITOR - Unregistered
@@ -133,6 +135,58 @@ class Ability
     can :unregister, Course do |course|
       course.users.include? @user
     end
+  end
+
+  # Very specific, use can_do_normal_labs instead
+  def can_do_lab_practices
+    can :make_practice, Practica do |practica|
+      practica.abierta? && (practica.users.include? @user)
+    end
+    can :terminal, Practica do |practica|
+      practica.abierta? && (practica.users.include? @user)
+    end
+    can :lab, Practica do |practica|
+      practica.abierta? && (practica.users.include? @user)
+    end
+    can :chat_status, Practica do |practica|
+      practica.abierta? && (practica.users.include? @user)
+    end
+    can :chat, Practica do |practica|
+      practica.abierta? && (practica.users.include? @user)
+    end
+    can :new_conexion, Practica do |practica|
+      practica.abierta? && (practica.users.include? @user)
+    end
+    can :remove_conexion, Practica do |practica|
+      practica.abierta? && (practica.users.include? @user)
+    end
+  end
+
+  def can_do_normal_labs
+
+    can :manage, Practica
+
+    #can :manage, Practica do |practica|
+    #  practica.abierta? && (practica.users.include? @user)
+    #end
+    #cannot :manage, Practica do |practica|
+    #  practica.cerrada?
+    #end
+    #cannot [:edit, :update], Practica do |practica|
+    #  practica.abierta?
+    #end
+    #
+    #can [:edit, :destroy, :update], Practica do |practica|
+    #  practica.reservada? && (practica.users.include? @user)
+    #end
+    #
+    #can [:create, :index, :read], Practica
+
+  end
+
+  def can_detail_practices
+    can :free_devices, Practica
+    can :practice_events, Practica
   end
 
 end

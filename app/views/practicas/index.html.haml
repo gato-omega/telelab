@@ -11,6 +11,7 @@
       %td Nombre
       %td Inicio
       %td Fin
+      %td Tiempo
       %td Estado
       %th Acciones
   %tfoot
@@ -18,14 +19,16 @@
       %td Nombre
       %td Inicio
       %td Fin
+      %td Tiempo
       %td Estado
       %th Acciones
   %tbody
     - @practicas.each do |practica|
       %tr
         %td= link_to practica.name, practica
-        %td= practica.start
-        %td= practica.end
+        %td= practica.start_humanized
+        %td= practica.end_humanized
+        %td= practica.tiempo
         %td= practica.estado
         %td{ :style => "text-align: center"}
           = link_to 'Show', practica, :class => 'show_button'

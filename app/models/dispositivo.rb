@@ -3,6 +3,8 @@ class Dispositivo < ActiveRecord::Base
   has_many :device_connections, :through => :puertos, :include => :dispositivo
   has_and_belongs_to_many :practicas
 
+  scope :for_users, where('tipo <> ?','vlan')
+
   #has_many :endpoints, :through => :device_connections
   #has_many :endpoints, :through => :device_connections, :class_name => 'Puerto', :source => :endpoint
 
@@ -11,11 +13,11 @@ class Dispositivo < ActiveRecord::Base
   # User - modifiable , VLAN - VLAN Switch
 
   TYPES = %w[user vlan]
-  CATEGORIAS = %w[switch router]
+  CATEGORIAS = %w[switch router otro]
   ESTADOS = %w[ok bad stock]
 
-  validates :tipo, :presence => true
-  validates :categoria, :presence => true
+  validates :tipo, :presence => true, :inclusion => ESTADOS
+  validates :categoria, :presence => true, :inclusion => CATEGORIAS
 
   accepts_nested_attributes_for :puertos
 
@@ -27,7 +29,7 @@ class Dispositivo < ActiveRecord::Base
     end
   end
 
-  def recalcuate_port_numbers
+  def recalculate_port_numbers
     next_number = 0
     self.puertos.each do |puerto|
       next_number += 1
@@ -35,5 +37,5 @@ class Dispositivo < ActiveRecord::Base
       puerto.save
     end
   end
-
+  
 end

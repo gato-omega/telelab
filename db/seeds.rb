@@ -174,7 +174,7 @@ open_practica = Practica.new
 open_practica.name = "Practica de prueba"
 open_practica.start = Time.now - 2.hours
 open_practica.end = Time.now + 2.hours
-open_practica.estado = "open"
+open_practica.abrir
 open_practica.users << User.all
 open_practica.dispositivos << [router_1, router_2 , router_3, router_4]
 
@@ -182,4 +182,9 @@ if open_practica.save
   puts "EVERYTHING IS DONE!".light_green
 else
   puts "FAILED TO CREATE PRACTICA".light_red
+  puts "Practica >".yellow
+  ap open_practica
+  puts "Errors >".yellow
+  ap open_practica.errors
 end
+puts "----------------------------------------------".yellow

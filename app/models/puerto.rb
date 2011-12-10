@@ -171,7 +171,7 @@ class Puerto < ActiveRecord::Base
 
   # Recalculate associated dispositivo port numbers
   def reload_device_port_numbers
-    self.dispositivo.recalcuate_port_numbers
+    self.dispositivo.recalculate_port_numbers
   end
 
   # Asigns the next number for the port, on the scope of its associated dispositivo

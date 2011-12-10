@@ -41,9 +41,9 @@ class PracticasController < AuthorizedController
   def update
     params[:practica][:dispositivo_ids] ||= []
     @practica = Practica.find(params[:id])
-
     respond_to do |format|
       if @practica.update_attributes(params[:practica])
+        @practica.users << current_user if ((current_user.is_a? Student) || (current_user.is_a? Teacher) && !(@practica.users.include? current_user))
         format.html { redirect_to(@practica, :notice => 'Practica was successfully updated.') }
         practice_jobs @practica, 'updated'
       else
@@ -244,13 +244,17 @@ class PracticasController < AuthorizedController
   def free_devices
     _start = DateTime.parse params[:start]
     _end = DateTime.parse params[:end]
-    filtered_practices = Practica.where(((:start >= _start) & (:end <= _end)) | ((:start < _start) & (:end > _start)) | ((:start < _end) & (:end > _end)) | ((:start <= _start) & (:end >= _end)))
+
+    events = Event.where(((:start >= _start) & (:end <= _end)) | ((:start < _start) & (:end > _start)) | ((:start < _end) & (:end > _end)) | ((:start <= _start) & (:end >= _end)))
+    events.map!{|event| event.eventable}
+    filtered_practices = events.select{|eventable| eventable.is_a? Practica}
+    #filtered_practices = Practica.exist_in_span(_start, _end)
     reserved_devices = []
     filtered_practices.each do |practica|
       reserved_devices += practica.dispositivos
     end
-    reserved_devices.uniq
-    @dispositivos = Dispositivo.all
+    reserved_devices = reserved_devices.uniq
+    @dispositivos = Dispositivo.for_users
     @free_devices = @dispositivos - reserved_devices
   end
 
