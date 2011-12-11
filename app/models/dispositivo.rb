@@ -16,7 +16,7 @@ class Dispositivo < ActiveRecord::Base
   CATEGORIAS = %w[switch router otro]
   ESTADOS = %w[ok bad stock]
 
-  validates :tipo, :presence => true, :inclusion => ESTADOS
+  validates :tipo, :presence => true, :inclusion => TYPES
   validates :categoria, :presence => true, :inclusion => CATEGORIAS
 
   accepts_nested_attributes_for :puertos

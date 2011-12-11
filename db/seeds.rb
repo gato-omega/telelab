@@ -38,9 +38,9 @@ end
 
 d_nombre = ["Switch Catalyst VLAN", "Switch Catalyst 1", "Router Cisco 1", "Router Cisco 2", "Router Cisco 3", "Router Cisco 4", "Router Cisco 5", "Router Cisco 6"]
 d_etiqueta = ["S2960_VLAN", "S_2960_1", "R_812_1", "R_812_2", "R_812_3", "R_812_4", "R_812_5", "R_812_6"]
-d_categoria = ["switch", "switch", "router", "router", "router", "router","router", "router", "router"]
-d_tipo = ["vlan", "user", "user", "user", "user", "user","user", "user", "user"]
-d_estado = ["ok", "ok", "ok", "ok", "ok", "ok", "ok", "bad", "stock"]
+d_categoria = ["switch", "switch", "router", "router", "router", "router","router", "router"]
+d_tipo = ["vlan", "user", "user", "user", "user", "user","user", "user"]
+d_estado = ["ok", "ok", "ok", "ok", "ok","ok", "bad", "stock"]
 
 puts "Creating dispositivos...".yellow
 dispositivos = []
@@ -74,9 +74,8 @@ router_6 = dispositivos[7]
 #p_estado = ["ok", "ok", "bad", "ok", "ok", "ok", "ok", "ok", "ok", "ok", "bad", "ok", "ok", "ok"]
 #p_dispositivo_id = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7, 8, 9]
 
-
 seed_puertos = [
-    
+
     {:dispositivo => vlan_switch, :nombre => "fastEthernet 0/0", :etiqueta => "FE-01", :estado => 'ok'}, #  0
     {:dispositivo => vlan_switch, :nombre => "fastEthernet 0/1", :etiqueta => "FE-02", :estado => 'ok'}, #  1
     {:dispositivo => vlan_switch, :nombre => "fastEthernet 0/2", :etiqueta => "FE-03", :estado => 'ok'}, #  2
@@ -183,8 +182,8 @@ if open_practica.save
 else
   puts "FAILED TO CREATE PRACTICA".light_red
   puts "Practica >".yellow
-  ap open_practica
+  puts open_practica
   puts "Errors >".yellow
-  ap open_practica.errors
+  puts open_practica.errors
 end
 puts "----------------------------------------------".yellow
