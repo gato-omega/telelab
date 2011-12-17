@@ -16,6 +16,8 @@ Telelab02::Application.routes.draw do
   resources :courses do
     post 'register', :on => :member
     post 'unregister', :on => :member
+    post 'register_teachers', :on => :member
+    get 'teachers', :on => :member
   end
 
   resources :practicas
@@ -32,6 +34,8 @@ Telelab02::Application.routes.draw do
     match '/puertos' => 'puertos#json_puertos', :as => 'json_puertos'
     ### for that event_calendar works #####
     match '/practicas' => 'practicas#practice_events', :as => 'json_practicas'
+    ### for that token_input_user works, used in "_form#practicas" view #####
+    match '/teachers' => 'teachers#json_teachers', :as => 'json_teachers'
   end
 
   ### for display allowed devices, used in "_form#practicas" view #####

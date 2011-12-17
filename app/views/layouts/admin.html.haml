@@ -1,3 +1,5 @@
 - content_for :leftnav do
   = render :partial => 'links/admin_leftnav'
+- content_for :head do
+  = javascript_include_tag 'admin'
 = render :template => 'layouts/application'

@@ -1,36 +1,43 @@
 - title "Curso> #{@course.name}"
 
-%p
-  %strong Nombre:
-  = @course.name
-%p
-  %strong Acerca del curso:
-  = @course.description
-%p
-  %strong Docentes encargados:
-  %ul
-  - teachers = @course.teachers
-  - if teachers.empty?
-    No hay docentes encargados
-    = link_to 'asignar uno ahora.' if can? :assign_teacher, @course
-  - else
-    - @course.teachers.each do |teacher|
-      %li
-        = teacher.name
-    = link_to 'Asignar otro docente' if can? :assign_teacher, @course
-
-
-- #if can? :edit, @course
--#%p
--#  %strong Password:
--#  = @course.password
-%p
-  = link_to "Editar curso", edit_course_path(@course), :class => 'button' if can? :edit, @course
-  = link_to "Borrar", @course, :confirm => 'Are you sure?', :method => :delete, :class => 'button' if can? :destroy, @course
-  %br
-  = render :partial => 'register', :locals => {:course => @course}
+- content_for :head do
+  = javascript_include_tag 'tokeninput'
+  = stylesheet_link_tag 'token-input-facebook'
 
 .white_links
+  %p
+    %strong Nombre:
+    = @course.name
+  %p
+    %strong Acerca del curso:
+    = @course.description
+  %p
+    %strong Docentes encargados:
+    %ul
+    - teachers = @course.teachers
+    - if teachers.empty?
+      No hay docentes encargados
+      = link_to 'asignar uno ahora', '#', :class => 'assign_teacher' if can? :assign_teacher, @course
+    - else
+      - @course.teachers.each do |teacher|
+        %li
+          = link_to teacher.name, teacher
+      %br
+      - if can? :assign_teacher, @course
+        = link_to 'asignar otro docente', '#', :class => 'assign_teacher'
+        #assign_teacher_form
+          %br
+          = form_tag register_teachers_course_path(@course) do
+            = text_field_tag :teacher_list, '', :size => 10, "data-pre" => teachers.collect{|user| {:id => user.id, :name => user.name}}.to_json, :class => 'tokeninput', 'data-source' => "/api/teachers.json"
+            = submit_tag 'Asignar Docentes', :class => 'button'
+          %br
+
+  %p
+    = link_to "Editar curso", edit_course_path(@course), :class => 'button' if can? :edit, @course
+    = link_to "Borrar", @course, :confirm => 'Are you sure?', :method => :delete, :class => 'button' if can? :destroy, @course
+    %br
+    = render :partial => 'register', :locals => {:course => @course}
+
   = link_to "Ver todos", courses_path
   %br
   -if can? :see_users, @course
@@ -40,3 +47,4 @@
       - @course.students.each do |student|
         %li
           = link_to student.name, student
+            

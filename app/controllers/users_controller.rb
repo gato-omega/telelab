@@ -80,10 +80,10 @@ class UsersController < AuthorizedController
 
   #For tokeninput plugin!
   def json_users
-    @all_users = User.where("username like ?", "%#{params[:q]}%")
+    @all_users = User.search :profile_firstname_or_profile_lastname_contains =>  params[:q]
 
     respond_to do |format|
-      format.json { render :json => @all_users.collect { |user| {:id => user.id, :name => user.username} } }
+      format.json { render :json => @all_users.relation.collect { |user| {:id => user.id, :name => user.username} } }
     end
   end
 

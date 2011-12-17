@@ -58,5 +58,22 @@ class CoursesController < AuthorizedController
       redirect_to @course, :alert => "El password de matricula no corresponde!"
     end
   end
+
+  def register_teachers
+    teacher_list = params[:teacher_list]
+    if teacher_list
+      @course = Course.find(params[:id])
+      @course.teacher_ids = teacher_list.split ','
+      render :action => 'show'
+    else
+      render :nothing => true
+    end
+  end
+
+  def teachers
+    @course = Course.find(params[:id])
+    @teachers = @course.teachers
+    format :json => @teachers
+  end
   
 end

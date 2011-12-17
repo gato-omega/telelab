@@ -43,6 +43,7 @@ gem "jquery-rails"
 gem 'haml'
 gem 'haml-rails'
 gem 'meta_where'
+gem 'meta_search', '1.0.6'
 gem 'state_machine', '1.1.0'
 
 #gem "hpricot"

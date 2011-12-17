@@ -1,9 +1,8 @@
 $(function(){
-
     $("input.tokeninput").each(function(index){
-        $(this).tokenInput($(this).attr('data-source'), {
+        $(this).tokenInput($(this).data('source'), {
             crossDomain: false,
-            prePopulate: $("input.tokeninput").data("pre"),
+            prePopulate: $(this).data("pre"),
             theme: "facebook"
         });
     });

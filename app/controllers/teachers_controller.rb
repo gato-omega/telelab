@@ -62,4 +62,12 @@ class TeachersController < AuthorizedController
       format.xml  { head :ok }
     end
   end
+
+  #For tokeninput plugin!
+  def json_teachers
+    @all_teachers = Teacher.search :profile_firstname_or_profile_lastname_contains =>  params[:q]
+    respond_to do |format|
+      format.json { render :json => @all_teachers.relation.collect { |teacher| {:id => teacher.id, :name => teacher.name} } }
+    end
+  end
 end
