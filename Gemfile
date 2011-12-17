@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 #gem 'rails', '3.1.0.rc1'
-gem 'rails', '3.0.6'
+gem 'rails', '3.0.9'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -56,7 +56,7 @@ group :development do
   gem 'awesome_print'
   gem 'active_reload', '0.6.0'
   gem 'colorize'
-  gem 'railroady'
+  #gem 'railroady'
 end
 
 gem 'cancan' # The permissions gem
