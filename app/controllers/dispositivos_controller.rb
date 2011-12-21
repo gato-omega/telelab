@@ -71,6 +71,30 @@ class DispositivosController < ApplicationController
     end
   end
 
+  def get_telebot_config
+    @config = {}
+    @config[:name]= 'Telebot'
+    @config[:sysop_channel]= '#GODCHANNEL'
+    @config[:additional_channels]= []
+    @config[:irc_server_address]= APP_CONFIG[:irc][:server][:ip]
+    @config[:irc_server_port]= APP_CONFIG[:irc][:server][:port]
+    @config[:irc_server_password]= APP_CONFIG[:irc][:server][:password]
+
+    dispositivos = Dispositivo.ok
+    device_configs = dispositivos.map do |dispositivo|
+      {
+          :device_id => dispositivo.id,
+          :name => dispositivo.nombre,
+          :com_port => dispositivo.com,
+          :irc_channel => "#device_#{dispositivo.id}"
+      }
+    end
+
+    @config[:device_configs] = device_configs
+
+    render :json => @config
+  end
+
   private
   def get_dispositivo_constants
     @categories = Dispositivo::CATEGORIAS

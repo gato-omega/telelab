@@ -4,6 +4,7 @@ class Dispositivo < ActiveRecord::Base
   has_and_belongs_to_many :practicas
 
   scope :for_users, where('tipo <> ?','vlan')
+  scope :ok, where('estado = ?', 'ok')
 
   #has_many :endpoints, :through => :device_connections
   #has_many :endpoints, :through => :device_connections, :class_name => 'Puerto', :source => :endpoint
