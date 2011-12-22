@@ -5,14 +5,14 @@ require "net/http"
 require "json"
 require "colorize"
 
-
+require File.expand_path('../config/initializers/app_config_load.rb', __FILE__)
 # The usual defines
-FAYE_TOKEN = 'miauhash'
-FAYE_CHANNEL_PREFIX = '/messagebox/'
-FAYE_DEFAULT_CHANNEL = 'lobby'
-FAYE_SERVER_PORT = 9292
-FAYE_MOUNT_POINT = '/faye'
-FAYE_SERVER_URL = "http://localhost:#{FAYE_SERVER_PORT}#{FAYE_MOUNT_POINT}"
+#FAYE_TOKEN = 'miauhash'
+#FAYE_CHANNEL_PREFIX = '/messagebox/'
+#FAYE_DEFAULT_CHANNEL = 'lobby'
+#FAYE_SERVER_PORT = 9292
+#FAYE_MOUNT_POINT = '/faye'
+#FAYE_SERVER_URL = "http://localhost:#{FAYE_SERVER_PORT}#{FAYE_MOUNT_POINT}"
 uri = URI.parse(FAYE_SERVER_URL)
 canales = []
 #canales = ['device_1', 'device_2', 'device_3']

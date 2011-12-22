@@ -1,5 +1,5 @@
 require 'faye'
-require File.expand_path('../config/initializers/faye_config.rb', __FILE__)
+require File.expand_path('../config/initializers/app_config_load.rb', __FILE__)
 
 class ServerAuth
   def incoming(message, callback)

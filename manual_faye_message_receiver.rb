@@ -3,12 +3,13 @@ require 'faye'
 require 'eventmachine'
 
 # The usual defines
-FAYE_TOKEN = 'miauhash'
-FAYE_CHANNEL_PREFIX = '/messagebox/'
-FAYE_DEFAULT_CHANNEL = 'lobby'
-FAYE_SERVER_PORT = 9292
-FAYE_MOUNT_POINT = '/faye'
-FAYE_SERVER_URL = "http://localhost:#{FAYE_SERVER_PORT}#{FAYE_MOUNT_POINT}"
+#FAYE_TOKEN = 'miauhash'
+#FAYE_CHANNEL_PREFIX = '/messagebox/'
+#FAYE_DEFAULT_CHANNEL = 'lobby'
+#FAYE_SERVER_PORT = 9292
+#FAYE_MOUNT_POINT = '/faye'
+#FAYE_SERVER_URL = "http://localhost:#{FAYE_SERVER_PORT}#{FAYE_MOUNT_POINT}"
+require File.expand_path('../config/initializers/app_config_load.rb', __FILE__)
 
 canal = FAYE_DEFAULT_CHANNEL
 canal_all = "#{FAYE_CHANNEL_PREFIX}#{FAYE_DEFAULT_CHANNEL}"
