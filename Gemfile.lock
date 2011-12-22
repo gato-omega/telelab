@@ -211,5 +211,6 @@ DEPENDENCIES
   nifty-generators
   rails (= 3.0.9)
   state_machine (= 1.1.0)
+  thin
   wirb
   wirble

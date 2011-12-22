@@ -76,3 +76,4 @@ gem 'event-calendar', :require => 'event_calendar'
 gem 'delayed_job'
 
 gem 'nested_form', '0.1.1'
+gem 'thin'
