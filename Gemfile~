@@ -7,7 +7,7 @@ gem 'rails', '3.0.9'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #gem 'mysql2'
-gem 'mysql2', '< 0.3'
+gem 'mysql2', '<0.3'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -33,7 +33,7 @@ gem 'mysql2', '< 0.3'
 # end
 
 
-gem "cucumber-rails", :group => [:development, :test]
+#gem "cucumber-rails", :group => [:development, :test]
 gem "capybara", :group => [:development, :test]
 
 gem "devise" # The user authentication gem

@@ -42,14 +42,14 @@ module Telelab02
     # config.i18n.default_locale = :de
 
     # JavaScript files you want as :defaults (application.js is always included).
-    config.action_view.javascript_expansions[:defaults] = %w(jquery-1.6.2.min rails jquery-ui-1.8.16.custom.min)
+    config.action_view.javascript_expansions[:defaults] = %w(jquery-1.7.min rails jquery-ui-1.8.16.custom.min)
 
-    config.action_view.javascript_expansions[:jquery] = %w(jquery-1.6.2.min)
+    config.action_view.javascript_expansions[:jquery] = %w(jquery-1.7.min)
     config.action_view.javascript_expansions[:jquery_ui] = %w(jquery-ui-1.8.16.custom.min)
 
     config.action_view.javascript_expansions[:jquery_datatables] = %w(jquery.dataTables.1.8.0.min)
     config.action_view.javascript_expansions[:jquery_tokeninput] = %w(jquery.tokeninput.1.6.0)
-    config.action_view.javascript_expansions[:jquery_tooltip] = %w(jquery.simpletip-1.3.1.min)
+    #config.action_view.javascript_expansions[:jquery_tooltip] = %w(jquery.simpletip-1.3.1.min)
 
 
     #STYLESHEETS
