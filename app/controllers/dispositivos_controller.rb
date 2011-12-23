@@ -73,12 +73,14 @@ class DispositivosController < ApplicationController
 
   def get_telebot_config
     @config = {}
-    @config[:name]= 'Telebot'
-    @config[:sysop_channel]= '#GODCHANNEL'
-    @config[:additional_channels]= []
-    @config[:irc_server_address]= APP_CONFIG[:irc][:server][:ip]
-    @config[:irc_server_port]= APP_CONFIG[:irc][:server][:port]
-    @config[:irc_server_password]= APP_CONFIG[:irc][:server][:password]
+    @config[:name]= "#{APP_CONFIG[:irc][:client][:nick_prefix]}#{APP_CONFIG[:irc][:client][:nick]}"
+    @config[:sysopChannel]= '#GODCHANNEL'
+    @config[:additionalChannels]= APP_CONFIG[:irc][:client][:default_channels]
+
+    @config[:ircServerAddress]= APP_CONFIG[:irc][:server][:ip]
+    @config[:ircServerPort]= APP_CONFIG[:irc][:server][:port]
+    @config[:ircServerPassword]= APP_CONFIG[:irc][:server][:password]
+    @config[:enableSerial] = APP_CONFIG[:irc][:client][:enable_serial] || 0
 
     dispositivos = Dispositivo.ok
     device_configs = dispositivos.map do |dispositivo|
@@ -90,8 +92,7 @@ class DispositivosController < ApplicationController
       }
     end
 
-    @config[:device_configs] = device_configs
-
+    @config[:deviceConfigs] = device_configs
     render :json => @config
   end
 
