@@ -34,6 +34,10 @@ class Dispositivo < ActiveRecord::Base
     puertos_utiles.size
   end
 
+  def irc_channel
+    "#device_#{self.id}"
+  end
+
   def recalculate_port_numbers
     next_number = 0
     self.puertos.each do |puerto|

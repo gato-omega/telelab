@@ -6,7 +6,7 @@ class DeviceCommandProcessor
   attr_accessor :vlan_output_buffer
   attr_accessor :vlan_input_buffer
   attr_accessor :irc_gateway
-  
+
   include CustomFayeSender
 
   def initialize(irc_gateway)
@@ -14,6 +14,23 @@ class DeviceCommandProcessor
     @irc_gateway = irc_gateway
     @vlan_output_buffer=[]
     @vlan_input_buffer=[]
+  end
+
+  # Generates the serial output commands to reset a device, based on the device instance passed
+  def serial_reset_device(device)
+    commands = [
+
+        "#ENTER",
+        "#ENTER",
+        "RESET",
+        "DEVICE",
+        "COMMANDS",
+        "OVER",
+        "HERE",
+        "exit"
+    ]
+
+    commands
   end
 
   # Generates the serial output commands to create a vlan, based on a Vlan model object
@@ -51,6 +68,15 @@ class DeviceCommandProcessor
 
     commands
 
+  end
+
+  def reset_device(device)
+    commands = serial_reset_device device
+    channel = device.irc_channel
+    commands.each do |command|
+      send_irc channel, command
+      p "SENDING #{canal}, #{command}"
+    end
   end
 
   # This method processes the incoming message from irc
@@ -97,8 +123,9 @@ class DeviceCommandProcessor
 
   def create_vlan(vlan)
     commands = serial_create_vlan vlan
+    channel = vlan_channel
     commands.each do |command|
-      send_irc vlan_channel, command
+      send_irc channel, command
       #puts "SENDING #{canal}, #{command}"
     end
   end

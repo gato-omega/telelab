@@ -80,6 +80,14 @@ class IRCGateway
     DeviceCommandProcessor.new(self).create_vlan(vlan)
   end
 
+  def reset_device(device)
+    # UNCOMMENT
+    #@message_processor.create_vlan(vlan)
+    DeviceCommandProcessor.new(self).reset_device(device)
+  end
+
+
+
   # Send a IRC message to a channel
   def send_irc(channel, message)
     real_channel = @zbot.get_channel(channel)
