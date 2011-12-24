@@ -1,33 +1,37 @@
 - title @practica.name
-
-%p
-  %b Name:
-  = @practica.name
-%p
-  %b Inicio:
-  = @practica.start_humanized
-%p
-  %b Fin:
-  = @practica.end_humanized
-%b Dispositivo(s):
-%ul
-  - @dispositivos_reservados.each do |devices|
-    %li= devices.nombre
-
-%b Docentes asignados:
-%ul
-  - @practica.teachers.each do |teacher|
-    %li= teacher.username
-
-%b Estudiantes:
-%ul
-  - @practica.students.each do |student|
-    %li= student.username
-
-%p
-  %b Estado:
-  = @practica.estado
 .white_links
-  = link_to 'Editar', edit_practica_path(@practica) if can? :edit, @practica
-  = link_to 'Atras', :back
-  
+  %p
+    %b Name:
+    = @practica.name
+  %p
+    %b Inicio:
+    = @practica.start_humanized
+  %p
+    %b Fin:
+    = @practica.end_humanized
+  %b Dispositivo(s):
+  %ul
+    - @dispositivos_reservados.each do |device|
+      %li= "#{device.nombre} | #{device.number_of_puertos_utiles} puertos"
+
+  %b Docentes asignados:
+  %ul
+    - @practica.teachers.each do |teacher|
+      %li= teacher.name
+
+  %b Estudiantes:
+  %ul
+    - @practica.students.each do |student|
+      %li= link_to student.name, student
+
+  %p
+    %b Estado:
+    = @practica.estado
+    %p
+      = link_to 'Entrar', realizar_practica_path(@practica), :class => 'button' if can? :make_practice, @practica
+      %br
+      %br
+      = link_to 'Editar', edit_practica_path(@practica), :class => 'button' if can? :edit, @practica
+      %br
+      %br
+    = link_to 'Atras', :back

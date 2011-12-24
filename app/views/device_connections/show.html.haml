@@ -1,12 +1,14 @@
 %p#notice= notice
 
-%p
-  %b Puerto:
-  = @device_connection.puerto
-%p
-  %b Endpoint:
-  = @device_connection.endpoint
+.white_links
 
-= link_to 'Editar', edit_device_connection_path(@device_connection)
-\|
-= link_to 'Atras', device_connections_path
+  %p
+    %b Puerto:
+    = @device_connection.puerto
+  %p
+    %b Endpoint:
+    = @device_connection.endpoint
+
+  = link_to 'Editar', edit_device_connection_path(@device_connection)
+  \|
+  = link_to 'Atras', device_connections_path

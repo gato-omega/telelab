@@ -73,22 +73,27 @@ class DispositivosController < ApplicationController
 
   def get_telebot_config
     @config = {}
-    @config[:name]= "#{APP_CONFIG[:irc][:client][:nick_prefix]}#{APP_CONFIG[:irc][:client][:nick]}"
+    @config[:name]= "#{APP_CONFIG[:irc][:telebot][:nick_prefix]}#{APP_CONFIG[:irc][:telebot][:nick]}"
     @config[:sysopChannel]= '#GODCHANNEL'
-    @config[:additionalChannels]= APP_CONFIG[:irc][:client][:default_channels]
+    begin
+      @config[:additionalChannels] = APP_CONFIG[:irc][:telebot][:default_channels].map {|channel| (channel.start_with? "#") ? channel : "##{channel}"}
+      @config[:additionalChannels] = @config[:additionalChannels].join ','
+    rescue
+      @config[:additionalChannels] = '#test1, #test2'
+    end
 
-    @config[:ircServerAddress]= APP_CONFIG[:irc][:server][:ip]
-    @config[:ircServerPort]= APP_CONFIG[:irc][:server][:port]
-    @config[:ircServerPassword]= APP_CONFIG[:irc][:server][:password]
-    @config[:enableSerial] = APP_CONFIG[:irc][:client][:enable_serial] || 0
+    @config[:ircServerAddress]= APP_CONFIG[:irc][:server][:ip] || '127.0.0.1'
+    @config[:ircServerPort]= APP_CONFIG[:irc][:server][:port] || 6667
+    @config[:ircServerPassword]= APP_CONFIG[:irc][:server][:password] || ""
+    @config[:enableSerial] = APP_CONFIG[:irc][:telebot][:enable_serial] || 0
 
     dispositivos = Dispositivo.ok
     device_configs = dispositivos.map do |dispositivo|
       {
-          :device_id => dispositivo.id,
-          :name => dispositivo.nombre,
-          :com_port => dispositivo.com,
-          :irc_channel => "#device_#{dispositivo.id}"
+          :deviceId => dispositivo.id,
+          :name => dispositivo.nombre || "device #{dispositivo.id}",
+          :comPort => dispositivo.com || "COM#{dispositivo.id}",
+          :ircChannel => "#device_#{dispositivo.id}"
       }
     end
 

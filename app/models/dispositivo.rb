@@ -30,6 +30,10 @@ class Dispositivo < ActiveRecord::Base
     end
   end
 
+  def number_of_puertos_utiles
+    puertos_utiles.size
+  end
+
   def recalculate_port_numbers
     next_number = 0
     self.puertos.each do |puerto|

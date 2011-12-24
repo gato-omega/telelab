@@ -164,23 +164,23 @@ class Ability
 
   def can_do_normal_labs
 
-    can :manage, Practica
+    #can :manage, Practica
 
-    #can :manage, Practica do |practica|
-    #  practica.abierta? && (practica.users.include? @user)
-    #end
-    #cannot :manage, Practica do |practica|
-    #  practica.cerrada?
-    #end
-    #cannot [:edit, :update], Practica do |practica|
-    #  practica.abierta?
-    #end
-    #
-    #can [:edit, :destroy, :update], Practica do |practica|
-    #  practica.reservada? && (practica.users.include? @user)
-    #end
-    #
-    #can [:create, :index, :read], Practica
+    can :manage, Practica do |practica|
+      practica.abierta? && (practica.users.include? @user)
+    end
+    cannot :manage, Practica do |practica|
+      practica.cerrada?
+    end
+    cannot [:edit, :update], Practica do |practica|
+      practica.abierta?
+    end
+
+    can [:edit, :destroy, :update], Practica do |practica|
+      practica.reservada? && (practica.users.include? @user)
+    end
+
+    can [:create, :index, :read], Practica
 
   end
 

@@ -1,7 +1,8 @@
 -title "Editando Conexion #{@device_connection.fullname}"
 
-= render 'form'
+.white_links
 
-= link_to 'Show', @device_connection
-\|
-= link_to 'Atras', device_connections_path
+  = render 'form'
+  = link_to 'Show', @device_connection
+  \|
+  = link_to 'Atras', device_connections_path

@@ -183,6 +183,13 @@ footer
 .white_links
 {
     color: #eeeeee;
-    a:visited{color: white;}
-    a{color: white;}
+    a:visited{color: #f5bf00;}
+    a{color: #f58400;}
+}
+
+.reset_links
+{
+    color: #eeeeee;
+    a:visited{color: #8fda00;}
+    a{color: #ffffff;}
 }

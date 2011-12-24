@@ -206,9 +206,22 @@ footer .central {
 }
 /* line 186, ../../app/stylesheets/screen.scss */
 .white_links a:visited {
-  color: white;
+  color: #f5bf00;
 }
 /* line 187, ../../app/stylesheets/screen.scss */
 .white_links a {
-  color: white;
+  color: #f58400;
+}
+
+/* line 191, ../../app/stylesheets/screen.scss */
+.reset_links {
+  color: #eeeeee;
+}
+/* line 193, ../../app/stylesheets/screen.scss */
+.reset_links a:visited {
+  color: #8fda00;
+}
+/* line 194, ../../app/stylesheets/screen.scss */
+.reset_links a {
+  color: #ffffff;
 }

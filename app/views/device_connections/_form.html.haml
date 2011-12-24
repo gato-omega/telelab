@@ -5,12 +5,13 @@
       %ul
         - @device_connection.errors.full_messages.each do |msg|
           %li= msg
-
   .field
     = f.label :puerto
     = f.select(:puerto_id, @puertos, { :prompt => 'Seleccione un puerto' })
+  %br
   .field
     = f.label :endpoint
     = f.select(:endpoint_id, @puertos, { :prompt => 'Seleccione el otro puerto' })
+  %br
   .actions
-    = f.submit 'Save'
+    = f.submit 'Save', :class => 'button'

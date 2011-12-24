@@ -25,7 +25,7 @@ end
 
 c_name = ["redes1", "redes2"]
 c_description = ["descripcion1", "descripcion2"]
-c_hashed_password = ["qwerty", "asdfgh"]
+c_hashed_password = ["123456", "123456"]
 c_options = [{:color1 => "red", :color2 => "green"},{:color1 => "blue", :color2 => "orange"}]
 
 puts "Creating cursos...".yellow

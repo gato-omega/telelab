@@ -1,65 +1,99 @@
 development:
-  domain: localhost:3000
+  domain: local
 
   irc:
     server:
+      auto: local
       ip: 127.0.0.1
       port: 6667
       password:
     client:
       nick: telelab
-      nick_prefix: tl_
+      nick_prefix: dev_
+      enable_serial: 0
       default_channels: [lobby]
+      logger: default
+    telebot:
+      nick: telebot
+      nick_prefix: dev_
+      enable_serial: 0
+      default_channels: [lobby, test1]
       logger: default
 
   faye:
     server:
+      auto: local
       url: http://localhost
       port: 9292
       mount: /faye
+      default_channel: lobby
+      channel_prefix: /messagebox/
       password:
       token: lagataquedeciamiau
 
 test:
-  domain: localhost:3000
+  domain: local
 
   irc:
     server:
-      ip: localhost
+      auto: local
+      ip: 127.0.0.1
       port: 6667
       password:
     client:
       nick: telelab
-      nick_prefix: tl_
+      nick_prefix: test_
+      enable_serial: 0
       default_channels: [lobby]
+      logger: default
+    telebot:
+      nick: telebot
+      nick_prefix: test_
+      enable_serial: 0
+      default_channels: [lobby, test1]
       logger: default
 
   faye:
     server:
+      auto: local
       url: http://localhost
       port: 9292
       mount: /faye
+      default_channel: lobby
+      channel_prefix: /messagebox/
       password:
       token: lagataquedeciamiau
 
 production:
-  domain: localhost:3000
+  domain: local
 
   irc:
     server:
-      ip: localhost
+      auto: local
+      ip: 127.0.0.1
       port: 6667
       password:
     client:
       nick: telelab
-      nick_prefix: tl_
+      nick_prefix: prod_
+      enable_serial: 0
       default_channels: [lobby]
+      logger: default
+    telebot:
+      nick: telebot
+      nick_prefix: prod_
+      enable_serial: 0
+      default_channels: [lobby, test1]
       logger: default
 
   faye:
     server:
+      auto: local
       url: http://localhost
       port: 9292
       mount: /faye
+      default_channel: lobby
+      channel_prefix: /messagebox/
       password:
       token: lagataquedeciamiau
+

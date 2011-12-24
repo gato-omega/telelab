@@ -43,7 +43,7 @@ Telelab02::Application.routes.draw do
   ### for display allowed devices, used in "_form#practicas" view #####
   match '/practicas/free_devices' => 'practicas#free_devices', :as => 'free_devices', :via => :post
 
-  get '/practicas/:id/practica' => 'practicas#make_practice'
+  get '/practicas/:id/practica' => 'practicas#make_practice', :as => 'realizar_practica'
 
   devise_for :users, :path_prefix => 'account'
 
@@ -87,7 +87,6 @@ Telelab02::Application.routes.draw do
 
   # IN LAB PRACTICE
 
-  get "/practicas/:id/practica" => 'practicas#make_practice'
   # Javascript generator
   match "/practicas/:id/lab" => 'practicas#lab', :as => 'practica_lab'
 
