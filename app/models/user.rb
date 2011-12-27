@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   ## The following are the relationships
 
   has_and_belongs_to_many :practicas
+  has_and_belongs_to_many :courses, :join_table => 'users_courses'
 
   ## PROFILE
   has_one :profile, :dependent => :destroy
