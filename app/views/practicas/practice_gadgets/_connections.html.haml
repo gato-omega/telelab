@@ -3,29 +3,14 @@
   = stylesheet_link_tag 'telelab_datatables'
   = javascript_include_tag :jquery_datatables
   = javascript_include_tag 'datatable'
-
-%table#conexiones_table.display{:cellpadding=> "0", :cellspacing => "0", 'datatable' => true, 'conexiones' => true}
-  %thead
-    %tr
-      %th ID
-      %th Puerto A
-      %th Puerto B
-      %th Accion
-  %tbody
-    - for conexion_i in conexiones
-      %tr
-        %td= conexion_i.id
-        %td= conexion_i.puerto.fullname
-        %td= conexion_i.endpoint.fullname
-        %td{ :style => "text-align: center"}
-          = link_to "Borrar", practica_remove_conexion_path(@practica, conexion_i), :confirm => 'Are you sure?', :method => :delete, :remote => true,:class => 'delete_button'
-
-= form_for conexion, :url => practica_new_conexion_path,  :remote => true do |f|
-  .field
-    = f.label :puerto_a
-    = f.select(:puerto_id, the_puertos, { :prompt => 'Seleccione un puerto' })
-  .field
-    = f.label :puerto_b
-    = f.select(:endpoint_id, the_puertos, { :prompt => 'Seleccione el otro puerto' })
-  .actions
-    = f.submit
+#connection_error
+%br
+#conexiones_table
+  = render 'practicas/conexiones_table', conexiones: conexiones
+%br
+-##puertos
+-#  %span.puerto_libre Puerto libre
+-#  %span.puerto_conectado Puerto conectado
+%br
+#new_connection_form
+  = render 'practicas/conexiones_form', :the_puertos => the_puertos, :conexion => conexion

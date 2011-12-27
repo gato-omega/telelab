@@ -1,0 +1,10 @@
+= form_for conexion, :url => practica_new_conexion_path(@practica),  :remote => true do |f|
+  .field{style: 'float: left;'}
+    = f.label :puerto_a, 'Conectar '
+    = f.select(:puerto_id, the_puertos, { :prompt => 'Seleccione un puerto' })
+  .field
+    = f.label :puerto_b, ' con '
+    = f.select(:endpoint_id, the_puertos, { :prompt => 'Seleccione el otro puerto' })
+  %br
+  .actions
+    = f.submit nil, :class => 'button'

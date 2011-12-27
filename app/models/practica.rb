@@ -20,6 +20,10 @@ class Practica < ActiveRecord::Base
 
   has_many :vlans
 
+  def puertos
+    raise 'implement please!'
+  end
+
   def self.exist_in_span(_start, _end)
     events = Event.where(((:start >= _start) & (:end <= _end)) | ((:start < _start) & (:end > _start)) | ((:start < _end) & (:end > _end)) | ((:start <= _start) & (:end >= _end)))
     events.map!{|event| event.eventable}

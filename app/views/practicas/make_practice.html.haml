@@ -11,18 +11,14 @@
   = javascript_include_tag practica_lab_path @practica
 
 #practica
-  .main_title= @practica.name
+  .main_title= @practica.name + " find me in views/practicas/make_practice.html.haml TIMER GOES HERE??"
   .viewport_row
     .diagram
-      .title This is DIAGRAM
-
+      DIAGRAM PENDING
     .connections
-      .title This is CONNECTIONS
       = render :partial => "practicas/practice_gadgets/connections", :locals => {:conexiones => @logical_connections, :conexion => @conexion, :the_puertos => @puertos}
   .viewport_row
     .consoles
-      .title This is CONSOLES
       = render :partial => "practicas/practice_gadgets/console"
     .chat.ui-corner-all
-      .title This is CHAT
       = render :partial => "practicas/practice_gadgets/chat"

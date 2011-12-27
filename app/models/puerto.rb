@@ -1,5 +1,7 @@
 class Puerto < ActiveRecord::Base
 
+  attr_accessor :runtime_state
+
   belongs_to :dispositivo
   has_one :device_connection
   has_one :endpoint, :through => :device_connection#, :class_name => 'Puerto'
@@ -30,7 +32,7 @@ class Puerto < ActiveRecord::Base
   end
 
   def fullname
-    "#{self.dispositivo.etiqueta} - #{self.etiqueta}"
+    "#{self.dispositivo.nombre} - #{self.etiqueta}"
   end
 
   ## CONEXIONES FISICAS

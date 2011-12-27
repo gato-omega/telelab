@@ -10,7 +10,7 @@ class PracticasController < AuthorizedController
   end
 
   def show
-    
+
   end
 
   def new
@@ -85,7 +85,13 @@ class PracticasController < AuthorizedController
       @puertos += dispositivo.puertos
     end
 
-    puts @puertos.inspect
+    @puertos = @puertos.uniq
+    # See which vlans exist
+    #@practica.vlans.each do |vlan|
+    #  p1 = vlan.puerto
+    #  p2 = vlan.endpoint
+    #  @puertos.delete_if {|un_puerto| (un_puerto.id == p1.id || un_puerto.id == p2.id)}
+    #end
 
     @puertos.collect! do |p|
       if p.dispositivo
@@ -102,12 +108,12 @@ class PracticasController < AuthorizedController
     @mensaje = {}
     @mensaje[:message] = params[:message][:content]
 
-      # Filter non-permitted commands and log, whatever we want
+    # Filter non-permitted commands and log, whatever we want
     if not @mensaje[:message].empty?
 
       # Send through faye first to provide echo
       @mensaje[:channel] = params[:message][:channel]
-        # Set echo to true if sending to himself via faye is required
+      # Set echo to true if sending to himself via faye is required
       @mensaje[:echo] = false
 
       if current_user
@@ -118,11 +124,11 @@ class PracticasController < AuthorizedController
 
       the_irc_gateway = IRCGateway.instance
 
-        #mensaje_raw = the_irc_gateway.message_processor.generate_terminal_user_output @mensaje
+      #mensaje_raw = the_irc_gateway.message_processor.generate_terminal_user_output @mensaje
       mensaje_raw = FayeMessagesController.new.generate_terminal_user_output @mensaje
       send_via_faye "#{FAYE_CHANNEL_PREFIX}#{@mensaje[:channel]}", mensaje_raw
 
-        # Send through IRCGateway...
+      # Send through IRCGateway...
       the_irc_gateway.send_irc("##{@mensaje[:channel]}", @mensaje[:message])
     end
 
@@ -130,7 +136,7 @@ class PracticasController < AuthorizedController
 
   end
 
-    # Generates JS for practica
+  # Generates JS for practica
   def lab
     @faye_channels = @dispositivos_reservados.map do |dispositivo|
       "#{FAYE_CHANNEL_PREFIX}device_#{dispositivo.id}"
@@ -146,6 +152,22 @@ class PracticasController < AuthorizedController
       @user_id = -1
     end
 
+    @puertos = []
+    @dispositivos_reservados.each do |dispositivo|
+      @puertos += dispositivo.puertos
+    end
+
+    @puertos = @puertos.uniq
+
+    #See which vlans exist
+    @practica.vlans.each do |vlan|
+      p1 = vlan.puerto
+      p2 = vlan.endpoint
+      @puertos.each do |un_puerto|
+        (un_puerto.id == p1.id || un_puerto.id == p2.id) ? un_puerto.runtime_state = :conectado : un_puerto.runtime_state = :libre
+      end
+    end
+
     respond_to do |format|
       format.js
     end
@@ -155,12 +177,12 @@ class PracticasController < AuthorizedController
     @mensaje = {}
     @mensaje[:message] = params[:message][:content]
 
-      # Filter non-permitted commands and log, whatever we want
+    # Filter non-permitted commands and log, whatever we want
     if not @mensaje[:message].empty?
 
       # Send through faye first to provide echo
       @mensaje[:channel] = params[:message][:channel]
-        # Set echo to true if sending to himself via faye is required
+      # Set echo to true if sending to himself via faye is required
       @mensaje[:echo] = false
 
       if current_user
@@ -200,21 +222,22 @@ class PracticasController < AuthorizedController
   def new_conexion
 
     the_practica = Practica.find(params[:id])
-
     the_vlan = Vlan.new(params[:vlan])
-
     the_vlan.practica = the_practica
 
-      #puts "DEBUG ##################3 practica is #{the_practica.inspect}"
-      #
-      #the_vlan = puerto.conectar_logicamente endpoint
-      #
-      #puts "DEBUG ##################3 the_vlan is #{the_vlan.inspect}"
-
+    #puts "DEBUG ##################3 practica is #{the_practica.inspect}"
+    #
+    #the_vlan = puerto.conectar_logicamente endpoint
+    #
+    #puts "DEBUG ##################3 the_vlan is #{the_vlan.inspect}"
+    channel = "practica_#{the_practica.id}"
+    
     if the_vlan.save
       IRCGateway.instance.create_vlan the_vlan
-      channel = "practica_#{the_practica.id}"
       mensaje_raw = FayeMessagesController.new.generate_new_conexion_output the_vlan
+      send_via_faye "#{FAYE_CHANNEL_PREFIX}#{channel}", mensaje_raw
+    else
+      mensaje_raw = FayeMessagesController.new.generate_new_conexion_error_output the_vlan
       send_via_faye "#{FAYE_CHANNEL_PREFIX}#{channel}", mensaje_raw
     end
 
@@ -276,17 +299,17 @@ class PracticasController < AuthorizedController
     end
   end
 
-    # THIS IS PRIVATE !!!
+  # THIS IS PRIVATE !!!
   private
 
-    # Get practica, associated users and devices
+  # Get practica, associated users and devices
   def get_practice
     @practica = Practica.find(params[:id], :include => [:users, :dispositivos])
     @dispositivos_reservados = @practica.dispositivos
     @allowed_users = @practica.users
   end
 
-    # Broadcast this user's chat status in a specific channel
+  # Broadcast this user's chat status in a specific channel
   def broadcast_chat_status(channel, status)
     mensaje_raw = FayeMessagesController.new.generate_chat_status_output current_user.id, status
     send_via_faye "#{FAYE_CHANNEL_PREFIX}#{channel}", mensaje_raw

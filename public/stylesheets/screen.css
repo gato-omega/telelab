@@ -225,3 +225,13 @@ footer .central {
 .reset_links a {
   color: #ffffff;
 }
+
+/* line 198, ../../app/stylesheets/screen.scss */
+.puerto_libre {
+  color: #229922;
+}
+
+/* line 203, ../../app/stylesheets/screen.scss */
+.puerto_conectado {
+  color: #992222;
+}

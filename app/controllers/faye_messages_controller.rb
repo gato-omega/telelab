@@ -72,12 +72,19 @@ class FayeMessagesController < AbstractController::Base
   def generate_new_conexion_output(vlan)
     @vlan =  vlan
     @vlan_hash = {}
-    @vlan_hash[:practica_id] = @vlan.practica.id
+    @practica = @vlan.practica
+    @vlan_hash[:practica_id] = @practica.id
     @vlan_hash[:id] = @vlan.id
     @vlan_hash[:puerto] = @vlan.puerto.fullname
     @vlan_hash[:endpoint] = @vlan.endpoint.fullname
 
+    @conexiones = vlan.practica.vlans
+
     render template: "faye_messages/new_conexion"
+  end
+
+  def generate_new_conexion_error_output(vlan)
+    render template: "faye_messages/new_conexion_error"
   end
 
 end
