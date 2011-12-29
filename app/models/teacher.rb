@@ -1,5 +1,5 @@
 class Teacher < User
-  has_and_belongs_to_many :courses, :join_table => 'users_courses', :foreign_key => 'user_id', :uniq => true
+  #has_and_belongs_to_many :courses, :join_table => 'users_courses', :foreign_key => 'user_id', :uniq => true
   #has_many :users, :through => :courses, :uniq => true, :source => :user
 
   def students

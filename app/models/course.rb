@@ -7,8 +7,10 @@ class Course < ActiveRecord::Base
   attr_accessor :password_confirmation
   attr_writer :password
 
-  has_and_belongs_to_many :teachers, :join_table => 'users_courses', :class_name => "User", :association_foreign_key=> "user_id", :conditions => {:type => 'Teacher'}, :uniq => true
-  has_and_belongs_to_many :students, :join_table => 'users_courses', :class_name => "User", :association_foreign_key=> "user_id", :conditions => {:type => 'Student'}, :uniq => true
+  #has_and_belongs_to_many :teachers, :join_table => 'users_courses', :class_name => "User", :association_foreign_key=> "user_id", :conditions => {:type => 'Teacher'}, :uniq => true
+  #has_and_belongs_to_many :students, :join_table => 'users_courses', :class_name => "User", :association_foreign_key=> "user_id", :conditions => {:type => 'Student'}, :uniq => true
+  has_and_belongs_to_many :students, :join_table => 'users_courses', :association_foreign_key=> "user_id", :uniq => true
+  has_and_belongs_to_many :teachers, :join_table => 'users_courses', :association_foreign_key=> "user_id", :uniq => true
 
   has_and_belongs_to_many :users, :join_table => 'users_courses'
 
