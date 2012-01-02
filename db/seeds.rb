@@ -44,8 +44,9 @@ d_estado = ["ok", "ok", "ok", "ok", "ok","ok", "bad", "stock"]
 
 puts "Creating dispositivos...".yellow
 dispositivos = []
+cluster_id = 1
 d_nombre.size.times do |n|
-  dispositivos << Dispositivo.create(:nombre => d_nombre[n], :etiqueta => d_etiqueta[n], :categoria => d_categoria[n], :tipo => d_tipo[n], :estado => d_estado[n])
+  dispositivos << Dispositivo.create(:nombre => d_nombre[n], :etiqueta => d_etiqueta[n], :categoria => d_categoria[n], :tipo => d_tipo[n], :estado => d_estado[n], :cluster_id => cluster_id)
   puts "  Dispositivo #{d_nombre[n]} created".green
 end
 

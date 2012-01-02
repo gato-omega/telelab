@@ -24,7 +24,7 @@
         = f.label :tipo
         %br
         = f.select(:tipo, @types, { :prompt => 'Seleccione el tipo' })
-      .field
+      .field  
         = f.label :categoria
         %br
         = f.select(:categoria, @categories, { :prompt => 'Seleccione la categoria' })
@@ -36,6 +36,10 @@
         = f.label :com
         %br
         = f.text_field :com
+      .field
+        = f.label :cluster_id
+        %br
+        = f.text_field :cluster_id
 
       = f.fields_for :puertos
       %br

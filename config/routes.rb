@@ -37,7 +37,7 @@ Telelab02::Application.routes.draw do
     ### for that token_input_user works, used in "_form#practicas" view #####
     match '/teachers' => 'teachers#json_teachers', :as => 'json_teachers'
 
-    match '/telebot_configuration' => 'dispositivos#get_telebot_config', :as => 'telebot_config'
+    match '/telebot_configuration/:cluster_id' => 'dispositivos#get_telebot_config', :as => 'telebot_config'
   end
 
   ### for display allowed devices, used in "_form#practicas" view #####

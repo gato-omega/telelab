@@ -277,7 +277,7 @@ class PracticasController < AuthorizedController
       reserved_devices += practica.dispositivos
     end
     reserved_devices = reserved_devices.uniq
-    @dispositivos = Dispositivo.for_users
+    @dispositivos = Dispositivo.for_users.ok
     @free_devices = @dispositivos - reserved_devices
   end
 

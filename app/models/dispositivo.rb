@@ -19,6 +19,7 @@ class Dispositivo < ActiveRecord::Base
 
   validates :tipo, :presence => true, :inclusion => TYPES
   validates :categoria, :presence => true, :inclusion => CATEGORIAS
+  validates :cluster_id, :presence => true, :numericality => true
 
   accepts_nested_attributes_for :puertos
 
