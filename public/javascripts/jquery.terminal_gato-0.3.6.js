@@ -14,7 +14,7 @@
  *
  * Storage plugin Distributed under the MIT License
  * Copyright (c) 2010 Dave Schindler
- * 
+ *
  * LiveQuery plugin Dual MIT and GPL
  * Copyright (c) 2008 Brandon Aaron (http://brandonaaron.net)
  *
@@ -26,42 +26,42 @@
 
 /*
 
-     TODO:
-           add destroy method to terminal (cmd alrady have it)
+ TODO:
+ add destroy method to terminal (cmd alrady have it)
 
-           add support for - $(...).each(function() { ... });
+ add support for - $(...).each(function() { ... });
 
-           $.fn.pluginname = function(options) {
-             var settings = $.extend({}, $.fn.pluginname.defaultOptions, options);
+ $.fn.pluginname = function(options) {
+ var settings = $.extend({}, $.fn.pluginname.defaultOptions, options);
 
-             return this.each(function() {
-                var $this = $(this);
-             });
-             $.fn.pluginname.defaultOptions = {
-             };
-          };
+ return this.each(function() {
+ var $this = $(this);
+ });
+ $.fn.pluginname.defaultOptions = {
+ };
+ };
 
-          if (CTRL+D && ajax-call) {
-            xhr.abort();
-          }
+ if (CTRL+D && ajax-call) {
+ xhr.abort();
+ }
 
-          object as first arguments which maps commands arguments to methods
-          context of functions will be the terminal instance.
+ object as first arguments which maps commands arguments to methods
+ context of functions will be the terminal instance.
 
-          terminal({
-            js: function(a, b, c) {
-              this.echo(a + '__' + b + '__' + c);
-            },
-            mysql: function() {
-              var query = Array.prototype.splice(argument, 0).join(' ');
-            }
-          });
-    
-          if you type 'js foo bar baz' it will call js('foo', 'bar', 'baz');
+ terminal({
+ js: function(a, b, c) {
+ this.echo(a + '__' + b + '__' + c);
+ },
+ mysql: function() {
+ var query = Array.prototype.splice(argument, 0).join(' ');
+ }
+ });
+
+ if you type 'js foo bar baz' it will call js('foo', 'bar', 'baz');
 
 
 
-*/
+ */
 // return true if value is in array
 Array.prototype.has = function(val) {
     for (var i = this.length; i--;) {
@@ -82,216 +82,216 @@ function get_stack(caller) {
 }
 
 (function($, undefined) {
-    
+
     // ----------------------------------------
     // START Live Query plugin
     // ----------------------------------------
     $.extend($.fn, {
-	    livequery: function(type, fn, fn2) {
-		    var self = this, q;
-		    
-		    // Handle different call patterns
-		    if ($.isFunction(type))
-			    fn2 = fn, fn = type, type = undefined;
-			
-		    // See if Live Query already exists
-		    $.each( $.livequery.queries, function(i, query) {
-			    if ( self.selector == query.selector && self.context == query.context &&
-				     type == query.type && (!fn || fn.$lqguid == query.fn.$lqguid) && (!fn2 || fn2.$lqguid == query.fn2.$lqguid) )
-					// Found the query, exit the each loop
-					return (q = query) && false;
-		    });
-		    
-		    // Create new Live Query if it wasn't found
-		    q = q || new $.livequery(this.selector, this.context, type, fn, fn2);
-		    
-		    // Make sure it is running
-		    q.stopped = false;
-		    
-		    // Run it immediately for the first time
-		    q.run();
-		    
-		    // Contnue the chain
-		    return this;
-	    },
-	    
-	    expire: function(type, fn, fn2) {
-		    var self = this, x =10;
-		    
-		    // Handle different call patterns
-		    if ($.isFunction(type))
-			    fn2 = fn, fn = type, type = undefined;
-			
-		    // Find the Live Query based on arguments and stop it
-		    $.each( $.livequery.queries, function(i, query) {
-			    if ( self.selector == query.selector && self.context == query.context && 
-				     (!type || type == query.type) && (!fn || fn.$lqguid == query.fn.$lqguid) && (!fn2 || fn2.$lqguid == query.fn2.$lqguid) && !this.stopped )
-					$.livequery.stop(query.id);
-		    });
-		    
-		    // Continue the chain
-		    return this;
-	    }
+        livequery: function(type, fn, fn2) {
+            var self = this, q;
+
+            // Handle different call patterns
+            if ($.isFunction(type))
+                fn2 = fn, fn = type, type = undefined;
+
+            // See if Live Query already exists
+            $.each( $.livequery.queries, function(i, query) {
+                if ( self.selector == query.selector && self.context == query.context &&
+                    type == query.type && (!fn || fn.$lqguid == query.fn.$lqguid) && (!fn2 || fn2.$lqguid == query.fn2.$lqguid) )
+                // Found the query, exit the each loop
+                    return (q = query) && false;
+            });
+
+            // Create new Live Query if it wasn't found
+            q = q || new $.livequery(this.selector, this.context, type, fn, fn2);
+
+            // Make sure it is running
+            q.stopped = false;
+
+            // Run it immediately for the first time
+            q.run();
+
+            // Contnue the chain
+            return this;
+        },
+
+        expire: function(type, fn, fn2) {
+            var self = this, x =10;
+
+            // Handle different call patterns
+            if ($.isFunction(type))
+                fn2 = fn, fn = type, type = undefined;
+
+            // Find the Live Query based on arguments and stop it
+            $.each( $.livequery.queries, function(i, query) {
+                if ( self.selector == query.selector && self.context == query.context &&
+                    (!type || type == query.type) && (!fn || fn.$lqguid == query.fn.$lqguid) && (!fn2 || fn2.$lqguid == query.fn2.$lqguid) && !this.stopped )
+                    $.livequery.stop(query.id);
+            });
+
+            // Continue the chain
+            return this;
+        }
     });
 
     $.livequery = function(selector, context, type, fn, fn2) {
-	    this.selector = selector;
-	    this.context  = context || document;
-	    this.type     = type;
-	    this.fn       = fn;
-	    this.fn2      = fn2;
-	    this.elements = [];
-	    this.stopped  = false;
-	    
-	    // The id is the index of the Live Query in $.livequery.queries
-	    this.id = $.livequery.queries.push(this)-1;
-	    
-	    // Mark the functions for matching later on
-	    fn.$lqguid = fn.$lqguid || $.livequery.guid++;
-	    if (fn2) fn2.$lqguid = fn2.$lqguid || $.livequery.guid++;
-	    
-	    // Return the Live Query
-	    return this;
+        this.selector = selector;
+        this.context  = context || document;
+        this.type     = type;
+        this.fn       = fn;
+        this.fn2      = fn2;
+        this.elements = [];
+        this.stopped  = false;
+
+        // The id is the index of the Live Query in $.livequery.queries
+        this.id = $.livequery.queries.push(this)-1;
+
+        // Mark the functions for matching later on
+        fn.$lqguid = fn.$lqguid || $.livequery.guid++;
+        if (fn2) fn2.$lqguid = fn2.$lqguid || $.livequery.guid++;
+
+        // Return the Live Query
+        return this;
     };
 
     $.livequery.prototype = {
-	    stop: function() {
-		    var query = this;
-		    
-		    if ( this.type )
-			    // Unbind all bound events
-			    this.elements.unbind(this.type, this.fn);
-		    else if (this.fn2)
-			    // Call the second function for all matched elements
-			    this.elements.each(function(i, el) {
-				    query.fn2.apply(el);
-			    });
-			
-		    // Clear out matched elements
-		    this.elements = [];
-		    
-		    // Stop the Live Query from running until restarted
-		    this.stopped = true;
-	    },
-	    
-	    run: function() {
-		    // Short-circuit if stopped
-		    if ( this.stopped ) return;
-		    var query = this;
-		    
-		    var oEls = this.elements,
-			els  = $(this.selector, this.context),
-			nEls = els.not(oEls);
-		    
-		    // Set elements to the latest set of matched elements
-		    this.elements = els;
-		    
-		    if (this.type) {
-			    // Bind events to newly matched elements
-			    nEls.bind(this.type, this.fn);
-			    
-			    // Unbind events to elements no longer matched
-			    if (oEls.length > 0)
-				    $.each(oEls, function(i, el) {
-					    if ( $.inArray(el, els) < 0 )
-						    $.event.remove(el, query.type, query.fn);
-				    });
-		    }
-		    else {
-			    // Call the first function for newly matched elements
-			    nEls.each(function() {
-				    query.fn.apply(this);
-			    });
-			    
-			    // Call the second function for elements no longer matched
-			    if ( this.fn2 && oEls.length > 0 )
-				    $.each(oEls, function(i, el) {
-					    if ( $.inArray(el, els) < 0 )
-						    query.fn2.apply(el);
-				    });
-		    }
-	    }
+        stop: function() {
+            var query = this;
+
+            if ( this.type )
+            // Unbind all bound events
+                this.elements.unbind(this.type, this.fn);
+            else if (this.fn2)
+            // Call the second function for all matched elements
+                this.elements.each(function(i, el) {
+                    query.fn2.apply(el);
+                });
+
+            // Clear out matched elements
+            this.elements = [];
+
+            // Stop the Live Query from running until restarted
+            this.stopped = true;
+        },
+
+        run: function() {
+            // Short-circuit if stopped
+            if ( this.stopped ) return;
+            var query = this;
+
+            var oEls = this.elements,
+                els  = $(this.selector, this.context),
+                nEls = els.not(oEls);
+
+            // Set elements to the latest set of matched elements
+            this.elements = els;
+
+            if (this.type) {
+                // Bind events to newly matched elements
+                nEls.bind(this.type, this.fn);
+
+                // Unbind events to elements no longer matched
+                if (oEls.length > 0)
+                    $.each(oEls, function(i, el) {
+                        if ( $.inArray(el, els) < 0 )
+                            $.event.remove(el, query.type, query.fn);
+                    });
+            }
+            else {
+                // Call the first function for newly matched elements
+                nEls.each(function() {
+                    query.fn.apply(this);
+                });
+
+                // Call the second function for elements no longer matched
+                if ( this.fn2 && oEls.length > 0 )
+                    $.each(oEls, function(i, el) {
+                        if ( $.inArray(el, els) < 0 )
+                            query.fn2.apply(el);
+                    });
+            }
+        }
     };
 
     $.extend($.livequery, {
-	    guid: 0,
-	    queries: [],
-	    queue: [],
-	    running: false,
-	    timeout: null,
-	    
-	    checkQueue: function() {
-		    if ( $.livequery.running && $.livequery.queue.length ) {
-			    var length = $.livequery.queue.length;
-			    // Run each Live Query currently in the queue
-			    while ( length-- )
-				    $.livequery.queries[ $.livequery.queue.shift() ].run();
-		    }
-	    },
-	    
-	    pause: function() {
-		    // Don't run anymore Live Queries until restarted
-		    $.livequery.running = false;
-	    },
-	    
-	    play: function() {
-		    // Restart Live Queries
-		    $.livequery.running = true;
-		    // Request a run of the Live Queries
-		    $.livequery.run();
-	    },
-	    
-	    registerPlugin: function() {
-		    $.each( arguments, function(i,n) {
-			    // Short-circuit if the method doesn't exist
-			    if (!$.fn[n]) return;
-			    
-			    // Save a reference to the original method
-			    var old = $.fn[n];
-			    
-			    // Create a new method
-			    $.fn[n] = function() {
-				    // Call the original method
-				    var r = old.apply(this, arguments);
-				    
-				    // Request a run of the Live Queries
-				    $.livequery.run();
-				    
-				    // Return the original methods result
-				    return r;
-			    }
-		    });
-	    },
-	    
-	    run: function(id) {
-		    if (id != undefined) {
-			    // Put the particular Live Query in the queue if it doesn't already exist
-			    if ( $.inArray(id, $.livequery.queue) < 0 )
-				    $.livequery.queue.push( id );
-		    }
-		    else
-			    // Put each Live Query in the queue if it doesn't already exist
-			    $.each( $.livequery.queries, function(id) {
-				    if ( $.inArray(id, $.livequery.queue) < 0 )
-					    $.livequery.queue.push( id );
-			    });
-		    
-		    // Clear timeout if it already exists
-		    if ($.livequery.timeout) clearTimeout($.livequery.timeout);
-		    // Create a timeout to check the queue and actually run the Live Queries
-		    $.livequery.timeout = setTimeout($.livequery.checkQueue, 20);
-	    },
-	    
-	    stop: function(id) {
-		    if (id != undefined)
-			    // Stop are particular Live Query
-			    $.livequery.queries[ id ].stop();
-		    else
-			    // Stop all Live Queries
-			    $.each( $.livequery.queries, function(id) {
-				    $.livequery.queries[ id ].stop();
-			    });
-	    }
+        guid: 0,
+        queries: [],
+        queue: [],
+        running: false,
+        timeout: null,
+
+        checkQueue: function() {
+            if ( $.livequery.running && $.livequery.queue.length ) {
+                var length = $.livequery.queue.length;
+                // Run each Live Query currently in the queue
+                while ( length-- )
+                    $.livequery.queries[ $.livequery.queue.shift() ].run();
+            }
+        },
+
+        pause: function() {
+            // Don't run anymore Live Queries until restarted
+            $.livequery.running = false;
+        },
+
+        play: function() {
+            // Restart Live Queries
+            $.livequery.running = true;
+            // Request a run of the Live Queries
+            $.livequery.run();
+        },
+
+        registerPlugin: function() {
+            $.each( arguments, function(i,n) {
+                // Short-circuit if the method doesn't exist
+                if (!$.fn[n]) return;
+
+                // Save a reference to the original method
+                var old = $.fn[n];
+
+                // Create a new method
+                $.fn[n] = function() {
+                    // Call the original method
+                    var r = old.apply(this, arguments);
+
+                    // Request a run of the Live Queries
+                    $.livequery.run();
+
+                    // Return the original methods result
+                    return r;
+                }
+            });
+        },
+
+        run: function(id) {
+            if (id != undefined) {
+                // Put the particular Live Query in the queue if it doesn't already exist
+                if ( $.inArray(id, $.livequery.queue) < 0 )
+                    $.livequery.queue.push( id );
+            }
+            else
+            // Put each Live Query in the queue if it doesn't already exist
+                $.each( $.livequery.queries, function(id) {
+                    if ( $.inArray(id, $.livequery.queue) < 0 )
+                        $.livequery.queue.push( id );
+                });
+
+            // Clear timeout if it already exists
+            if ($.livequery.timeout) clearTimeout($.livequery.timeout);
+            // Create a timeout to check the queue and actually run the Live Queries
+            $.livequery.timeout = setTimeout($.livequery.checkQueue, 20);
+        },
+
+        stop: function(id) {
+            if (id != undefined)
+            // Stop are particular Live Query
+                $.livequery.queries[ id ].stop();
+            else
+            // Stop all Live Queries
+                $.each( $.livequery.queries, function(id) {
+                    $.livequery.queries[ id ].stop();
+                });
+        }
     });
 
     // Register core DOM manipulation methods
@@ -306,24 +306,24 @@ function get_stack(caller) {
 
     // Create a new init method that exposes two new properties: selector and context
     $.prototype.init = function(a,c) {
-	    // Call the original init and save the result
-	    var r = init.apply(this, arguments);
-	    
-	    // Copy over properties if they exist already
-	    if (a && a.selector)
-		    r.context = a.context, r.selector = a.selector;
-		
-	    // Set properties
-	    if ( typeof a == 'string' )
-		    r.context = c || document, r.selector = a;
-	    
-	    // Return the result
-	    return r;
+        // Call the original init and save the result
+        var r = init.apply(this, arguments);
+
+        // Copy over properties if they exist already
+        if (a && a.selector)
+            r.context = a.context, r.selector = a.selector;
+
+        // Set properties
+        if ( typeof a == 'string' )
+            r.context = c || document, r.selector = a;
+
+        // Return the result
+        return r;
     };
 
     // Give the init function the jQuery prototype for later instantiation
     // (needed after Rev 4091)
-    $.prototype.init.prototype = $.prototype; 
+    $.prototype.init.prototype = $.prototype;
     // ----------------------------------------
     // START Storage plugin
     // ----------------------------------------
@@ -388,12 +388,12 @@ function get_stack(caller) {
         return wc(n, '', -1);
     }
     /**
-    * Public API
-    * $.Storage.set("name", "value")
-    * $.Storage.set({"name1":"value1", "name2":"value2", etc})
-    * $.Storage.get("name")
-    * $.Storage.remove("name")
-    */
+     * Public API
+     * $.Storage.set("name", "value")
+     * $.Storage.set({"name1":"value1", "name2":"value2", etc})
+     * $.Storage.get("name")
+     * $.Storage.remove("name")
+     */
     $.extend({
         Storage: {
             set: isLS ? wls : wc,
@@ -553,18 +553,18 @@ function get_stack(caller) {
 
     // -----------------------------------------------------------------------
     /*
-    function decodeHTML(str) {
-        if (typeof str == 'string') {
-            str = str.replace(/&amp;/g, '&');
-            str = str.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
-            str = str.replace(/&#09;/g, '\t');
-            str = str.replace(/<br\/?>/g, '\n').replace(/&nbsp;/g, ' ');
-            return str;
-        } else {
-            return '';
-        }
-    }
-    */
+     function decodeHTML(str) {
+     if (typeof str == 'string') {
+     str = str.replace(/&amp;/g, '&');
+     str = str.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+     str = str.replace(/&#09;/g, '\t');
+     str = str.replace(/<br\/?>/g, '\n').replace(/&nbsp;/g, ' ');
+     return str;
+     } else {
+     return '';
+     }
+     }
+     */
     //split string to array of strings with the same length
     function str_parts(str, length) {
         var result = [];
@@ -579,7 +579,7 @@ function get_stack(caller) {
     }
     // -----------------------------------------------------------------------
     //bar</span>baz
-    
+
     var format_split_re = /(\[\[[biu]*;[^;]*;[^\]]*\][^\]]*\])/g;
     // this capture elements
     var format_re = /\[\[([biu]*);([^;]*);([^\]]*)\]([^\]]*)\]/g;
@@ -612,7 +612,7 @@ function get_stack(caller) {
                             if (style.indexOf('i') != -1) {
                                 style_str += 'font-style:italic; ';
                             }
-                            
+
                             if (color.match(color_hex_re)) {
                                 style_str += 'color:' + color + ';';
                             }
@@ -632,7 +632,7 @@ function get_stack(caller) {
             return '';
         }
     }
-    
+
     // -----------------------------------------------------------------------
     // CYCLE DATA STRUCTURE
     // -----------------------------------------------------------------------
@@ -742,52 +742,52 @@ function get_stack(caller) {
         level = level === undefined ? 1 : level;
         var type = typeof object;
         switch (type) {
-        case 'function':
-            result += object;
-            break;
-        case 'boolean':
-            result += object ? 'true' : 'false';
-            break;
-        case 'object':
-            if (object === null) {
-                result += 'null';
-            } else if (object instanceof Array) {
-                result += '[';
-                var len = object.length;
-                for (var i = 0; i < len - 1; ++i) {
-                    result += $.json_stringify(object[i], level + 1);
+            case 'function':
+                result += object;
+                break;
+            case 'boolean':
+                result += object ? 'true' : 'false';
+                break;
+            case 'object':
+                if (object === null) {
+                    result += 'null';
+                } else if (object instanceof Array) {
+                    result += '[';
+                    var len = object.length;
+                    for (var i = 0; i < len - 1; ++i) {
+                        result += $.json_stringify(object[i], level + 1);
+                    }
+                    result += $.json_stringify(object[len - 1], level + 1) + ']';
+                } else {
+                    result += '{';
+                    for (var property in object) {
+                        if (object.hasOwnProperty(property)) {
+                            result += '"' + property + '":' +
+                                $.json_stringify(object[property], level + 1);
+                        }
+                    }
+                    result += '}';
                 }
-                result += $.json_stringify(object[len - 1], level + 1) + ']';
-            } else {
-                result += '{';
-                for (var property in object) {
-                    if (object.hasOwnProperty(property)) {
-                        result += '"' + property + '":' +
-                            $.json_stringify(object[property], level + 1);
+                break;
+            case 'string':
+                var str = object;
+                var repl = {
+                    '\\\\': '\\\\',
+                    '"': '\\"',
+                    '/': '\\/',
+                    '\\n': '\\n',
+                    '\\r': '\\r',
+                    '\\t': '\\t'};
+                for (var i in repl) {
+                    if (repl.hasOwnProperty(i)) {
+                        str = str.replace(new RegExp(i, 'g'), repl[i]);
                     }
                 }
-                result += '}';
-            }
-            break;
-        case 'string':
-            var str = object;
-            var repl = {
-                '\\\\': '\\\\',
-                '"': '\\"',
-                '/': '\\/',
-                '\\n': '\\n',
-                '\\r': '\\r',
-                '\\t': '\\t'};
-            for (var i in repl) {
-                if (repl.hasOwnProperty(i)) {
-                    str = str.replace(new RegExp(i, 'g'), repl[i]);
-                }
-            }
-            result += '"' + str + '"';
-            break;
-        case 'number':
-            result += String(object);
-            break;
+                result += '"' + str + '"';
+                break;
+            case 'number':
+                result += String(object);
+                break;
         }
         result += (level > 1 ? ',' : '');
         // quick hacks below
@@ -846,7 +846,7 @@ function get_stack(caller) {
         var self = this;
         self.addClass('cmd');
         self.append('<span class="prompt"></span><span></span>' +
-                    '<span class="cursor">&nbsp;</span><span></span>');
+            '<span class="cursor">&nbsp;</span><span></span>');
 
         var clip = $('<textarea/>').addClass('clipboard').appendTo(self);
         if (options.width) {
@@ -861,7 +861,7 @@ function get_stack(caller) {
         var prompt;
         var enabled = options.enabled;
         var name, history;
-        
+
         var blink = (function() {
             var cursor = self.find('.cursor');
             return function(i) {
@@ -874,7 +874,7 @@ function get_stack(caller) {
             var w = cursor.innerWidth();
             num_chars = Math.floor(W / w);
         }
-        
+
         function get_splited_command_line(string) {
             var first = string.substring(0, num_chars - prompt_len - 1);
             var rest = string.substring(num_chars - prompt_len - 1);
@@ -884,7 +884,7 @@ function get_stack(caller) {
             var cursor = self.find('.cursor');
             var before = cursor.prev();
             var after = cursor.next();
-            
+
             function draw_cursor_line(string, position) {
                 if (position == string.length) {
                     before.html(encodeHTML(string));
@@ -941,7 +941,7 @@ function get_stack(caller) {
                         before.before(div(array[0]));
                         draw_cursor_line(array[1], 0);
                         lines_after(array.slice(2));
-                        
+
                     } else {
                         var num_lines = array.length;
                         var offset = 0;
@@ -963,10 +963,10 @@ function get_stack(caller) {
                                 // in the middle
                                 if (num_lines == 3) {
                                     before.before('<div>' + encodeHTML(array[0]) +
-                                                  '</div>');
+                                        '</div>');
                                     draw_cursor_line(array[1], position-first_len-1);
                                     after.after('<div>' + encodeHTML(array[2]) +
-                                                '</div>');
+                                        '</div>');
                                 } else {
                                     // more lines cursor in the middle
                                     var line_index = Math.floor((position+prompt_len) / num_chars);
@@ -993,13 +993,13 @@ function get_stack(caller) {
                         }
                     }
                 } else {
-                     if (string === '') {
-                         before.html('');
-                         cursor.html('&nbsp;');
-                         after.html('');
-                     } else {
-                         draw_cursor_line(string, position);
-                     }
+                    if (string === '') {
+                        before.html('');
+                        cursor.html('&nbsp;');
+                        after.html('');
+                    } else {
+                        draw_cursor_line(string, position);
+                    }
                 }
             };
         })(self);
@@ -1030,7 +1030,7 @@ function get_stack(caller) {
             });
         }
         function keydown_event(e) {
-            //console.log('keydown ' + e.which);
+//            console.log('keydown ' + e.which);
             if (options.keydown && options.keydown(e) === false) {
                 return false;
             }
@@ -1039,6 +1039,15 @@ function get_stack(caller) {
                 if (e.keyCode == 13) {
                     if (history && command) {
                         history.append(command);
+                    }
+                    else
+                    {
+                        var the_name = name.split('_')[0];
+                        // Its not the chat terminal
+                        if(the_name != 'chat')
+                        {
+                            current_terminal.exec_command_without_echo('#ENTER');
+                        }
                     }
                     history.last();
                     var tmp = command;
@@ -1050,7 +1059,19 @@ function get_stack(caller) {
                         options.commands(tmp);
                     }
                 } else if (e.which == 32) { //space
-                    self.insert(' ');
+                    if (command === '')
+                    {
+                        var the_name = name.split('_')[0];
+                        // Its not the chat terminal
+                        if(the_name != 'chat')
+                        {
+                            current_terminal.exec_command_without_echo('#SPACE');
+                        }
+                    }
+                    else
+                    {
+                        self.insert(' ');
+                    }
                 } else if (e.which == 8) { //backspace
                     if (command !== '' && position > 0) {
                         command = command.slice(0, position - 1) +
@@ -1059,8 +1080,20 @@ function get_stack(caller) {
                         redraw();
                     }
                 } else if (e.which == 9 && !(e.ctrlKey || e.altKey)) { // TAB
-                    self.insert('\t');
-                } else if (e.which == 46 || (e.which == 68 && e.ctrlKey)) { 
+                    var the_name = name.split('_')[0];
+                    // Its not the chat terminal
+                    if(the_name != 'chat')
+                    {
+                        current_terminal.exec_command_without_echo(command+'#TAB');
+                    }
+                } else if (e.which == 191) { // QUESTION MARK (?)
+                    var the_name = name.split('_')[0];
+                    // Its not the chat terminal
+                    if(the_name != 'chat')
+                    {
+                        current_terminal.exec_command(command+'?');
+                    }
+                } else if (e.which == 46 || (e.which == 68 && e.ctrlKey)) {
                     //DELETE or CTRL+D
                     if (command !== '' && position < command.length) {
                         command = command.slice(0, position) +
@@ -1069,17 +1102,17 @@ function get_stack(caller) {
                     }
                     return true;
                 } else if (history && e.which == 38 ||
-                           (e.which == 80 && e.ctrlKey)) {
+                    (e.which == 80 && e.ctrlKey)) {
                     //UP ARROW or CTRL+P
                     self.set(history.previous());
                 } else if (history && e.which == 40 ||
-                           (e.which == 78 && e.ctrlKey)) {
+                    (e.which == 78 && e.ctrlKey)) {
                     //DOWN ARROW or CTRL+N
                     self.set(history.next());
                 } else if (e.which == 27) { //escape
                     self.set('');
                 } else if (e.which == 37 ||
-                           (e.which == 66 && e.ctrlKey)) {
+                    (e.which == 66 && e.ctrlKey)) {
                     //CTRL+LEFT ARROW or CTRL+B
                     if (e.ctrlKey && e.which != 66) {
                         len = position - 1;
@@ -1103,7 +1136,7 @@ function get_stack(caller) {
                         }
                     }
                 } else if (e.which == 39 ||
-                           (e.which == 70 && e.ctrlKey)) {
+                    (e.which == 70 && e.ctrlKey)) {
                     //RIGHT ARROW OR CTRL+F
                     if (e.ctrlKey && e.which != 70) {
                         // jump to beginig or end of the word
@@ -1154,7 +1187,7 @@ function get_stack(caller) {
                             //CTRL+E
                             self.position(command.length);
                         } else if (e.which == 88 || e.which == 67 ||
-                                   e.which == 87 || e.which == 84) {
+                            e.which == 87 || e.which == 84) {
                             //CTRL+X CTRL+C CTRL+W CTRL+T
                             return true;
                         } else if (e.which == 86) {
@@ -1176,22 +1209,22 @@ function get_stack(caller) {
                     //if (e.which == 18) { // press ALT
                     if (e.which == 68) { //ALT+D
                         self.set(command.slice(0, position) +
-                                 command.slice(position).replace(/[^ ]+ |[^ ]+$/, ''),
-                                 true);
+                            command.slice(position).replace(/[^ ]+ |[^ ]+$/, ''),
+                            true);
                     }
                 } else {
                     return true;
                 }
                 return false;
             } /*else {
-                if ((e.altKey && e.which == 68) || 
-                    (e.ctrlKey && [65, 66, 68, 69, 80, 78, 70].has(e.which)) ||
-                    // 68 == D
-                    [35, 36, 37, 38, 39, 40].has(e.which)) {
-                    return false;
-                }
-                
-            } */
+             if ((e.altKey && e.which == 68) ||
+             (e.ctrlKey && [65, 66, 68, 69, 80, 78, 70].has(e.which)) ||
+             // 68 == D
+             [35, 36, 37, 38, 39, 40].has(e.which)) {
+             return false;
+             }
+
+             } */
         }
 
         $.extend(self, {
@@ -1297,7 +1330,7 @@ function get_stack(caller) {
                 }
             }
         });
-        
+
         // INIT
         self.name(options.name || '');
         prompt = options.prompt || '>';
@@ -1340,19 +1373,19 @@ function get_stack(caller) {
     // JSON-RPC CALL
     // -----------------------------------------------------------------------
     var requests = [];
-    
+
     $.jrpc = function(url, id, method, params, success, error) {
         var request = $.json_stringify({
-           'jsonrpc': '2.0', 'method': method,
+            'jsonrpc': '2.0', 'method': method,
             'params': params, 'id': id});
         //terminals.front().echo(request);
         return $.ajax({
             url: url,
             data: request,
             /*success: function(response) {
-            terminals.front().echo(JSON.stringify(response));
-            success(response);
-            },*/
+             terminals.front().echo(JSON.stringify(response));
+             success(response);
+             },*/
             success: success,
             error: error,
             contentType: 'application/json',
@@ -1365,7 +1398,7 @@ function get_stack(caller) {
             //timeout: 1,
             type: 'POST'});
     };
-    
+
     // -----------------------------------------------------------------------
     // :: TERMINAL PLUGIN CODE
     // -----------------------------------------------------------------------
@@ -1377,27 +1410,27 @@ function get_stack(caller) {
     var signatures = [
         ['jQuery Terminal', '(c) 2011 jcubic'],
         ['JQuery Terminal Emulator v. ' + version,
-         copyright.replace(/ *<.*>/, '')],
+            copyright.replace(/ *<.*>/, '')],
         ['JQuery Terminal Emulator version ' + version_string,
-         copyright],
+            copyright],
         ['      _______                 ________                        __',
-         '     / / _  /_ ____________ _/__  ___/______________  _____  / /',
-         ' __ / / // / // / _  / _/ // / / / _  / _/     / /  \\/ / _ \\/ /',
-         '/  / / // / // / ___/ // // / / / ___/ // / / / / /\\  / // / /__',
-         '\\___/____ \\\\__/____/_/ \\__ / /_/____/_//_/ /_/ /_/  \\/\\__\\_\\___/',
-         '         \\/          /____/                                   '.replace(reg, '') +
-         version_string,
-         copyright],
+            '     / / _  /_ ____________ _/__  ___/______________  _____  / /',
+            ' __ / / // / // / _  / _/ // / / / _  / _/     / /  \\/ / _ \\/ /',
+            '/  / / // / // / ___/ // // / / / ___/ // / / / / /\\  / // / /__',
+            '\\___/____ \\\\__/____/_/ \\__ / /_/____/_//_/ /_/ /_/  \\/\\__\\_\\___/',
+            '         \\/          /____/                                   '.replace(reg, '') +
+                version_string,
+            copyright],
         ['      __ _____                     ________                              __',
-         '     / // _  /__ __ _____ ___ __ _/__  ___/__ ___ ______ __ __  __ ___  / /',
-         ' __ / // // // // // _  // _// // / / // _  // _//     // //  \\/ // _ \\/ /',
-         '/  / // // // // // ___// / / // / / // ___// / / / / // // /\\  // // / /__',
-         '\\___//____ \\\\___//____//_/ _\\_  / /_//____//_/ /_/ /_//_//_/ /_/ \\__\\_\\___/',
-         '          \\/              /____/                                          '.replace(reg, '') +
-         version_string,
-         copyright]
+            '     / // _  /__ __ _____ ___ __ _/__  ___/__ ___ ______ __ __  __ ___  / /',
+            ' __ / // // // // // _  // _// // / / // _  // _//     // //  \\/ // _ \\/ /',
+            '/  / // // // // // ___// / / // / / // ___// / / / / // // /\\  // // / /__',
+            '\\___//____ \\\\___//____//_/ _\\_  / /_//____//_/ /_/ /_//_//_/ /_/ \\__\\_\\___/',
+            '          \\/              /____/                                          '.replace(reg, '') +
+                version_string,
+            copyright]
     ];
-    
+
     var terminals = new Cycle(); //list of terminals global in this scope
     //stor all ajax request to cancel them on CTR+D [NOT WORKING]
     var requests = [];
@@ -1433,8 +1466,8 @@ function get_stack(caller) {
             $.extend(settings, options);
         }
         var pause = !settings.enabled;
-        
-        
+
+
         if (self.length === 0) {
             throw 'Sorry, but terminal said that "' + self.selector +
                 '" is not valid selector';
@@ -1447,7 +1480,7 @@ function get_stack(caller) {
         }
         output = $('<div>').addClass('terminal-output').appendTo(self);
         self.addClass('terminal').append('<div/>');
-        
+
         //calculate numbers of characters base on 
         function get_num_chars() {
             var test = $('<span>x</span>').appendTo(self);
@@ -1455,7 +1488,7 @@ function get_stack(caller) {
             test.remove();
             return result;
         }
-        
+
         // display Exception on terminal
         function display_exception(e, label) {
             if (typeof e == 'string') {
@@ -1463,13 +1496,13 @@ function get_stack(caller) {
             } else {
                 //display filename and line which throw exeption
                 self.error('&#91;' + label + '&#93;: ' + e.fileName + ': ' +
-                           e.message);
+                    e.message);
                 self.pause();
                 $.get(e.fileName, function(file) {
                     self.resume();
                     var num = e.lineNumber - 1;
                     self.error('&#91;' + e.lineNumber + '&#93;: ' +
-                               file.split('\n')[num]);
+                        file.split('\n')[num]);
                 });
             }
         }
@@ -1492,15 +1525,15 @@ function get_stack(caller) {
             }
             return true;
         }
-        
-        
+
+
         function scroll_to_bottom() {
-            var scrollHeight = self.prop ? self.prop('scrollHeight') : 
+            var scrollHeight = self.prop ? self.prop('scrollHeight') :
                 self.attr('scrollHeight');
             self.scrollTop(scrollHeight);
         }
         function draw_line(string) {
-             var string = typeof string == 'string' ?
+            var string = typeof string == 'string' ?
                 string : String(string);
             var div;
             if (string.length > num_chars) {
@@ -1543,7 +1576,7 @@ function get_stack(caller) {
         function isScrolledIntoView(elem) {
             var docViewTop = $(window).scrollTop();
             var docViewBottom = docViewTop + $(window).height();
-            
+
             var elemTop = $(elem).offset().top;
             var elemBottom = elemTop + $(elem).height();
 
@@ -1553,7 +1586,7 @@ function get_stack(caller) {
         // ----------------------------------------------------------
         // TERMINAL METHODS
         // ----------------------------------------------------------
-        
+
         $.extend(self, {
             clear: function() {
                 output.html('');
@@ -1682,6 +1715,71 @@ function get_stack(caller) {
                 }
                 return self;
             },
+            get_prompt: function() {
+                return command_line.prompt();
+            }, // THIS IS TERMINAL
+            exec_command: function(a_command) {
+                try {
+                    var interpreter = interpreters.top();
+
+                    if (a_command == 'exit' && settings.exit) {
+                        if (interpreters.size() == 1) {
+                            if (settings.login) {
+                                logout();
+                            } else {
+                                var msg = 'You can exit from main interpeter';
+                                self.echo(msg);
+                            }
+                        } else {
+                            self.pop('exit');
+                        }
+                    } else {
+                        echo_command(a_command);
+                        if (a_command == 'clear' && settings.clear) {
+                            self.clear();
+                        } else {
+                            interpreter['eval'](a_command, self);
+                        }
+                    }
+
+                } catch (e) {
+//                    display_exception(e, 'USER');
+                    console.log(e.message);
+                    throw e;
+                }
+            },
+            exec_command_without_echo: function(a_command) {
+                try {
+                    var interpreter = interpreters.top();
+
+                    if (a_command == 'exit' && settings.exit) {
+                        if (interpreters.size() == 1) {
+                            if (settings.login) {
+                                logout();
+                            } else {
+                                var msg = 'You can exit from main interpeter';
+                                self.echo(msg);
+                            }
+                        } else {
+                            self.pop('exit');
+                        }
+                    } else {
+                        if (a_command == 'clear' && settings.clear) {
+                            self.clear();
+                        } else {
+                            interpreter['eval'](a_command, self);
+                        }
+                    }
+
+                } catch (e) {
+//                    display_exception(e, 'USER');
+                    console.log(e.message);
+                    throw e;
+                }
+            },
+            command_line: function() {
+                return command_line;
+            },
             set_command: function(command) {
                 command_line.set(command);
                 return self;
@@ -1763,13 +1861,13 @@ function get_stack(caller) {
                     }
                     interpreters.push($.extend({'eval': _eval}, options));
                     /*
-                        name: options.name,
-                        'eval': _eval,
-                        prompt: options.prompt,
-                        login: options.login,
-                        greetings: options.grettings,
-                        onStart: options.onStart,
-                        onExit: options.onExit});*/
+                     name: options.name,
+                     'eval': _eval,
+                     prompt: options.prompt,
+                     login: options.login,
+                     greetings: options.grettings,
+                     onStart: options.onStart,
+                     onExit: options.onExit});*/
                     prepare_top_interpreter();
                 }
                 return self;
@@ -1793,10 +1891,10 @@ function get_stack(caller) {
                     }
                 }
                 return self;
-                
+
             }
         });
-        
+
         //function constructor for eval
         function make_json_rpc_eval_fun(url, terminal) {
             var id = 1;
@@ -1823,11 +1921,12 @@ function get_stack(caller) {
                     terminal.resume();
                 }, function(xhr, status, error) {
                     terminal.error('&#91;AJAX&#93; ' + status +
-                                   ' - Server reponse is: \n' +
-                                   xhr.responseText);
+                        ' - Server reponse is: \n' +
+                        xhr.responseText);
                     terminal.resume();
                 });
             };
+            // Gato eval function here!
             //this is eval function
             return function(command, terminal) {
                 if (command === '') {
@@ -1858,34 +1957,34 @@ function get_stack(caller) {
 
         var url;
         switch(typeof init_eval) {
-        case 'string':
-            url = init_eval;
-            // create json-rpc eval function
-            init_eval = make_json_rpc_eval_fun(init_eval, self);
-            break;
-        case 'object':
-            init_eval = (function(object) {
-                // function that maps commands to object methods
-                // it keeps terminal context
-                return function(command, terminal) {
-                    if (command == '') {
-                        return;
-                    }
-                    command = command.split(/ */);
-                    var method = command[0];
-                    var params = command.slice(1);
-                    var val = object[method];
-                    if (typeof val == 'function') {
-                        val.apply(self, params);
-                    } else {
-                        self.echo("Command '" + method + "' Not Found");
-                    }
-                        
-                };
-            })(init_eval);
-            break;
+            case 'string':
+                url = init_eval;
+                // create json-rpc eval function
+                init_eval = make_json_rpc_eval_fun(init_eval, self);
+                break;
+            case 'object':
+                init_eval = (function(object) {
+                    // function that maps commands to object methods
+                    // it keeps terminal context
+                    return function(command, terminal) {
+                        if (command == '') {
+                            return;
+                        }
+                        command = command.split(/ */);
+                        var method = command[0];
+                        var params = command.slice(1);
+                        var val = object[method];
+                        if (typeof val == 'function') {
+                            val.apply(self, params);
+                        } else {
+                            self.echo("Command '" + method + "' Not Found");
+                        }
+
+                    };
+                })(init_eval);
+                break;
         }
-        
+
         // create json-rpc authentication function
         if (url && typeof settings.login == 'string' || url) {
             settings.login = (function(method) {
@@ -1893,23 +1992,23 @@ function get_stack(caller) {
                 return function(user, passwd, callback) {
                     self.pause();
                     $.jrpc(url,
-                           id++,
-                           method,
-                           [user, passwd],
-                           function(response) {
-                               
-                               self.resume();
-                               if (!response.error && response.result) {
-                                   callback(response.result);
-                               } else {
-                                   callback(null);
-                               }
-                           }, function(xhr, status, error) {
-                               self.resume();
-                               self.error('&#91;AJAX&#92; Response: ' +
-                                          status + '\n' +
-                                          xhr.responseText);
-                           });
+                        id++,
+                        method,
+                        [user, passwd],
+                        function(response) {
+
+                            self.resume();
+                            if (!response.error && response.result) {
+                                callback(response.result);
+                            } else {
+                                callback(null);
+                            }
+                        }, function(xhr, status, error) {
+                            self.resume();
+                            self.error('&#91;AJAX&#92; Response: ' +
+                                status + '\n' +
+                                xhr.responseText);
+                        });
                 };
                 //default name is login so you can pass true
             })(typeof settings.login == 'boolean' ? 'login' : settings.login);
@@ -1935,7 +2034,7 @@ function get_stack(caller) {
         function commands(command) {
             try {
                 var interpreter = interpreters.top();
-                
+
                 if (command == 'exit' && settings.exit) {
                     if (interpreters.size() == 1) {
                         if (settings.login) {
@@ -1955,13 +2054,13 @@ function get_stack(caller) {
                         interpreter['eval'](command, self);
                     }
                 }
-            
+
             } catch (e) {
                 display_exception(e, 'USER');
                 throw e;
             }
         }
-        
+
         // functions change prompt of command line to login to password
         // and call user login function with callback that set token
         // if user call it with value that is true
@@ -2044,7 +2143,7 @@ function get_stack(caller) {
                 interpreter.onStart(self);
             }
         }
-        
+
         function initialize() {
             prepare_top_interpreter();
             show_greetings();
@@ -2052,7 +2151,7 @@ function get_stack(caller) {
                 settings.onInit(self);
             }
         }
-        
+
         function key_press(e) {
             if (settings.keypress && settings.keypress(e, self) === false) {
                 return false;
@@ -2105,9 +2204,9 @@ function get_stack(caller) {
         // INIT CODE
         if (valid('prompt', settings.prompt)) {
             var interpreters = new Stack({'name': settings.name,
-                                          'eval': init_eval,
-                                          'prompt': settings.prompt,
-                                          'greetings': settings.greetings});
+                'eval': init_eval,
+                'prompt': settings.prompt,
+                'greetings': settings.greetings});
 
             var command_line = self.find('.terminal-output').next().cmd({
                 prompt: settings.prompt,

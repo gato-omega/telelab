@@ -7,6 +7,7 @@ var user_id = '<%= @user_id %>'
 var device_ids = '<%= @dispositivos_reservados.map do |dispositivo| dispositivo.id end.join(',') %>'.split(',');
 var chat_terminal = null;
 var conexiones_datatable = null;
+var current_terminal = null;
 
 // Initialize terminals in tabs
 $(function()
@@ -38,12 +39,14 @@ $(function()
     $('#console_tabs_container').bind( "tabsshow", function(event, ui) {
         var device_id = $('#'+ui.panel.id+' div:first-child').attr('id').split('_')[1];
         terminals[device_id].focus(true);
+        current_terminal = terminals[device_id];
     });
 
     // Select first terminal by default - not working...why?
-    if(terminals[0] != undefined)
+    if(terminals[device_ids[0]] != undefined)
     {
-        terminals[0].focus(true);
+        terminals[device_ids[0]].focus(true);
+        current_terminal = terminals[device_ids[0]];
     }
 
 });
@@ -120,5 +123,3 @@ $(function()
     }
 
 });
-
-
