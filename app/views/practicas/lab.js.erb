@@ -8,6 +8,7 @@ var device_ids = '<%= @dispositivos_reservados.map do |dispositivo| dispositivo.
 var chat_terminal = null;
 var conexiones_datatable = null;
 var current_terminal = null;
+var time_remaining = new Date();
 
 // Initialize terminals in tabs
 $(function()
@@ -103,6 +104,7 @@ $(function()
     });
 });
 
+// Conexiones datatable
 $(function()
 {
     try
@@ -120,6 +122,22 @@ $(function()
     catch(err)
     {
         $("table[datatable][conexiones]").html('COULD NOT INITIALIZE CONNECTIONS!!!! ');
+    }
+
+});
+
+// Timer init #practica_countdown
+$(function()
+{
+    try
+    {
+        <%#= time_remaining_in_seconds = (@practica.end - Time.now).to_i %>
+        time_remaining = '<%= (@practica.end - Time.now).to_i %>';
+        $("#practica_countdown").countdown({until: time_remaining});
+    }
+    catch(err)
+    {
+        $("#practica_countdown").html('ERROR INITIALIZING TIMER');
     }
 
 });

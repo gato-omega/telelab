@@ -6,8 +6,15 @@ raw_config = File.read("config/app_config.yml")
 unless defined? GatoDomainConfigurator
   class GatoDomainConfigurator
     include OpenURI
+
     def external_ip
-      OpenURI.open_uri("http://myip.dk") {|f|f.read.scan(/([0-9]{1,3}\.){3}[0-9]{1,3}/); $~.to_s}
+      ip = '127.0.0.1';
+      begin
+        ip=OpenURI.open_uri("http://myip.dk") {|f|f.read.scan(/([0-9]{1,3}\.){3}[0-9]{1,3}/); $~.to_s}
+      rescue
+        puts "Seems like there is a problem adquiring external IP address, using localhost (127.0.0.1)"
+      end
+      ip
     end
 
     def local_ip
@@ -20,6 +27,7 @@ unless defined? GatoDomainConfigurator
       Socket.do_not_reverse_lookup = orig # Return to original state
     end
 
+    # A reference ip to do lookup
     def google_ip
       '74.125.229.176'
     end

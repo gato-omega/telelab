@@ -1,26 +1,51 @@
 /* line 12, ../../../app/stylesheets/partials/make_pactice.scss */
+#practica #practica_countdown {
+  overflow: auto;
+  background-color: #111111;
+  -moz-border-radius-topleft: 6px;
+  -webkit-border-top-left-radius: 6px;
+  -khtml-border-top-left-radius: 6px;
+  border-top-left-radius: 6px;
+  -moz-border-radius-topright: 6px;
+  -webkit-border-top-right-radius: 6px;
+  -khtml-border-top-right-radius: 6px;
+  border-top-right-radius: 6px;
+  -moz-border-radius-bottomleft: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  -khtml-border-bottom-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  -webkit-border-bottom-right-radius: 6px;
+  -khtml-border-bottom-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  width: 50%;
+  margin: 0 auto;
+}
+/* line 20, ../../../app/stylesheets/partials/make_pactice.scss */
 #practica .main_title {
   margin: 0 auto;
   text-align: center;
   color: #e85b08;
+  font-family: Arial, sans-serif;
+  font-size: 1.5em;
 }
-/* line 19, ../../../app/stylesheets/partials/make_pactice.scss */
+/* line 28, ../../../app/stylesheets/partials/make_pactice.scss */
 #practica .title {
   margin: 0 auto;
   text-align: center;
 }
-/* line 30, ../../../app/stylesheets/partials/make_pactice.scss */
+/* line 39, ../../../app/stylesheets/partials/make_pactice.scss */
 #practica .viewport_row {
   overflow: auto;
   width: 98%;
   margin: 0 auto;
   padding: 5px;
 }
-/* line 38, ../../../app/stylesheets/partials/make_pactice.scss */
+/* line 47, ../../../app/stylesheets/partials/make_pactice.scss */
 #practica .diagram {
   width: 53%;
   float: left;
-  border: 1px solid red;
+  border: 2px solid gray;
   background: #222222;
   padding: 1%;
   -moz-border-radius-topleft: 6px;
@@ -40,11 +65,11 @@
   -khtml-border-bottom-right-radius: 6px;
   border-bottom-right-radius: 6px;
 }
-/* line 46, ../../../app/stylesheets/partials/make_pactice.scss */
+/* line 55, ../../../app/stylesheets/partials/make_pactice.scss */
 #practica .connections {
   width: 41%;
   float: right;
-  border: 1px solid yellow;
+  border: 2px solid gray;
   background: #222222;
   padding: 1%;
   -moz-border-radius-topleft: 6px;
@@ -64,11 +89,11 @@
   -khtml-border-bottom-right-radius: 6px;
   border-bottom-right-radius: 6px;
 }
-/* line 54, ../../../app/stylesheets/partials/make_pactice.scss */
+/* line 63, ../../../app/stylesheets/partials/make_pactice.scss */
 #practica .consoles {
   width: 53%;
   float: left;
-  border: 1px solid green;
+  border: 2px solid gray;
   background: #222222;
   padding: 1%;
   -moz-border-radius-topleft: 6px;
@@ -88,11 +113,11 @@
   -khtml-border-bottom-right-radius: 6px;
   border-bottom-right-radius: 6px;
 }
-/* line 62, ../../../app/stylesheets/partials/make_pactice.scss */
+/* line 71, ../../../app/stylesheets/partials/make_pactice.scss */
 #practica .chat {
   width: 41%;
   float: right;
-  border: 1px solid blue;
+  border: 2px solid gray;
   background: #222222;
   padding: 1%;
   -moz-border-radius-topleft: 6px;

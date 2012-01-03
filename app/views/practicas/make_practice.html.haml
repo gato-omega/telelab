@@ -2,16 +2,19 @@
   = stylesheet_link_tag 'partials/make_pactice'
   = stylesheet_link_tag 'partials/terminal_console'
   = stylesheet_link_tag 'partials/terminal_chat'
+  = stylesheet_link_tag 'jquery.countdown'
 
   = javascript_include_tag 'tabs'
   = javascript_include_tag "#{FAYE_SERVER_URL}.js"
   = javascript_include_tag 'jquery.terminal_gato-0.3.6'
+  = javascript_include_tag 'jquery.countdown'
 
   -#= "#SPECIAL RENDERING"
   = javascript_include_tag practica_lab_path @practica
 
 #practica
-  .main_title= @practica.name + " find me in views/practicas/make_practice.html.haml TIMER GOES HERE??"
+  .main_title.dark_container= @practica.name
+  #practica_countdown
   .viewport_row
     .diagram
       DIAGRAM PENDING

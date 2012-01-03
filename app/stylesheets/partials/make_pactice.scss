@@ -8,11 +8,20 @@ $viewport_margin: 10px;
 
 #practica
 {
+    #practica_countdown
+    {
+        overflow: auto;
+        background-color: #111111;
+        @include round-corners;
+        width: 50%;
+        margin: 0 auto;
+    }
     .main_title
     {
         margin: 0 auto;
         text-align: center;
         color: #e85b08;
+        font-family: Arial, sans-serif; font-size: 1.5em;
     }
 
     .title
@@ -38,7 +47,7 @@ $viewport_margin: 10px;
     {
         width: $left_viewport_width;
         float: left;
-        border: 1px solid red;
+        border: 2px solid gray;
         @include dark-container;
     }
 
@@ -46,7 +55,7 @@ $viewport_margin: 10px;
     {
         width: $right_viewport_width;
         float: right;
-        border: 1px solid yellow;
+        border: 2px solid gray;
         @include dark-container;
     }
 
@@ -54,7 +63,7 @@ $viewport_margin: 10px;
     {
         width: $left_viewport_width;
         float: left;
-        border: 1px solid green;
+        border: 2px solid gray;
         @include dark-container;
     }
     
@@ -62,7 +71,7 @@ $viewport_margin: 10px;
     {
         width: $right_viewport_width;
         float: right;
-        border: 1px solid blue;
+        border: 2px solid gray;
         @include dark-container;
     }
 
