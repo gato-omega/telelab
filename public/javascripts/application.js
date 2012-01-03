@@ -19,8 +19,15 @@ $(function() {
 
     //// Button to UI-button
     $('input.button').button();
+
+    //// Countdown timers
+    $('#countdown_timer').each(function(index){
+        var time_remaining = $(this).data('time');
+        $(this).countdown({until:time_remaining});
+    });
+
     
-    // Visual link tooltips
+    // Visual link tooltips 
 //    $('a.new_button').simpletip({content: 'Nuevo'});
 //    $('a.edit_button').simpletip({content: 'Editar'});
 //    $('a.show_button').simpletip({content: 'Mostrar'});

@@ -62,6 +62,14 @@ class Practica < ActiveRecord::Base
     "#{((self.end-self.start)/60).round} minutos"
   end
 
+  def finishes_in
+    (self.end - Time.now).to_i
+  end
+
+  def starts_in
+    (self.start - Time.now).to_i
+  end
+
   scope :openned, where(:estado => 'abierta')
   scope :closed, where(:estado => 'cerrada')
   scope :reserved, where(:estado => 'reservada')

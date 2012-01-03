@@ -203,3 +203,10 @@ footer
 {
     color: #992222;
 }
+
+#countdown_timer
+{
+    @include dark-container;
+    float: left;
+    width: 150px;
+}

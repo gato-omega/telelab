@@ -27,6 +27,15 @@
   %p
     %b Estado:
     = @practica.estado
+    |
+    - if @practica.abierta?
+      = "Tiempo que resta:"
+      #countdown_timer{"data-time" => "#{@practica.finishes_in}"}
+    - elsif @practica.cerrada?
+      = "miau2"
+    - elsif @practica.reservada?
+      = "Inicia en:"
+      #countdown_timer{"data-time" => "#{@practica.starts_in}"}
     %p
       = link_to 'Entrar', realizar_practica_path(@practica), :class => 'button' if can? :make_practice, @practica
       %br
