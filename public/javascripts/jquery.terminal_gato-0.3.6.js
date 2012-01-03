@@ -1035,14 +1035,15 @@ function get_stack(caller) {
                 return false;
             }
             if (enabled) {
+//                console.log('keydown ' + e.which);
                 var pos, len, result;
+                var the_name = name.split('_')[0];
                 if (e.keyCode == 13) {
                     if (history && command) {
                         history.append(command);
                     }
                     else
                     {
-                        var the_name = name.split('_')[0];
                         // Its not the chat terminal
                         if(the_name != 'chat')
                         {
@@ -1061,7 +1062,6 @@ function get_stack(caller) {
                 } else if (e.which == 32) { //space
                     if (command === '')
                     {
-                        var the_name = name.split('_')[0];
                         // Its not the chat terminal
                         if(the_name != 'chat')
                         {
@@ -1080,18 +1080,23 @@ function get_stack(caller) {
                         redraw();
                     }
                 } else if (e.which == 9 && !(e.ctrlKey || e.altKey)) { // TAB
-                    var the_name = name.split('_')[0];
                     // Its not the chat terminal
                     if(the_name != 'chat')
                     {
                         current_terminal.exec_command_without_echo(command+'#TAB');
                     }
                 } else if (e.which == 191) { // QUESTION MARK (?)
-                    var the_name = name.split('_')[0];
                     // Its not the chat terminal
                     if(the_name != 'chat')
                     {
                         current_terminal.exec_command(command+'?');
+                    }
+
+                } else if (e.which == 54 && e.ctrlKey && e.shiftKey) { // ctrl+shift+6
+                    // Its not the chat terminal
+                    if(the_name != 'chat')
+                    {
+                        current_terminal.exec_command('#CANCEL');
                     }
                 } else if (e.which == 46 || (e.which == 68 && e.ctrlKey)) {
                     //DELETE or CTRL+D
@@ -1481,7 +1486,7 @@ function get_stack(caller) {
         output = $('<div>').addClass('terminal-output').appendTo(self);
         self.addClass('terminal').append('<div/>');
 
-        //calculate numbers of characters base on 
+        //calculate numbers of characters base on
         function get_num_chars() {
             var test = $('<span>x</span>').appendTo(self);
             var result = Math.floor(self.width() / test.width());
@@ -1606,7 +1611,7 @@ function get_stack(caller) {
                 return self;
             },
             resume: function() {
-                //console.log('resume on ' + options.prompt + '\n' + 
+                //console.log('resume on ' + options.prompt + '\n' +
                 //            get_stack(arguments.callee.caller).join(''));
                 if (command_line) {
                     self.enable();
@@ -1645,7 +1650,7 @@ function get_stack(caller) {
                 }
             },
             focus: function(toggle) {
-                //console.log('focus on ' + options.prompt + '\n' + 
+                //console.log('focus on ' + options.prompt + '\n' +
                 //            get_stack(arguments.callee.caller).join(''));
                 self.oneTime(1, function() {
                     if (terminals.length() == 1) {
@@ -1668,7 +1673,7 @@ function get_stack(caller) {
                 return self;
             },
             enable: function() {
-                //console.log('enable: ' + options.prompt + '\n' + 
+                //console.log('enable: ' + options.prompt + '\n' +
                 //            get_stack(arguments.callee.caller).join(''));
                 if (num_chars === undefined) {
                     //enabling first time
