@@ -16,6 +16,9 @@ class Practica < ActiveRecord::Base
   validates :name, :presence => true
   validates :estado, :presence => true, :inclusion => ESTADOS
 
+  #Image
+  mount_uploader :image, ImageUploader
+
   after_initialize :initialize_event
 
   has_many :vlans

@@ -8,7 +8,7 @@ unless defined? GatoDomainConfigurator
     include OpenURI
 
     def external_ip
-      ip = '127.0.0.1';
+      ip = '127.0.0.1'
       begin
         ip=OpenURI.open_uri("http://myip.dk") {|f|f.read.scan(/([0-9]{1,3}\.){3}[0-9]{1,3}/); $~.to_s}
       rescue
@@ -29,7 +29,7 @@ unless defined? GatoDomainConfigurator
 
     # A reference ip to do lookup
     def google_ip
-      '74.125.229.176'
+      '74.125.47.99'
     end
 
   end
