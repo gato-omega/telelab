@@ -23,15 +23,15 @@
       .field
         = f.label :tipo
         %br
-        = f.select(:tipo, @types, { :prompt => 'Seleccione el tipo' })
+        = f.select(:tipo, @types, { :prompt => 'Seleccione el tipo del dispositivo' })
       .field  
         = f.label :categoria
         %br
-        = f.select(:categoria, @categories, { :prompt => 'Seleccione la categoria' })
+        = f.select(:categoria, @categories, { :prompt => 'Seleccione la categoria del dispositivo' })
       .field
         = f.label :estado
         %br
-        = f.text_field :estado
+        = f.select(:estado, @states, { :prompt => 'Seleccione el estado del dispositivo' })
       .field
         = f.label :com
         %br

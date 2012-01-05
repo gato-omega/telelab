@@ -8,6 +8,7 @@ class PracticeJob < Struct.new(:practice_id, :transition)
       # Mandar la notification por faye de que esta abierta
     elsif transition.eql? :close
       practica.cerrar
+      irc_gateway = IRCGateway.instance
       # Mandar la notification por faye de que esta cerrada
     end
   end

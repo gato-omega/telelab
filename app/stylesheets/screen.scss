@@ -175,6 +175,11 @@ footer
     @include dark-container;
 }
 
+.darker_container
+{
+    @include darker-container;
+}
+
 .light_container
 {
     @include light-container;

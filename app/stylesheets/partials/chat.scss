@@ -1,3 +1,4 @@
+@import "mixins.scss";
 .chat_main
 {
     overflow: auto;
@@ -33,6 +34,8 @@
 
     .presence
     {
+        margin: 0 0 20px 0;
+
         a
         {
             width: 80%;
@@ -47,5 +50,11 @@
         {
             border: 2px solid orange;
         }
+    }
+
+    #presence_notice
+    {
+        margin: 0 0 20px 0;
+        @include darker-container;
     }
 }

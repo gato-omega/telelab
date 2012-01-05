@@ -86,8 +86,6 @@ class IRCGateway
     DeviceCommandProcessor.new(self).reset_device(device)
   end
 
-
-
   # Send a IRC message to a channel
   def send_irc(channel, message)
     real_channel = @zbot.get_channel(channel)

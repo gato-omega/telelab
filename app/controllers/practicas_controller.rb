@@ -323,7 +323,7 @@ class PracticasController < AuthorizedController
 
   # Broadcast this user's chat status in a specific channel
   def broadcast_chat_status(channel, status)
-    mensaje_raw = FayeMessagesController.new.generate_chat_status_output current_user.id, status
+    mensaje_raw = FayeMessagesController.new.generate_chat_status_output current_user, status
     send_via_faye "#{FAYE_CHANNEL_PREFIX}#{channel}", mensaje_raw
   end
 

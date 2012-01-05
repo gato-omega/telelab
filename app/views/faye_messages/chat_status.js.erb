@@ -1,7 +1,27 @@
 username = username;
 user_id=user_id;
-if(user_id != '<%= @user_id %>')
+if(user_id != '<%= @user.id %>')
 {
-    $('#user_status_<%= @user_id %> img').remove();
-    $('#user_status_<%= @user_id %> span').before('<%= user_chat_status_icon_by_status @status %>');
+    $('#user_status_<%= @user.id %> img').remove();
+    $('#user_status_<%= @user.id %> span').before('<%= user_chat_status_icon_by_status @status %>');
+
+    var message = '<%= @user.name %> ';
+    var status = '<%= @status %>';
+
+    if(status == 'offline')
+    {
+        message = message + 'se ha marchado'
+    }
+    if(status == 'available')
+    {
+        message = message + 'se ha conectado'
+    }
+    if(status == 'away')
+    {
+        message = message + 'se ha tomado un tiempo'
+    }
+
+    $('#presence_notice').show();
+    $('#presence_notice').html('<strong>'+message+'</strong>');
+    $('#presence_notice').fadeOut(7000);
 }

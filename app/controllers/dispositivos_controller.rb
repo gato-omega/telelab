@@ -107,5 +107,7 @@ class DispositivosController < ApplicationController
   def get_dispositivo_constants
     @categories = Dispositivo::CATEGORIAS
     @types = Dispositivo::TYPES
+    @states = Dispositivo::ESTADOS
+    @puerto_states = Puerto::ESTADOS
   end
 end

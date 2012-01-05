@@ -13,16 +13,18 @@
     @include round-corners;
 }
 
-@mixin light-container($padding:1%)
+@mixin light-container($padding:1%, $margin:5px)
 {
     background: #666666;
     padding: $padding;
     @include round-corners;
 }
 
-@mixin darker-container($padding:1%)
+@mixin darker-container($padding:1%, $margin:5px)
 {
     background: #151515;
     padding: $padding;
+    margin: $margin;
+    border: 1px solid gray;
     @include round-corners;
 }

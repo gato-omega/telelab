@@ -56,8 +56,8 @@ class FayeMessagesController < AbstractController::Base
   end
 
   #Generates chat output for the pratice channel
-  def generate_chat_status_output(user_id, status)
-    @user_id = user_id
+  def generate_chat_status_output(user, status)
+    @user = user
     @status = status
     render template: "faye_messages/chat_status"
   end

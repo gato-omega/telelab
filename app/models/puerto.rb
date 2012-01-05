@@ -9,7 +9,7 @@ class Puerto < ActiveRecord::Base
   has_many :vlans
 
   validates :nombre, :presence => true
-  validates :etiqueta, :uniqueness => {:scope => :dispositivo_id}
+  validates :etiqueta, :uniqueness => {:scope => :dispositivo_id}, :presence => true
   validates :numero, :uniqueness => {:scope => :dispositivo_id}
 
   ## CONSTANTS
