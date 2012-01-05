@@ -70,7 +70,7 @@ class Practica < ActiveRecord::Base
   end
 
   def starts_in
-    (self.start - Time.now).to_i
+    (self.start.localtime - Time.now).to_i
   end
 
   scope :openned, where(:estado => 'abierta')

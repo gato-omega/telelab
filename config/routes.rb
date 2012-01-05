@@ -20,7 +20,9 @@ Telelab02::Application.routes.draw do
     get 'teachers', :on => :member
   end
 
-  resources :practicas
+  resources :practicas do
+    #post 'update_diagram', :on => :member
+  end
 
   resources :dispositivos
   resources :puertos
@@ -42,6 +44,7 @@ Telelab02::Application.routes.draw do
 
   ### for display allowed devices, used in "_form#practicas" view #####
   match '/practicas/free_devices' => 'practicas#free_devices', :as => 'free_devices', :via => :post
+  match '/practicas/:id/update_diagram' => 'practicas#update_diagram', :as => 'update_diagram_practica'
 
   get '/practicas/:id/practica' => 'practicas#make_practice', :as => 'realizar_practica'
 

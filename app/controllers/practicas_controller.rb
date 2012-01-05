@@ -43,12 +43,25 @@ class PracticasController < AuthorizedController
     @practica = Practica.find(params[:id])
     respond_to do |format|
       if @practica.update_attributes(params[:practica])
-        @practica.users << current_user if ((current_user.is_a? Student) || (current_user.is_a? Teacher) && !(@practica.users.include? current_user))
+        @practica.users << current_user if ((current_user.is_a? Student) || (current_user.is_a? Teacher)) && !(@practica.users.include? current_user)
         format.html { redirect_to(@practica, :notice => 'Practica was successfully updated.') }
         practice_jobs @practica, 'updated'
       else
         format.html { render :action => "edit" }
       end
+    end
+  end
+
+  def update_diagram
+    @practica = Practica.find(params[:id])
+    @success = true
+    valid_params = params.select {|k,v| [:image, :remote_image_url].include? k}
+    respond_to do |format|
+      if @practica.update_attributes(valid_params)
+      else
+        @success = false
+      end
+      format.js
     end
   end
 
@@ -67,7 +80,6 @@ class PracticasController < AuthorizedController
     channel_sym = "practica_#{@practica.id}".to_sym
     if current_user.options[:faye][channel_sym].nil?
       current_user.options[:faye][channel_sym] = :available
-
       if current_user.save
         #Send notification
         broadcast_chat_status channel_sym, :available
@@ -231,7 +243,7 @@ class PracticasController < AuthorizedController
     #
     #puts "DEBUG ##################3 the_vlan is #{the_vlan.inspect}"
     channel = "practica_#{the_practica.id}"
-    
+
     if the_vlan.save
       IRCGateway.instance.create_vlan the_vlan
       mensaje_raw = FayeMessagesController.new.generate_new_conexion_output the_vlan

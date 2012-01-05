@@ -9,4 +9,4 @@ public/stylesheets/scaffold.css
 .rvmrc
 config/database.yml
 config/app_config.yml
-
+public/uploads

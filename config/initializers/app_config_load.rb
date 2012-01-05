@@ -53,11 +53,6 @@ def recursive_symbolize_keys! hash
   hash.values.select{|v| v.is_a? Hash}.each{|h| recursive_symbolize_keys!(h)}
 end
 
-configurator = GatoDomainConfigurator.new
-
-local_ip = configurator.local_ip
-external_ip = configurator.external_ip
-
 if defined? Rails
   app_config = YAML.load(raw_config)[Rails.env]
 else
@@ -65,6 +60,12 @@ else
 end
 
 recursive_symbolize_keys! app_config
+
+# IP CONFIG
+
+configurator = GatoDomainConfigurator.new
+local_ip = configurator.local_ip if [app_config[:irc][:server][:auto],app_config[:faye][:server][:auto],app_config[:domain]].include? 'local'
+external_ip = configurator.external_ip if [app_config[:irc][:server][:auto],app_config[:faye][:server][:auto],app_config[:domain]].include? 'external'
 
 # Domain IP address
 if app_config[:domain].eql? 'local'

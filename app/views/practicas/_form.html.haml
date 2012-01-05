@@ -8,7 +8,7 @@
   = javascript_include_tag 'fullcalendar.min'
   = javascript_include_tag 'calendar'
 
-= form_for(@practica) do |f|
+= form_for @practica, :html => {:multipart => true} do |f|
   - if @practica.errors.any?
     #error_explanation
       %h2
@@ -40,6 +40,15 @@
       = f.label :estado
       %br/
       = f.text_field :estado, :value => @practica.estado, :readonly => "readonly"
+    .field
+      = f.label :image, 'Subir imagen o diagrama desde archivo'
+      %br/
+      = f.file_field :image
+    .field
+      = f.label :remote_image_url, "o URL"
+      %br/
+      = f.text_field :remote_image_url
+
     %br/
     %div
       = f.label :devices, "Dispositivos"

@@ -15,7 +15,20 @@
   #practica_countdown
   .viewport_row
     .diagram
-      DIAGRAM PENDING
+      #diagram.practice_diagram
+        = image_tag @practica.image_url(:diagram) if @practica.image?
+      .diagram_form
+        -#= form_for @practica, :remote => true, :url => update_diagram_practica_path(@practica), :html => {:multipart => true} do |f|
+          .field
+            = f.label :image, 'Subir imagen o diagrama desde archivo'
+            %br/
+            = f.file_field :image
+          .field
+            = f.label :remote_image_url, "o URL"
+            %br/
+            = f.text_field :remote_image_url
+          .actions
+            = f.submit 'Enviar imagen'
     .connections
       = render :partial => "practicas/practice_gadgets/connections", :locals => {:conexiones => @logical_connections, :conexion => @conexion, :the_puertos => @puertos}
   .viewport_row

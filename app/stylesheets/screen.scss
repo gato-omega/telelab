@@ -206,7 +206,25 @@ footer
 
 #countdown_timer
 {
-    @include dark-container;
+    @include darker-container;
     float: left;
     width: 150px;
+}
+
+.practica_image.diagram
+{
+    @include darker-container;
+    width: 450px;
+}
+
+
+#diagram.practice_diagram
+{
+    @include darker-container;
+    max-width:450px;
+    img
+    {
+        width:100%
+    }
+
 }

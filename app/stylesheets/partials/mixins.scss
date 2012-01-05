@@ -19,3 +19,10 @@
     padding: $padding;
     @include round-corners;
 }
+
+@mixin darker-container($padding:1%)
+{
+    background: #151515;
+    padding: $padding;
+    @include round-corners;
+}

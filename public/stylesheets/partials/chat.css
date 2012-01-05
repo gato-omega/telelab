@@ -10,8 +10,9 @@
 .chat_status {
   overflow: auto;
   float: right;
-  width: 25%;
-  /*border: 1px solid green;*/
+  width: 24%;
+  font-family: Arial, sans-serif;
+  font-size: 0.8em;
 }
 /* line 17, ../../../app/stylesheets/partials/chat.scss */
 .chat_status ul {
