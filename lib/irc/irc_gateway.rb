@@ -80,6 +80,12 @@ class IRCGateway
     DeviceCommandProcessor.new(self).create_vlan(vlan)
   end
 
+  def remove_vlan(vlan)
+    # UNCOMMENT
+    #@message_processor.create_vlan(vlan)
+    DeviceCommandProcessor.new(self).remove_vlan(vlan)
+  end
+
   def reset_device(device)
     # UNCOMMENT
     #@message_processor.create_vlan(vlan)

@@ -40,10 +40,8 @@ class Dispositivo < ActiveRecord::Base
   end
 
   def recalculate_port_numbers
-    next_number = 0
-    self.puertos.each do |puerto|
-      next_number += 1
-      puerto.numero = next_number
+    self.puertos.each_with_index do |puerto, number|
+      puerto.numero = number + 1
       puerto.save
     end
   end

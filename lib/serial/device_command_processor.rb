@@ -36,13 +36,12 @@ class DeviceCommandProcessor
   # Generates the serial output commands to create a vlan, based on a Vlan model object
   def serial_create_vlan(vlan)
 
-    pr_id = vlan.practica.id
     p = vlan.puerto
     q = vlan.endpoint
-    n = vlan.numero
+    n = vlan.numero # Vlan number to be assigned
 
-    px = p.endpoint
-    qx = q.endpoint
+    px = p.endpoint # P In the vlan switch
+    qx = q.endpoint # Q In the vlan switch
 
     pxname = px.nombre
     qxname = qx.nombre
@@ -59,6 +58,43 @@ class DeviceCommandProcessor
         "exit",
         "interface #{qxname}",
         "switch mode access vlan #{n}",
+        "swtich mode access",
+        "no shutdown",
+        "exit",
+        "exit",
+        "exit"
+    ]
+
+    commands
+
+  end
+
+  # Generates the serial output commands to remove a vlan, based on a Vlan model object
+  def serial_remove_vlan(vlan)
+
+    p = vlan.puerto
+    q = vlan.endpoint
+
+    px = p.endpoint
+    qx = q.endpoint
+
+    pxname = px.nombre
+    qxname = qx.nombre
+
+    # Assigns original vlan numbers to each port. e.g. vlan 2 for port 1, 5 for 4 etc..
+
+    commands = [
+
+        "#ENTER",
+        "enable",
+        "configure terminal",
+        "interface #{pxname}",
+        "switch mode access vlan #{px.numero+1}",
+        "swtich mode access",
+        "no shutdown",
+        "exit",
+        "interface #{qxname}",
+        "switch mode access vlan #{qx.numero+1}",
         "swtich mode access",
         "no shutdown",
         "exit",
@@ -123,6 +159,15 @@ class DeviceCommandProcessor
 
   def create_vlan(vlan)
     commands = serial_create_vlan vlan
+    channel = vlan_channel
+    commands.each do |command|
+      send_irc channel, command
+      #puts "SENDING #{canal}, #{command}"
+    end
+  end
+
+  def remove_vlan(vlan)
+    commands = serial_remove_vlan vlan
     channel = vlan_channel
     commands.each do |command|
       send_irc channel, command

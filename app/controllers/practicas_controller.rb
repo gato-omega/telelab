@@ -260,12 +260,11 @@ class PracticasController < AuthorizedController
   end
 
   def remove_conexion
-    #@vlan = Vlan.find(params[:id])
-    puts "############### FUNCIONA !!! #{params[:id]}, #{params[:con_id]}"
-    vlan = Vlan.find(params[:con_id])
-    if vlan.destroy
+    the_vlan = Vlan.find(params[:con_id])
+    if the_vlan.destroy
       channel = "practica_#{params[:id]}"
-      mensaje_raw = FayeMessagesController.new.generate_remove_conexion_output vlan
+      IRCGateway.instance.remove_vlan the_vlan
+      mensaje_raw = FayeMessagesController.new.generate_remove_conexion_output the_vlan
       send_via_faye "#{FAYE_CHANNEL_PREFIX}#{channel}", mensaje_raw
     end
     render :nothing => true

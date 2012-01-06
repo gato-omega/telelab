@@ -10,7 +10,7 @@ class Puerto < ActiveRecord::Base
 
   validates :nombre, :presence => true
   validates :etiqueta, :uniqueness => {:scope => :dispositivo_id}, :presence => true
-  validates :numero, :uniqueness => {:scope => :dispositivo_id}
+  #validates :numero, :uniqueness => {:scope => :dispositivo_id}
 
   ## CONSTANTS
   ESTADOS = %w[ok bad]

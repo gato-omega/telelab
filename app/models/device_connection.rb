@@ -7,11 +7,18 @@ class DeviceConnection < ActiveRecord::Base
   #has_one :dispositivo, :through => :endpoint
   #has_one :dispositivo, :through => :puerto
 
-  # Halves the results to aviod duplication on show (only for presentation matters)
+  # Halves the results to avoid duplication on show (only for presentation matters)
   scope :without_duplicates, where('puerto_id < endpoint_id')
 
+  validate :not_the_same_port
+
   def fullname
-    "#{puerto.dispositivo.etiqueta} - #{puerto.etiqueta} * #{endpoint.dispositivo.etiqueta} - #{endpoint.etiqueta}"
+    "#{Dispositivo.find(puerto.dispositivo_id).etiqueta} - #{puerto.etiqueta} * #{Dispositivo.find(endpoint.dispositivo_id).etiqueta} - #{endpoint.etiqueta}"
+  end
+
+  private
+  def not_the_same_port
+    !(puerto.eql? endpoint)
   end
 
 end

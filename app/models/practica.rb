@@ -21,7 +21,7 @@ class Practica < ActiveRecord::Base
 
   after_initialize :initialize_event
 
-  has_many :vlans
+  has_many :vlans, :dependent => :destroy
 
   def puertos
     raise 'implement please!'
@@ -98,7 +98,6 @@ class Practica < ActiveRecord::Base
   private
   def initialize_event
     self.build_event(:start => DateTime.now, :end => (DateTime.now + 1.hour)) unless event
-    #build_event unless event
   end
 
 end
