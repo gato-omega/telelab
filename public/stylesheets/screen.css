@@ -176,6 +176,7 @@ footer .central {
   -webkit-border-bottom-right-radius: 6px;
   -khtml-border-bottom-right-radius: 6px;
   border-bottom-right-radius: 6px;
+  overflow: auto;
 }
 
 /* line 179, ../../app/stylesheets/screen.scss */
@@ -200,6 +201,7 @@ footer .central {
   -webkit-border-bottom-right-radius: 6px;
   -khtml-border-bottom-right-radius: 6px;
   border-bottom-right-radius: 6px;
+  overflow: auto;
 }
 
 /* line 184, ../../app/stylesheets/screen.scss */
@@ -222,6 +224,7 @@ footer .central {
   -webkit-border-bottom-right-radius: 6px;
   -khtml-border-bottom-right-radius: 6px;
   border-bottom-right-radius: 6px;
+  overflow: auto;
 }
 
 /* line 189, ../../app/stylesheets/screen.scss */
@@ -282,6 +285,7 @@ footer .central {
   -webkit-border-bottom-right-radius: 6px;
   -khtml-border-bottom-right-radius: 6px;
   border-bottom-right-radius: 6px;
+  overflow: auto;
   float: left;
   width: 150px;
 }
@@ -308,6 +312,7 @@ footer .central {
   -webkit-border-bottom-right-radius: 6px;
   -khtml-border-bottom-right-radius: 6px;
   border-bottom-right-radius: 6px;
+  overflow: auto;
   width: 450px;
 }
 
@@ -333,9 +338,21 @@ footer .central {
   -webkit-border-bottom-right-radius: 6px;
   -khtml-border-bottom-right-radius: 6px;
   border-bottom-right-radius: 6px;
+  overflow: auto;
   max-width: 450px;
 }
 /* line 231, ../../app/stylesheets/screen.scss */
 #diagram.practice_diagram img {
   width: 100%;
+}
+
+/* line 238, ../../app/stylesheets/screen.scss */
+.float_left {
+  float: left;
+}
+
+/* line 243, ../../app/stylesheets/screen.scss */
+.as_a_row {
+  display: block;
+  overflow: auto;
 }

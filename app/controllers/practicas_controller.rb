@@ -29,7 +29,7 @@ class PracticasController < AuthorizedController
 
   def create
     @practica = Practica.new(params[:practica])
-    @practica.users << current_user if (current_user.is_a? Student) || (current_user.is_a? Teacher)
+    @practica.users << current_user
     respond_to do |format|
       if @practica.save
         format.html { redirect_to(@practica, :notice => 'Practica was successfully created.') }
@@ -45,7 +45,7 @@ class PracticasController < AuthorizedController
     @practica = Practica.find(params[:id])
     respond_to do |format|
       if @practica.update_attributes(params[:practica])
-        @practica.users << current_user if ((current_user.is_a? Student) || (current_user.is_a? Teacher)) && !(@practica.users.include? current_user)
+        @practica.users << current_user unless (@practica.users.include? current_user)
         format.html { redirect_to(@practica, :notice => 'Practica was successfully updated.') }
         practice_jobs @practica, 'updated'
       else

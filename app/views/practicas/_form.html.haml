@@ -8,25 +8,30 @@
   = javascript_include_tag 'fullcalendar.min'
   = javascript_include_tag 'calendar'
 
-= form_for @practica, :html => {:multipart => true} do |f|
-  - if @practica.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@practica.errors.count, "error")
-        prohibited this practica from being saved:
-      %ul
-        - @practica.errors.full_messages.each do |msg|
-          %li= msg
-  .calendar
-    #reservation_calendar
-  %br/
-  .reserve_data
+
+.darker_container.float_left
+  #reservation_calendar.calendar
+#reserve_form.reserve_data
+  = form_for @practica, :html => {:multipart => true} do |f|
+    - if @practica.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@practica.errors.count, "error")
+          prohibited this practica from being saved:
+        %ul
+          - @practica.errors.full_messages.each do |msg|
+            %li= msg
+    %br/
     .title
       Datos de la reserva
     .field
-      = f.label :name
+      = f.label :name, 'Nombre'
       %br/
       = f.text_field :name
+    .field
+      = f.label :description, 'Descripcion'
+      %br/
+      = f.text_area :description, :rows => 3
     = f.fields_for :event do |ev|
       .field
         = ev.label :start, 'Inicio'
@@ -51,7 +56,7 @@
 
     %br/
     %div
-      = f.label :devices, "Dispositivos"
+      = f.label :devices, "Dispositivos disponibles"
       #devices_offer
         - if @show_first
           - @dispositivos_reservados.each do |dispositivo|

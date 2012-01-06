@@ -17,6 +17,8 @@
     .diagram
       #diagram.practice_diagram
         = image_tag @practica.image_url(:diagram) if @practica.image?
+      .description.light_container
+        = @practica.description
       .diagram_form
         -#= form_for @practica, :remote => true, :url => update_diagram_practica_path(@practica), :html => {:multipart => true} do |f|
           .field

@@ -68,4 +68,5 @@
   -webkit-border-bottom-right-radius: 6px;
   -khtml-border-bottom-right-radius: 6px;
   border-bottom-right-radius: 6px;
+  overflow: auto;
 }

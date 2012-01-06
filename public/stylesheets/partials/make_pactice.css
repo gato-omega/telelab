@@ -64,6 +64,7 @@
   -webkit-border-bottom-right-radius: 6px;
   -khtml-border-bottom-right-radius: 6px;
   border-bottom-right-radius: 6px;
+  overflow: auto;
 }
 /* line 55, ../../../app/stylesheets/partials/make_pactice.scss */
 #practica .connections {
@@ -88,6 +89,7 @@
   -webkit-border-bottom-right-radius: 6px;
   -khtml-border-bottom-right-radius: 6px;
   border-bottom-right-radius: 6px;
+  overflow: auto;
 }
 /* line 63, ../../../app/stylesheets/partials/make_pactice.scss */
 #practica .consoles {
@@ -112,6 +114,7 @@
   -webkit-border-bottom-right-radius: 6px;
   -khtml-border-bottom-right-radius: 6px;
   border-bottom-right-radius: 6px;
+  overflow: auto;
 }
 /* line 71, ../../../app/stylesheets/partials/make_pactice.scss */
 #practica .chat {
@@ -136,4 +139,5 @@
   -webkit-border-bottom-right-radius: 6px;
   -khtml-border-bottom-right-radius: 6px;
   border-bottom-right-radius: 6px;
+  overflow: auto;
 }

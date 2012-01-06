@@ -233,3 +233,14 @@ footer
     }
 
 }
+
+.float_left
+{
+    @include float-left;
+}
+
+.as_a_row
+{
+    display: block;
+    overflow: auto;
+}
