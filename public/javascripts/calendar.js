@@ -1,5 +1,4 @@
 /**
- * Created by JetBrains RubyMine.
  * User: german
  * Date: 13/09/11
  * Time: 05:16 PM
@@ -34,8 +33,8 @@ $(document).ready(function() {
                         true // make the event "stick"
                     );
                     $("#practica_name").val(title);
-                    $("#practica_start").val(start);
-                    $("#practica_end").val(end);
+                    $("#practica_event_attributes_start").val(start);
+                    $("#practica_event_attributes_end").val(end);
                     if (new_event) {
                         var e = $('#reservation_calendar').fullCalendar('clientEvents');
                         $('#reservation_calendar').fullCalendar('removeEvents', e[e.length - 2]._id);
@@ -45,7 +44,7 @@ $(document).ready(function() {
                 }
                 calendar.fullCalendar('unselect');
             }
-            else alert("La fecha de inicio del evento debe ser mayor a la fecha actual");
+            else alert("La fecha y hora de inicio de la practica debe ser mayor a la fecha y hora actuales");
         }
     });
 });

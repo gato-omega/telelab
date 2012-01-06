@@ -27,15 +27,15 @@
       = f.label :name
       %br/
       = f.text_field :name
-    - fields_for :event do |ev|
+    = f.fields_for :event do |ev|
       .field
-        = ev.label :start
+        = ev.label :start, 'Inicio'
         %br/
-        = ev.text_field :start, :readonly => "readonly"
+        = ev.text_field :start, :readonly => true
       .field
-        = ev.label :end
+        = ev.label :end, 'Fin'
         %br/
-        = ev.text_field :end, :readonly => "readonly"
+        = ev.text_field :end, :readonly => true
     .field
       = f.label :estado
       %br/
@@ -60,7 +60,7 @@
               = dispositivo.nombre
     %p
     %div
-      = f.label :user_list, "Users"
+      = f.label :user_list, "Compañeros de trabajo"
       %br/
       = f.text_field :user_list, "data-pre" => @allowed_users.collect{|user| {:id => user.id, :name => user.username}}.to_json, :class => 'tokeninput', 'data-source' => '/api/users.json'
     %p
