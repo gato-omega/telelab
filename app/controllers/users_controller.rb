@@ -81,7 +81,7 @@ class UsersController < AuthorizedController
   def json_users
     @all_users = User.search(:profile_firstname_or_profile_lastname_contains =>  params[:q], :courses_id_in => (current_user.courses.map {|c| c.id}))
     respond_to do |format|
-      format.json { render :json => @all_users.relation.collect { |user| {:id => user.id, :name => user.username} } }
+      format.json { render :json => @all_users.relation.uniq.collect { |user| {:id => user.id, :name => user.username} } }
     end
   end
 

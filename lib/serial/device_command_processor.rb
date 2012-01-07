@@ -21,15 +21,10 @@ class DeviceCommandProcessor
     commands = [
 
         "#ENTER",
-        "#ENTER",
-        "RESET",
-        "DEVICE",
-        "COMMANDS",
-        "OVER",
-        "HERE",
+        "Aqui van los comandos pa resetear",
+        "resetting: dispositivo #{device.id}",
         "exit"
     ]
-
     commands
   end
 
@@ -111,7 +106,6 @@ class DeviceCommandProcessor
     channel = device.irc_channel
     commands.each do |command|
       send_irc channel, command
-      p "SENDING #{canal}, #{command}"
     end
   end
 
@@ -157,12 +151,19 @@ class DeviceCommandProcessor
     puts "ASDADASD"
   end
 
+  def reset_devices(dispositivos)
+    dispositivos.each do |dispositivo|
+      Thread.new do
+        reset_device dispositivo
+      end
+    end
+  end
+
   def create_vlan(vlan)
     commands = serial_create_vlan vlan
     channel = vlan_channel
     commands.each do |command|
       send_irc channel, command
-      #puts "SENDING #{canal}, #{command}"
     end
   end
 
@@ -171,7 +172,6 @@ class DeviceCommandProcessor
     channel = vlan_channel
     commands.each do |command|
       send_irc channel, command
-      #puts "SENDING #{canal}, #{command}"
     end
   end
 

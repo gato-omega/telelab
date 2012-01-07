@@ -172,8 +172,8 @@ puts "Creating open practice...".yellow
 
 open_practica = Practica.new
 open_practica.name = "Practica de prueba"
-open_practica.start = Time.now - 2.hours
-open_practica.end = Time.now + 2.hours
+open_practica.start = DateTime.now - 2.hours
+open_practica.end = DateTime.now + 2.hours
 open_practica.abrir
 open_practica.users << User.all
 open_practica.dispositivos << [router_1, router_2 , router_3, router_4]

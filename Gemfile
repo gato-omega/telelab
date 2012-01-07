@@ -78,5 +78,5 @@ gem 'delayed_job'
 gem 'nested_form', '0.1.1'
 gem 'thin'
 
-gem "rmagick"
-gem "carrierwave"
+gem "rmagick", '2.13.1'
+gem "carrierwave", '0.5.8'

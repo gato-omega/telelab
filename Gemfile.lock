@@ -193,7 +193,7 @@ DEPENDENCIES
   awesome_print
   cancan (= 1.6.4)
   capybara
-  carrierwave
+  carrierwave (= 0.5.8)
   cinch (= 1.1.3)
   colorize
   compass (>= 0.11.5)
@@ -214,7 +214,7 @@ DEPENDENCIES
   nested_form (= 0.1.1)
   nifty-generators
   rails (= 3.0.9)
-  rmagick
+  rmagick (= 2.13.1)
   state_machine (= 1.1.0)
   thin
   wirb

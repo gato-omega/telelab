@@ -74,6 +74,11 @@ class IRCGateway
     start
   end
 
+  def reset_devices_for(practica)
+    dispositivos = practica.dispositivos
+    DeviceCommandProcessor.new(self).reset_devices dispositivos
+  end
+
   def create_vlan(vlan)
     # UNCOMMENT
     #@message_processor.create_vlan(vlan)

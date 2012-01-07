@@ -131,7 +131,7 @@ $(function()
 {
     try
     {
-        <%#= time_remaining_in_seconds = (@practica.end - Time.now).to_i %>
+        <%#= time_remaining_in_seconds = (@practica.end - DateTime.now).to_i %>
         time_remaining = '<%= @practica.finishes_in %>';
         $("#practica_countdown").countdown({until: time_remaining});
     }
