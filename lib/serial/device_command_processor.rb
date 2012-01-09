@@ -104,9 +104,7 @@ class DeviceCommandProcessor
   def reset_device(device)
     commands = serial_reset_device device
     channel = device.irc_channel
-    commands.each do |command|
-      send_irc channel, command
-    end
+    send_commands_to_channel channel, commands
   end
 
   # This method processes the incoming message from irc
@@ -147,8 +145,8 @@ class DeviceCommandProcessor
 
   end
 
-  def process_vlan_output output
-    puts "ASDADASD"
+  def process_vlan_output(output)
+    ap output
   end
 
   def reset_devices(dispositivos)
@@ -159,20 +157,24 @@ class DeviceCommandProcessor
     end
   end
 
+  def remove_vlans(vlans)
+    vlans.each do |vlan|
+      Thread.new do
+        remove_vlan vlan
+      end
+    end
+  end
+
   def create_vlan(vlan)
     commands = serial_create_vlan vlan
     channel = vlan_channel
-    commands.each do |command|
-      send_irc channel, command
-    end
+    send_commands_to_channel channel, commands
   end
 
   def remove_vlan(vlan)
     commands = serial_remove_vlan vlan
     channel = vlan_channel
-    commands.each do |command|
-      send_irc channel, command
-    end
+    send_commands_to_channel channel, commands
   end
 
   def send_irc(channel, message)
@@ -181,6 +183,12 @@ class DeviceCommandProcessor
 
   def vlan_switch(force_reload=false)
     get_vlan_switch force_reload
+  end
+
+  def send_commands_to_channel(channel, commands)
+    commands.each do |command|
+      send_irc channel, command
+    end
   end
 
   private

@@ -7,8 +7,13 @@ class PracticeJob < Struct.new(:practice_id, :transition)
       practica.abrir
     elsif transition.eql? :close
       practica.cerrar
-      #irc_gateway = IRCGateway.instance
-      #irc_gateway.reset_devices_for practica
+      begin
+        irc_gateway = IRCGateway.instance
+        irc_gateway.reset_practica practica
+      rescue => e
+        puts "Exception in Practice Job for IRCGateway> #{e.message}"
+      end
+
     end
   end
 end

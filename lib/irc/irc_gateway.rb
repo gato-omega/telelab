@@ -43,6 +43,12 @@ class IRCGateway
         c.server = the_irc_config[:server][:ip]#'127.0.0.1'#
         c.nick = "#{the_irc_config[:client][:nick_prefix]}#{the_irc_config[:client][:nick]}"
         c.channels = the_irc_config[:client][:default_channels].map {|channel| (channel.start_with? "#") ? channel : "##{channel}"} + the_device_channels
+
+        # Server conf queue
+
+        c.server_queue_size = 100
+        c.messages_per_second = 100
+
       end
 
       #if the_irc_config[:client][:logger].eql? 'null'
@@ -65,7 +71,10 @@ class IRCGateway
         # ELIMINATE
         the_message_processor=DeviceCommandProcessor.new(the_irc_gateway)
 
-        the_message_processor.process_irc_message rcvd_channel, rcvd_user, rcvd_message
+        # Prevent processing of other telelab zbot messages
+        unless rcvd_user.starts_with? "#{APP_CONFIG[:irc][:client][:nick_prefix]}#{APP_CONFIG[:irc][:client][:nick]}"
+          the_message_processor.process_irc_message rcvd_channel, rcvd_user, rcvd_message
+        end
 
       end
     end
@@ -74,26 +83,38 @@ class IRCGateway
     start
   end
 
+  # Reset all practica resources
+  def reset_practica(practica)
+    reset_devices_for practica
+    remove_vlans_for practica
+  end
+
+  # Remove vlan conections for a practica
+  def remove_vlans_for(practica)
+    vlans = practica.vlans
+    DeviceCommandProcessor.new(self).remove_vlans vlans
+  end
+
+  # Reset devices for a practica
   def reset_devices_for(practica)
     dispositivos = practica.dispositivos
     DeviceCommandProcessor.new(self).reset_devices dispositivos
   end
 
+  # Create a vlan using the logical vlan model passed as argument
   def create_vlan(vlan)
     # UNCOMMENT
     #@message_processor.create_vlan(vlan)
     DeviceCommandProcessor.new(self).create_vlan(vlan)
   end
 
+  # Remove an existing vlan using the logical vlan model passed as argument
   def remove_vlan(vlan)
-    # UNCOMMENT
-    #@message_processor.create_vlan(vlan)
     DeviceCommandProcessor.new(self).remove_vlan(vlan)
   end
 
+  # Reset a single device directly
   def reset_device(device)
-    # UNCOMMENT
-    #@message_processor.create_vlan(vlan)
     DeviceCommandProcessor.new(self).reset_device(device)
   end
 
@@ -126,7 +147,7 @@ class IRCGateway
   #Loads irc config in @config
   def load_irc_config(force_reload = false)
     if not @config and not force_reload
-      @config=APP_CONFIG[:irc]
+      @config = APP_CONFIG[:irc]
       # Append # sign to the beggining for free-channels
       @config[:client][:default_channels].collect! {|channel| "##{channel}"}
     end
@@ -136,6 +157,7 @@ class IRCGateway
     @message_processor = DeviceCommandProcessor.new(self)
   end
 
+  # Initializes the devices
   def get_device_channels(force_reload=false)
 
     #if @device_channels && !force_reload

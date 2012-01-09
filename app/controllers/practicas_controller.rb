@@ -74,6 +74,9 @@ class PracticasController < AuthorizedController
   end
 
   def make_practice
+
+    IRCGateway.instance # Initialize it before
+
     channel_sym = "practica_#{@practica.id}".to_sym
     if current_user.options[:faye][channel_sym].nil?
       current_user.options[:faye][channel_sym] = :available
