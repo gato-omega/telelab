@@ -90,6 +90,8 @@ class Ability
         practica.abierta?
       end
 
+      can_do_normal_labs
+
     elsif @user.is_a? Student
 
       can :do_student_stuff, :stuff
