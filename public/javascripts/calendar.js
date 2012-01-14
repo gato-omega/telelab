@@ -13,7 +13,7 @@ $(document).ready(function() {
             right: 'agendaWeek,agendaDay'
         },
         selectable: true,
-        editable: true,
+        editable: false,
         allDayDefault: false,
         allDaySlot: false,
         ignoreTimezone: false,

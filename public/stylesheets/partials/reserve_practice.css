@@ -1,6 +1,6 @@
 /* line 4, ../../../app/stylesheets/partials/reserve_practice.scss */
 .reserve_data {
-  float: left;
+  float: center;
   overflow: auto;
   /*width: 53%;*/
   /*border: 2px solid #f58400;*/

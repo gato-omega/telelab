@@ -146,7 +146,7 @@ class DeviceCommandProcessor
   end
 
   def process_vlan_output(output)
-    ap output
+    #ap output
   end
 
   def reset_devices(dispositivos)
