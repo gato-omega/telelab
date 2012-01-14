@@ -1,4 +1,4 @@
-class AdminsController < ApplicationController
+class AdminsController < AuthorizedController
 
   respond_to :html, :xml, :only => [:index, :show, :new, :edit]
 

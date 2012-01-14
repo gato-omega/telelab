@@ -1,4 +1,4 @@
-class TechniciansController < ApplicationController
+class TechniciansController < AuthorizedController
 
   respond_to :html, :xml, :only => [:index, :show, :new, :edit]
 

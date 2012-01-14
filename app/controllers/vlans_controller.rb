@@ -1,4 +1,4 @@
-class VlansController < ApplicationController
+class VlansController < AuthorizedController
   def index
     @vlans = Vlan.all
   end

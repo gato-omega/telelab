@@ -66,7 +66,8 @@ class Ability
       can :read, Student
 
       can_register_in_course
-
+      can_detail_practices
+      
       cannot :create, Course
       cannot :destroy, Course
       cannot :assign_teacher, Course

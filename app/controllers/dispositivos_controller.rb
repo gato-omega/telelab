@@ -1,4 +1,4 @@
-class DispositivosController < ApplicationController
+class DispositivosController < AuthorizedController
 
   before_filter :get_dispositivo_constants, :only => [:new, :edit, :create, :update]
 

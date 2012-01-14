@@ -1,0 +1,5 @@
+#!/bin/bash
+export RAILS_ENV=production
+echo starting DJ server...
+rake jobs:work RAILS_ENV=production
+

@@ -1,6 +1,7 @@
 %ul
   %li
     = link_to "Inicio", admin_home_path, :class => 'button'
+  %br
   %li
     = link_to "Gestionar Usuarios", users_path, :class => 'button'
   %li
@@ -13,3 +14,16 @@
     = link_to "Gestionar Tecnicos", technicians_path, :class => 'button'
   %li
     = link_to "Gestionar Cursos", courses_path, :class => 'button'
+  %li
+    = link_to "Gestionar Practicas", teacher_practicas_path, :class => 'button'
+  %br
+  %li
+    = link_to "Gestionar Dispositivos", dispositivos_path, :class => 'button'
+  %li
+    = link_to "Gestionar Conexiones", device_connections_path, :class => 'button'
+  %br
+  %li
+    = link_to "Reservar Practica", new_practica_path, :class => 'button'
+  %br
+  %li
+    = link_to "Manual de usuario",'http://www.google.com', :class => 'button'

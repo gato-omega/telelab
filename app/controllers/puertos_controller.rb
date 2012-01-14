@@ -1,4 +1,4 @@
-class PuertosController < ApplicationController
+class PuertosController < AuthorizedController
 
   def index
     @puertos = Puerto.all

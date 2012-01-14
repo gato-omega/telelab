@@ -1,4 +1,4 @@
-class DeviceConnectionsController < ApplicationController
+class DeviceConnectionsController < AuthorizedController
 
   before_filter :get_puertos, :only => [:new, :update, :create, :edit]
 
