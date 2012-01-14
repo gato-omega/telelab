@@ -40,12 +40,22 @@
         = f.label :cluster_id
         %br
         = f.text_field :cluster_id
-
-      = f.fields_for :puertos
       %br
-      .reset_links
+      Puertos>
+      %br
+      .darker_container
+        = f.fields_for :puertos do |puerto_form|
+          = puerto_form.label :nombre
+          = puerto_form.text_field :nombre, :size => 16
+          = puerto_form.label :etiqueta
+          = puerto_form.text_field :etiqueta, :size => 10
+          = puerto_form.label :estado
+          = puerto_form.select(:estado, @puerto_states)
+          = puerto_form.link_to_remove "Quitar este puerto"
+        %br
+        .reset_links
         = f.link_to_add 'Agregar puerto' , :puertos, :class => 'button'
     %br
     %br
     .actions
-      = f.submit
+      = f.submit nil, :class => 'button'
