@@ -17,7 +17,7 @@ u_type = ["Admin", "Admin", "Teacher", "Teacher", "Student", "Technician", "Admi
 
 puts "Creating users...".yellow
 u_username.size.times do |n|
-  User.create(:username => u_username[n], :password => '123456', :email => u_email[n], :type => u_type[n], :options => {:faye => {}}, :profile_attributes => {:firstname => u_username[n], :lastname => u_username[n], :codigo => u_username[n].hash.to_s[1,8]})
+  User.find_or_create_by_username(:username => u_username[n], :password => '123456', :email => u_email[n], :type => u_type[n], :options => {:faye => {}}, :profile_attributes => {:firstname => u_username[n], :lastname => u_username[n], :codigo => u_username[n].hash.to_s[1,8]})
   puts "  User #{u_username[n]} created".green
 end
 
@@ -30,34 +30,31 @@ c_options = [{:color1 => "red", :color2 => "green"},{:color1 => "blue", :color2 
 
 puts "Creating cursos...".yellow
 c_name.size.times do |n|
-  Course.create(:name => c_name[n], :description => c_description[n], :hashed_password => c_hashed_password[n], :options => c_options[n])
+  Course.find_or_create_by_name(:name => c_name[n], :description => c_description[n], :hashed_password => c_hashed_password[n], :options => c_options[n])
   puts "  Curso #{c_name[n]} created".green
 end
 
 ###### dispositivos
 
-d_nombre = ["Switch Catalyst VLAN", "Switch Catalyst 1", "Router Cisco 1", "Router Cisco 2", "Router Cisco 3", "Router Cisco 4", "Router Cisco 5", "Router Cisco 6"]
-d_etiqueta = ["S2960_VLAN", "S_2960_1", "R_812_1", "R_812_2", "R_812_3", "R_812_4", "R_812_5", "R_812_6"]
-d_categoria = ["switch", "switch", "router", "router", "router", "router","router", "router"]
-d_tipo = ["vlan", "user", "user", "user", "user", "user","user", "user"]
-d_estado = ["ok", "ok", "ok", "ok", "ok","ok", "bad", "stock"]
+d_nombre = ["Router Cisco 1", "Router Cisco 2", "Router Cisco 3", "Switch de VLAN", "Switch 1"]
+d_etiqueta = ["R1", "R2", "R3", "Svlan", "SVLAN", "SW1"]
+d_categoria = ["router", "router", "router", "switch", "switch"]
+d_tipo = ["user", "user", "user", "vlan", "user"]
+d_estado = ["ok", "ok", "ok", "ok", "ok"]
+d_cluster_id = [1, 1, 1, 1]
 
 puts "Creating dispositivos...".yellow
 dispositivos = []
-cluster_id = 1
 d_nombre.size.times do |n|
-  dispositivos << Dispositivo.create(:nombre => d_nombre[n], :etiqueta => d_etiqueta[n], :categoria => d_categoria[n], :tipo => d_tipo[n], :estado => d_estado[n], :cluster_id => cluster_id)
+  dispositivos << Dispositivo.find_or_create_by_nombre(:nombre => d_nombre[n], :etiqueta => d_etiqueta[n], :categoria => d_categoria[n], :tipo => d_tipo[n], :estado => d_estado[n], :cluster_id => d_cluster_id[n])
   puts "  Dispositivo #{d_nombre[n]} created".green
 end
 
-vlan_switch = dispositivos[0]
-switch_1 = dispositivos[1]
-router_1 = dispositivos[2]
-router_2 = dispositivos[3]
-router_3 = dispositivos[4]
-router_4 = dispositivos[5]
-router_5 = dispositivos[6]
-router_6 = dispositivos[7]
+vlan_switch = dispositivos[3]
+router_1 = dispositivos[0]
+router_2 = dispositivos[1]
+router_3 = dispositivos[2]
+switch_1 = dispositivos[3]
 
 #puts "vlan_switch =  #{vlan_switch},  #{vlan_switch.class} "
 #puts "switch_1 =  #{switch_1}, #{switch_1.class}"
@@ -77,65 +74,51 @@ router_6 = dispositivos[7]
 
 seed_puertos = [
 
-    {:dispositivo => vlan_switch, :nombre => "fastEthernet 0/0", :etiqueta => "FE-01", :estado => 'ok'}, #  0
-    {:dispositivo => vlan_switch, :nombre => "fastEthernet 0/1", :etiqueta => "FE-02", :estado => 'ok'}, #  1
-    {:dispositivo => vlan_switch, :nombre => "fastEthernet 0/2", :etiqueta => "FE-03", :estado => 'ok'}, #  2
-    {:dispositivo => vlan_switch, :nombre => "fastEthernet 0/3", :etiqueta => "FE-04", :estado => 'ok'}, #  3
-    {:dispositivo => vlan_switch, :nombre => "fastEthernet 0/4", :etiqueta => "FE-05", :estado => 'ok'}, #  4
-    {:dispositivo => vlan_switch, :nombre => "fastEthernet 0/5", :etiqueta => "FE-06", :estado => 'ok'}, #  5
-    {:dispositivo => vlan_switch, :nombre => "fastEthernet 0/6", :etiqueta => "FE-07", :estado => 'ok'}, #  6
-    {:dispositivo => vlan_switch, :nombre => "fastEthernet 0/7", :etiqueta => "FE-08", :estado => 'ok'}, #  7
+    {:dispositivo_id => vlan_switch.id, :nombre => "fastEthernet 0/1", :etiqueta => "FE-01", :estado => 'ok'},  #  0
+    {:dispositivo_id => vlan_switch.id, :nombre => "fastEthernet 0/2", :etiqueta => "FE-02", :estado => 'ok'},  #  1
+    {:dispositivo_id => vlan_switch.id, :nombre => "fastEthernet 0/3", :etiqueta => "FE-03", :estado => 'ok'},  #  2
+    {:dispositivo_id => vlan_switch.id, :nombre => "fastEthernet 0/4", :etiqueta => "FE-04", :estado => 'ok'},  #  3
+    {:dispositivo_id => vlan_switch.id, :nombre => "fastEthernet 0/5", :etiqueta => "FE-05", :estado => 'ok'},  #  4
+    {:dispositivo_id => vlan_switch.id, :nombre => "fastEthernet 0/6", :etiqueta => "FE-06", :estado => 'ok'},  #  5
+    {:dispositivo_id => vlan_switch.id, :nombre => "fastEthernet 0/7", :etiqueta => "FE-07", :estado => 'ok'},  #  6
+    {:dispositivo_id => vlan_switch.id, :nombre => "fastEthernet 0/8", :etiqueta => "FE-08", :estado => 'ok'},  #  7
 
-    {:dispositivo => vlan_switch, :nombre => "fastEthernet 1/0", :etiqueta => "FE-09", :estado => 'ok'}, #  8
-    {:dispositivo => vlan_switch, :nombre => "fastEthernet 1/1", :etiqueta => "FE-10", :estado => 'ok'}, #  9
-    {:dispositivo => vlan_switch, :nombre => "fastEthernet 1/2", :etiqueta => "FE-11", :estado => 'ok'}, # 10
-    {:dispositivo => vlan_switch, :nombre => "fastEthernet 1/3", :etiqueta => "FE-12", :estado => 'ok'}, # 11
-    {:dispositivo => vlan_switch, :nombre => "fastEthernet 1/4", :etiqueta => "FE-13", :estado => 'ok'}, # 12
-    {:dispositivo => vlan_switch, :nombre => "fastEthernet 1/5", :etiqueta => "FE-14", :estado => 'ok'}, # 13
-    {:dispositivo => vlan_switch, :nombre => "fastEthernet 1/6", :etiqueta => "FE-15", :estado => 'ok'}, # 14
-    {:dispositivo => vlan_switch, :nombre => "fastEthernet 1/7", :etiqueta => "FE-16", :estado => 'ok'}, # 15
+    {:dispositivo_id => vlan_switch.id, :nombre => "fastEthernet 0/9", :etiqueta => "FE-09", :estado => 'ok'},  #  8
+    {:dispositivo_id => vlan_switch.id, :nombre => "fastEthernet 0/10", :etiqueta => "FE-10", :estado => 'ok'}, # 9
+    {:dispositivo_id => vlan_switch.id, :nombre => "fastEthernet 0/11", :etiqueta => "FE-11", :estado => 'ok'}, # 10
+    {:dispositivo_id => vlan_switch.id, :nombre => "fastEthernet 0/12", :etiqueta => "FE-12", :estado => 'ok'}, # 11
+    {:dispositivo_id => vlan_switch.id, :nombre => "fastEthernet 0/13", :etiqueta => "FE-13", :estado => 'ok'}, # 12
+    {:dispositivo_id => vlan_switch.id, :nombre => "fastEthernet 0/14", :etiqueta => "FE-14", :estado => 'ok'}, # 13
+    {:dispositivo_id => vlan_switch.id, :nombre => "fastEthernet 0/15", :etiqueta => "FE-15", :estado => 'ok'}, # 14
+    {:dispositivo_id => vlan_switch.id, :nombre => "fastEthernet 0/16", :etiqueta => "FE-16", :estado => 'ok'}, # 15
 
-    {:dispositivo => switch_1, :nombre => "fastEthernet 0/0", :etiqueta => "FE-01", :estado => 'ok'},    # 16
-    {:dispositivo => switch_1, :nombre => "fastEthernet 0/1", :etiqueta => "FE-02", :estado => 'ok'},    # 17
-    {:dispositivo => switch_1, :nombre => "fastEthernet 0/2", :etiqueta => "FE-03", :estado => 'ok'},    # 18
-    {:dispositivo => switch_1, :nombre => "fastEthernet 0/3", :etiqueta => "FE-04", :estado => 'ok'},    # 19
+    {:dispositivo_id => router_1.id, :nombre => "fastEthernet 0/0", :etiqueta => "FE-00", :estado => 'ok'},     # 16
+    {:dispositivo_id => router_1.id, :nombre => "fastEthernet 0/1", :etiqueta => "FE-01", :estado => 'ok'},     # 17
 
-    {:dispositivo => router_1, :nombre => "fastEthernet 0/0", :etiqueta => "FE-01", :estado => 'ok'},    # 20
-    {:dispositivo => router_1, :nombre => "fastEthernet 0/1", :etiqueta => "FE-02", :estado => 'ok'},    # 21
-    {:dispositivo => router_1, :nombre => "fastEthernet 0/2", :etiqueta => "FE-03", :estado => 'ok'},    # 22
-    {:dispositivo => router_1, :nombre => "fastEthernet 0/3", :etiqueta => "FE-04", :estado => 'ok'},    # 23
+    {:dispositivo_id => router_2.id, :nombre => "fastEthernet 0/0", :etiqueta => "FE-00", :estado => 'ok'},     # 18
+    {:dispositivo_id => router_2.id, :nombre => "fastEthernet 0/1", :etiqueta => "FE-01", :estado => 'ok'},     # 19
 
-    {:dispositivo => router_2, :nombre => "fastEthernet 0/0", :etiqueta => "FE-01", :estado => 'ok'},    # 24
-    {:dispositivo => router_2, :nombre => "fastEthernet 0/1", :etiqueta => "FE-02", :estado => 'ok'},    # 25
-    {:dispositivo => router_2, :nombre => "fastEthernet 0/2", :etiqueta => "FE-03", :estado => 'ok'},    # 26
-    {:dispositivo => router_2, :nombre => "fastEthernet 0/3", :etiqueta => "FE-04", :estado => 'ok'},    # 27
+    {:dispositivo_id => router_3.id, :nombre => "fastEthernet 0/0", :etiqueta => "FE-00", :estado => 'ok'},     # 20
+    {:dispositivo_id => router_3.id, :nombre => "fastEthernet 0/1", :etiqueta => "FE-01", :estado => 'ok'},     # 21
 
-    {:dispositivo => router_3, :nombre => "fastEthernet 0/0", :etiqueta => "FE-01", :estado => 'ok'},    # 28
-    {:dispositivo => router_3, :nombre => "fastEthernet 0/1", :etiqueta => "FE-02", :estado => 'ok'},    # 29
-    {:dispositivo => router_3, :nombre => "fastEthernet 0/2", :etiqueta => "FE-03", :estado => 'ok'},    # 30
-    {:dispositivo => router_3, :nombre => "fastEthernet 0/3", :etiqueta => "FE-04", :estado => 'ok'},    # 31
+    {:dispositivo_id => switch_1.id, :nombre => "fastEthernet 0/1", :etiqueta => "FE-01", :estado => 'ok'},     # 22
+    {:dispositivo_id => switch_1.id, :nombre => "fastEthernet 0/2", :etiqueta => "FE-02", :estado => 'ok'},     # 23
+    {:dispositivo_id => switch_1.id, :nombre => "fastEthernet 0/3", :etiqueta => "FE-03", :estado => 'ok'},     # 24
+    {:dispositivo_id => switch_1.id, :nombre => "fastEthernet 0/4", :etiqueta => "FE-04", :estado => 'ok'},     # 25
+    {:dispositivo_id => switch_1.id, :nombre => "fastEthernet 0/5", :etiqueta => "FE-05", :estado => 'ok'},     # 26
+    {:dispositivo_id => switch_1.id, :nombre => "fastEthernet 0/6", :etiqueta => "FE-06", :estado => 'ok'},     # 27
 
-    {:dispositivo => router_4, :nombre => "fastEthernet 0/0", :etiqueta => "FE-01", :estado => 'ok'},    # 32
-    {:dispositivo => router_4, :nombre => "fastEthernet 0/1", :etiqueta => "FE-02", :estado => 'ok'},    # 33
-    {:dispositivo => router_4, :nombre => "fastEthernet 0/2", :etiqueta => "FE-03", :estado => 'ok'},    # 34
-    {:dispositivo => router_4, :nombre => "fastEthernet 0/3", :etiqueta => "FE-04", :estado => 'ok'},    # 35
-
-    {:dispositivo => router_5, :nombre => "fastEthernet 0/0", :etiqueta => "FE-01", :estado => 'ok'},    # 36
-    {:dispositivo => router_5, :nombre => "fastEthernet 0/1", :etiqueta => "FE-02", :estado => 'ok'},    # 37
-    {:dispositivo => router_5, :nombre => "fastEthernet 0/2", :etiqueta => "FE-03", :estado => 'ok'},    # 38
-    {:dispositivo => router_5, :nombre => "fastEthernet 0/3", :etiqueta => "FE-04", :estado => 'ok'},    # 39
-
-    {:dispositivo => router_6, :nombre => "fastEthernet 0/0", :etiqueta => "FE-01", :estado => 'ok'},    # 40
-    {:dispositivo => router_6, :nombre => "fastEthernet 0/1", :etiqueta => "FE-02", :estado => 'ok'},    # 41
-    {:dispositivo => router_6, :nombre => "fastEthernet 0/2", :etiqueta => "FE-03", :estado => 'ok'},    # 42
-    {:dispositivo => router_6, :nombre => "fastEthernet 0/3", :etiqueta => "FE-04", :estado => 'ok'},    # 43
+    #{:dispositivo => router_4, :nombre => "fastEthernet 0/0", :etiqueta => "FE-01", :estado => 'ok'},   # 32
+    #{:dispositivo => router_4, :nombre => "fastEthernet 0/1", :etiqueta => "FE-02", :estado => 'ok'},   # 33
+    #{:dispositivo => router_4, :nombre => "fastEthernet 0/2", :etiqueta => "FE-03", :estado => 'ok'},   # 34
+    #{:dispositivo => router_4, :nombre => "fastEthernet 0/3", :etiqueta => "FE-04", :estado => 'ok'},   # 35
 
 ]
 
 puts "Assigning puertos...".yellow
 puertos = []
 seed_puertos.each do |puerto|
-  puertos << Puerto.create(puerto)
+  puertos << Puerto.find_or_create_by_dispositivo_id_and_etiqueta_and_nombre_and_estado(puerto[:dispositivo_id], puerto[:etiqueta],  puerto[:nombre],  puerto[:estado])
   puts "  Puerto #{puertos.last.dispositivo.etiqueta} - #{puertos.last.etiqueta} created".green
 end
 
@@ -143,37 +126,33 @@ end
 puts "Connecting physically...".yellow
 
 
-# Router 1 to vlan
-puertos[20].conectar_fisicamente puertos[0]
-puertos[21].conectar_fisicamente puertos[1]
-puertos[22].conectar_fisicamente puertos[2]
-puertos[23].conectar_fisicamente puertos[3]
+# Switch 1 to vlan
+puertos[22].conectar_fisicamente puertos[0]
+puertos[23].conectar_fisicamente puertos[1]
+puertos[24].conectar_fisicamente puertos[2]
+puertos[25].conectar_fisicamente puertos[3]
+puertos[26].conectar_fisicamente puertos[4]
+puertos[27].conectar_fisicamente puertos[5]
 
-# Router 2 to vlan
-puertos[24].conectar_fisicamente puertos[4]
-puertos[25].conectar_fisicamente puertos[5]
-puertos[26].conectar_fisicamente puertos[6]
-puertos[27].conectar_fisicamente puertos[7]
+# Router 1 to vlan # R1 R1
+puertos[16].conectar_fisicamente puertos[8]
+puertos[17].conectar_fisicamente puertos[9]
 
-# Router 3 to vlan
-puertos[28].conectar_fisicamente puertos[8]
-puertos[29].conectar_fisicamente puertos[9]
-puertos[30].conectar_fisicamente puertos[10]
-puertos[31].conectar_fisicamente puertos[11]
+# Router 2 to vlan # R2 R2
+puertos[18].conectar_fisicamente puertos[6]
+puertos[19].conectar_fisicamente puertos[7]
 
-# Router 3 to vlan
-puertos[32].conectar_fisicamente puertos[12]
-puertos[33].conectar_fisicamente puertos[13]
-puertos[34].conectar_fisicamente puertos[14]
-puertos[35].conectar_fisicamente puertos[15]
+# Router 3 to vlan # R3 R3
+puertos[20].conectar_fisicamente puertos[6]
+puertos[21].conectar_fisicamente puertos[7]
 
 #### OPEN PRACTICE +FOR DEVS
 puts "Creating open practice...".yellow
 
 open_practica = Practica.new
 open_practica.name = "Practica de prueba"
-open_practica.start = DateTime.now - 2.hours
-open_practica.end = DateTime.now + 2.hours
+open_practica.start = DateTime.now + 4.hours
+open_practica.end = DateTime.now + 8.hours
 open_practica.abrir
 open_practica.users << User.all
 open_practica.dispositivos << [router_1, router_2 , router_3, router_4]

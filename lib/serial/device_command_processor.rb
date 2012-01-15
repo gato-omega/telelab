@@ -94,6 +94,8 @@ class DeviceCommandProcessor
         "no shutdown",
         "exit",
         "exit",
+        "exit",
+        "exit",
         "exit"
     ]
 
@@ -116,39 +118,54 @@ class DeviceCommandProcessor
       process_vlan_output rcvd_message
     elsif device_channels.include? rcvd_channel
 
-      processed_message_output = ''
-
       the_channel = (rcvd_channel.split '#').last
       msg_type = (the_channel.split '_').first
       item_id = (the_channel.split '_').last
 
       puts "############## DeviceCommandProcessor PROCESSING B >>> channel: #{the_channel}, msg_type: #{msg_type}, item_id: #{item_id} ####"
       if msg_type.eql? 'device'
-        # UNCOMMENT
-        #processed_message_output=@faye_messages_controller.generate_terminal_output item_id, rcvd_message
-        processed_message_output=FayeMessagesController.new.generate_terminal_output item_id, rcvd_message
+        # Get the device
+        the_device = Dispositivo.find(item_id.to_i)
+        case 'ready' #the_device.status # resetting, initiating, ready
+          when 'resetting' # process reset commands
+            # compare to list of commands that must match, to send appropiate response
+            the_response = reset_command_response_for(rcvd_message)# The key is the message received
+            # and send the response
+            send_irc rcvd_channel, the_response
+          when 'ready'
+
+            # UNCOMMENT
+            #processed_message_output=@faye_messages_controller.generate_terminal_output item_id, rcvd_message
+            processed_message_output=FayeMessagesController.new.generate_terminal_output item_id, rcvd_message
+
+            # Send it using the CustomFayeSender module
+
+            # rcvd_channel is in the form #<resource>_<id>
+            # faye_channel is in the form <resource>_<id>
+            faye_channel = "#{FAYE_CHANNEL_PREFIX}#{the_channel}"
+
+            send_via_faye faye_channel, processed_message_output
+            puts "Processed message output > #{processed_message_output}"
+        end
       end
-
-      puts "Processed message output > #{processed_message_output}"
-
-
-      # Send it using the CustomFayeSender module
-
-      # rcvd_channel is in the form #<resource>_<id>
-      # faye_channel is in the form <resource>_<id>
-      faye_channel = "#{FAYE_CHANNEL_PREFIX}#{the_channel}"
-
-      send_via_faye faye_channel, processed_message_output
     else
       raise "Unknown IRC channel #{rcvd_channel}"
     end
-
   end
 
+  def reset_command_response_for(message)
+    if message =~ /configuration dialog [y\/n]]/
+      "yes"
+    end
+  end
+
+  # Whichever message gets to the vlan switch, process it here
+  # output is received from the vlan switch, so <tt>output<tt> is input to this method
   def process_vlan_output(output)
-    #ap output
+    puts output
   end
 
+  # Reset the dispositivos sending the appropiate commands to them
   def reset_devices(dispositivos)
     dispositivos.each do |dispositivo|
       Thread.new do
@@ -157,6 +174,7 @@ class DeviceCommandProcessor
     end
   end
 
+  # Removes the vlans sending the appropiate commands to them
   def remove_vlans(vlans)
     vlans.each do |vlan|
       Thread.new do
@@ -177,6 +195,7 @@ class DeviceCommandProcessor
     send_commands_to_channel channel, commands
   end
 
+  # Uses the IRCGateway to send, this is just a wrapper
   def send_irc(channel, message)
     @irc_gateway.send_irc channel, message
   end
@@ -185,6 +204,7 @@ class DeviceCommandProcessor
     get_vlan_switch force_reload
   end
 
+  # Given an array of commands (String), send them through the given channel
   def send_commands_to_channel(channel, commands)
     commands.each do |command|
       send_irc channel, command
