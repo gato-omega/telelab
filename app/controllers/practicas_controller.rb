@@ -33,7 +33,6 @@ class PracticasController < AuthorizedController
     respond_to do |format|
       if @practica.save
         format.html { redirect_to(@practica, :notice => 'Practica was successfully created.') }
-        #practice_jobs @practica, 'created'
       else
         format.html { render :action => "new" }
       end

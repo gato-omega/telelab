@@ -356,3 +356,11 @@ footer .central {
   display: block;
   overflow: auto;
 }
+
+/* line 249, ../../app/stylesheets/screen.scss */
+.center {
+  text-align: center;
+  width: 50%;
+  margin: 0 auto 0 auto;
+  horizontal-align: center;
+}

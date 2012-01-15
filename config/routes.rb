@@ -29,6 +29,11 @@ Telelab02::Application.routes.draw do
 
   resources :users
 
+  scope '/registrations' do
+    match '/register_sign_in' => 'registrations#register_sign_in', :as => 'new_student_registration_sign_in'
+    get '/register' => 'registrations#register', :as => 'new_student_registration'
+  end
+  
   scope '/api' do
     ### for that token_input_user works, used in "_form#practicas" view #####
     match '/users' => 'users#json_users', :as => 'json_users'

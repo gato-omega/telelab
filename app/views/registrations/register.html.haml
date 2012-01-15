@@ -1,0 +1,43 @@
+.light_container
+  .darker_container
+    = form_for @student, :url => new_student_registration_sign_in_path do |f|
+      - if @student.errors.any?
+        #error_explanation
+          %h2
+            = pluralize(@student.errors.count, "error")
+            no dejaron que se creara su cuenta:
+          %ul
+            - @student.errors.full_messages.each do |msg|
+              %li= msg
+      .dark_container.center
+        .center
+          .field
+            = f.label :username
+            %br
+            = f.text_field :username
+          .field
+            = f.label :email
+            %br
+            = f.text_field :email
+          - if @current_method == "new"
+            .field
+              = f.label :password
+              %br
+              = f.password_field :password
+            .field
+              = f.label :password_confirmation
+              %br
+              = f.password_field :password_confirmation
+      .dark_container.center
+        .center
+          = f.fields_for :profile do |p|
+            .field
+              = p.label :firstname
+              %br
+              = p.text_field :firstname
+            .field
+              = p.label :lastname
+              %br
+              = p.text_field :lastname
+        .actions{:style => 'text-align: right'}
+          = f.submit 'Registrarse', :class => 'button'

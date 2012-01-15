@@ -37,10 +37,11 @@
             = link_to "Perfil", profile_edit_path(current_user.username), :as => 'User', :class => 'button'
             |
           - else
-            Please
-            = link_to "Sign in", new_user_session_path, :class => 'button'
-            to have more privileges
+            = link_to "Ingresar", new_user_session_path, :class => 'button'
+            a tu cuenta
             |
+            No tienes cuenta?, abre una gratis aqui>
+            = link_to "Registrarse", new_student_registration_path, :class => 'button'
           = link_to "Ayuda", 'http://www.google.com', :class => 'button'
     %section
       .left_nav
