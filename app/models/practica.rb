@@ -15,6 +15,7 @@ class Practica < ActiveRecord::Base
 
   validates :name, :presence => true
   validates :estado, :presence => true, :inclusion => ESTADOS
+  validates_presence_of :dispositivos
 
   # Delayed Jobs
   before_validation :apply_time_safety

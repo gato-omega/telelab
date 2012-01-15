@@ -29,8 +29,12 @@ class PracticasController < AuthorizedController
 
   def create
     @practica = Practica.new(params[:practica])
+    @dispositivos = Dispositivo.all
+    @dispositivos_reservados = []
+    @allowed_users = []
+    @show_first = false
     @practica.users << current_user
-    respond_to do |format|
+    respond_to do |format|  
       if @practica.save
         format.html { redirect_to(@practica, :notice => 'Practica was successfully created.') }
       else

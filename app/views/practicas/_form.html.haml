@@ -9,18 +9,21 @@
   = javascript_include_tag 'calendar'
 
 
+
+- if @practica.errors.any?
+  #error_explanation
+    %h2
+      = pluralize(@practica.errors.count, "error")
+      prohibited this practica from being saved:
+    %ul
+      - @practica.errors.full_messages.each do |msg|
+        %li= msg
+
 .darker_container.float_left
   #reservation_calendar.calendar
 #reserve_form.reserve_data
   = form_for @practica, :html => {:multipart => true} do |f|
-    - if @practica.errors.any?
-      #error_explanation
-        %h2
-          = pluralize(@practica.errors.count, "error")
-          prohibited this practica from being saved:
-        %ul
-          - @practica.errors.full_messages.each do |msg|
-            %li= msg
+
     %br/
     .title
       Datos de la reserva
