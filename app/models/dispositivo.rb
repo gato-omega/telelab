@@ -45,5 +45,24 @@ class Dispositivo < ActiveRecord::Base
       puerto.save
     end
   end
+
+  # TODO: Change the appropiate inital state, for now is ready
+  state_machine :status, :initial => :ready do
+    state :initializing
+    state :reseting
+    state :ready
+
+    event :reset do
+      transition all - :reseting => :reseting
+    end
+
+    event :initialize do
+      transition all - initializing => :initializing
+    end
+
+    event :reservar do
+      transition all => :reservada
+    end
+  end
   
 end
