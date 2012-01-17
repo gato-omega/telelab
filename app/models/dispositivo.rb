@@ -56,13 +56,10 @@ class Dispositivo < ActiveRecord::Base
       transition all - :reseting => :reseting
     end
 
-    event :initialize do
+    event :do_boot do
       transition all - :initializing => :initializing
     end
 
-    event :reservar do
-      transition all => :reservada
-    end
   end
   
 end

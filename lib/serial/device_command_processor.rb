@@ -154,7 +154,7 @@ class DeviceCommandProcessor
   end
 
   def reset_command_response_for(message)
-    if message =~ /configuration dialog [y\/n]]/
+    if message =~ /configuration dialog \[y\/n\]/
       "yes"
     end
   end

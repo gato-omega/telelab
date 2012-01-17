@@ -115,36 +115,40 @@ seed_puertos = [
 
 ]
 
-puts "Assigning puertos...".yellow
+###### Conexiones fisicas
+puts "Connecting physically...".yellow
 puertos = []
 seed_puertos.each do |puerto|
   puertos << Puerto.find_or_create_by_dispositivo_id_and_etiqueta_and_nombre_and_estado(puerto[:dispositivo_id], puerto[:etiqueta],  puerto[:nombre],  puerto[:estado])
   puts "  Puerto #{puertos.last.dispositivo.etiqueta} - #{puertos.last.etiqueta} created".green
 end
 
-###### Conexiones fisicas
-puts "Connecting physically...".yellow
+# set an array of port-conections form which construct the DeviceConnections
+puerto_connections_array = [[0,22], [1,23], [2,24], [3,25], [4,26], [5,27],[6,18],[7,19], [8,16], [9,17],[10,20], [11,21]]
+puerto_connections_array.each do |conexion|
+  DeviceConnection.find_or_create_by_puerto_id_and_endpoint_id(:puerto => puertos[conexion.first], :endpoint_=> puertos[conexion.last])
+end
 
 
 # Switch 1 to vlan
-puertos[22].conectar_fisicamente puertos[0]
-puertos[23].conectar_fisicamente puertos[1]
-puertos[24].conectar_fisicamente puertos[2]
-puertos[25].conectar_fisicamente puertos[3]
-puertos[26].conectar_fisicamente puertos[4]
-puertos[27].conectar_fisicamente puertos[5]
-
-# Router 1 to vlan # R1 R1
-puertos[16].conectar_fisicamente puertos[8]
-puertos[17].conectar_fisicamente puertos[9]
-
-# Router 2 to vlan # R2 R2
-puertos[18].conectar_fisicamente puertos[6]
-puertos[19].conectar_fisicamente puertos[7]
-
-# Router 3 to vlan # R3 R3
-puertos[20].conectar_fisicamente puertos[6]
-puertos[21].conectar_fisicamente puertos[7]
+#puertos[22].conectar_fisicamente puertos[0]
+#puertos[23].conectar_fisicamente puertos[1]
+#puertos[24].conectar_fisicamente puertos[2]
+#puertos[25].conectar_fisicamente puertos[3]
+#puertos[26].conectar_fisicamente puertos[4]
+#puertos[27].conectar_fisicamente puertos[5]
+#
+## Router 1 to vlan # R1 R1
+#puertos[16].conectar_fisicamente puertos[8]
+#puertos[17].conectar_fisicamente puertos[9]
+#
+## Router 2 to vlan # R2 R2
+#puertos[18].conectar_fisicamente puertos[6]
+#puertos[19].conectar_fisicamente puertos[7]
+#
+## Router 3 to vlan # R3 R3
+#puertos[20].conectar_fisicamente puertos[10]
+#puertos[21].conectar_fisicamente puertos[11]
 
 #### OPEN PRACTICE +FOR DEVS
 puts "Creating open practice...".yellow
@@ -155,7 +159,8 @@ open_practica.start = DateTime.now + 4.hours
 open_practica.end = DateTime.now + 8.hours
 open_practica.abrir
 open_practica.users << User.all
-open_practica.dispositivos << [router_1, router_2 , router_3, router_4]
+open_practica.dispositivos << [router_1, router_2 , router_3]
+#open_practica.dispositivos << [router_1, router_2 , router_3, router_4]
 
 if open_practica.save
   puts "EVERYTHING IS DONE!".light_green
