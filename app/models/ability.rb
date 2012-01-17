@@ -127,6 +127,8 @@ class Ability
       cannot_see_user
     end
 
+    can_get_telebot_config
+
   end
 
   private
@@ -142,6 +144,7 @@ class Ability
 
   def can_api
     can :json_users, User
+    can :get_telebot_config, Dispositivo
   end
 
   def can_register_in_course
@@ -201,6 +204,10 @@ class Ability
   def can_detail_practices
     can :free_devices, Practica
     can :practice_events, Practica
+  end
+
+  def can_get_telebot_config
+    can :get_telebot_config, :all
   end
 
 end

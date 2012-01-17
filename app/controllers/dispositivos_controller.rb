@@ -1,4 +1,13 @@
-class DispositivosController < AuthorizedController
+class DispositivosController < ApplicationController
+
+  before_filter :authenticate_user!, :except => [:get_telebot_config]
+  check_authorization
+  load_and_authorize_resource
+
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:error] = exception.message
+    redirect_to home_path
+  end
 
   before_filter :get_dispositivo_constants, :only => [:new, :edit, :create, :update]
 

@@ -57,7 +57,7 @@ class Dispositivo < ActiveRecord::Base
     end
 
     event :initialize do
-      transition all - initializing => :initializing
+      transition all - :initializing => :initializing
     end
 
     event :reservar do

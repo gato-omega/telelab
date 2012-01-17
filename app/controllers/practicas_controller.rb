@@ -123,7 +123,7 @@ class PracticasController < AuthorizedController
     @mensaje[:message] = params[:message][:content]
 
     # Filter non-permitted commands and log, whatever we want
-    if not @mensaje[:message].empty?
+    unless @mensaje[:message].empty?
 
       # Send through faye first to provide echo
       @mensaje[:channel] = params[:message][:channel]
@@ -144,6 +144,16 @@ class PracticasController < AuthorizedController
 
       # Send through IRCGateway...
       the_irc_gateway.send_irc("##{@mensaje[:channel]}", @mensaje[:message])
+
+      #Add to record of messages
+      the_message = Message.new(:content => @mensaje[:message], :practica_id => @practica.id, :dispositivo_id => @mensaje[:channel].split('_').last, :user_id => current_user.id)
+      if the_message.save
+        
+        puts "DEBUG-Se guardo el mensaje #{the_message.attributes}"
+      else
+        puts "No se pudo guardar el mensaje #{the_message.errors.full_messages.to_sentence}"
+      end
+
     end
 
     render :nothing => true
