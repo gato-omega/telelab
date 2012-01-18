@@ -83,7 +83,7 @@ class DispositivosController < ApplicationController
   def get_telebot_config
     @cluster_id = params[:cluster_id]
     @config = {}
-    @config[:name]= "#{APP_CONFIG[:irc][:telebot][:nick_prefix]}#{APP_CONFIG[:irc][:telebot][:nick]}"
+    @config[:name]= "#{APP_CONFIG[:irc][:telebot][:nick_prefix]}#{APP_CONFIG[:irc][:telebot][:nick]}_#{@cluster_id}"
     @config[:sysopChannel]= '#GODCHANNEL'
 
     begin
@@ -98,7 +98,7 @@ class DispositivosController < ApplicationController
     @config[:ircServerPassword]= APP_CONFIG[:irc][:server][:password] || ""
     @config[:enableSerial] = APP_CONFIG[:irc][:telebot][:enable_serial] || 0
 
-    dispositivos = Dispositivo.for_users.ok.where(:cluster_id => @cluster_id)
+    dispositivos = Dispositivo.ok.where(:cluster_id => @cluster_id)
     device_configs = dispositivos.map do |dispositivo|
       {
           :deviceId => dispositivo.id,

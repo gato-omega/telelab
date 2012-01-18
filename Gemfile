@@ -50,15 +50,16 @@ gem 'state_machine', '1.1.0'
 #gem "hpricot"
 #gem "ruby_parser"
 
+gem 'hirb'
+gem 'wirble'
+gem 'wirb'
+gem 'awesome_print'
+#gem 'active_reload', '0.6.0'
+gem 'colorize'
+#gem 'railroady'
+
 group :development do
   gem 'nifty-generators'
-  gem 'hirb'
-  gem 'wirble'
-  gem 'wirb'
-  gem 'awesome_print'
-  #gem 'active_reload', '0.6.0'
-  gem 'colorize'
-  #gem 'railroady'
 end
 
 gem 'cancan', '1.6.4' # The permissions gem

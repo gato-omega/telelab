@@ -7,7 +7,7 @@ gem 'rails', '3.0.9'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #gem 'mysql2'
-gem 'mysql2', '<0.3'
+gem 'mysql2', '< 0.3'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -33,17 +33,17 @@ gem 'mysql2', '<0.3'
 # end
 
 
-#gem "cucumber-rails", :group => [:development, :test]
+gem "cucumber-rails", :group => [:development, :test]
 gem "capybara", :group => [:development, :test]
 
-gem "devise" # The user authentication gem
-gem "jquery-rails"
+gem "devise", '1.2.1' # The user authentication gem
+gem "jquery-rails", '0.2.7'
 
 ################## Added after Template
 #HAML and to_haml
-gem 'haml'
-gem 'haml-rails'
-gem 'meta_where'
+gem 'haml', '3.1.2'
+gem 'haml-rails', '0.3.4'
+gem 'meta_where', '1.0.4'
 gem 'meta_search', '1.0.6'
 gem 'state_machine', '1.1.0'
 
@@ -56,23 +56,27 @@ group :development do
   gem 'wirble'
   gem 'wirb'
   gem 'awesome_print'
-  gem 'active_reload', '0.6.0'
+  #gem 'active_reload', '0.6.0'
   gem 'colorize'
   #gem 'railroady'
 end
 
-gem 'cancan' # The permissions gem
+gem 'cancan', '1.6.4' # The permissions gem
 #gem "tlsmail" # Use google mail account to send mail IS DEPRECATED AND NOW INCLUDED BY DEFAULT
 
 
 gem 'formtastic' #Nice forms...let's see if it makes life easier
 gem 'mocha', :group => :test # Added by formtastics when called a generate code for an existing model
-gem 'cinch'
-gem 'faye'
+gem 'cinch', '1.1.3'
+gem 'faye', '0.6.3'
 gem "compass", ">= 0.11.5"
 
 gem 'event-calendar', :require => 'event_calendar'
 
 gem 'delayed_job'
 
-gem 'nested_form'
+gem 'nested_form', '0.1.1'
+gem 'thin'
+
+gem "rmagick", '2.13.1'
+gem "carrierwave", '0.5.8'

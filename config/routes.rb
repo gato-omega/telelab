@@ -45,6 +45,8 @@ Telelab02::Application.routes.draw do
     match '/teachers' => 'teachers#json_teachers', :as => 'json_teachers'
 
     match '/telebot_configuration/:cluster_id' => 'dispositivos#get_telebot_config', :as => 'telebot_config'
+
+    match '/telebot_configuration/:cluster_id/0' => 'dispositivos#get_telebot_config', :as => 'telebot_config'
   end
 
   ### for display allowed devices, used in "_form#practicas" view #####

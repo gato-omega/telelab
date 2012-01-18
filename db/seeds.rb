@@ -126,7 +126,7 @@ end
 # set an array of port-conections form which construct the DeviceConnections
 puerto_connections_array = [[0,22], [1,23], [2,24], [3,25], [4,26], [5,27],[6,18],[7,19], [8,16], [9,17],[10,20], [11,21]]
 puerto_connections_array.each do |conexion|
-  DeviceConnection.find_or_create_by_puerto_id_and_endpoint_id(:puerto => puertos[conexion.first], :endpoint_=> puertos[conexion.last])
+  DeviceConnection.find_or_create_by_puerto_id_and_endpoint_id(:puerto => puertos[conexion.first], :endpoint => puertos[conexion.last])
 end
 
 
