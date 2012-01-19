@@ -75,6 +75,7 @@ production:
       password:
     client:
       nick: telelab
+      ip: 127.0.0.1
       nick_prefix: prod_
       enable_serial: 0
       default_channels: [lobby]

@@ -40,7 +40,7 @@ class IRCGateway
     @zbot = GBot.new do
 
       configure do |c|
-        c.server = the_irc_config[:server][:ip]#'127.0.0.1'#
+        c.server = the_irc_config[:client][:ip] #'127.0.0.1'#
         c.nick = "#{the_irc_config[:client][:nick_prefix]}#{the_irc_config[:client][:nick]}"
         c.channels = the_irc_config[:client][:default_channels].map {|channel| (channel.start_with? "#") ? channel : "##{channel}"} + the_device_channels
 
