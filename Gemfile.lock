@@ -67,6 +67,7 @@ GEM
       rack-test (>= 0.5.7)
     culerity (0.2.15)
     daemons (1.1.4)
+    database_cleaner (0.7.1)
     delayed_job (2.1.4)
       activesupport (~> 3.0)
       daemons
@@ -198,6 +199,7 @@ DEPENDENCIES
   colorize
   compass (>= 0.11.5)
   cucumber-rails
+  database_cleaner (= 0.7.1)
   delayed_job
   devise (= 1.2.1)
   event-calendar

@@ -18,7 +18,12 @@ class DeviceConnection < ActiveRecord::Base
 
   private
   def not_the_same_port
-    !(puerto.eql? endpoint)
+    if (puerto.eql? endpoint)
+      errors.add(:puerto,'puerto is the same as endpoint')
+      false
+    else
+      true
+    end
   end
 
 end

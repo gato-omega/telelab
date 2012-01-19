@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
-require "colorize"
+all_errors = []
 
 puts "Initiating seeds...".yellow
 ###### usuarios
@@ -18,7 +18,7 @@ u_type = ["Admin", "Admin", "Teacher", "Teacher", "Student", "Technician", "Admi
 puts "Creating users...".yellow
 u_username.size.times do |n|
   User.find_or_create_by_username(:username => u_username[n], :password => '123456', :email => u_email[n], :type => u_type[n], :options => {:faye => {}}, :profile_attributes => {:firstname => u_username[n], :lastname => u_username[n], :codigo => u_username[n].hash.to_s[1,8]})
-  puts "  User #{u_username[n]} created".green
+  puts "  User - #{u_type[n]} #{u_username[n]} created".green
 end
 
 ###### cursos
@@ -37,24 +37,25 @@ end
 ###### dispositivos
 
 d_nombre = ["Router Cisco 1", "Router Cisco 2", "Router Cisco 3", "Switch de VLAN", "Switch 1"]
-d_etiqueta = ["R1", "R2", "R3", "Svlan", "SVLAN", "SW1"]
+d_etiqueta = ["R1", "R2", "R3", "SVLAN", "SW1"]
 d_categoria = ["router", "router", "router", "switch", "switch"]
 d_tipo = ["user", "user", "user", "vlan", "user"]
 d_estado = ["ok", "ok", "ok", "ok", "ok"]
-d_cluster_id = [1, 1, 1, 1]
+d_cluster_id = [1, 2, 3, 4, 5]
+d_com = ['COM3', 'COM5', 'COM6', 'COM3', 'COM3']
 
 puts "Creating dispositivos...".yellow
 dispositivos = []
 d_nombre.size.times do |n|
-  dispositivos << Dispositivo.find_or_create_by_nombre(:nombre => d_nombre[n], :etiqueta => d_etiqueta[n], :categoria => d_categoria[n], :tipo => d_tipo[n], :estado => d_estado[n], :cluster_id => d_cluster_id[n])
+  dispositivos << Dispositivo.find_or_create_by_nombre(:nombre => d_nombre[n], :etiqueta => d_etiqueta[n], :categoria => d_categoria[n], :tipo => d_tipo[n], :estado => d_estado[n], :cluster_id => d_cluster_id[n], :com => d_com[n])
   puts "  Dispositivo #{d_nombre[n]} created".green
 end
 
-vlan_switch = dispositivos[3]
 router_1 = dispositivos[0]
 router_2 = dispositivos[1]
 router_3 = dispositivos[2]
-switch_1 = dispositivos[3]
+vlan_switch = dispositivos[3]
+switch_1 = dispositivos[4]
 
 #puts "vlan_switch =  #{vlan_switch},  #{vlan_switch.class} "
 #puts "switch_1 =  #{switch_1}, #{switch_1.class}"
@@ -106,29 +107,45 @@ seed_puertos = [
     {:dispositivo_id => switch_1.id, :nombre => "fastEthernet 0/3", :etiqueta => "FE-03", :estado => 'ok'},     # 24
     {:dispositivo_id => switch_1.id, :nombre => "fastEthernet 0/4", :etiqueta => "FE-04", :estado => 'ok'},     # 25
     {:dispositivo_id => switch_1.id, :nombre => "fastEthernet 0/5", :etiqueta => "FE-05", :estado => 'ok'},     # 26
-    {:dispositivo_id => switch_1.id, :nombre => "fastEthernet 0/6", :etiqueta => "FE-06", :estado => 'ok'},     # 27
-
-    #{:dispositivo => router_4, :nombre => "fastEthernet 0/0", :etiqueta => "FE-01", :estado => 'ok'},   # 32
-    #{:dispositivo => router_4, :nombre => "fastEthernet 0/1", :etiqueta => "FE-02", :estado => 'ok'},   # 33
-    #{:dispositivo => router_4, :nombre => "fastEthernet 0/2", :etiqueta => "FE-03", :estado => 'ok'},   # 34
-    #{:dispositivo => router_4, :nombre => "fastEthernet 0/3", :etiqueta => "FE-04", :estado => 'ok'},   # 35
+    {:dispositivo_id => switch_1.id, :nombre => "fastEthernet 0/6", :etiqueta => "FE-06", :estado => 'ok'}      # 27
 
 ]
 
 ###### Conexiones fisicas
 puts "Connecting physically...".yellow
 puertos = []
-seed_puertos.each do |puerto|
-  puertos << Puerto.find_or_create_by_dispositivo_id_and_etiqueta_and_nombre_and_estado(puerto[:dispositivo_id], puerto[:etiqueta],  puerto[:nombre],  puerto[:estado])
-  puts "  Puerto #{puertos.last.dispositivo.etiqueta} - #{puertos.last.etiqueta} created".green
+seed_puertos.each do |puerto_attributes|
+  the_puerto = Puerto.find_or_create_by_dispositivo_id_and_etiqueta_and_nombre_and_estado(puerto_attributes[:dispositivo_id], puerto_attributes[:etiqueta],  puerto_attributes[:nombre],  puerto_attributes[:estado])
+  if the_puerto.valid? && the_puerto.persisted?
+    puertos << the_puerto
+    puts "  Puerto #{the_puerto.dispositivo.etiqueta} - #{puertos.last.etiqueta} created".green
+  else
+    puts "  Puerto #{the_puerto.errors.full_messages.to_sentence}".red
+  end
 end
 
 # set an array of port-conections form which construct the DeviceConnections
 puerto_connections_array = [[0,22], [1,23], [2,24], [3,25], [4,26], [5,27],[6,18],[7,19], [8,16], [9,17],[10,20], [11,21]]
 puerto_connections_array.each do |conexion|
-  DeviceConnection.find_or_create_by_puerto_id_and_endpoint_id(:puerto => puertos[conexion.first], :endpoint => puertos[conexion.last])
+  begin
+    puerto_a = puertos[conexion.first]
+    puerto_b = puertos[conexion.last]
+    #ap "  conexion.first #{conexion.first}"
+    #ap "  conexion.last #{conexion.last}"
+    puts "  Connecting #{puerto_a.id} with #{puerto_b.id} ... ".yellow
+    the_device_con = DeviceConnection.find_or_create_by_puerto_id_and_endpoint_id(:puerto_id => puerto_a.id, :endpoint_id => puerto_b.id)
+    #ap the_device_con
+  rescue => e
+    puts "  DeviceConnection #{e} error".red
+    all_errors << "  DeviceConnection #{e} error".red
+  end
+  if the_device_con && the_device_con.valid? && the_device_con.persisted?
+    puts "  DeviceConnection #{the_device_con.fullname} created".green
+  elsif the_device_con
+    puts "  DeviceConnection #{the_device_con.errors.full_messages.to_sentence}".red
+    all_errors << "  DeviceConnection #{the_device_con.errors.full_messages.to_sentence} created".red
+  end
 end
-
 
 # Switch 1 to vlan
 #puertos[22].conectar_fisicamente puertos[0]
@@ -163,12 +180,17 @@ open_practica.dispositivos << [router_1, router_2 , router_3]
 #open_practica.dispositivos << [router_1, router_2 , router_3, router_4]
 
 if open_practica.save
+else
+  all_errors << "FAILED TO CREATE PRACTICA, #{open_practica.errors.full_messages.to_sentence}".light_red
+end
+
+if all_errors.empty?
   puts "EVERYTHING IS DONE!".light_green
 else
-  puts "FAILED TO CREATE PRACTICA".light_red
-  puts "Practica >".yellow
-  puts open_practica
-  puts "Errors >".yellow
-  puts open_practica.errors
+  all_errors.each_with_index do |error, i|
+    puts "#{"#{i + 1}".cyan} - #{error}"
+  end
+  puts "Total errors: #{all_errors.count}".red
 end
+
 puts "----------------------------------------------".yellow

@@ -35,6 +35,7 @@ gem 'mysql2', '< 0.3'
 
 gem "cucumber-rails", :group => [:development, :test]
 gem "capybara", :group => [:development, :test]
+gem "database_cleaner", '0.7.1', :group => [:development, :test]
 
 gem "devise", '1.2.1' # The user authentication gem
 gem "jquery-rails", '0.2.7'
