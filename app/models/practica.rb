@@ -9,6 +9,8 @@ class Practica < ActiveRecord::Base
   has_and_belongs_to_many :students, :class_name => "User", :conditions => {:type => 'Student'}, :uniq => true
   has_and_belongs_to_many :users, :uniq => true
 
+  has_many :messages
+
   has_one :event, :dependent => :destroy, :as => :eventable
 
   accepts_nested_attributes_for :event

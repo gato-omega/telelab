@@ -1,0 +1,26 @@
+%p
+  %b Name:
+  = @practica.name
+%p
+  %b Inicio:
+  = @practica.start_humanized
+%p
+  %b Fin:
+  = @practica.end_humanized
+%b Dispositivo(s):
+%ul
+  - @dispositivos_reservados.each do |device|
+    %li= "#{device.nombre} | #{device.number_of_puertos_utiles} puertos"
+
+%b Docentes asignados:
+%ul
+  - @practica.teachers.each do |teacher|
+    %li= teacher.name
+
+%b Estudiantes:
+%ul
+  - @practica.students.each do |student|
+    %li= link_to student.name, student
+
+.practica_image.diagram
+  = image_tag @practica.image_url(:diagram) if @practica.image?

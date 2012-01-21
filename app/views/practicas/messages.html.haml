@@ -1,49 +1,39 @@
+- content_for(:head) do
+  = stylesheet_link_tag 'telelab_datatables'
+  = javascript_include_tag 'tabs'
+  = javascript_include_tag :jquery_datatables
+  = javascript_include_tag 'datatable'
+  = javascript_include_tag 'messages'
+
 - title @practica.name
 .white_links
-  %p
-    %b Name:
-    = @practica.name
-  %p
-    %b Inicio:
-    = @practica.start_humanized
-  %p
-    %b Fin:
-    = @practica.end_humanized
-  %b Dispositivo(s):
-  %ul
-    - @dispositivos_reservados.each do |device|
-      %li= "#{device.nombre} | #{device.number_of_puertos_utiles} puertos"
 
-  %b Docentes asignados:
-  %ul
-    - @practica.teachers.each do |teacher|
-      %li= teacher.name
+  = render 'details'
 
-  %b Estudiantes:
-  %ul
-    - @practica.students.each do |student|
-      %li= link_to student.name, student
+  .darker_container
+    Revision de practica > > >
 
-  .practica_image.diagram
-    = image_tag @practica.image_url(:diagram) if @practica.image?
-
-  %p
-    %b Estado:
-    = @practica.estado
-    |
-    - if @practica.abierta?
-      = "Tiempo que resta:"
-      #countdown_timer{"data-time" => "#{@practica.finishes_in}"}
-    - elsif @practica.cerrada?
-      = "-- -- --"
-    - elsif @practica.reservada?
-      = "Inicia en:"
-      #countdown_timer{"data-time" => "#{@practica.starts_in}"}
     %p
-      = link_to 'Entrar', realizar_practica_path(@practica), :class => 'button' if can? :make_practice, @practica
-      %br
-      %br
-      = link_to 'Editar', edit_practica_path(@practica), :class => 'button' if can? :edit, @practica
-      %br
-      %br
+      .tabs
+        %ul
+          - @messages_by_device.keys.each do |dispositivo|
+            %li
+              = link_to dispositivo.nombre, "#device_log_#{dispositivo.id}"
+        - @messages_by_device.each do |dispositivo, messages|
+          %div{ :id => "device_log_#{dispositivo.id}"}
+            %table.display{:cellpadding=> "0", :cellspacing => "0", 'datatable' => true, :messages => true}
+              %thead
+                %tr
+                  %th #
+                  %th Usuario
+                  %th Accion
+              %tfoot
+                %tr
+                  %th #
+                  %th Usuario
+                  %th Accion
+              %tbody
+                = render messages
+
+  %p
     = link_to 'Atras', :back

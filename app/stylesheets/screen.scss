@@ -192,6 +192,13 @@ footer
     a{color: #f58400;}
 }
 
+.black_links
+{
+    color: #111111;
+    a:visited{color: #5b00f5;}
+    a{color: #4b2800;}
+}
+
 .reset_links
 {
     color: #eeeeee;
@@ -251,4 +258,9 @@ footer
     width: 50%;
     margin: 0 auto 0 auto;
     horizontal-align: center;
+}
+
+.message
+{
+    color: black;
 }

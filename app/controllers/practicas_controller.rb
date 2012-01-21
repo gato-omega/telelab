@@ -14,7 +14,15 @@ class PracticasController < AuthorizedController
   end
 
   def messages
-    
+    messages_by_device_id = @practica.messages.all.group_by(&:dispositivo_id)
+    messages_by_device_id
+
+    messages_by_device_array = messages_by_device_id.map do |device_id, messages|
+      [Dispositivo.find(device_id), messages]
+    end
+
+    @messages_by_device = Hash[messages_by_device_array]
+
   end
 
   def new

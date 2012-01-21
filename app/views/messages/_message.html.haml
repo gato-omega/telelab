@@ -1,0 +1,8 @@
+%tr.message
+  %td{ :style => "text-align: center"}
+    = message_counter
+  - if message.device?
+    %td= message.dispositivo.nombre
+  - else
+    %td= link_to message.user.name, message.user
+  %td= message.content
