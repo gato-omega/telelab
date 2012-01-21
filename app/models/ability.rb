@@ -189,6 +189,9 @@ class Ability
     cannot :manage, Practica do |practica|
       practica.cerrada?
     end
+    can :messages, Practica do |practica|
+      practica.cerrada?
+    end
     cannot [:edit, :update], Practica do |practica|
       practica.abierta?
     end
@@ -198,6 +201,9 @@ class Ability
     end
 
     can [:create, :index, :read], Practica
+
+    # TODO: Eliminate this line, was just for debugging
+    can :messages, Practica
 
   end
 

@@ -1,7 +1,7 @@
 class PracticasController < AuthorizedController
 
   respond_to :html, :only => [:index, :show, :new, :edit]
-  before_filter :get_practice, :only => [:show, :edit, :lab, :make_practice]
+  before_filter :get_practice, :only => [:show, :edit, :lab, :make_practice, :messages]
 
   include CustomFayeSender
 
@@ -11,6 +11,10 @@ class PracticasController < AuthorizedController
 
   def show
 
+  end
+
+  def messages
+    
   end
 
   def new

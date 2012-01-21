@@ -21,9 +21,9 @@ Telelab02::Application.routes.draw do
   end
 
   resources :practicas do
-    #post 'update_diagram', :on => :member
+    get 'messages', :on => :member
   end
-
+  
   resources :dispositivos
   resources :puertos
 

@@ -133,7 +133,9 @@ puerto_connections_array.each do |conexion|
     #ap "  conexion.first #{conexion.first}"
     #ap "  conexion.last #{conexion.last}"
     puts "  Connecting #{puerto_a.id} with #{puerto_b.id} ... ".yellow
-    the_device_con = DeviceConnection.find_or_create_by_puerto_id_and_endpoint_id(:puerto_id => puerto_a.id, :endpoint_id => puerto_b.id)
+    #the_device_con = DeviceConnection.find_or_create_by_puerto_id_and_endpoint_id(:puerto_id => puerto_a.id, :endpoint_id => puerto_b.id)
+    puerto_a.conectar_fisicamente puerto_b
+    the_device_con = DeviceConnection.last
     #ap the_device_con
   rescue => e
     puts "  DeviceConnection #{e} error".red

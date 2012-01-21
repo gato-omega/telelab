@@ -4,17 +4,15 @@ class Puerto < ActiveRecord::Base
 
   belongs_to :dispositivo
   has_one :device_connection
-  has_one :endpoint, :through => :device_connection#, :class_name => 'Puerto'
-
+  has_one :endpoint, :through => :device_connection
+  
   has_many :vlans
 
   validates :nombre, :presence => true
   validates :etiqueta, :uniqueness => {:scope => :dispositivo_id}, :presence => true
-  #validates :numero, :uniqueness => {:scope => :dispositivo_id}
 
   ## CONSTANTS
   ESTADOS = %w[ok bad]
-
 
   ## RUNTIME ATTRIBUTES
   attr_accessor :current_practica

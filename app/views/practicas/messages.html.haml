@@ -35,7 +35,7 @@
       = "Tiempo que resta:"
       #countdown_timer{"data-time" => "#{@practica.finishes_in}"}
     - elsif @practica.cerrada?
-      = link_to "Ver mensajes", messages_practica_path
+      = "-- -- --"
     - elsif @practica.reservada?
       = "Inicia en:"
       #countdown_timer{"data-time" => "#{@practica.starts_in}"}
@@ -46,6 +46,4 @@
       = link_to 'Editar', edit_practica_path(@practica), :class => 'button' if can? :edit, @practica
       %br
       %br
-
-    = link_to "Ver mensajes", messages_practica_path
     = link_to 'Atras', :back
