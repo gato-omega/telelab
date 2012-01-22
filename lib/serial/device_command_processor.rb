@@ -19,11 +19,16 @@ class DeviceCommandProcessor
     # Generates the serial output commands to reset a device, based on the device instance passed
   def serial_reset_device(device)
     commands = [
-
+        "exit",
+        "exit",
+        "exit",
+        "exit",
         "#ENTER",
-        "Aqui van los comandos pa resetear",
-        "resetting: dispositivo #{device.id}",
-        "exit"
+        "enable",
+        "erase startup-config",
+        "#ENTER",
+        "#ENTER",
+        "reload"
     ]
     commands
   end
@@ -154,12 +159,12 @@ class DeviceCommandProcessor
   end
 
   def reset_command_response_for(message)
-    if message =~ /configuration dialog \[y\/n\]/
-      "yes"
-    elsif message =~ /configurunausndj \[y\/n\]/
+    if message =~ /System configuration has been modified\. Save\? \[yes\/no\]/
       "no"
-    elsif message =~ /configurunausndj \[y\/n\]/
-      ["no","asd","asdad"]
+    elsif message =~ /Proceed with reload\? \[confirm\]/
+      "#ENTER"
+    elsif message =~ /Would you like to terminate autoinstall\? \[yes\]/
+      "#ENTER"
     end
   end
 
