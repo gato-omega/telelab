@@ -60,6 +60,10 @@ class Dispositivo < ActiveRecord::Base
       transition all - :initializing => :initializing
     end
 
+    event :set_ready do
+      transition all - :ready => :ready
+    end
+
   end
   
 end

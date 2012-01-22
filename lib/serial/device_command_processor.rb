@@ -16,7 +16,7 @@ class DeviceCommandProcessor
     @vlan_input_buffer=[]
   end
 
-  # Generates the serial output commands to reset a device, based on the device instance passed
+    # Generates the serial output commands to reset a device, based on the device instance passed
   def serial_reset_device(device)
     commands = [
 
@@ -28,7 +28,7 @@ class DeviceCommandProcessor
     commands
   end
 
-  # Generates the serial output commands to create a vlan, based on a Vlan model object
+    # Generates the serial output commands to create a vlan, based on a Vlan model object
   def serial_create_vlan(vlan)
 
     p = vlan.puerto
@@ -64,7 +64,7 @@ class DeviceCommandProcessor
 
   end
 
-  # Generates the serial output commands to remove a vlan, based on a Vlan model object
+    # Generates the serial output commands to remove a vlan, based on a Vlan model object
   def serial_remove_vlan(vlan)
 
     p = vlan.puerto
@@ -76,7 +76,7 @@ class DeviceCommandProcessor
     pxname = px.nombre
     qxname = qx.nombre
 
-    # Assigns original vlan numbers to each port. e.g. vlan 2 for port 1, 5 for 4 etc..
+      # Assigns original vlan numbers to each port. e.g. vlan 2 for port 1, 5 for 4 etc..
 
     commands = [
 
@@ -109,7 +109,7 @@ class DeviceCommandProcessor
     send_commands_to_channel channel, commands
   end
 
-  # This method processes the incoming message from irc
+    # This method processes the incoming message from irc
   def process_irc_message(rcvd_channel, rcvd_user, rcvd_message)
 
     puts "############## DeviceCommandProcessor PROCESSING A >>> channel: #{rcvd_channel}, user: #{rcvd_user}, message: #{rcvd_message} ####"
@@ -126,11 +126,11 @@ class DeviceCommandProcessor
       if msg_type.eql? 'device'
         # Get the device
         the_device = Dispositivo.find(item_id.to_i)
-        case 'ready' #the_device.status # resetting, initiating, ready
+        case the_device.status # resetting, initiating, ready
           when 'resetting' # process reset commands
-            # compare to list of commands that must match, to send appropiate response
+                           # compare to list of commands that must match, to send appropiate response
             the_response = reset_command_response_for(rcvd_message)# The key is the message received
-            # and send the response
+                                                                   # and send the response
             send_irc rcvd_channel, the_response
           when 'ready'
 
@@ -138,10 +138,10 @@ class DeviceCommandProcessor
             #processed_message_output=@faye_messages_controller.generate_terminal_output item_id, rcvd_message
             processed_message_output=FayeMessagesController.new.generate_terminal_output item_id, rcvd_message
 
-            # Send it using the CustomFayeSender module
+              # Send it using the CustomFayeSender module
 
-            # rcvd_channel is in the form #<resource>_<id>
-            # faye_channel is in the form <resource>_<id>
+              # rcvd_channel is in the form #<resource>_<id>
+              # faye_channel is in the form <resource>_<id>
             faye_channel = "#{FAYE_CHANNEL_PREFIX}#{the_channel}"
 
             send_via_faye faye_channel, processed_message_output
@@ -156,16 +156,20 @@ class DeviceCommandProcessor
   def reset_command_response_for(message)
     if message =~ /configuration dialog \[y\/n\]/
       "yes"
+    elsif message =~ /configurunausndj \[y\/n\]/
+      "no"
+    elsif message =~ /configurunausndj \[y\/n\]/
+      ["no","asd","asdad"]
     end
   end
 
-  # Whichever message gets to the vlan switch, process it here
-  # output is received from the vlan switch, so <tt>output<tt> is input to this method
+    # Whichever message gets to the vlan switch, process it here
+    # output is received from the vlan switch, so <tt>output<tt> is input to this method
   def process_vlan_output(output)
     puts output
   end
 
-  # Reset the dispositivos sending the appropiate commands to them
+    # Reset the dispositivos sending the appropiate commands to them
   def reset_devices(dispositivos)
     dispositivos.each do |dispositivo|
       Thread.new do
@@ -174,7 +178,7 @@ class DeviceCommandProcessor
     end
   end
 
-  # Removes the vlans sending the appropiate commands to them
+    # Removes the vlans sending the appropiate commands to them
   def remove_vlans(vlans)
     vlans.each do |vlan|
       Thread.new do
@@ -195,7 +199,7 @@ class DeviceCommandProcessor
     send_commands_to_channel channel, commands
   end
 
-  # Uses the IRCGateway to send, this is just a wrapper
+    # Uses the IRCGateway to send, this is just a wrapper
   def send_irc(channel, message)
     @irc_gateway.send_irc channel, message
   end
@@ -204,7 +208,7 @@ class DeviceCommandProcessor
     get_vlan_switch force_reload
   end
 
-  # Given an array of commands (String), send them through the given channel
+    # Given an array of commands (String), send them through the given channel
   def send_commands_to_channel(channel, commands)
     commands.each do |command|
       send_irc channel, command
@@ -216,7 +220,7 @@ class DeviceCommandProcessor
     @faye_messages_controller = FayeMessagesController.new
   end
 
-  # get the irc/normalized vlan channel
+    # get the irc/normalized vlan channel
   def vlan_channel(options = {:irc => true})
     force_reload = false
     if options[:force_reload]
