@@ -1,0 +1,3 @@
+#!/bin/bash
+echo starting Gateway service...
+rails -p 2000 -e gateway

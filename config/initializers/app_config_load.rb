@@ -5,14 +5,15 @@ raw_config = File.read("config/app_config.yml")
 
 unless defined? GatoDomainConfigurator
   class GatoDomainConfigurator
-    include OpenURI
+    
+    include OpenURI # TODO: Check if this line is necessary
 
     def external_ip
-      ip = '127.0.0.1'
       begin
-        ip=OpenURI.open_uri("http://myip.dk") {|f|f.read.scan(/([0-9]{1,3}\.){3}[0-9]{1,3}/); $~.to_s}
+        ip = OpenURI.open_uri("http://myip.dk") {|f|f.read.scan(/([0-9]{1,3}\.){3}[0-9]{1,3}/); $~.to_s}
       rescue
-        puts "Seems like there is a problem adquiring external IP address, using localhost (127.0.0.1)"
+        ip = local_ip
+        puts "Seems like there is a problem adquiring external IP address, ...using local address: (#{ip})"
       end
       ip
     end
@@ -56,7 +57,7 @@ end
 if defined? Rails
   app_config = YAML.load(raw_config)[Rails.env]
 else
-  app_config = YAML.load(raw_config)['production']
+  app_config = YAML.load(raw_config)['production'] #For use in standalone configs
 end
 
 recursive_symbolize_keys! app_config
@@ -64,28 +65,43 @@ recursive_symbolize_keys! app_config
 # IP CONFIG
 
 configurator = GatoDomainConfigurator.new
-local_ip = configurator.local_ip if [app_config[:irc][:server][:auto],app_config[:faye][:server][:auto],app_config[:domain]].include? 'local'
-external_ip = configurator.external_ip if [app_config[:irc][:server][:auto],app_config[:faye][:server][:auto],app_config[:domain]].include? 'external'
+
+domain_auto = app_config[:domain]
+irc_auto = app_config[:irc][:server][:auto]
+faye_auto = app_config[:faye][:server][:auto]
+gateway_auto = app_config[:gateway][:server][:auto]
+
+auto_configs = [domain_auto, irc_auto, faye_auto, gateway_auto]
+
+local_ip = configurator.local_ip if auto_configs.include? 'local'
+external_ip = configurator.external_ip if auto_configs.include? 'external'
 
 # Domain IP address
-if app_config[:domain].eql? 'local'
+if domain_auto.eql? 'local'
   app_config[:domain] = local_ip
 elsif app_config[:domain].eql? 'external'
   app_config[:domain] = external_ip
 end
 
 # Faye server ip address
-if app_config[:faye][:server][:auto].eql? 'local'
+if faye_auto.eql? 'local'
   app_config[:faye][:server][:url] = "http://#{local_ip}"
-elsif app_config[:faye][:server][:auto].eql? 'external'
+elsif faye_auto.eql? 'external'
   app_config[:faye][:server][:url] = "http://#{external_ip}"
 end
 
 # IRC Server ip adress
-if app_config[:irc][:server][:auto].eql? 'local'
+if irc_auto.eql? 'local'
   app_config[:irc][:server][:ip] = local_ip
-elsif app_config[:irc][:server][:auto].eql? 'external'
+elsif irc_auto.eql? 'external'
   app_config[:irc][:server][:ip] = external_ip
+end
+
+# Gateway Server ip adress
+if gateway_auto.eql? 'local'
+  app_config[:gateway][:server][:url] = "http://#{local_ip}"
+elsif gateway_auto.eql? 'external'
+  app_config[:gateway][:server][:url] = "http://#{external_ip}"
 end
 
 APP_CONFIG = app_config
@@ -96,3 +112,4 @@ FAYE_DEFAULT_CHANNEL = APP_CONFIG[:faye][:server][:default_channel]
 FAYE_SERVER_PORT = APP_CONFIG[:faye][:server][:port]
 FAYE_MOUNT_POINT = APP_CONFIG[:faye][:server][:mount]
 FAYE_SERVER_URL = "#{APP_CONFIG[:faye][:server][:url]}:#{FAYE_SERVER_PORT}#{FAYE_MOUNT_POINT}"
+GATEWAY_SERVER_URL = "#{APP_CONFIG[:gateway][:server][:url]}:#{APP_CONFIG[:gateway][:server][:port]}/#{APP_CONFIG[:gateway][:server][:route]}"

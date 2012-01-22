@@ -29,106 +29,112 @@ class Ability
     user ||= User.new # guest user
     @user = user
 
-    # TO ALL REGISTERED --whitelist
-    # This applies to everyone --whitelist
-    can :read, Course
-    # end of everyone --whitelist
-    if @user.persisted? #Applies to all registered -- whitelist
-      can [:edit, :update], Profile do |p|
-        p.user == @user
-      end
-      can_see_others
-      can_api
-    end
-
-    # ROLE BASED STUFF
-    if @user.is_a? Admin
-
-      can :do_admin_stuff, :stuff
-      can :manage, :all
-
-    elsif @user.is_a? Teacher
-
-      can :do_teacher_stuff, :stuff
-
-      # Manage himself
-      can :manage, [Teacher, User] do |uot|
-        uot.id.eql? @user.id
-      end
-
-      can_do_normal_labs
-
-      can :control, :course
-      can :manage, Course do |course|
-        course.users.include? @user
-      end
-
-      can :read, Student
-
-      can_register_in_course
-      can_detail_practices
-      
-      cannot :create, Course
-      cannot :destroy, Course
-      cannot :assign_teacher, Course
-
-    elsif @user.is_a? Technician
-
-      can :do_technician_stuff, :stuff
-
-      # Manage himself
-      can :manage, [Technician, User] do |uot|
-        uot.id.eql? @user.id
-      end
-      
-      can :manage, Puerto
-      can :manage, Dispositivo
-      can :manage, DeviceConnection
-      can :manage, Practica
-
-      cannot :destroy, Practica do |practica|
-        practica.abierta?
-      end
-
-      can_do_normal_labs
-
-    elsif @user.is_a? Student
-
-      can :do_student_stuff, :stuff
-      can :read, Student
-      # Manage himself
-      can :manage, [Student, User] do |uos|
-        uos.id.eql? @user.id
-      end
-
-      # Practice things over here
-      can_do_normal_labs
-
-      can :see_users, Course do |course|
-        course.users.include? @user
-      end
-
-      # Is any of the courses shared with student?
-      can :see_details, [Student, User] do |uos|
-        @user.courses.any? {|course| course.users.include? uos}
-      end
-
-      can_register_in_course
+    if Rails.env.gateway?
+      cannot :manage, :all # Block all access to the app
+      can :communicate_with_gateway, :gateway # Only enable it for gateway use
+    else
+      # TO ALL REGISTERED --whitelist
+      # This applies to everyone --whitelist
       can :read, Course
-      can_detail_practices
+      # end of everyone --whitelist
+      if @user.persisted? #Applies to all registered -- whitelist
+        can [:edit, :update], Profile do |p|
+          p.user == @user
+        end
+        can_see_others
+        can_api
+      end
 
-      cannot :destroy, [User, Student]
+      # ROLE BASED STUFF
+      if @user.is_a? Admin
 
-    else #VISITOR - Unregistered
-    end
+        can :do_admin_stuff, :stuff
+        can :manage, :all
 
-    # TO ALL REGISTERED -- blacklist
-    if @user.persisted? #Applies to all registered -- blacklist
-      cannot_see_user
+      elsif @user.is_a? Teacher
+
+        can :do_teacher_stuff, :stuff
+
+        # Manage himself
+        can :manage, [Teacher, User] do |uot|
+          uot.id.eql? @user.id
+        end
+
+        can_do_normal_labs
+
+        can :control, :course
+        can :manage, Course do |course|
+          course.users.include? @user
+        end
+
+        can :read, Student
+
+        can_register_in_course
+        can_detail_practices
+
+        cannot :create, Course
+        cannot :destroy, Course
+        cannot :assign_teacher, Course
+
+      elsif @user.is_a? Technician
+
+        can :do_technician_stuff, :stuff
+
+        # Manage himself
+        can :manage, [Technician, User] do |uot|
+          uot.id.eql? @user.id
+        end
+
+        can :manage, Puerto
+        can :manage, Dispositivo
+        can :manage, DeviceConnection
+        can :manage, Practica
+
+        cannot :destroy, Practica do |practica|
+          practica.abierta?
+        end
+
+        can_do_normal_labs
+
+      elsif @user.is_a? Student
+
+        can :do_student_stuff, :stuff
+        can :read, Student
+        # Manage himself
+        can :manage, [Student, User] do |uos|
+          uos.id.eql? @user.id
+        end
+
+        # Practice things over here
+        can_do_normal_labs
+
+        can :see_users, Course do |course|
+          course.users.include? @user
+        end
+
+        # Is any of the courses shared with student?
+        can :see_details, [Student, User] do |uos|
+          @user.courses.any? {|course| course.users.include? uos}
+        end
+
+        can_register_in_course
+        can :read, Course
+        can_detail_practices
+
+        cannot :destroy, [User, Student]
+
+      else #VISITOR - Unregistered
+      end
+
+      # TO ALL REGISTERED -- blacklist
+      if @user.persisted? #Applies to all registered -- blacklist
+        cannot_see_user
+      end
     end
 
     can_get_telebot_config
 
+    
   end
 
   private

@@ -31,6 +31,14 @@ development:
       password:
       token: lagataquedeciamiau
 
+  gateway:
+    server:
+      auto: false
+      url: http://localhost
+      route: api/gateway/
+      port: 2000
+
+
 test:
   domain: local
 
@@ -64,6 +72,14 @@ test:
       password:
       token: lagataquedeciamiau
 
+  gateway:
+    server:
+      auto: false
+      url: http://localhost
+      route: api/gateway/
+      port: 2000
+
+
 production:
   domain: local
 
@@ -75,7 +91,6 @@ production:
       password:
     client:
       nick: telelab
-      ip: 127.0.0.1
       nick_prefix: prod_
       enable_serial: 0
       default_channels: [lobby]
@@ -97,3 +112,51 @@ production:
       channel_prefix: /messagebox/
       password:
       token: lagataquedeciamiau
+
+  gateway:
+    server:
+      auto: false
+      url: http://localhost
+      route: api/gateway/
+      port: 2000
+
+
+gateway:
+  domain: local
+
+  irc:
+    server:
+      auto: local
+      ip: 127.0.0.1
+      port: 6667
+      password:
+    client:
+      nick: telelab
+      nick_prefix: prod_
+      enable_serial: 0
+      default_channels: [lobby]
+      logger: default
+    telebot:
+      nick: telebot
+      nick_prefix: prod_
+      enable_serial: 0
+      default_channels: [lobby, test1]
+      logger: default
+
+  faye:
+    server:
+      auto: local
+      url: http://localhost
+      port: 9292
+      mount: /faye
+      default_channel: lobby
+      channel_prefix: /messagebox/
+      password:
+      token: lagataquedeciamiau
+
+  gateway:
+    server:
+      auto: false
+      url: http://localhost
+      route: api/gateway/
+      port: 2000

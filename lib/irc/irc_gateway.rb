@@ -12,11 +12,15 @@ class IRCGateway
   attr_accessor :bot_thread
   attr_accessor :message_processor
   attr_accessor :device_channels
+  attr_accessor :faye_client
 
 
   # Creates zbot, necessary to connect and do everything, IRCGateway...just the wrapper
   # Also initializes message processor and irc config portion from APP_CONFIG
   def initialize
+
+    #load server-side faye client
+    @faye_client = Faye::Client.new(FAYE_SERVER_URL)
 
     # Objects noted with the 'the_' prefix are used to be passed without risking
     # execution context name collisions
