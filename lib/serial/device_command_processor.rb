@@ -177,7 +177,7 @@ class DeviceCommandProcessor
       "exit"
     elsif message =~ /ress RETURN to get started\./
       "#ENTER"
-    elsif message =~ /#/ & @last_message =~ /ress RETURN to get started\./
+    elsif message =~ /#/ && @last_message =~ /ress RETURN to get started\./
       reset_device device
       ""
     elsif message =~ /tem configuration has been modified\. Save\?/
