@@ -30,11 +30,13 @@ begin
   message = {:channel => "#{APP_CONFIG[:faye][:server][:channel_prefix]}#{FAYE_DEFAULT_CHANNEL}", :data => {}, :ext => {:auth_token => FAYE_TOKEN}}
   uri = URI.parse(FAYE_SERVER_URL)
   response = Net::HTTP.post_form(uri, :message => message.to_json)
-  if response.status == 200
-    puts "  Remote Irc Gateway initialized successfully!".light_green
+  if response.class.eql? Net::HTTPOK
+    puts "  Faye server (#{FAYE_SERVER_URL}) communication ok".light_green
+  else
+    puts "  Faye server (#{FAYE_SERVER_URL}) communication ok, but responded with: #{response}".light_yellow
   end
 rescue Errno::ECONNREFUSED
-  puts "  Faye server did not respond!, please check if faye server is active".light_red
+  puts "  Faye server (#{FAYE_SERVER_URL}) did not respond!, please check if faye server is active".light_red
 end
 
 if Rails.env.gateway? # Initialize the gateway
@@ -44,7 +46,7 @@ else
   
   puts "  Checking remote IRC Gateway"
   begin
-    remote_irc_gate_way = RemoteIRCGateWay.instance
+    remote_irc_gate_way = RemoteIRCGateway.instance
     if remote_irc_gate_way.status.eql? Net::HTTPOK
       puts "  Remote Irc Gateway initialized successfully!".light_green
     else

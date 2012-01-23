@@ -15,8 +15,7 @@ class PracticeJob < Struct.new(:practice_id, :transition)
         practica.dispositivos.each do |dispositivo|
           dispositivo.reset
         end
-        irc_gateway = IRCGateway.instance
-        irc_gateway.reset_practica practica
+        RemoteIRCGateway.instance.reset_practica practica
       rescue => e
         puts "Exception in Practice Job for IRCGateway> #{e.message}"
       end

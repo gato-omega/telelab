@@ -90,8 +90,6 @@ class PracticasController < AuthorizedController
 
   def make_practice
 
-    IRCGateway.instance # Initialize it before
-
     channel_sym = "practica_#{@practica.id}".to_sym
     if current_user.options[:faye][channel_sym].nil?
       current_user.options[:faye][channel_sym] = :available
@@ -148,14 +146,11 @@ class PracticasController < AuthorizedController
         @mensaje[:user] = 'unregistered_user'
       end
 
-      the_irc_gateway = IRCGateway.instance
-
-      #mensaje_raw = the_irc_gateway.message_processor.generate_terminal_user_output @mensaje
       mensaje_raw = FayeMessagesController.new.generate_terminal_user_output @mensaje
       send_via_faye "#{FAYE_CHANNEL_PREFIX}#{@mensaje[:channel]}", mensaje_raw
 
-      # Send through IRCGateway...
-      the_irc_gateway.send_irc("##{@mensaje[:channel]}", @mensaje[:message])
+      # Send through RemoteIRCGateway...
+      RemoteIRCGateway.instance.send_irc("##{@mensaje[:channel]}", @mensaje[:message])
 
       #Add to record of messages
       the_message = Message.new(:content => @mensaje[:message], :practica_id => @practica.id, :dispositivo_id => @mensaje[:channel].split('_').last, :user_id => current_user.id)
@@ -227,9 +222,6 @@ class PracticasController < AuthorizedController
         @mensaje[:user] = '_non_reg'
       end
 
-      the_irc_gateway = IRCGateway.instance
-
-      #mensaje_raw = the_irc_gateway.message_processor.faye_processor.generate_terminal_user_output @mensaje
       mensaje_raw = FayeMessagesController.new.generate_chat_output @mensaje
       send_via_faye "#{FAYE_CHANNEL_PREFIX}#{@mensaje[:channel]}", mensaje_raw
 
@@ -269,7 +261,7 @@ class PracticasController < AuthorizedController
     channel = "practica_#{the_practica.id}"
 
     if the_vlan.save
-      IRCGateway.instance.create_vlan the_vlan
+      RemoteIRCGateway.instance.create_vlan the_vlan
       mensaje_raw = FayeMessagesController.new.generate_new_conexion_output the_vlan
       send_via_faye "#{FAYE_CHANNEL_PREFIX}#{channel}", mensaje_raw
     else
@@ -285,7 +277,7 @@ class PracticasController < AuthorizedController
     the_vlan = Vlan.find(params[:con_id])
     if the_vlan.destroy
       channel = "practica_#{params[:id]}"
-      IRCGateway.instance.remove_vlan the_vlan
+      RemoteIRCGateway.instance.remove_vlan the_vlan.puerto.id, the_vlan.endpoint.id, vlan.practica.id
       mensaje_raw = FayeMessagesController.new.generate_remove_conexion_output the_vlan
       send_via_faye "#{FAYE_CHANNEL_PREFIX}#{channel}", mensaje_raw
     end
