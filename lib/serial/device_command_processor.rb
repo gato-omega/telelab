@@ -16,15 +16,22 @@ class DeviceCommandProcessor
     @vlan_input_buffer=[]
   end
 
-    # Generates the serial output commands to reset a device, based on the device instance passed
-  def serial_reset_device(device)
+   #
+  def serial_enable_prompt
     commands = [
         "exit",
         "exit",
         "exit",
         "exit",
         "#ENTER",
-        "enable",
+        "enable"
+    ]
+    commands
+  end
+
+    # Generates the serial output commands to reset a device, based on the device instance passed
+  def serial_reset_device
+    commands = [
         "erase startup-config",
         "#ENTER",
         "#ENTER",
@@ -108,8 +115,14 @@ class DeviceCommandProcessor
 
   end
 
+  def set_enable_prompt(device)
+    commands = serial_enable_prompt
+    channel = device.irc_channel
+    send_commands_to_channel channel, commands
+  end
+
   def reset_device(device)
-    commands = serial_reset_device device
+    commands = serial_reset_device
     channel = device.irc_channel
     send_commands_to_channel channel, commands
   end
@@ -134,9 +147,10 @@ class DeviceCommandProcessor
         case the_device.status # resetting, initiating, ready
           when 'resetting' # process reset commands
                            # compare to list of commands that must match, to send appropiate response
-            the_response = reset_command_response_for(rcvd_message)# The key is the message received
-                                                                   # and send the response
-            send_irc rcvd_channel, the_response
+            the_response = reset_command_response_for(rcvd_message, the_device)# The key is the message received
+                                                                               # and send the response
+            send_irc rcvd_channel, the_response unless the_response.blank?
+
           when 'ready'
 
             # UNCOMMENT
@@ -158,14 +172,22 @@ class DeviceCommandProcessor
     end
   end
 
-  def reset_command_response_for(message)
-    if message =~ /System configuration has been modified\. Save\? \[yes\/no\]/
-      "no"
-    elsif message =~ /Proceed with reload\? \[confirm\]/
+  def reset_command_response_for(message, device)
+    if message =~ /nknown command or computer name\,/
+      "exit"
+    elsif message =~ /ress RETURN to get started\./
       "#ENTER"
-    elsif message =~ /Would you like to terminate autoinstall\? \[yes\]/
+    elsif message =~ /#/ & @last_message =~ /ress RETURN to get started\./
+      reset_device device
+      ""
+    elsif message =~ /tem configuration has been modified\. Save\?/
+      "no"
+    elsif message =~ /oceed with reload\?/
+      "#ENTER"
+    elsif message =~ /uld you like to terminate autoinstall\?/
       "#ENTER"
     end
+    @last_message=message
   end
 
     # Whichever message gets to the vlan switch, process it here
@@ -178,6 +200,7 @@ class DeviceCommandProcessor
   def reset_devices(dispositivos)
     dispositivos.each do |dispositivo|
       Thread.new do
+        set_enable_prompt dispositivo
         reset_device dispositivo
       end
     end

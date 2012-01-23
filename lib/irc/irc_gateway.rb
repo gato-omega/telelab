@@ -69,7 +69,7 @@ class IRCGateway
         # Process it and get the required data to send
 
         # ELIMINATE
-        the_message_processor=DeviceCommandProcessor.new(the_irc_gateway)
+        #the_message_processor=DeviceCommandProcessor.new(the_irc_gateway)
 
         # Prevent processing of other telelab zbot messages
         unless rcvd_user.starts_with? "#{APP_CONFIG[:irc][:client][:nick_prefix]}#{APP_CONFIG[:irc][:client][:nick]}"
