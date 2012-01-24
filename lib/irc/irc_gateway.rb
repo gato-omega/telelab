@@ -50,8 +50,8 @@ class IRCGateway
 
         # Server conf queue
 
-        c.server_queue_size = 2 # default is 10
-        c.messages_per_second = 0.5 # default is 0.5
+        c.server_queue_size = 4 # default is 10
+        c.messages_per_second = 1 # default is 0.5
 
       end
 
