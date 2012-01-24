@@ -138,6 +138,8 @@ class PracticasController < AuthorizedController
     unless @mensaje[:message].empty?
 
       @mensaje[:message] = @mensaje[:message].gsub('#SLASH','/')
+      # TODO: fix this thing...
+      @mensaje[:message] = @mensaje[:message] == "reload" ? "" : @mensaje[:message]
 
       # Send through faye first to provide echo
       @mensaje[:channel] = params[:message][:channel]
