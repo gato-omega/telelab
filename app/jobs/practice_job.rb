@@ -11,6 +11,8 @@ class PracticeJob < Struct.new(:practice_id, :transition)
 
     elsif transition.eql? :close
       practica.cerrar
+      mensaje_raw = FayeMessagesController.new.generate_close_pratica_output practica
+      send_via_faye "#{FAYE_CHANNEL_PREFIX}#{practica.faye_channel}", mensaje_raw
       begin
         practica.dispositivos.each do |dispositivo|
           dispositivo.reset

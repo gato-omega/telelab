@@ -382,3 +382,11 @@ footer .central {
 .message {
   color: black;
 }
+
+/* line 269, ../../app/stylesheets/screen.scss */
+.finished {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 1.0em;
+  color: #ff7a00;
+}

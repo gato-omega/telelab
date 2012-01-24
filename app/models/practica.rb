@@ -2,6 +2,10 @@ class Practica < ActiveRecord::Base
 
   ESTADOS = %w(reservada abierta cerrada)
 
+  scope :reservadas, where('practicas.estado = ?', 'reservada')
+  scope :abiertas, where('practicas.estado = ?', 'abierta')
+  scope :cerradas, where('practicas.estado = ?', 'cerrada')
+
   attr_accessor :user_list
   has_and_belongs_to_many :dispositivos
 
@@ -116,6 +120,10 @@ class Practica < ActiveRecord::Base
       self.start += span
       self.end -= span
     end
+  end
+
+  def faye_channel
+    "practica_#{self.id}"
   end
 
   private

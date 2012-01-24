@@ -198,6 +198,9 @@ class Ability
     can :messages, Practica do |practica|
       practica.cerrada?
     end
+    can :finished, Practica do |practica|
+      practica.cerrada?
+    end
     cannot [:edit, :update], Practica do |practica|
       practica.abierta?
     end

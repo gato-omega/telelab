@@ -1,7 +1,7 @@
 class PracticasController < AuthorizedController
 
   respond_to :html, :only => [:index, :show, :new, :edit]
-  before_filter :get_practice, :only => [:show, :edit, :lab, :make_practice, :messages]
+  before_filter :get_practice, :only => [:show, :edit, :lab, :make_practice, :messages, :finished]
 
   include CustomFayeSender
 
@@ -14,15 +14,7 @@ class PracticasController < AuthorizedController
   end
 
   def messages
-    messages_by_device_id = @practica.messages.all.group_by(&:dispositivo_id)
-    messages_by_device_id
-
-    messages_by_device_array = messages_by_device_id.map do |device_id, messages|
-      [Dispositivo.find(device_id), messages]
-    end
-
-    @messages_by_device = Hash[messages_by_device_array]
-
+    get_messages
   end
 
   def new
@@ -46,7 +38,7 @@ class PracticasController < AuthorizedController
     @allowed_users = []
     @show_first = false
     @practica.users << current_user
-    respond_to do |format|  
+    respond_to do |format|
       if @practica.save
         format.html { redirect_to(@practica, :notice => 'Practica was successfully created.') }
       else
@@ -88,7 +80,17 @@ class PracticasController < AuthorizedController
     end
   end
 
+  def finished
+    get_messages
+  end
+
   def make_practice
+
+    if (!current_user.is_a? Admin) && @practica.cerrada?
+      respond_to do |format|
+        format.html { redirect_to(finished_practica_path(@practica), :alert => 'This Practica is closed!') }
+      end
+    end
 
     channel_sym = "practica_#{@practica.id}".to_sym
     if current_user.options[:faye][channel_sym].nil?
@@ -155,7 +157,7 @@ class PracticasController < AuthorizedController
       #Add to record of messages
       the_message = Message.new(:content => @mensaje[:message], :practica_id => @practica.id, :dispositivo_id => @mensaje[:channel].split('_').last, :user_id => current_user.id)
       if the_message.save
-        
+
         puts "DEBUG-Se guardo el mensaje #{the_message.attributes}"
       else
         puts "No se pudo guardar el mensaje #{the_message.errors.full_messages.to_sentence}"
@@ -277,7 +279,7 @@ class PracticasController < AuthorizedController
     the_vlan = Vlan.find(params[:con_id])
     if the_vlan.destroy
       channel = "practica_#{params[:id]}"
-      RemoteIRCGateway.instance.remove_vlan the_vlan.puerto.id, the_vlan.endpoint.id, vlan.practica.id
+      RemoteIRCGateway.instance.remove_vlan the_vlan.puerto.id, the_vlan.endpoint.id, the_vlan.practica.id
       mensaje_raw = FayeMessagesController.new.generate_remove_conexion_output the_vlan
       send_via_faye "#{FAYE_CHANNEL_PREFIX}#{channel}", mensaje_raw
     end
@@ -323,6 +325,17 @@ class PracticasController < AuthorizedController
   def broadcast_chat_status(channel, status)
     mensaje_raw = FayeMessagesController.new.generate_chat_status_output current_user, status
     send_via_faye "#{FAYE_CHANNEL_PREFIX}#{channel}", mensaje_raw
+  end
+
+  def get_messages
+    messages_by_device_id = @practica.messages.all.group_by(&:dispositivo_id)
+    messages_by_device_id
+
+    messages_by_device_array = messages_by_device_id.map do |device_id, messages|
+      [Dispositivo.find(device_id), messages]
+    end
+
+    @messages_by_device = Hash[messages_by_device_array]
   end
 
 end

@@ -6,7 +6,13 @@ Telelab02::Application.routes.draw do
   # Devise had to put it here, bacause of initialized current_user
   devise_for :users, :path_prefix => 'account'
 
-  if Rails.env.gateway? # CLOSE EVERYTHING
+  # Needed for url generation in post-calls
+  resources :practicas do
+    get 'messages', :on => :member
+    get 'finished', :on => :member
+  end
+
+  if Rails.env.gateway? # CLOSE EVERYTHING undefining the routes
 
     scope '/api' do
       match '/gateway' => 'gateway#index', :as => 'gateway'
@@ -29,10 +35,6 @@ Telelab02::Application.routes.draw do
       post 'unregister', :on => :member
       post 'register_teachers', :on => :member
       get 'teachers', :on => :member
-    end
-
-    resources :practicas do
-      get 'messages', :on => :member
     end
 
     resources :dispositivos

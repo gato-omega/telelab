@@ -1,39 +1,9 @@
-- content_for(:head) do
-  = stylesheet_link_tag 'telelab_datatables'
-  = javascript_include_tag 'tabs'
-  = javascript_include_tag :jquery_datatables
-  = javascript_include_tag 'datatable'
-  = javascript_include_tag 'messages'
-
 - title @practica.name
 .white_links
 
   = render 'details'
 
-  .darker_container
-    Revision de practica > > >
-
-    %p
-      .tabs
-        %ul
-          - @messages_by_device.keys.each do |dispositivo|
-            %li
-              = link_to dispositivo.nombre, "#device_log_#{dispositivo.id}"
-        - @messages_by_device.each do |dispositivo, messages|
-          %div{ :id => "device_log_#{dispositivo.id}"}
-            %table.display{:cellpadding=> "0", :cellspacing => "0", 'datatable' => true, :messages => true}
-              %thead
-                %tr
-                  %th #
-                  %th Usuario
-                  %th Accion
-              %tfoot
-                %tr
-                  %th #
-                  %th Usuario
-                  %th Accion
-              %tbody
-                = render messages
+  = render 'revision'
 
   %p
     = link_to 'Atras', :back

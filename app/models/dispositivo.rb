@@ -65,5 +65,10 @@ class Dispositivo < ActiveRecord::Base
     end
 
   end
+
+  # Retrieves the current practica this device is on, if is not in a practica, returns nil
+  def current_practica
+    Practica.abiertas.search({:dispositivos_id_equals => self.id}, :join_type => :inner).first
+  end
   
 end

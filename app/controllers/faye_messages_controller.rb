@@ -87,4 +87,10 @@ class FayeMessagesController < AbstractController::Base
     render template: "faye_messages/new_conexion_error"
   end
 
+  # Generates a console terminal output, when received from device channel
+  def generate_close_pratica_output(practica)
+    @practica = practica
+    render template: "faye_messages/close_pratica"
+  end
+
 end
