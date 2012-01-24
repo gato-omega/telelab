@@ -50,8 +50,8 @@ else
     if remote_irc_gate_way.status.eql? Net::HTTPOK
       puts "  Remote Irc Gateway initialized successfully!".light_green
       puts "  Setting Vlan switch in initial state..."
-
       remote_irc_gate_way.initialize_vlan_switch
+      puts "  Vlan Switch initialized...".light_yellow
 
     else
       puts "  Remote Irc Gateway (#{GATEWAY_SERVER_URL}) responded but its not in a ready state, please check if gateway service is ready".light_yellow
