@@ -143,10 +143,16 @@ class DeviceCommandProcessor
     send_commands_to_channel channel, commands
   end
 
+  def send_reset_token(device, status)
+    channel = device.irc_channel
+    the_status = status ? "TRUE" : "FALSE"
+    send_irc channel, "#RESET_#{the_status}_84652"
+  end
+
   def reset_device(device)
     commands = serial_reset_device
     channel = device.irc_channel
-    send_commands_to_channel channel, commands
+    send_commands_to_channel channel, commands, 0.5
   end
 
   # This method processes the incoming message from irc
@@ -196,20 +202,24 @@ class DeviceCommandProcessor
   end
 
   def reset_command_response_for(message, device)
-    if message =~ /nknown command or computer name\,/
+    # Sleep 500 ms
+    sleep 0.5
+    #Then do this...
+    if message =~ /nknown command or computer nam/
       "exit"
-    elsif message =~ /ress RETURN to get started\./
+    elsif message =~ /ress RETURN to get start/
       "#ENTER"
-    elsif message =~ /#/ && @last_message =~ /ress RETURN to get started\./
+    elsif message =~ /#/ && @last_message =~ /ress RETURN to get start/
       reset_device device
       ""
-    elsif message =~ /ration has been modified\. Save\?/
+    elsif message =~ /ration has been modified/
       "no"
-    elsif message =~ /oceed with reload\?/
+    elsif message =~ /oceed with reload/
+      send_reset_token dispositivo, true
       "#ENTER"
-    elsif message =~ /erminate autoinstall\?/
+    elsif message =~ /erminate autoinstall/
       "#ENTER"
-    elsif message =~ /iguration dialog\?/
+    elsif message =~ /iguration dialog/
       "no"
     end
     @last_message=message
@@ -262,8 +272,11 @@ class DeviceCommandProcessor
   end
 
   # Given an array of commands (String), send them through the given channel
-  def send_commands_to_channel(channel, commands)
+  def send_commands_to_channel(channel, commands, interval = nil)
     commands.each do |command|
+      if interval
+        sleep interval
+      end
       send_irc channel, command
     end
   end

@@ -31,6 +31,10 @@ class RemoteIRCGateway
     send_to_remote :initialize_vlan_switch
   end
 
+  def send_reset_token(dispositivo, status)
+    send_to_remote :send_reset_token, :id => dispositivo.id, :status => status
+  end
+
   def send_to_remote(gateway_action = :status, the_params = {})
     params_to_send = {:gateway_action => gateway_action}.merge the_params
     Net::HTTP.post_form(@gateway_uri, params_to_send)

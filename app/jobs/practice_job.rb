@@ -6,9 +6,9 @@ class PracticeJob < Struct.new(:practice_id, :transition)
     if transition.eql? :open
       practica.dispositivos.each do |dispositivo|
         dispositivo.set_ready
+        RemoteIRCGateway.instance.send_reset_token dispositivo, 0
       end
       practica.abrir
-
     elsif transition.eql? :close
       practica.cerrar
       mensaje_raw = FayeMessagesController.new.generate_close_pratica_output practica

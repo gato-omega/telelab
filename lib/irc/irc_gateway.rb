@@ -122,6 +122,10 @@ class IRCGateway
     DeviceCommandProcessor.new(self).reset_device(device)
   end
 
+  def send_reset_token(dispositivo, status)
+    DeviceCommandProcessor.new(self).send_reset_token(dispositivo, status)
+  end
+
   # Send a IRC message to a channel
   def send_irc(channel, message)
     real_channel = @zbot.get_channel(channel)

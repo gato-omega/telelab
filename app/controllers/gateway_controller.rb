@@ -54,6 +54,16 @@ class GatewayController < ApplicationController
         @irc_gateway.initialize_vlan_switch
         render :status => 200
 
+      when 'send_reset_token'
+        dispositivo = Dispositivo.find(params[:id])
+        if params[:status].eql? 0
+          status = false
+        else
+          status = true
+        end
+        @irc_gateway.send_reset_token dispositivo, status
+        render :status => 200
+
     end
   end
 
