@@ -27,6 +27,10 @@ class RemoteIRCGateway
     send_to_remote :reset_practica, :id => practica.id
   end
 
+  def initialize_vlan_switch
+    send_to_remote :initialize_vlan_switch
+  end
+
   def send_to_remote(gateway_action = :status, the_params = {})
     params_to_send = {:gateway_action => gateway_action}.merge the_params
     Net::HTTP.post_form(@gateway_uri, params_to_send)

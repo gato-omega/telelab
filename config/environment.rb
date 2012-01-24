@@ -26,7 +26,7 @@ MetaWhere.operator_overload!
 
 # Checks if faye responds
 begin
-  puts "  Checking for Faye Server ..."
+  puts "  Checking for Faye Server..."
   message = {:channel => "#{APP_CONFIG[:faye][:server][:channel_prefix]}#{FAYE_DEFAULT_CHANNEL}", :data => {}, :ext => {:auth_token => FAYE_TOKEN}}
   uri = URI.parse(FAYE_SERVER_URL)
   response = Net::HTTP.post_form(uri, :message => message.to_json)
@@ -44,11 +44,15 @@ if Rails.env.gateway? # Initialize the gateway
   IRCGateway.instance # Calling it will initialize it
 else
   
-  puts "  Checking remote IRC Gateway"
+  puts "  Checking for remote IRC Gateway..."
   begin
     remote_irc_gate_way = RemoteIRCGateway.instance
     if remote_irc_gate_way.status.eql? Net::HTTPOK
       puts "  Remote Irc Gateway initialized successfully!".light_green
+      puts "  Setting Vlan switch in initial state..."
+
+      remote_irc_gate_way.initialize_vlan_switch
+
     else
       puts "  Remote Irc Gateway (#{GATEWAY_SERVER_URL}) responded but its not in a ready state, please check if gateway service is ready".light_yellow
     end

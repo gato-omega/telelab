@@ -147,6 +147,10 @@ class IRCGateway
     end
   end
 
+  def initialize_vlan_switch
+    DeviceCommandProcessor.new(self).initialize_vlan_switch
+  end
+
   private
   #Loads irc config in @config
   def load_irc_config(force_reload = false)

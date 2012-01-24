@@ -50,6 +50,10 @@ class GatewayController < ApplicationController
         @irc_gateway.reset_practica the_practica
         render :status => 200
 
+      when 'initialize_vlan_switch'
+        @irc_gateway.initialize_vlan_switch
+        render :status => 200
+
     end
   end
 

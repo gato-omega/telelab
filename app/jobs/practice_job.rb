@@ -15,9 +15,9 @@ class PracticeJob < Struct.new(:practice_id, :transition)
       send_via_faye "#{FAYE_CHANNEL_PREFIX}#{practica.faye_channel}", mensaje_raw
       begin
         practica.dispositivos.each do |dispositivo|
-         # dispositivo.reset
+         dispositivo.reset
         end
-        #RemoteIRCGateway.instance.reset_practica practica
+        RemoteIRCGateway.instance.reset_practica practica
       rescue => e
         puts "Exception in Practice Job for IRCGateway> #{e.message}"
       end
