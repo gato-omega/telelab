@@ -281,9 +281,9 @@ class PracticasController < AuthorizedController
 
   def remove_conexion
     the_vlan = Vlan.find(params[:con_id])
-    if the_vlan.destroy
-      channel = "practica_#{params[:id]}"
-      RemoteIRCGateway.instance.remove_vlan the_vlan.puerto.id, the_vlan.endpoint.id, the_vlan.practica.id
+    channel = "practica_#{params[:id]}"
+
+    if (RemoteIRCGateway.instance.remove_vlan the_vlan).class.eql? Net::HTTPOK
       mensaje_raw = FayeMessagesController.new.generate_remove_conexion_output the_vlan
       send_via_faye "#{FAYE_CHANNEL_PREFIX}#{channel}", mensaje_raw
     end

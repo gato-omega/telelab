@@ -28,10 +28,22 @@ class GatewayController < ApplicationController
         render :status => 200
 
       when 'remove_vlan'
-        #puerto_id, endpoint_id, practica_id= params[:puerto_id], params[:endpoint_id], params[:practica_id]
-        the_vlan = Vlan.new(params[:vlan])
+        #puerto_id, endpoint_id, practica_id = params[:puerto_id], params[:endpoint_id], params[:practica_id]
+        #puerto = Puerto.find(puerto_id)
+        #endpoint = Puerto.find(endpoint_id)
+        #practica = Puerto.find(practica_id)
+        the_vlan = Vlan.find(params[:id])
+        #the_vlan.puerto = puerto
+        #the_vlan.endpoint = endpoint
+        #the_vlan.practica = practica
+
+        #the_vlan = Vlan.new(params[:vlan])
         @irc_gateway.remove_vlan the_vlan
-        render :status => 200
+        if the_vlan.destroy
+          render :status => 200
+        else
+          render :status => 500
+        end
 
       when 'reset_practica'
         the_practica = Practica.find(params[:id])

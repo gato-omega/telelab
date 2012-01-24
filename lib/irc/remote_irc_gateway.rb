@@ -11,8 +11,8 @@ class RemoteIRCGateway
     send_to_remote :create_vlan, :id => id
   end
 
-  def remove_vlan(puerto_id, endpoint_id, practica_id)
-    send_to_remote :remove_vlan, :vlan => {:puerto_id => puerto_id,:endpoint_id => endpoint_id, :practica_id => practica_id}
+  def remove_vlan(vlan)
+    send_to_remote :remove_vlan, :id => vlan.id
   end
 
   def status
