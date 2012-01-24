@@ -137,6 +137,8 @@ class PracticasController < AuthorizedController
     # Filter non-permitted commands and log, whatever we want
     unless @mensaje[:message].empty?
 
+      @mensaje[:message] = @mensaje[:message].gsub('#SLASH','/')
+
       # Send through faye first to provide echo
       @mensaje[:channel] = params[:message][:channel]
       # Set echo to true if sending to himself via faye is required

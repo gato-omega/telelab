@@ -1089,7 +1089,14 @@ function get_stack(caller) {
                     // Its not the chat terminal
                     if(the_name != 'chat')
                     {
-                        current_terminal.exec_command(command+'?');
+                        if (command !== '')
+                        {
+                            current_terminal.exec_command(command + '?');
+                        }
+                    }
+                    else
+                    {
+                        self.insert('?');
                     }
 
                 } else if (e.which == 54 && e.ctrlKey && e.shiftKey) { // ctrl+shift+6
