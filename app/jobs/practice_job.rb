@@ -6,7 +6,7 @@ class PracticeJob < Struct.new(:practice_id, :transition)
     if transition.eql? :open
       practica.dispositivos.each do |dispositivo|
         dispositivo.set_ready
-        RemoteIRCGateway.instance.send_reset_token dispositivo, 0
+        RemoteIRCGateway.instance.send_reset_token dispositivo, 'false'
       end
       practica.abrir
     elsif transition.eql? :close

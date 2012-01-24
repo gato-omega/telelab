@@ -56,9 +56,9 @@ class GatewayController < ApplicationController
 
       when 'send_reset_token'
         dispositivo = Dispositivo.find(params[:id])
-        if params[:status].eql? 0
+        if params[:status].eql? 'false'
           status = false
-        else
+        elsif params[:status].eql? 'true'
           status = true
         end
         @irc_gateway.send_reset_token dispositivo, status
