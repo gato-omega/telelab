@@ -1,3 +1,4 @@
 #!/bin/bash
+export RAILS_ENV=gateway
 echo starting Gateway service...
-rails -p 2000 -e gateway
+rails s -p 2000 -e gateway

@@ -1,0 +1,4 @@
+#!/bin/bash
+export RAILS_ENV=production
+echo starting production console...
+rails c

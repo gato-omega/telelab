@@ -1,12 +1,22 @@
 @import "mixins";
 
+.calendar
+{
+    float: center;
+    overflow: auto;
+    width: 150%;
+    margin-bottom: 9px;
+    @include darker-container;
+}
+
 .reserve_data
 {
     float: center;
     overflow: auto;
-    /*width: 53%;*/
+    width: 53%;
     /*border: 2px solid #f58400;*/
     margin-bottom: 9px;
+    margin: 0 auto;
     @include darker-container;
 }
 

@@ -1,9 +1,8 @@
 /* line 4, ../../../app/stylesheets/partials/reserve_practice.scss */
-.reserve_data {
+.calendar {
   float: center;
   overflow: auto;
-  /*width: 53%;*/
-  /*border: 2px solid #f58400;*/
+  width: 150%;
   margin-bottom: 9px;
   background: #151515;
   padding: 1%;
@@ -28,7 +27,38 @@
   overflow: auto;
 }
 
-/* line 14, ../../../app/stylesheets/partials/reserve_practice.scss */
+/* line 13, ../../../app/stylesheets/partials/reserve_practice.scss */
+.reserve_data {
+  float: center;
+  overflow: auto;
+  width: 53%;
+  /*border: 2px solid #f58400;*/
+  margin-bottom: 9px;
+  margin: 0 auto;
+  background: #151515;
+  padding: 1%;
+  margin: 5px;
+  border: 1px solid gray;
+  -moz-border-radius-topleft: 6px;
+  -webkit-border-top-left-radius: 6px;
+  -khtml-border-top-left-radius: 6px;
+  border-top-left-radius: 6px;
+  -moz-border-radius-topright: 6px;
+  -webkit-border-top-right-radius: 6px;
+  -khtml-border-top-right-radius: 6px;
+  border-top-right-radius: 6px;
+  -moz-border-radius-bottomleft: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  -khtml-border-bottom-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  -webkit-border-bottom-right-radius: 6px;
+  -khtml-border-bottom-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  overflow: auto;
+}
+
+/* line 24, ../../../app/stylesheets/partials/reserve_practice.scss */
 .title {
   text-align: center;
   padding: 5px;

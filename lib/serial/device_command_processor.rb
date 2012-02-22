@@ -28,8 +28,6 @@ class DeviceCommandProcessor
         "shutdown",
         "exit",
         "exit",
-        "exit",
-        "exit",
         "exit"
     ]
 
@@ -54,7 +52,6 @@ class DeviceCommandProcessor
     commands = [
         "erase startup-config",
         "#ENTER",
-        "#ENTER",
         "reload"
     ]
     commands
@@ -74,7 +71,6 @@ class DeviceCommandProcessor
     qxname = qx.nombre
 
     commands = [
-
         "#ENTER",
         "enable",
         "configure terminal",
@@ -87,8 +83,6 @@ class DeviceCommandProcessor
         "switchport access vlan #{n}",
         "switchport mode access",
         "no shutdown",
-        "exit",
-        "exit",
         "exit",
         "exit",
         "exit"
@@ -126,8 +120,6 @@ class DeviceCommandProcessor
         "switchport access vlan #{qx.numero+1}",
         "switchport mode access",
         "no shutdown",
-        "exit",
-        "exit",
         "exit",
         "exit",
         "exit"
@@ -205,21 +197,21 @@ class DeviceCommandProcessor
     # Sleep 500 ms
     sleep 0.5
     #Then do this...
-    if message =~ /nknown command or computer nam/
+    if message =~ /unknown/
       "exit"
-    elsif message =~ /ress RETURN to get start/
+    elsif message =~ /RETURN/
       "#ENTER"
-    elsif message =~ /#/ && @last_message =~ /ress RETURN to get start/
+    elsif message =~ /#/ && @last_message =~ /RETURN/
       reset_device device
       ""
-    elsif message =~ /ration has been modified/
+    elsif message =~ /Save\?/
       "no"
-    elsif message =~ /oceed with reload/
+    elsif message =~ /reload\?/
       send_reset_token dispositivo, true
       "#ENTER"
-    elsif message =~ /erminate autoinstall/
+    elsif message =~ /autoinstall\?/
       "#ENTER"
-    elsif message =~ /iguration dialog/
+    elsif message =~ /dialog\?/
       "no"
     end
     @last_message=message
