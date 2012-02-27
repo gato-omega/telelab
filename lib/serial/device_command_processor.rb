@@ -37,7 +37,7 @@ class DeviceCommandProcessor
   def initialize_vlan_switch_vlans
     get_vlan_switch
     commands = []
-    @vlan_switch.puertos.each do |puerto|
+    vlan_switch.puertos.each do |puerto|
       commands += serial_reset_port(puerto)
     end
     send_commands_to_channel vlan_channel, commands
@@ -162,16 +162,6 @@ class DeviceCommandProcessor
     commands << "exit"
     commands << "exit"
     commands << "exit"
-    commands
-  end
-
-  # Reset all ports in individual vlans for a device
-  def serial_reset_all_ports
-
-    commands = []
-    Puerto.all.each do |puerto|
-      commands += serial_reset_port(puerto)
-    end
     commands
   end
 

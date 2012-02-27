@@ -18,6 +18,7 @@ class PracticeJob < Struct.new(:practice_id, :transition)
          dispositivo.reset
         end
         RemoteIRCGateway.instance.reset_practica practica
+        RemoteIRCGateway.instance.initialize_vlan_switch_vlans
       rescue => e
         puts "Exception in Practice Job for IRCGateway> #{e.message}"
       end

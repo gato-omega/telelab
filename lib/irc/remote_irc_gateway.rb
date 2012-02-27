@@ -30,6 +30,10 @@ class RemoteIRCGateway
   def initialize_vlan_switch
     send_to_remote :initialize_vlan_switch
   end
+  
+  def initialize_vlan_switch_vlans
+    send_to_remote :initialize_vlan_switch_vlans
+  end
 
   def send_reset_token(dispositivo, status)
     send_to_remote :send_reset_token, :id => dispositivo.id, :status => status

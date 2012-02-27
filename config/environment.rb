@@ -51,6 +51,7 @@ else
       puts "  Remote Irc Gateway initialized successfully!".light_green
       puts "  Setting Vlan switch in initial state..."
       remote_irc_gate_way.initialize_vlan_switch
+      remote_irc_gate_way.initialize_vlan_switch_vlans
       puts "  Vlan Switch initialized...".light_yellow
 
     else
