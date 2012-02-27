@@ -117,6 +117,11 @@ class IRCGateway
     DeviceCommandProcessor.new(self).remove_vlan(vlan)
   end
 
+  # Reset vlans for all ports
+  def reset_all_ports
+    DeviceCommandProcessor.new(self).reset_all_ports
+  end
+
   # Reset a single device directly
   def reset_device(device)
     DeviceCommandProcessor.new(self).reset_device(device)

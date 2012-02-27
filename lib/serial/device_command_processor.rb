@@ -34,16 +34,18 @@ class DeviceCommandProcessor
     send_commands_to_channel vlan_channel, commands
   end
 
-  #
+  def initialize_vlan_switch_vlans
+    get_vlan_switch
+    commands = []
+    @vlan_switch.puertos.each do |puerto|
+      commands += serial_reset_port(puerto)
+    end
+    send_commands_to_channel vlan_channel, commands
+  end
+
+  # Exits until prompt
   def serial_enable_prompt
-    commands = [
-        "exit",
-        "exit",
-        "exit",
-        "exit",
-        "#ENTER",
-        "enable"
-    ]
+    commands = %W(exit exit exit exit #ENTER enable)
     commands
   end
 
@@ -127,6 +129,50 @@ class DeviceCommandProcessor
 
     commands
 
+  end
+
+  # Reset all ports in individual vlans for a device
+  def serial_reset_device_ports(device)
+
+    puertos = device.puertos
+
+    # Assigns original vlan numbers to each port. e.g. vlan 2 for port 1, 5 for 4 etc..
+
+    commands = []
+
+    puertos.each do |puerto|
+      commands += serial_reset_port(puerto)
+    end
+
+    commands
+
+  end
+
+  # Reset all ports in individual vlans for a device
+  def serial_reset_port(puerto)
+
+    commands = []
+    commands << "#ENTER"
+    commands << "enable"
+    commands << "configure terminal"
+    commands << "interface #{puerto.nombre}"
+    commands << "switchport access vlan #{puerto.numero+1}"
+    commands << "switchport mode access"
+    commands << "no shutdown"
+    commands << "exit"
+    commands << "exit"
+    commands << "exit"
+    commands
+  end
+
+  # Reset all ports in individual vlans for a device
+  def serial_reset_all_ports
+
+    commands = []
+    Puerto.all.each do |puerto|
+      commands += serial_reset_port(puerto)
+    end
+    commands
   end
 
   def set_enable_prompt(device)
@@ -226,19 +272,15 @@ class DeviceCommandProcessor
   # Reset the dispositivos sending the appropiate commands to them
   def reset_devices(dispositivos)
     dispositivos.each do |dispositivo|
-      Thread.new do
-        set_enable_prompt dispositivo
-        reset_device dispositivo
-      end
+      set_enable_prompt dispositivo
+      reset_device dispositivo
     end
   end
 
   # Removes the vlans sending the appropiate commands to them
   def remove_vlans(vlans)
     vlans.each do |vlan|
-      Thread.new do
-        remove_vlan vlan
-      end
+      remove_vlan vlan
     end
   end
 
