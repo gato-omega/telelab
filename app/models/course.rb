@@ -35,13 +35,13 @@ class Course < ActiveRecord::Base
   end
   
   def new_password?
-    unless password.eql? the_password
-      if password.eql? password_confirmation
-        self.the_password = password
-      else
-        errors.add :password_confirmation, 'does not match password'
-      end
+    #unless password.eql? the_password
+    if hashed_password.eql? password_confirmation
+      self.the_password = hashed_password
+    else
+      errors.add :password_confirmation, 'does not match password'
     end
+    #end
     true
   end
 
