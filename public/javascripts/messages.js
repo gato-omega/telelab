@@ -22,4 +22,7 @@ $(function()
         $("table[datatable][conexiones]").html('COULD NOT INITILIZE MESSAGES DATATABLE');
     }
 
+    $('tr[data-jclass=user_msg]').css('background', '#ccffff');
+    $('tr[data-jclass=device_msg]').css('background', '#eeffee');
+
 });

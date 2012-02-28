@@ -1,8 +1,20 @@
-%tr.message
-  %td{ :style => "text-align: center"}
-    = message_counter
-  - if message.device?
-    %td= message.dispositivo.nombre
-  - else
-    %td= link_to message.user.name, message.user
-  %td= message.content
+- if message.device?
+  %tr{'data-jclass' => 'device_msg', :class => 'message'}
+    %td{ :style => "text-align: center"}
+      = message_counter + 1
+      - if message.device?
+        %td= message.dispositivo.nombre
+      - else
+        %td= link_to message.user.name, message.user
+    %td= message.content
+- else
+  %tr{'data-jclass' => 'user_msg', :class => 'message'}
+    %td{ :style => "text-align: center"}
+      = message_counter + 1
+      - if message.device?
+        %td= message.dispositivo.nombre
+      - else
+        %td= link_to message.user.name, message.user
+    %td= message.content
+
+
