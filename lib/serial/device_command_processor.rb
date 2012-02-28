@@ -36,16 +36,49 @@ class DeviceCommandProcessor
 
   def initialize_vlan_switch_vlans
     get_vlan_switch
-    commands = []
-    vlan_switch.puertos.each do |puerto|
-      commands += serial_reset_port(puerto)
+
+    commands = serial_enable_conft_prompt
+    send_commands_to_channel vlan_channel, commands
+    
+    @vlan_switch.puertos.each do |puerto|
+      commands = serial_reset_port(puerto)
+      send_commands_to_channel vlan_channel, commands
+      puts "  Sleeping for 20 seconds to wait command proccessing...".light_yellow
+      sleep 20
     end
+
+    commands = serial_exit_conft_prompt
     send_commands_to_channel vlan_channel, commands
   end
 
   # Exits until prompt
   def serial_enable_prompt
-    commands = %W(exit exit exit exit #ENTER enable)
+    commands = [
+        "exit",
+        "exit",
+        "exit",
+        "exit",
+        "#ENTER",
+        "enable"
+    ]
+    #commands = %W(exit exit exit exit #ENTER enable)
+    commands
+  end
+
+  def serial_enable_conft_prompt
+    commands = [
+        "#ENTER",
+        "enable",
+        "configure terminal"
+    ]
+    commands
+  end
+
+  def serial_exit_conft_prompt
+    commands = [
+        "exit",
+        "exit"
+    ]
     commands
   end
 
@@ -132,36 +165,36 @@ class DeviceCommandProcessor
   end
 
   # Reset all ports in individual vlans for a device
-  def serial_reset_device_ports(device)
-
-    puertos = device.puertos
-
-    # Assigns original vlan numbers to each port. e.g. vlan 2 for port 1, 5 for 4 etc..
-
-    commands = []
-
-    puertos.each do |puerto|
-      commands += serial_reset_port(puerto)
-    end
-
-    commands
-
-  end
+  #def serial_reset_device_ports(device)
+  #
+  #  puertos = device.puertos
+  #
+  #  # Assigns original vlan numbers to each port. e.g. vlan 2 for port 1, 5 for 4 etc..
+  #
+  #  commands = []
+  #
+  #  puertos.each do |puerto|
+  #    commands += serial_reset_port(puerto)
+  #  end
+  #
+  #  commands
+  #
+  #end
 
   # Reset all ports in individual vlans for a device
   def serial_reset_port(puerto)
 
     commands = []
-    commands << "#ENTER"
-    commands << "enable"
-    commands << "configure terminal"
+    #commands << "#ENTER"
+    #commands << "enable"
+    #commands << "configure terminal"
     commands << "interface #{puerto.nombre}"
     commands << "switchport access vlan #{puerto.numero+1}"
     commands << "switchport mode access"
     commands << "no shutdown"
     commands << "exit"
-    commands << "exit"
-    commands << "exit"
+    #commands << "exit"
+    #commands << "exit"
     commands
   end
 

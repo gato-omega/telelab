@@ -17,6 +17,10 @@ class GatewayController < ApplicationController
       when 'status'
         render :status => 200
 
+      when 'wake_up'
+        get_irc_gateway
+        render :status => 200
+
       when 'send_irc'
         channel, message = params[:channel], params[:message]
         @irc_gateway.send_irc channel, message

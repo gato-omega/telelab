@@ -49,9 +49,12 @@ else
     remote_irc_gate_way = RemoteIRCGateway.instance
     if remote_irc_gate_way.status.eql? Net::HTTPOK
       puts "  Remote Irc Gateway initialized successfully!".light_green
+      puts "  Sleeping for 30 seconds to let it initialize correctly...".light_green
+      sleep 30
+      puts "  ok, continuing...".light_green
       puts "  Setting Vlan switch in initial state..."
-      remote_irc_gate_way.initialize_vlan_switch
-      remote_irc_gate_way.initialize_vlan_switch_vlans
+      #remote_irc_gate_way.initialize_vlan_switch
+      #remote_irc_gate_way.initialize_vlan_switch_vlans
       puts "  Vlan Switch initialized...".light_yellow
 
     else
