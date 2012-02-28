@@ -38,7 +38,7 @@ class DeviceCommandProcessor
     commands = serial_enable_conft_prompt
     send_commands_to_channel vlan_channel, commands
     
-    @vlan_switch.puertos.each do |puerto|
+    @vlan_switch.puertos_utiles.each do |puerto|
       commands = serial_reset_port(puerto)
       send_commands_to_channel vlan_channel, commands
       puts "  Sleeping for 20 seconds to wait command proccessing...".light_yellow
