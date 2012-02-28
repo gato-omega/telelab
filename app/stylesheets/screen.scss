@@ -61,6 +61,15 @@ strong
     font-weight: bolder;
 }
 
+
+.field
+{
+  margin-bottom: 15px;
+  input{
+    margin-top: 5px;
+  }
+}
+
 .left_nav
 {
     float: left;
@@ -270,4 +279,27 @@ footer
     text-align: center;
     font-family: Arial, sans-serif; font-size: 1.0em;
     color: #ff7a00;
+}
+
+span{
+  &.small_text{
+    font-family: Arial, sans-serif; font-size: 0.7em;
+  }
+  &.medium_text{
+    font-family: Arial, sans-serif; font-size: 0.9em;
+  }
+}
+
+#devices_offer{
+  padding: 15px 0 0 10px;
+}
+
+.checkboxy{
+  background: #333;
+  input[checkbox]{
+
+  }
+  label{
+    font-family: Arial, sans-serif; font-size: 0.8em;
+  }
 }

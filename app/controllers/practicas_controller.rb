@@ -22,13 +22,12 @@ class PracticasController < AuthorizedController
     @dispositivos = Dispositivo.all
     @dispositivos_reservados = []
     @allowed_users = []
-    @show_first = false
     #ap @practica.event.start
     #ap @practica.event.end
   end
 
   def edit
-    @show_first = true
+
   end
 
   def create

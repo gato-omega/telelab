@@ -3,6 +3,6 @@
     El horario seleccionado no tiene dispositivos disponibles
 - else
   - free_devices.each do |dispositivo|
-    %div
-      = check_box_tag "practica[dispositivo_ids][]", dispositivo.id
-      = dispositivo.nombre
+    %div.checkboxy
+      = check_box_tag "practica[dispositivo_ids][]", dispositivo.id, false, :id => "practica_dispositivo_id_#{dispositivo.id}"
+      = label_tag nil, dispositivo.nombre, :for => "practica_dispositivo_id_#{dispositivo.id}"

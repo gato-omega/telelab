@@ -20,7 +20,7 @@ class Message < ActiveRecord::Base
 
   # Returns if the given message is from a device
   def device?
-    user.nil?
+    !user?
   end
 
 
@@ -30,7 +30,7 @@ class Message < ActiveRecord::Base
 
   # Returns the direction of the message
   def direction
-    incoming? ? :incomming : :outgoing
+    incoming? ? :incoming : :outgoing
   end
 
 end

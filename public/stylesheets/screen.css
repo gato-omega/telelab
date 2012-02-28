@@ -53,7 +53,16 @@ strong {
   font-weight: bolder;
 }
 
-/* line 65, ../../app/stylesheets/screen.scss */
+/* line 66, ../../app/stylesheets/screen.scss */
+.field {
+  margin-bottom: 15px;
+}
+/* line 68, ../../app/stylesheets/screen.scss */
+.field input {
+  margin-top: 5px;
+}
+
+/* line 74, ../../app/stylesheets/screen.scss */
 .left_nav {
   float: left;
   width: 15%;
@@ -63,27 +72,27 @@ strong {
   min-height: 400px;
   border-right: 1px solid #ffffff;
 }
-/* line 75, ../../app/stylesheets/screen.scss */
+/* line 84, ../../app/stylesheets/screen.scss */
 .left_nav ul {
   margin: 0;
   padding: 0 0 0 0;
   list-style-type: none;
 }
-/* line 81, ../../app/stylesheets/screen.scss */
+/* line 90, ../../app/stylesheets/screen.scss */
 .left_nav ul li a {
   width: 98%;
   margin-top: 1px;
   font-size: 0.8em;
 }
 
-/* line 90, ../../app/stylesheets/screen.scss */
+/* line 99, ../../app/stylesheets/screen.scss */
 section {
   overflow: auto;
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.2, #292929), color-stop(0.44, #7a7a7a), color-stop(1, #cccccc));
   background-image: -moz-linear-gradient(center top, #292929 20%, #7a7a7a 44%, #cccccc 100%);
 }
 
-/* line 111, ../../app/stylesheets/screen.scss */
+/* line 120, ../../app/stylesheets/screen.scss */
 .main_content {
   width: 80%;
   min-height: 500px;
@@ -92,7 +101,7 @@ section {
   padding-bottom: 15px;
 }
 
-/* line 120, ../../app/stylesheets/screen.scss */
+/* line 129, ../../app/stylesheets/screen.scss */
 footer {
   overflow: auto;
   background: #f58400 url(images/ui-bg_gloss-wave_40_f58400_500x100.png) 50% 50% repeat-x;
@@ -108,14 +117,14 @@ footer .central {
   margin: 0 auto 0 16%;
 }
 
-/* line 129, ../../app/stylesheets/screen.scss */
+/* line 138, ../../app/stylesheets/screen.scss */
 .field_with_errors {
   padding: 1px;
   background-color: red;
   display: table;
 }
 
-/* line 136, ../../app/stylesheets/screen.scss */
+/* line 145, ../../app/stylesheets/screen.scss */
 #error_explanation {
   width: 450px;
   border: 2px solid red;
@@ -124,7 +133,7 @@ footer .central {
   margin-bottom: 20px;
   background-color: #f0f0f0;
 }
-/* line 145, ../../app/stylesheets/screen.scss */
+/* line 154, ../../app/stylesheets/screen.scss */
 #error_explanation h2 {
   text-align: left;
   font-weight: bold;
@@ -135,14 +144,14 @@ footer .central {
   background-color: #c00;
   color: #fff;
 }
-/* line 157, ../../app/stylesheets/screen.scss */
+/* line 166, ../../app/stylesheets/screen.scss */
 #error_explanation ul li {
   color: black;
   font-size: 12px;
   list-style: square;
 }
 
-/* line 164, ../../app/stylesheets/screen.scss */
+/* line 173, ../../app/stylesheets/screen.scss */
 .tooltip {
   position: absolute;
   top: 0;
@@ -151,12 +160,12 @@ footer .central {
   display: none;
 }
 
-/* line 172, ../../app/stylesheets/screen.scss */
+/* line 181, ../../app/stylesheets/screen.scss */
 .align_top {
   vertical-align: top;
 }
 
-/* line 174, ../../app/stylesheets/screen.scss */
+/* line 183, ../../app/stylesheets/screen.scss */
 .dark_container {
   background: #222222;
   padding: 1%;
@@ -179,7 +188,7 @@ footer .central {
   overflow: auto;
 }
 
-/* line 179, ../../app/stylesheets/screen.scss */
+/* line 188, ../../app/stylesheets/screen.scss */
 .darker_container {
   background: #151515;
   padding: 1%;
@@ -204,7 +213,7 @@ footer .central {
   overflow: auto;
 }
 
-/* line 184, ../../app/stylesheets/screen.scss */
+/* line 193, ../../app/stylesheets/screen.scss */
 .light_container {
   background: #666666;
   padding: 1%;
@@ -227,56 +236,56 @@ footer .central {
   overflow: auto;
 }
 
-/* line 189, ../../app/stylesheets/screen.scss */
+/* line 198, ../../app/stylesheets/screen.scss */
 .white_links {
   color: #eeeeee;
 }
-/* line 191, ../../app/stylesheets/screen.scss */
+/* line 200, ../../app/stylesheets/screen.scss */
 .white_links a:visited {
   color: #f5bf00;
 }
-/* line 192, ../../app/stylesheets/screen.scss */
+/* line 201, ../../app/stylesheets/screen.scss */
 .white_links a {
   color: #f58400;
 }
 
-/* line 196, ../../app/stylesheets/screen.scss */
+/* line 205, ../../app/stylesheets/screen.scss */
 .black_links {
   color: #111111;
 }
-/* line 198, ../../app/stylesheets/screen.scss */
+/* line 207, ../../app/stylesheets/screen.scss */
 .black_links a:visited {
   color: #5b00f5;
 }
-/* line 199, ../../app/stylesheets/screen.scss */
+/* line 208, ../../app/stylesheets/screen.scss */
 .black_links a {
   color: #4b2800;
 }
 
-/* line 203, ../../app/stylesheets/screen.scss */
+/* line 212, ../../app/stylesheets/screen.scss */
 .reset_links {
   color: #eeeeee;
 }
-/* line 205, ../../app/stylesheets/screen.scss */
+/* line 214, ../../app/stylesheets/screen.scss */
 .reset_links a:visited {
   color: #8fda00;
 }
-/* line 206, ../../app/stylesheets/screen.scss */
+/* line 215, ../../app/stylesheets/screen.scss */
 .reset_links a {
   color: #ffffff;
 }
 
-/* line 210, ../../app/stylesheets/screen.scss */
+/* line 219, ../../app/stylesheets/screen.scss */
 .puerto_libre {
   color: #229922;
 }
 
-/* line 215, ../../app/stylesheets/screen.scss */
+/* line 224, ../../app/stylesheets/screen.scss */
 .puerto_conectado {
   color: #992222;
 }
 
-/* line 220, ../../app/stylesheets/screen.scss */
+/* line 229, ../../app/stylesheets/screen.scss */
 #countdown_timer {
   background: #151515;
   padding: 1%;
@@ -303,7 +312,7 @@ footer .central {
   width: 150px;
 }
 
-/* line 227, ../../app/stylesheets/screen.scss */
+/* line 236, ../../app/stylesheets/screen.scss */
 .practica_image.diagram {
   background: #151515;
   padding: 1%;
@@ -329,7 +338,7 @@ footer .central {
   width: 450px;
 }
 
-/* line 234, ../../app/stylesheets/screen.scss */
+/* line 243, ../../app/stylesheets/screen.scss */
 #diagram.practice_diagram {
   background: #151515;
   padding: 1%;
@@ -354,23 +363,23 @@ footer .central {
   overflow: auto;
   max-width: 450px;
 }
-/* line 238, ../../app/stylesheets/screen.scss */
+/* line 247, ../../app/stylesheets/screen.scss */
 #diagram.practice_diagram img {
   width: 100%;
 }
 
-/* line 245, ../../app/stylesheets/screen.scss */
+/* line 254, ../../app/stylesheets/screen.scss */
 .float_left {
   float: left;
 }
 
-/* line 250, ../../app/stylesheets/screen.scss */
+/* line 259, ../../app/stylesheets/screen.scss */
 .as_a_row {
   display: block;
   overflow: auto;
 }
 
-/* line 256, ../../app/stylesheets/screen.scss */
+/* line 265, ../../app/stylesheets/screen.scss */
 .center {
   text-align: center;
   width: 50%;
@@ -378,15 +387,41 @@ footer .central {
   horizontal-align: center;
 }
 
-/* line 264, ../../app/stylesheets/screen.scss */
+/* line 273, ../../app/stylesheets/screen.scss */
 .message {
   color: black;
 }
 
-/* line 269, ../../app/stylesheets/screen.scss */
+/* line 278, ../../app/stylesheets/screen.scss */
 .finished {
   text-align: center;
   font-family: Arial, sans-serif;
   font-size: 1.0em;
   color: #ff7a00;
+}
+
+/* line 285, ../../app/stylesheets/screen.scss */
+span.small_text {
+  font-family: Arial, sans-serif;
+  font-size: 0.7em;
+}
+/* line 288, ../../app/stylesheets/screen.scss */
+span.medium_text {
+  font-family: Arial, sans-serif;
+  font-size: 0.9em;
+}
+
+/* line 293, ../../app/stylesheets/screen.scss */
+#devices_offer {
+  padding: 15px 0 0 10px;
+}
+
+/* line 297, ../../app/stylesheets/screen.scss */
+.checkboxy {
+  background: #333;
+}
+/* line 302, ../../app/stylesheets/screen.scss */
+.checkboxy label {
+  font-family: Arial, sans-serif;
+  font-size: 0.8em;
 }

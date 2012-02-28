@@ -1,4 +1,9 @@
+- content_for :head do
+  = javascript_include_tag 'new_practice'
 %h1 New practica
+%div
+  %span.medium_text
+    Elija el horario para la practica en el calenadario
 .as_a_row
   = render 'form'
 .as_a_row

@@ -30,13 +30,11 @@ class DeviceCommandProcessor
         "exit",
         "exit"
     ]
-
     send_commands_to_channel vlan_channel, commands
   end
 
   def initialize_vlan_switch_vlans
     get_vlan_switch
-
     commands = serial_enable_conft_prompt
     send_commands_to_channel vlan_channel, commands
     
@@ -244,7 +242,7 @@ class DeviceCommandProcessor
 
             # UNCOMMENT
             #processed_message_output=@faye_messages_controller.generate_terminal_output item_id, rcvd_message
-            processed_message_output=FayeMessagesController.new.generate_terminal_output item_id, rcvd_message
+            processed_message_output = FayeMessagesController.new.generate_terminal_output item_id, rcvd_message
 
             # Send it using the CustomFayeSender module
 
@@ -253,8 +251,16 @@ class DeviceCommandProcessor
             faye_channel = "#{FAYE_CHANNEL_PREFIX}#{the_channel}"
 
             send_via_faye faye_channel, processed_message_output
-            #Message.new(:content => rcvd_message, :)
+            open_practica = Practica.search({:estado_equals => 'abierta', :dispositivos_id_in => [the_device.id]}, :join_type => :inner).first
+            device_response_to_message = Message.new(:content => rcvd_message, :practica => open_practica, :dispositivo => the_device)
+            if device_response_to_message.save
+              puts "Processed message output > #{processed_message_output}"
+            else
+              puts "Could not save the device response due to: #{device_response_to_message.errors.full_messages}"
+            end
             puts "Processed message output > #{processed_message_output}"
+          else
+            puts "!! !! !! Error in message status > Status: #{the_device.status}, the_device.id = #{the_device.id}"
         end
       end
     else
@@ -326,6 +332,7 @@ class DeviceCommandProcessor
 
   def vlan_switch(force_reload=false)
     get_vlan_switch force_reload
+    @vlan_switch
   end
 
   # Given an array of commands (String), send them through the given channel

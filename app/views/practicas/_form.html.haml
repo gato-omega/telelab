@@ -8,8 +8,6 @@
   = javascript_include_tag 'fullcalendar.min'
   = javascript_include_tag 'calendar'
 
-
-
 - if @practica.errors.any?
   #error_explanation
     %h2
@@ -62,11 +60,13 @@
     %div
       = f.label :devices, "Dispositivos disponibles"
       #devices_offer
-        - if @show_first
-          - @dispositivos_reservados.each do |dispositivo|
-            %div
-              = check_box_tag "practica[dispositivo_ids][]", dispositivo.id, true
-              = dispositivo.nombre
+        %span.small_text
+          Elija un horario para calcular la disponibilidad de dispositivos.
+        - @dispositivos_reservados.each do |dispositivo|
+          %div.checkboxy
+            = hidden_field_tag "practica[dispositivo_ids]", nil
+            = check_box_tag "practica[dispositivo_ids][]", dispositivo.id, @practica.dispositivos.all.include?(52), :id => "practica_dispositivo_id_#{dispositivo.id}"
+            = label_tag nil, dispositivo.nombre, :for => "practica_dispositivo_id_#{dispositivo.id}"
     %p
     %div
       = f.label :user_list, "Compañeros de trabajo"
