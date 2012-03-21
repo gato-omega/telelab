@@ -41,8 +41,8 @@ class DeviceCommandProcessor
     @vlan_switch.puertos_utiles.each do |puerto|
       commands = serial_reset_port(puerto)
       send_commands_to_channel vlan_channel, commands
-      puts "  Sleeping for 20 seconds to wait command proccessing...".light_yellow
-      sleep 20
+      puts "  Sleeping for 25 seconds to wait command proccessing...".light_yellow
+      sleep 25
     end
 
     commands = serial_exit_conft_prompt
@@ -86,6 +86,8 @@ class DeviceCommandProcessor
         "erase startup-config",
         "#ENTER",
         "reload"
+        #"no",
+        #"#ENTER"
     ]
     commands
   end
@@ -209,6 +211,7 @@ class DeviceCommandProcessor
   end
 
   def reset_device(device)
+    #send_reset_token device, true
     commands = serial_reset_device
     channel = device.irc_channel
     send_commands_to_channel channel, commands, 0.5
@@ -236,6 +239,9 @@ class DeviceCommandProcessor
                            # compare to list of commands that must match, to send appropiate response
             the_response = reset_command_response_for(rcvd_message, the_device)# The key is the message received
                                                                                # and send the response
+
+            puts "STATUS RESETTING! the message received from...: "+the_device+" ...was...: "+rcvd_message+" ...and the response is...: "+the_response.light_yellow
+
             send_irc rcvd_channel, the_response unless the_response.blank?
 
           when 'ready'
@@ -282,7 +288,7 @@ class DeviceCommandProcessor
     elsif message =~ /Save\?/
       "no"
     elsif message =~ /reload\?/
-      send_reset_token dispositivo, true
+      send_reset_token device, true
       "#ENTER"
     elsif message =~ /autoinstall\?/
       "#ENTER"

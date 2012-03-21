@@ -21,7 +21,7 @@ class Dispositivo < ActiveRecord::Base
   validates :categoria, :presence => true, :inclusion => CATEGORIAS
   validates :cluster_id, :presence => true, :numericality => true
 
-  accepts_nested_attributes_for :puertos
+  accepts_nested_attributes_for :puertos, :allow_destroy => true
 
   # Returns only physically connected ports
   # @return [Array]
